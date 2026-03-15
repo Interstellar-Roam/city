@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  # MongoDB - 路线数据存储
+  mongodb:
+    image: mongo:latest
+    container_name: citywalk-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: citywalk
+
+  # FalkorDB - 知识图谱存储
+  falkordb:
+    image: falkordb/falkordb:latest
+    container_name: citywalk-falkordb
+    restart: unless-stopped
+    ports:
+      - "6381:6379"
+    volumes:
+      - falkordb_data:/data
+
+volumes:
+  mongodb_data:
+  falkordb_data:

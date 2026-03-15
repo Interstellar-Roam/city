@@ -1,0 +1,63 @@
+[project]
+name = "citywalk-backend"
+version = "1.0.0"
+description = "CityWalk 后端服务 - 面向城市漫步的智能路线推荐系统"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [
+    { name = "CityWalk Team", email = "team@citywalk.app" }
+]
+
+dependencies = [
+    "fastapi==0.115.0",
+    "uvicorn[standard]==0.30.6",
+    "motor==3.6.0",
+    "pymongo>=4.9,<4.10",
+    "pydantic==2.9.2",
+    "pydantic-settings==2.5.2",
+    "python-dotenv==1.0.1",
+    "httpx==0.27.2",
+    "openai==1.47.1",
+    "loguru==0.7.2",
+    "python-multipart==0.0.12",
+    "geojson==3.1.0",
+    "shapely==2.0.6",
+    "geopy==2.4.1",
+    "redis==5.1.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+ignore = ["E501"]
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
