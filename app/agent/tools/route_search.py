@@ -19,7 +19,7 @@ class RouteSearchTool(BaseTool):
         "properties": {
             "query": {
                 "type": "string",
-                "description": "搜索关键词，可以是路线名称、描述、特色等"
+                "description": "搜索关键词，可以是路线名称、描述、特色等（可选）"
             },
             "city": {
                 "type": "string",
@@ -45,12 +45,12 @@ class RouteSearchTool(BaseTool):
                 "default": 10
             }
         },
-        "required": ["query"]
+        "required": []
     }
 
     async def execute(
         self,
-        query: str,
+        query: str | None = None,
         city: str | None = None,
         difficulty: str | None = None,
         max_distance: float | None = None,
@@ -60,26 +60,34 @@ class RouteSearchTool(BaseTool):
         """执行路线搜索"""
         try:
             db = Database.get_db()
-
+            
             # 构建查询条件
-            search_query: dict[str, Any] = {
-                "is_published": True,
-                "$text": {"$search": query}
-            }
-
+            search_query: dict[str, Any] = {"is_published": True}
+            
             if city:
                 search_query["city"] = city
             if difficulty:
                 search_query["difficulty"] = difficulty
             if tags:
                 search_query["tags"] = {"$in": tags}
-
+            if max_distance:
+                search_query["distance"] = {"$lte": max_distance}
+            
+            # 关键词搜索：在名称和描述中匹配
+            if query:
+                # 分词处理
+                keywords = query.split()
+                or_conditions = []
+                for keyword in keywords:
+                    or_conditions.append({"name": {"$regex": keyword, "$options": "i"}})
+                    or_conditions.append({"description": {"$regex": keyword, "$options": "i"}})
+                    or_conditions.append({"tags": {"$regex": keyword, "$options": "i"}})
+                
+                if or_conditions:
+                    search_query["$or"] = or_conditions
+            
             # 执行搜索
-            cursor = db.routes.find(
-                search_query,
-                {"score": {"$meta": "textScore"}}
-            ).sort([("score", {"$meta": "textScore"})]).limit(limit)
-
+            cursor = db.routes.find(search_query).limit(limit)
             results = await cursor.to_list(length=limit)
 
             # 格式化结果
@@ -96,7 +104,7 @@ class RouteSearchTool(BaseTool):
                     "difficulty": route.get("difficulty"),
                     "favorites_count": route.get("favorites_count", 0),
                     "preview_image": route.get("preview_image"),
-                    "relevance_score": route.get("score", 0)
+                    "tags": route.get("tags", [])
                 })
 
             logger.info(f"路线搜索完成: 查询'{query}', 找到{len(formatted_results)}条结果")
@@ -110,52 +118,6 @@ class RouteSearchTool(BaseTool):
 
         except Exception as e:
             logger.error(f"路线搜索错误: {e}")
-            return json.dumps({
-                "success": False,
-                "error": str(e)
-            }, ensure_ascii=False)
-
-
-class GetRouteDetailTool(BaseTool):
-    """获取路线详情工具"""
-
-    name = "get_route_detail"
-    description = "获取指定路线的详细信息，包括完整的路线点、POI、统计数据等"
-    parameters = {
-        "type": "object",
-        "properties": {
-            "route_id": {
-                "type": "string",
-                "description": "路线ID"
-            }
-        },
-        "required": ["route_id"]
-    }
-
-    async def execute(self, route_id: str) -> str:
-        """获取路线详情"""
-        try:
-            db = Database.get_db()
-            route = await db.routes.find_one({"_id": route_id})
-
-            if not route:
-                return json.dumps({
-                    "success": False,
-                    "error": "路线不存在"
-                }, ensure_ascii=False)
-
-            # 移除敏感字段
-            route.pop("created_by", None)
-
-            logger.info(f"获取路线详情: {route_id}")
-
-            return json.dumps({
-                "success": True,
-                "route": route
-            }, ensure_ascii=False, default=str)
-
-        except Exception as e:
-            logger.error(f"获取路线详情错误: {e}")
             return json.dumps({
                 "success": False,
                 "error": str(e)
