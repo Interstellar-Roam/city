@@ -9,6 +9,7 @@ from motor.motor_asyncio import AsyncIOMotorDatabase
 
 from app.models.route import Route
 from app.schemas.route import PaginatedRoutes, RouteCreate, RouteListItem, RouteUpdate, RouteDetail
+from app.utils.photo import prepare_photo_for_storage, config as photo_config
 
 
 class RouteService:
@@ -199,3 +200,359 @@ class RouteService:
         ).sort([("score", {"$meta": "textScore"})]).limit(limit)
 
         return await cursor.to_list(length=limit)
+
+    # === 轨迹点编辑相关方法 ===
+
+    async def add_point(
+        self,
+        route_id: str,
+        index: int,
+        point_data: dict[str, Any]
+    ) -> dict[str, Any] | None:
+        """
+        在指定位置添加轨迹点
+
+        Args:
+            route_id: 路线ID
+            index: 插入位置（0表示起点）
+            point_data: 点数据 {longitude, latitude, elevation, name, description, is_waypoint}
+
+        Returns:
+            更新后的路线
+        """
+        if not ObjectId.is_valid(route_id):
+            return None
+
+        route = await self.get_route_by_id(route_id, increment_view=False)
+        if not route:
+            return None
+
+        points = route.get("points", [])
+        
+        # 边界检查
+        if index < 0 or index > len(points):
+            return None
+
+        # 构建新点
+        new_point = {
+            "location": {
+                "type": "Point",
+                "coordinates": [point_data["longitude"], point_data["latitude"]]
+            },
+            "elevation": point_data.get("elevation"),
+            "name": point_data.get("name"),
+            "description": point_data.get("description"),
+            "is_waypoint": point_data.get("is_waypoint", False),
+            "photos": [],
+            "is_edited": True,
+        }
+
+        # 插入点
+        points.insert(index, new_point)
+
+        # 更新路线
+        return await self._update_points_and_stats(route_id, points)
+
+    async def update_point(
+        self,
+        route_id: str,
+        index: int,
+        updates: dict[str, Any]
+    ) -> dict[str, Any] | None:
+        """
+        更新指定轨迹点
+
+        Args:
+            route_id: 路线ID
+            index: 点索引
+            updates: 更新数据 {longitude, latitude, name, description, is_waypoint}
+
+        Returns:
+            更新后的路线
+        """
+        if not ObjectId.is_valid(route_id):
+            return None
+
+        route = await self.get_route_by_id(route_id, increment_view=False)
+        if not route:
+            return None
+
+        points = route.get("points", [])
+
+        if index < 0 or index >= len(points):
+            return None
+
+        point = points[index]
+
+        # 保存原始位置
+        if ("longitude" in updates or "latitude" in updates) and not point.get("original_location"):
+            point["original_location"] = point["location"]
+
+        # 更新坐标
+        if "longitude" in updates or "latitude" in updates:
+            lon = updates.get("longitude", point["location"]["coordinates"][0])
+            lat = updates.get("latitude", point["location"]["coordinates"][1])
+            point["location"]["coordinates"] = [lon, lat]
+
+        # 更新其他字段
+        if "name" in updates:
+            point["name"] = updates["name"]
+        if "description" in updates:
+            point["description"] = updates["description"]
+        if "is_waypoint" in updates:
+            point["is_waypoint"] = updates["is_waypoint"]
+
+        point["is_edited"] = True
+        points[index] = point
+
+        return await self._update_points_and_stats(route_id, points)
+
+    async def delete_point(self, route_id: str, index: int) -> dict[str, Any] | None:
+        """
+        删除指定轨迹点
+
+        Args:
+            route_id: 路线ID
+            index: 点索引
+
+        Returns:
+            更新后的路线
+        """
+        if not ObjectId.is_valid(route_id):
+            return None
+
+        route = await self.get_route_by_id(route_id, increment_view=False)
+        if not route:
+            return None
+
+        points = route.get("points", [])
+
+        if index < 0 or index >= len(points):
+            return None
+
+        # 至少保留2个点
+        if len(points) <= 2:
+            return None
+
+        del points[index]
+
+        return await self._update_points_and_stats(route_id, points)
+
+    async def batch_update_points(
+        self,
+        route_id: str,
+        batch_data: dict[str, Any]
+    ) -> dict[str, Any] | None:
+        """
+        批量更新轨迹点
+
+        Args:
+            route_id: 路线ID
+            batch_data: {add_points, update_points, delete_indices}
+
+        Returns:
+            更新后的路线
+        """
+        if not ObjectId.is_valid(route_id):
+            return None
+
+        route = await self.get_route_by_id(route_id, increment_view=False)
+        if not route:
+            return None
+
+        points = route.get("points", [])
+
+        # 先删除（从后往前，避免索引变化）
+        delete_indices = sorted(batch_data.get("delete_indices", []), reverse=True)
+        for idx in delete_indices:
+            if 0 <= idx < len(points):
+                del points[idx]
+
+        # 再更新
+        for item in batch_data.get("update_points", []):
+            idx = item.get("index")
+            updates = item.get("updates", {})
+            if idx is not None and 0 <= idx < len(points):
+                if "longitude" in updates or "latitude" in updates:
+                    lon = updates.get("longitude", points[idx]["location"]["coordinates"][0])
+                    lat = updates.get("latitude", points[idx]["location"]["coordinates"][1])
+                    points[idx]["location"]["coordinates"] = [lon, lat]
+                for key in ["name", "description", "is_waypoint"]:
+                    if key in updates:
+                        points[idx][key] = updates[key]
+                points[idx]["is_edited"] = True
+
+        # 最后添加（按索引排序）
+        add_points = sorted(batch_data.get("add_points", []), key=lambda x: x.get("index", 0))
+        for item in add_points:
+            idx = item.get("index", len(points))
+            pt = item.get("point", {})
+            new_point = {
+                "location": {
+                    "type": "Point",
+                    "coordinates": [pt.get("longitude", 0), pt.get("latitude", 0)]
+                },
+                "name": pt.get("name"),
+                "description": pt.get("description"),
+                "is_waypoint": pt.get("is_waypoint", False),
+                "photos": [],
+                "is_edited": True,
+            }
+            points.insert(min(idx, len(points)), new_point)
+
+        return await self._update_points_and_stats(route_id, points)
+
+    async def add_photo_to_point(
+        self,
+        route_id: str,
+        point_index: int,
+        photo_data: dict[str, Any]
+    ) -> dict[str, Any] | None:
+        """
+        为轨迹点添加照片
+
+        Args:
+            route_id: 路线ID
+            point_index: 点索引
+            photo_data: {data, content_type, caption}
+
+        Returns:
+            更新后的路线
+        """
+        if not ObjectId.is_valid(route_id):
+            return None
+
+        route = await self.get_route_by_id(route_id, increment_view=False)
+        if not route:
+            return None
+
+        points = route.get("points", [])
+
+        if point_index < 0 or point_index >= len(points):
+            return None
+
+        point = points[point_index]
+        photos = point.get("photos", [])
+
+        # 检查照片数量限制
+        if len(photos) >= photo_config.max_photos_per_point:
+            return None
+
+        # 准备照片数据
+        try:
+            photo = prepare_photo_for_storage(
+                data=photo_data["data"],
+                content_type=photo_data.get("content_type"),
+                caption=photo_data.get("caption"),
+            )
+        except ValueError as e:
+            logger.error(f"照片处理失败: {e}")
+            return None
+
+        photos.append(photo)
+        point["photos"] = photos
+        point["is_edited"] = True
+
+        # 更新数据库
+        await self.collection.update_one(
+            {"_id": route_id},
+            {
+                "$set": {
+                    f"points.{point_index}": point,
+                    "updated_at": datetime.now()
+                }
+            }
+        )
+
+        return await self.get_route_by_id(route_id, increment_view=False)
+
+    async def delete_photo_from_point(
+        self,
+        route_id: str,
+        point_index: int,
+        photo_id: str
+    ) -> dict[str, Any] | None:
+        """删除轨迹点的照片"""
+        if not ObjectId.is_valid(route_id):
+            return None
+
+        route = await self.get_route_by_id(route_id, increment_view=False)
+        if not route:
+            return None
+
+        points = route.get("points", [])
+
+        if point_index < 0 or point_index >= len(points):
+            return None
+
+        point = points[point_index]
+        photos = point.get("photos", [])
+
+        # 过滤掉指定照片
+        point["photos"] = [p for p in photos if p.get("id") != photo_id]
+        point["is_edited"] = True
+
+        await self.collection.update_one(
+            {"_id": route_id},
+            {
+                "$set": {
+                    f"points.{point_index}": point,
+                    "updated_at": datetime.now()
+                }
+            }
+        )
+
+        return await self.get_route_by_id(route_id, increment_view=False)
+
+    async def _update_points_and_stats(
+        self,
+        route_id: str,
+        points: list[dict[str, Any]]
+    ) -> dict[str, Any]:
+        """更新轨迹点并重新计算统计信息"""
+        # 计算距离和爬升
+        distance = 0.0
+        elevation_gain = 0.0
+
+        for i in range(1, len(points)):
+            prev = points[i - 1]["location"]["coordinates"]
+            curr = points[i]["location"]["coordinates"]
+            distance += _haversine(prev[1], prev[0], curr[1], curr[0])
+
+            prev_ele = points[i - 1].get("elevation")
+            curr_ele = points[i].get("elevation")
+            if prev_ele is not None and curr_ele is not None:
+                diff = curr_ele - prev_ele
+                if diff > 0:
+                    elevation_gain += diff
+
+        # 更新起点终点
+        start_location = points[0]["location"] if points else None
+        end_location = points[-1]["location"] if points else None
+
+        await self.collection.update_one(
+            {"_id": route_id},
+            {
+                "$set": {
+                    "points": points,
+                    "distance": distance,
+                    "elevation_gain": elevation_gain,
+                    "start_location": start_location,
+                    "end_location": end_location,
+                    "updated_at": datetime.now()
+                }
+            }
+        )
+
+        return await self.get_route_by_id(route_id, increment_view=False)
+
+
+def _haversine(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
+    """计算两点间距离（米）"""
+    import math
+    R = 6371000
+    phi1, phi2 = math.radians(lat1), math.radians(lat2)
+    dphi = math.radians(lat2 - lat1)
+    dlambda = math.radians(lon2 - lon1)
+    a = math.sin(dphi/2)**2 + math.cos(phi1) * math.cos(phi2) * math.sin(dlambda/2)**2
+    return R * 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))

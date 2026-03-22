@@ -26,6 +26,17 @@ class Location(BaseModel):
         return v
 
 
+class RoutePointPhoto(BaseModel):
+    """轨迹点照片（Base64内嵌）"""
+
+    id: str = Field(default_factory=lambda: str(ObjectId()))
+    data: str  # Base64编码的图片数据
+    content_type: str = "image/jpeg"  # MIME类型
+    caption: str | None = None  # 照片说明
+    size: int = 0  # 原始文件大小(字节)
+    created_at: datetime = Field(default_factory=datetime.now)
+
+
 class RoutePoint(BaseModel):
     """路线上的一个点"""
 
@@ -35,6 +46,12 @@ class RoutePoint(BaseModel):
     poi_id: str | None = None  # 关联的POI ID
     name: str | None = None
     description: str | None = None
+
+    # 编辑功能扩展
+    is_waypoint: bool = False  # 是否为用户标记的途径点
+    photos: list[RoutePointPhoto] = Field(default_factory=list)  # 照片列表（最多5张）
+    is_edited: bool = False  # 是否被用户编辑过
+    original_location: Location | None = None  # 原始位置（编辑后保留）
 
 
 class POI(BaseModel):

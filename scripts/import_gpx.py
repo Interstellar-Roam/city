@@ -9,6 +9,7 @@ import math
 from bson import ObjectId
 from motor.motor_asyncio import AsyncIOMotorClient
 from app.agent.memory import KnowledgeBaseClient
+from app.services.amap_service import RoutePOIMatcher, AmapService
 
 
 def parse_gpx(file_path: str) -> dict[str, Any]:
@@ -65,7 +66,10 @@ def parse_gpx(file_path: str) -> dict[str, Any]:
                     'coordinates': [lon, lat]
                 },
                 'elevation': elevation,
-                'timestamp': timestamp.isoformat() if timestamp else None
+                'timestamp': timestamp.isoformat() if timestamp else None,
+                'is_waypoint': False,
+                'photos': [],
+                'is_edited': False,
             })
     
     # 计算累计爬升
@@ -123,8 +127,25 @@ def infer_city(coordinates: list[float]) -> str:
     return '未知'
 
 
-async def import_gpx_to_route(gpx_path: str, route_name: str = None, tags: list[str] = None):
-    """导入GPX文件为路线"""
+async def import_gpx_to_route(
+    gpx_path: str,
+    route_name: str = None,
+    tags: list[str] = None,
+    match_pois: bool = True,
+    poi_types: list[str] = None,
+    max_pois: int = 50,
+):
+    """
+    导入GPX文件为路线
+
+    Args:
+        gpx_path: GPX文件路径
+        route_name: 路线名称（可选，默认从GPX读取）
+        tags: 标签列表
+        match_pois: 是否自动匹配沿途POI
+        poi_types: 要匹配的POI类型（如 ["景点", "餐饮", "咖啡"]）
+        max_pois: 最大POI数量
+    """
     
     print(f"📍 解析GPX文件: {gpx_path}")
     gpx_data = parse_gpx(gpx_path)
@@ -143,6 +164,20 @@ async def import_gpx_to_route(gpx_path: str, route_name: str = None, tags: list[
     print(f"   距离: {gpx_data['distance']/1000:.2f} km")
     print(f"   时间: {gpx_data['estimated_duration']} 分钟")
     print(f"   轨迹点: {gpx_data['total_points']} 个")
+    
+    # 自动匹配POI
+    pois = []
+    if match_pois and gpx_data['points']:
+        print(f"\n🔍 正在匹配沿途POI...")
+        amap_service = AmapService()
+        matcher = RoutePOIMatcher(amap_service)
+        
+        pois = await matcher.match_pois_for_route(
+            points=gpx_data['points'],
+            poi_types=poi_types or ["景点", "餐饮", "咖啡", "公园", "文创"],
+            max_pois=max_pois,
+        )
+        print(f"   匹配到 {len(pois)} 个POI")
     
     # 连接MongoDB
     client = AsyncIOMotorClient('mongodb://localhost:27017')
@@ -164,7 +199,7 @@ async def import_gpx_to_route(gpx_path: str, route_name: str = None, tags: list[
         'district': None,
         'difficulty': 'medium',
         'tags': gpx_data['tags'],
-        'pois': [],
+        'pois': pois,
         'images': [],
         'preview_image': None,
         'favorites_count': 0,

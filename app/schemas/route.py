@@ -14,6 +14,65 @@ class LocationSchema(BaseModel):
     latitude: float = Field(..., ge=-90, le=90)
 
 
+# === 轨迹点编辑相关Schema ===
+
+class RoutePointPhotoUpload(BaseModel):
+    """上传轨迹点照片"""
+    data: str = Field(..., description="Base64编码的图片数据（可含data:xxx;base64,前缀）")
+    content_type: str | None = Field(None, description="MIME类型")
+    caption: str | None = Field(None, max_length=200, description="照片说明")
+
+
+class RoutePointCreate(BaseModel):
+    """创建轨迹点"""
+    longitude: float = Field(..., ge=-180, le=180)
+    latitude: float = Field(..., ge=-90, le=90)
+    elevation: float | None = None
+    name: str | None = Field(None, max_length=100)
+    description: str | None = Field(None, max_length=500)
+    is_waypoint: bool = False
+
+
+class RoutePointUpdate(BaseModel):
+    """更新轨迹点"""
+    longitude: float | None = Field(None, ge=-180, le=180)
+    latitude: float | None = Field(None, ge=-90, le=90)
+    name: str | None = Field(None, max_length=100)
+    description: str | None = Field(None, max_length=500)
+    is_waypoint: bool | None = None
+
+
+class RoutePointsBatchUpdate(BaseModel):
+    """批量更新轨迹点"""
+    # 要添加的点（在指定索引位置）
+    add_points: list[dict[str, Any]] | None = Field(
+        None,
+        description="要添加的点列表，格式: [{index: 0, point: {...}}, ...]"
+    )
+    # 要更新的点
+    update_points: list[dict[str, Any]] | None = Field(
+        None,
+        description="要更新的点列表，格式: [{index: 0, updates: {...}}, ...]"
+    )
+    # 要删除的点索引
+    delete_indices: list[int] | None = Field(
+        None,
+        description="要删除的点索引列表"
+    )
+
+
+class RoutePointResponse(BaseModel):
+    """轨迹点响应"""
+    index: int
+    location: dict[str, Any]
+    elevation: float | None = None
+    name: str | None = None
+    description: str | None = None
+    is_waypoint: bool = False
+    photos: list[dict[str, Any]] = Field(default_factory=list)
+    poi_id: str | None = None
+
+
 class RouteCreate(BaseModel):
     """创建路线请求"""
     name: str = Field(..., min_length=1, max_length=100)

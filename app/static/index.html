@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CityWalk 路线编辑器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        #map { height: 100%; width: 100%; min-height: 500px; }
+        .sidebar { width: 320px; }
+        .point-item:hover { background-color: #f3f4f6; }
+        .point-item.selected { background-color: #dbeafe; border-left: 3px solid #3b82f6; }
+        .poi-marker { background: #ef4444; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: bold; }
+        .waypoint-marker { background: #3b82f6; }
+        .toast { animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .map-container { position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
+    </style>
+</head>
+<body class="h-screen overflow-hidden bg-gray-100">
+    <!-- 顶部导航 -->
+    <nav class="bg-white shadow-sm h-14 flex items-center px-4 justify-between">
+        <h1 class="text-xl font-bold text-gray-800">🗺️ CityWalk 路线编辑器</h1>
+        <div class="flex items-center gap-4">
+            <select id="routeSelect" class="border rounded-lg px-3 py-2 text-sm">
+                <option value="">选择路线...</option>
+            </select>
+            <button onclick="refreshRoutes()" class="text-gray-600 hover:text-gray-800">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <div class="flex h-[calc(100vh-56px)]">
+        <!-- 侧边栏 -->
+        <div class="sidebar bg-white shadow-lg flex flex-col">
+            <!-- 路线信息 -->
+            <div class="p-4 border-b">
+                <h2 id="routeName" class="text-lg font-semibold text-gray-800">未选择路线</h2>
+                <div id="routeInfo" class="mt-2 text-sm text-gray-600 hidden">
+                    <span id="routeDistance" class="mr-4"></span>
+                    <span id="routePoints"></span>
+                </div>
+            </div>
+
+            <!-- 标签页 -->
+            <div class="flex border-b">
+                <button onclick="switchTab('points')" id="tabPoints" class="flex-1 py-2 text-sm font-medium text-blue-600 border-b-2 border-blue-600">轨迹点</button>
+                <button onclick="switchTab('pois')" id="tabPois" class="flex-1 py-2 text-sm font-medium text-gray-500">POI</button>
+            </div>
+
+            <!-- 列表区域 -->
+            <div class="flex-1 overflow-y-auto">
+                <div id="pointsList" class="divide-y"></div>
+                <div id="poisList" class="divide-y hidden"></div>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div class="p-4 border-t bg-gray-50">
+                <button onclick="saveRoute()" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50" id="saveBtn" disabled>
+                    保存修改
+                </button>
+            </div>
+        </div>
+
+        <!-- 地图区域 -->
+        <div class="flex-1 relative">
+            <div class="map-container">
+                <div id="map"></div>
+            </div>
+            
+            <!-- 编辑面板 -->
+            <div id="editPanel" class="absolute top-4 right-4 bg-white rounded-lg shadow-lg p-4 w-72 hidden">
+                <h3 class="font-semibold mb-3">编辑轨迹点</h3>
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">名称</label>
+                        <input type="text" id="editPointName" class="w-full border rounded px-2 py-1 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-600 mb-1">描述</label>
+                        <textarea id="editPointDesc" class="w-full border rounded px-2 py-1 text-sm" rows="2"></textarea>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input type="checkbox" id="editIsWaypoint" class="rounded">
+                        <label class="text-sm text-gray-600">标记为途径点</label>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="updatePoint()" class="flex-1 bg-blue-600 text-white py-1 rounded text-sm hover:bg-blue-700">更新</button>
+                        <button onclick="deletePoint()" class="flex-1 bg-red-600 text-white py-1 rounded text-sm hover:bg-red-700">删除</button>
+                        <button onclick="closeEditPanel()" class="px-3 bg-gray-300 py-1 rounded text-sm hover:bg-gray-400">取消</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 照片预览 -->
+            <div id="photoPreview" class="absolute bottom-4 left-4 bg-white rounded-lg shadow-lg p-3 hidden max-w-xs">
+                <img id="previewImg" class="max-w-full rounded">
+                <p id="photoCaption" class="text-sm text-gray-600 mt-1"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast提示 -->
+    <div id="toast" class="fixed top-20 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow hidden toast">
+        <span id="toastMsg"></span>
+    </div>
+
+    <script>
+        // ========== 坐标转换工具 (WGS-84 -> GCJ-02) ==========
+        const PI = Math.PI;
+        const A = 6378245.0;  // 长半轴
+        const EE = 0.00669342162296594323;  // 扁率
+
+        // 判断是否在中国境内
+        function isInChina(lng, lat) {
+            return lng >= 72.004 && lng <= 137.8347 && lat >= 0.8293 && lat <= 55.8271;
+        }
+
+        // 转换经度
+        function transformLng(lng, lat) {
+            let ret = 300.0 + lng + 2.0 * lat + 0.1 * lng * lng + 0.1 * lng * lat + 0.1 * Math.sqrt(Math.abs(lng));
+            ret += (20.0 * Math.sin(6.0 * lng * PI) + 20.0 * Math.sin(2.0 * lng * PI)) * 2.0 / 3.0;
+            ret += (20.0 * Math.sin(lng * PI) + 40.0 * Math.sin(lng / 3.0 * PI)) * 2.0 / 3.0;
+            ret += (150.0 * Math.sin(lng / 12.0 * PI) + 300.0 * Math.sin(lng / 30.0 * PI)) * 2.0 / 3.0;
+            return ret;
+        }
+
+        // 转换纬度
+        function transformLat(lng, lat) {
+            let ret = -100.0 + 2.0 * lng + 3.0 * lat + 0.2 * lat * lat + 0.1 * lng * lat + 0.2 * Math.sqrt(Math.abs(lng));
+            ret += (20.0 * Math.sin(6.0 * lng * PI) + 20.0 * Math.sin(2.0 * lng * PI)) * 2.0 / 3.0;
+            ret += (20.0 * Math.sin(lat * PI) + 40.0 * Math.sin(lat / 3.0 * PI)) * 2.0 / 3.0;
+            ret += (160.0 * Math.sin(lat / 12.0 * PI) + 320 * Math.sin(lat * PI / 30.0)) * 2.0 / 3.0;
+            return ret;
+        }
+
+        // WGS-84 转 GCJ-02 (火星坐标系)
+        function wgs84ToGcj02(lng, lat) {
+            if (!isInChina(lng, lat)) {
+                return [lng, lat];  // 不在中国境内，不转换
+            }
+            let dLng = transformLng(lng - 105.0, lat - 35.0);
+            let dLat = transformLat(lng - 105.0, lat - 35.0);
+            const radLat = lat / 180.0 * PI;
+            let magic = Math.sin(radLat);
+            magic = 1 - EE * magic * magic;
+            const sqrtMagic = Math.sqrt(magic);
+            dLng = (dLng * 180.0) / (A / sqrtMagic * Math.cos(radLat) * PI);
+            dLat = (dLat * 180.0) / ((A * (1 - EE)) / (magic * sqrtMagic) * PI);
+            const mgLng = lng + dLng;
+            const mgLat = lat + dLat;
+            return [mgLng, mgLat];
+        }
+
+        // 批量转换坐标数组
+        function convertCoordinates(coords) {
+            return coords.map(c => wgs84ToGcj02(c[0], c[1]));
+        }
+
+        // GCJ-02 转 WGS-84 (逆变换)
+        function gcj02ToWgs84(lng, lat) {
+            if (!isInChina(lng, lat)) {
+                return [lng, lat];
+            }
+            let dLng = transformLng(lng - 105.0, lat - 35.0);
+            let dLat = transformLat(lng - 105.0, lat - 35.0);
+            const radLat = lat / 180.0 * PI;
+            let magic = Math.sin(radLat);
+            magic = 1 - EE * magic * magic;
+            const sqrtMagic = Math.sqrt(magic);
+            dLng = (dLng * 180.0) / (A / sqrtMagic * Math.cos(radLat) * PI);
+            dLat = (dLat * 180.0) / ((A * (1 - EE)) / (magic * sqrtMagic) * PI);
+            const mgLng = lng + dLng;
+            const mgLat = lat + dLat;
+            return [lng * 2 - mgLng, lat * 2 - mgLat];
+        }
+
+        // ========== 全局状态 ==========
+        let map, polyline, markers = [], poiMarkers = [];
+        let currentRoute = null;
+        let selectedPointIndex = null;
+        let currentTab = 'points';
+        let hasChanges = false;
+
+        // API基础路径
+        const API_BASE = '/api/v1';
+
+        // 动态加载高德地图
+        async function loadAMap() {
+            try {
+                // 获取高德配置
+                const res = await fetch(`${API_BASE}/config/amap`);
+                const config = await res.json();
+                
+                // 设置安全密钥
+                window._AMapSecurityConfig = {
+                    securityJsCode: config.security_key
+                };
+                
+                // 动态加载高德地图脚本
+                const script = document.createElement('script');
+                script.src = `https://webapi.amap.com/maps?v=2.0&key=${config.api_key}&callback=onAMapReady`;
+                document.body.appendChild(script);
+                
+                console.log('高德地图配置加载成功');
+            } catch (err) {
+                console.error('获取高德配置失败:', err);
+                document.getElementById('map').innerHTML = '<div class="flex items-center justify-center h-full text-red-500">地图配置加载失败</div>';
+            }
+        }
+
+        // 高德地图加载完成回调
+        function onAMapReady() {
+            console.log('高德地图API已加载');
+            initMap();
+            loadRoutes();
+        }
+
+        // 初始化地图
+        function initMap() {
+            try {
+                map = new AMap.Map('map', {
+                    zoom: 13,
+                    center: [113.92943, 22.581447], // 深圳默认中心
+                    viewMode: '2D',
+                });
+                
+                console.log('地图初始化成功');
+
+                // 点击地图添加点
+                map.on('click', function(e) {
+                    if (currentRoute && confirm('在此位置添加新轨迹点？')) {
+                        addPointAtLocation(e.lnglat.getLng(), e.lnglat.getLat());
+                    }
+                });
+            } catch (err) {
+                console.error('地图初始化失败:', err);
+                document.getElementById('map').innerHTML = '<div class="flex items-center justify-center h-full text-red-500">地图加载失败，请检查API Key</div>';
+            }
+        }
+
+        // 加载路线列表
+        async function loadRoutes() {
+            const res = await fetch(`${API_BASE}/routes?page=1&page_size=50`);
+            const data = await res.json();
+            
+            const select = document.getElementById('routeSelect');
+            select.innerHTML = '<option value="">选择路线...</option>';
+            
+            data.items.forEach(route => {
+                const opt = document.createElement('option');
+                opt.value = route._id;
+                opt.textContent = `${route.name} (${(route.distance/1000).toFixed(1)}km)`;
+                select.appendChild(opt);
+            });
+        }
+
+        // 加载路线详情
+        async function loadRoute(routeId) {
+            const res = await fetch(`${API_BASE}/routes/${routeId}`);
+            currentRoute = await res.json();
+            
+            // 更新UI
+            document.getElementById('routeName').textContent = currentRoute.name;
+            document.getElementById('routeInfo').classList.remove('hidden');
+            document.getElementById('routeDistance').textContent = `距离: ${(currentRoute.distance/1000).toFixed(2)} km`;
+            document.getElementById('routePoints').textContent = `点数: ${currentRoute.points.length}`;
+            document.getElementById('saveBtn').disabled = true;
+            hasChanges = false;
+
+            // 渲染地图
+            renderMap();
+            renderPointsList();
+            renderPoisList();
+        }
+
+        // 渲染地图
+        function renderMap() {
+            // 清除旧数据
+            if (polyline) map.remove(polyline);
+            markers.forEach(m => map.remove(m));
+            markers = [];
+            poiMarkers.forEach(m => map.remove(m));
+            poiMarkers = [];
+
+            if (!currentRoute || !currentRoute.points.length) return;
+
+            // 转换 GPS 坐标 (WGS-84 -> GCJ-02)
+            const convertedPath = currentRoute.points.map(p => {
+                const coords = p.location.coordinates;
+                return wgs84ToGcj02(coords[0], coords[1]);
+            });
+
+            // 绘制路线
+            polyline = new AMap.Polyline({
+                path: convertedPath,
+                strokeColor: '#3b82f6',
+                strokeWeight: 4,
+                strokeOpacity: 0.8,
+                lineJoin: 'round'
+            });
+            map.add(polyline);
+
+            // 添加起点终点标记
+            if (currentRoute.points.length > 0) {
+                addMarker(0, currentRoute.points[0], '起点', '#22c55e');
+                if (currentRoute.points.length > 1) {
+                    addMarker(currentRoute.points.length - 1, currentRoute.points[currentRoute.points.length - 1], '终点', '#ef4444');
+                }
+            }
+
+            // 添加途径点标记
+            currentRoute.points.forEach((p, i) => {
+                if (p.is_waypoint && i > 0 && i < currentRoute.points.length - 1) {
+                    addMarker(i, p, p.name || `点${i}`, '#3b82f6', true);
+                }
+            });
+
+            // 添加POI标记 (POI已经是高德坐标，无需转换)
+            if (currentRoute.pois) {
+                currentRoute.pois.forEach((poi, i) => {
+                    const marker = new AMap.Marker({
+                        position: poi.location.coordinates,
+                        content: `<div class="poi-marker">${i + 1}</div>`,
+                        offset: new AMap.Pixel(-12, -12),
+                        title: poi.name
+                    });
+                    marker.on('click', () => showPoiDetail(poi));
+                    map.add(marker);
+                    poiMarkers.push(marker);
+                });
+            }
+
+            // 适配视野
+            map.setFitView([polyline, ...markers, ...poiMarkers], false, [50, 50, 50, 50]);
+        }
+
+        // 添加标记 (使用转换后的坐标)
+        function addMarker(index, point, title, color, isWaypoint = false) {
+            const coords = point.location.coordinates;
+            const convertedCoords = wgs84ToGcj02(coords[0], coords[1]);
+            
+            const marker = new AMap.Marker({
+                position: convertedCoords,
+                content: `<div style="background:${color};width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:10px;font-weight:bold;${isWaypoint ? 'border:2px solid white;' : ''}">${index + 1}</div>`,
+                offset: new AMap.Pixel(-12, -12),
+                title: title
+            });
+            marker.on('click', () => selectPoint(index));
+            map.add(marker);
+            markers.push(marker);
+        }
+
+        // 渲染轨迹点列表
+        function renderPointsList() {
+            const list = document.getElementById('pointsList');
+            list.innerHTML = '';
+
+            if (!currentRoute) return;
+
+            currentRoute.points.forEach((p, i) => {
+                const div = document.createElement('div');
+                div.className = `point-item p-3 cursor-pointer ${selectedPointIndex === i ? 'selected' : ''}`;
+                div.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-xs">${i + 1}</span>
+                            <span class="font-medium">${p.name || `点 ${i + 1}`}</span>
+                            ${p.is_waypoint ? '<span class="text-xs bg-blue-100 text-blue-600 px-1 rounded">途径点</span>' : ''}
+                        </div>
+                        ${p.photos && p.photos.length ? `<span class="text-xs text-gray-500">📷${p.photos.length}</span>` : ''}
+                    </div>
+                    ${p.description ? `<p class="text-xs text-gray-500 mt-1 ml-8">${p.description}</p>` : ''}
+                `;
+                div.onclick = () => selectPoint(i);
+                list.appendChild(div);
+            });
+        }
+
+        // 渲染POI列表
+        function renderPoisList() {
+            const list = document.getElementById('poisList');
+            list.innerHTML = '';
+
+            if (!currentRoute || !currentRoute.pois) return;
+
+            currentRoute.pois.forEach((poi, i) => {
+                const div = document.createElement('div');
+                div.className = 'p-3 cursor-pointer hover:bg-gray-50';
+                div.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center text-xs">${i + 1}</span>
+                        <div>
+                            <div class="font-medium">${poi.name}</div>
+                            <div class="text-xs text-gray-500">${poi.category} ${poi.distance ? `· ${poi.distance}m` : ''}</div>
+                        </div>
+                    </div>
+                `;
+                div.onclick = () => {
+                    map.setCenter(poi.location.coordinates);
+                    map.setZoom(16);
+                };
+                list.appendChild(div);
+            });
+        }
+
+        // 选择轨迹点
+        function selectPoint(index) {
+            selectedPointIndex = index;
+            const point = currentRoute.points[index];
+            
+            // 高亮列表
+            renderPointsList();
+            
+            // 定位地图 (转换坐标)
+            const coords = point.location.coordinates;
+            const convertedCoords = wgs84ToGcj02(coords[0], coords[1]);
+            map.setCenter(convertedCoords);
+            map.setZoom(16);
+            
+            // 显示编辑面板
+            document.getElementById('editPointName').value = point.name || '';
+            document.getElementById('editPointDesc').value = point.description || '';
+            document.getElementById('editIsWaypoint').checked = point.is_waypoint || false;
+            document.getElementById('editPanel').classList.remove('hidden');
+        }
+
+        // 更新轨迹点
+        async function updatePoint() {
+            if (selectedPointIndex === null) return;
+            
+            const updates = {
+                name: document.getElementById('editPointName').value || null,
+                description: document.getElementById('editPointDesc').value || null,
+                is_waypoint: document.getElementById('editIsWaypoint').checked
+            };
+            
+            const res = await fetch(`${API_BASE}/routes/${currentRoute._id}/points/${selectedPointIndex}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updates)
+            });
+            
+            if (res.ok) {
+                currentRoute = await res.json();
+                renderMap();
+                renderPointsList();
+                closeEditPanel();
+                showToast('轨迹点已更新');
+                document.getElementById('saveBtn').disabled = false;
+                hasChanges = true;
+            } else {
+                showToast('更新失败', 'error');
+            }
+        }
+
+        // 删除轨迹点
+        async function deletePoint() {
+            if (selectedPointIndex === null) return;
+            if (!confirm('确定删除此轨迹点？')) return;
+            
+            const res = await fetch(`${API_BASE}/routes/${currentRoute._id}/points/${selectedPointIndex}`, {
+                method: 'DELETE'
+            });
+            
+            if (res.ok) {
+                currentRoute = await res.json();
+                selectedPointIndex = null;
+                renderMap();
+                renderPointsList();
+                closeEditPanel();
+                showToast('轨迹点已删除');
+                document.getElementById('saveBtn').disabled = false;
+                hasChanges = true;
+            } else {
+                showToast('删除失败', 'error');
+            }
+        }
+
+        // 在指定位置添加点 (地图点击的是GCJ-02坐标，需转WGS-84)
+        async function addPointAtLocation(lng, lat) {
+            const index = prompt('输入插入位置（索引）:', currentRoute.points.length);
+            if (index === null) return;
+            
+            // GCJ-02 转 WGS-84 存储
+            const [wgsLng, wgsLat] = gcj02ToWgs84(lng, lat);
+            
+            const res = await fetch(`${API_BASE}/routes/${currentRoute._id}/points?index=${index}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    longitude: wgsLng,
+                    latitude: wgsLat,
+                    is_waypoint: true
+                })
+            });
+            
+            if (res.ok) {
+                currentRoute = await res.json();
+                renderMap();
+                renderPointsList();
+                showToast('轨迹点已添加');
+                document.getElementById('saveBtn').disabled = false;
+                hasChanges = true;
+            } else {
+                showToast('添加失败', 'error');
+            }
+        }
+
+        // 关闭编辑面板
+        function closeEditPanel() {
+            document.getElementById('editPanel').classList.add('hidden');
+            selectedPointIndex = null;
+            renderPointsList();
+        }
+
+        // 切换标签页
+        function switchTab(tab) {
+            currentTab = tab;
+            document.getElementById('tabPoints').className = tab === 'points' 
+                ? 'flex-1 py-2 text-sm font-medium text-blue-600 border-b-2 border-blue-600'
+                : 'flex-1 py-2 text-sm font-medium text-gray-500';
+            document.getElementById('tabPois').className = tab === 'pois'
+                ? 'flex-1 py-2 text-sm font-medium text-blue-600 border-b-2 border-blue-600'
+                : 'flex-1 py-2 text-sm font-medium text-gray-500';
+            document.getElementById('pointsList').classList.toggle('hidden', tab !== 'points');
+            document.getElementById('poisList').classList.toggle('hidden', tab !== 'pois');
+        }
+
+        // 保存路线
+        async function saveRoute() {
+            showToast('路线已自动保存到数据库');
+            document.getElementById('saveBtn').disabled = true;
+            hasChanges = false;
+        }
+
+        // 刷新路线列表
+        function refreshRoutes() {
+            loadRoutes();
+            showToast('路线列表已刷新');
+        }
+
+        // 显示POI详情
+        function showPoiDetail(poi) {
+            alert(`${poi.name}\n类型: ${poi.category}\n地址: ${poi.description || '未知'}\n评分: ${poi.rating || '暂无'}`);
+        }
+
+        // 显示提示
+        function showToast(msg, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            toastMsg.textContent = msg;
+            toast.className = `fixed top-20 right-4 ${type === 'error' ? 'bg-red-500' : 'bg-green-500'} text-white px-4 py-2 rounded-lg shadow toast`;
+            setTimeout(() => toast.classList.add('hidden'), 2000);
+        }
+
+        // 路线选择事件
+        document.getElementById('routeSelect').addEventListener('change', function() {
+            if (this.value) {
+                loadRoute(this.value);
+            } else {
+                currentRoute = null;
+                document.getElementById('routeName').textContent = '未选择路线';
+                document.getElementById('routeInfo').classList.add('hidden');
+                if (polyline) map.remove(polyline);
+                markers.forEach(m => map.remove(m));
+                markers = [];
+                poiMarkers.forEach(m => map.remove(m));
+                poiMarkers = [];
+                renderPointsList();
+                renderPoisList();
+            }
+        });
+
+        // 启动：加载高德地图
+        loadAMap();
+    </script>
+</body>
+</html>

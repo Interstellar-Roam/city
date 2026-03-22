@@ -33,7 +33,9 @@ class Settings(BaseSettings):
     falkordb_graph_name: str = "citywalk_kg"
 
     # 高德地图API
-    amap_api_key: str = ""
+    amap_api_key: str = ""  # Web端(JS API) Key
+    amap_api_key_backend: str = ""  # Web服务 Key (后端POI查询)
+    amap_security_key: str = ""
 
     # Agent配置
     max_iterations: int = 20

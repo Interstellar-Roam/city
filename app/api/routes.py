@@ -11,6 +11,10 @@ from app.schemas.route import (
     RouteCreate,
     RouteDetail,
     RouteUpdate,
+    RoutePointCreate,
+    RoutePointUpdate,
+    RoutePointsBatchUpdate,
+    RoutePointPhotoUpload,
 )
 from app.services.route_service import RouteService
 
@@ -133,3 +137,101 @@ async def search_routes(
     """根据关键词搜索路线"""
     results = await service.search_by_keyword(keyword, limit)
     return {"success": True, "total": len(results), "data": results}
+
+
+# === 轨迹点编辑API ===
+
+@router.post("/{route_id}/points", summary="添加轨迹点")
+async def add_route_point(
+    route_id: str,
+    index: int = Query(..., ge=0, description="插入位置"),
+    point_data: RoutePointCreate = ...,
+    service: RouteService = Depends(get_route_service)
+) -> dict[str, Any]:
+    """
+    在指定位置添加轨迹点
+
+    - **index**: 插入位置（0表示起点，len表示终点）
+    - **point_data**: 轨迹点数据
+    """
+    route = await service.add_point(route_id, index, point_data.model_dump())
+    if not route:
+        raise HTTPException(status_code=404, detail="路线不存在或索引越界")
+    return {"success": True, "data": route}
+
+
+@router.put("/{route_id}/points/{index}", summary="更新轨迹点")
+async def update_route_point(
+    route_id: str,
+    index: int,
+    updates: RoutePointUpdate,
+    service: RouteService = Depends(get_route_service)
+) -> dict[str, Any]:
+    """更新指定轨迹点的信息"""
+    route = await service.update_point(route_id, index, updates.model_dump(exclude_unset=True))
+    if not route:
+        raise HTTPException(status_code=404, detail="路线或轨迹点不存在")
+    return {"success": True, "data": route}
+
+
+@router.delete("/{route_id}/points/{index}", summary="删除轨迹点")
+async def delete_route_point(
+    route_id: str,
+    index: int,
+    service: RouteService = Depends(get_route_service)
+) -> dict[str, Any]:
+    """删除指定轨迹点（路线至少保留2个点）"""
+    route = await service.delete_point(route_id, index)
+    if not route:
+        raise HTTPException(status_code=400, detail="路线不存在、索引越界或点数过少")
+    return {"success": True, "data": route}
+
+
+@router.patch("/{route_id}/points", summary="批量更新轨迹点")
+async def batch_update_points(
+    route_id: str,
+    batch_data: RoutePointsBatchUpdate,
+    service: RouteService = Depends(get_route_service)
+) -> dict[str, Any]:
+    """
+    批量更新轨迹点
+
+    操作顺序：先删除 → 再更新 → 最后添加
+    """
+    route = await service.batch_update_points(route_id, batch_data.model_dump())
+    if not route:
+        raise HTTPException(status_code=404, detail="路线不存在或操作失败")
+    return {"success": True, "data": route}
+
+
+@router.post("/{route_id}/points/{index}/photos", summary="为轨迹点添加照片")
+async def add_point_photo(
+    route_id: str,
+    index: int,
+    photo_data: RoutePointPhotoUpload,
+    service: RouteService = Depends(get_route_service)
+) -> dict[str, Any]:
+    """
+    为轨迹点添加照片（Base64内嵌）
+
+    - 单张照片最大500KB
+    - 每个点最多5张照片
+    """
+    route = await service.add_photo_to_point(route_id, index, photo_data.model_dump())
+    if not route:
+        raise HTTPException(status_code=400, detail="添加失败（路线不存在、索引越界或照片数量超限）")
+    return {"success": True, "data": route}
+
+
+@router.delete("/{route_id}/points/{index}/photos/{photo_id}", summary="删除轨迹点照片")
+async def delete_point_photo(
+    route_id: str,
+    index: int,
+    photo_id: str,
+    service: RouteService = Depends(get_route_service)
+) -> dict[str, Any]:
+    """删除轨迹点的指定照片"""
+    route = await service.delete_photo_from_point(route_id, index, photo_id)
+    if not route:
+        raise HTTPException(status_code=404, detail="路线或照片不存在")
+    return {"success": True, "data": route}
