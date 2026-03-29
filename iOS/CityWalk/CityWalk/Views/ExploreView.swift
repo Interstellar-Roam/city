@@ -301,6 +301,7 @@ struct RouteDetailView: View {
     @State private var detailedRoute: Route?
     @State private var isLoading = true
     @State private var region: MKCoordinateRegion
+    @State private var showNavigation = false
     
     init(route: Route) {
         self.route = route
@@ -332,18 +333,46 @@ struct RouteDetailView: View {
         return (min, max)
     }
 
+    // 导航坐标（使用完整轨迹点）
+    var navigationCoordinates: [CLLocationCoordinate2D] {
+        guard let points = detailedRoute?.points ?? route.points else { return [] }
+        return CoordinateConverter.wgs84ToGcj02(points.map { $0.location.coordinate })
+    }
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
                 // 地图视图
-                if isLoading {
-                    ProgressView("加载地图...")
-                        .frame(height: 300)
-                        .frame(maxWidth: .infinity)
-                        .background(Color(.systemGray6))
-                } else {
-                    RouteMapView(region: $region, coordinates: routeCoordinates, routeName: route.name)
-                        .frame(height: 300)
+                ZStack(alignment: .bottomLeading) {
+                    if isLoading {
+                        ProgressView("加载地图...")
+                            .frame(height: 300)
+                            .frame(maxWidth: .infinity)
+                            .background(Color(.systemGray6))
+                    } else {
+                        RouteMapView(region: $region, coordinates: routeCoordinates, routeName: route.name)
+                            .frame(height: 300)
+                    }
+
+                    // 预览路线按钮（在地图左下角）
+                    Button(action: {
+                        showNavigation = true
+                    }) {
+                        HStack(spacing: 6) {
+                            Image(systemName: "play.fill")
+                                .font(.system(size: 14))
+                            Text("预览")
+                                .fontWeight(.semibold)
+                                .font(.system(size: 14))
+                        }
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 10)
+                        .background(Color.orange)
+                        .cornerRadius(20)
+                        .shadow(radius: 3)
+                    }
+                    .padding(12)
                 }
                 
                 // 基本信息
@@ -516,6 +545,9 @@ struct RouteDetailView: View {
         .task {
             await loadRouteDetail()
         }
+        .sheet(isPresented: $showNavigation) {
+            NavigationView(routeName: route.name, coordinates: navigationCoordinates, points: detailedRoute?.points ?? route.points ?? [])
+        }
     }
     
     private func loadRouteDetail() async {
@@ -560,13 +592,38 @@ struct RouteDetailView: View {
             isLoading = false
         }
     }
-    
+
     private func difficultyColor(_ difficulty: Difficulty) -> Color {
         switch difficulty {
         case .easy: return .green
         case .medium: return .orange
         case .hard: return .red
         }
+    }
+
+    /// 简化坐标点（每隔 N 个点取一个）
+    private func simplifyCoordinates(_ coords: [CLLocationCoordinate2D], maxPoints: Int) -> [CLLocationCoordinate2D] {
+        guard coords.count > maxPoints else { return coords }
+
+        var result: [CLLocationCoordinate2D] = []
+        let step = max(1, coords.count / maxPoints)
+
+        for i in stride(from: 0, to: coords.count - 1, by: step) {
+            result.append(coords[i])
+        }
+
+        // 确保最后一个点被包含
+        if let last = coords.last {
+            if let lastResult = result.last {
+                if last.latitude != lastResult.latitude || last.longitude != lastResult.longitude {
+                    result.append(last)
+                }
+            } else {
+                result.append(last)
+            }
+        }
+
+        return result
     }
 }
 
@@ -802,6 +859,653 @@ struct ElevationChartView: View {
             }
         }
         .padding(4)
+    }
+}
+
+// MARK: - 导航视图
+struct NavigationView: View {
+    let routeName: String
+    let coordinates: [CLLocationCoordinate2D]
+    let points: [RoutePoint]  // 添加原始轨迹点数据
+    @Environment(\.dismiss) var dismiss
+    @State private var progress: Double = 0.0  // 0.0 到 1.0
+    @State private var region: MKCoordinateRegion
+    @State private var isPlaying = false
+    @State private var timer: Timer?
+    @State private var completedDistance: Double = 0.0
+    @State private var isPausedAtSpecialPoint = false  // 是否在特殊点位暂停
+    @State private var specialPointMessage: String? = nil  // 特殊点位提示信息
+    @State private var hasShownMaxElevation = false  // 是否已显示最高点
+    @State private var hasShownMaxSpeed = false  // 是否已显示最快点
+    @State private var lastSpecialPointIndex: Int? = nil  // 上一次触发暂停的特殊点索引
+    
+    // 配置：特殊点位暂停时间（秒）
+    private let specialPointPauseDuration: Double = 1.0
+
+    // 路线边界
+    private let routeBounds: (minLat: Double, maxLat: Double, minLon: Double, maxLon: Double, centerLat: Double, centerLon: Double, latDelta: Double, lonDelta: Double)
+
+    // 计算最高海拔点
+    private var maxElevationPoint: (index: Int, elevation: Double)? {
+        let elevations = points.enumerated().compactMap { (index, point) -> (Int, Double)? in
+            guard let elev = point.elevation else { return nil }
+            return (index, elev)
+        }
+        guard let max = elevations.max(by: { $0.1 < $1.1 }) else { return nil }
+        return (max.0, max.1)
+    }
+
+    // 计算最快速度点
+    private var maxSpeedPoint: (index: Int, speed: Double)? {
+        var maxSpeed: Double = 0
+        var maxIndex: Int = 0
+
+        for i in 1..<points.count {
+            let prev = points[i-1]
+            let curr = points[i]
+
+            // 计算距离
+            let dist = distanceBetween(prev.location.coordinate, curr.location.coordinate)
+
+            // 计算时间差
+            if let prevTime = prev.timestamp, let currTime = curr.timestamp {
+                let timeInterval = currTime.timeIntervalSince(prevTime)
+                if timeInterval > 0 {
+                    let speed = dist / timeInterval  // 米/秒
+                    if speed > maxSpeed {
+                        maxSpeed = speed
+                        maxIndex = i
+                    }
+                }
+            }
+        }
+
+        return maxSpeed > 0 ? (maxIndex, maxSpeed) : nil
+    }
+
+    init(routeName: String, coordinates: [CLLocationCoordinate2D], points: [RoutePoint]) {
+        self.routeName = routeName
+        self.coordinates = coordinates
+        self.points = points
+
+        // 计算路线边界
+        if !coordinates.isEmpty {
+            let lats = coordinates.map { $0.latitude }
+            let lons = coordinates.map { $0.longitude }
+            let minLat = lats.min() ?? 0
+            let maxLat = lats.max() ?? 0
+            let minLon = lons.min() ?? 0
+            let maxLon = lons.max() ?? 0
+            let latDelta = (maxLat - minLat) * 1.5 + 0.01
+            let lonDelta = (maxLon - minLon) * 1.5 + 0.01
+
+            self.routeBounds = (minLat, maxLat, minLon, maxLon, (minLat + maxLat) / 2, (minLon + maxLon) / 2, latDelta, lonDelta)
+
+            // 初始化地图区域 - 显示整条路线
+            _region = State(initialValue: MKCoordinateRegion(
+                center: CLLocationCoordinate2D(
+                    latitude: (minLat + maxLat) / 2,
+                    longitude: (minLon + maxLon) / 2
+                ),
+                span: MKCoordinateSpan(
+                    latitudeDelta: latDelta,
+                    longitudeDelta: lonDelta
+                )
+            ))
+        } else {
+            self.routeBounds = (0, 0, 0, 0, 22.5, 114.0, 0.1, 0.1)
+            _region = State(initialValue: MKCoordinateRegion(
+                center: CLLocationCoordinate2D(latitude: 22.5, longitude: 114.0),
+                span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+            ))
+        }
+    }
+
+    // 计算总距离（米）
+    private var totalDistance: Double {
+        var distance: Double = 0
+        for i in 1..<coordinates.count {
+            distance += distanceBetween(coordinates[i-1], coordinates[i])
+        }
+        return distance
+    }
+
+    // 当前点索引（基于进度）
+    private var currentPointIndex: Int {
+        let index = Int(progress * Double(max(0, coordinates.count - 1)))
+        return min(index, coordinates.count - 1)
+    }
+
+    // 计算经过的时间（秒）
+    private var elapsedSeconds: Int {
+        // 方法1: 如果有 timestamp 数据，使用实际时间
+        guard currentPointIndex > 0, currentPointIndex < points.count else { return 0 }
+
+        var totalSeconds: Double = 0
+        for i in 1...currentPointIndex {
+            let prev = points[i-1]
+            let curr = points[i]
+            if let prevTime = prev.timestamp, let currTime = curr.timestamp {
+                totalSeconds += currTime.timeIntervalSince(prevTime)
+            }
+        }
+
+        // 如果有实际时间数据，返回实际时间
+        if totalSeconds > 0 {
+            return Int(totalSeconds)
+        }
+
+        // 方法2: 否则根据进度比例估算时间（假设平均步行速度 5km/h）
+        let estimatedTotalMinutes = Int((totalDistance / 1000) / 5.0 * 60) // 总时长（分钟）
+        return Int(Double(estimatedTotalMinutes) * progress * 60)
+    }
+
+    // 格式化时长为 HH:MM:SS
+    private var formattedDuration: String {
+        let totalSeconds = elapsedSeconds
+        let hours = totalSeconds / 3600
+        let minutes = (totalSeconds % 3600) / 60
+        let seconds = totalSeconds % 60
+        return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+    }
+
+    var body: some View {
+        NavigationStack {
+            ZStack(alignment: .bottomLeading) {
+                // 地图
+                NavigationMapView(
+                    region: region,
+                    coordinates: coordinates,
+                    currentIndex: currentPointIndex,
+                    isPlaying: isPlaying,
+                    maxElevationIndex: maxElevationPoint?.index,
+                    maxSpeedIndex: maxSpeedPoint?.index,
+                    maxElevationValue: maxElevationPoint?.elevation,
+                    maxSpeedValue: maxSpeedPoint?.speed
+                )
+                .ignoresSafeArea()
+                
+                // 特殊点位提示
+                if let message = specialPointMessage {
+                    VStack {
+                        Spacer()
+                        HStack {
+                            Spacer()
+                            Text(message)
+                                .font(.system(size: 24, weight: .bold))
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 24)
+                                .padding(.vertical, 12)
+                                .background(
+                                    Capsule()
+                                        .fill(Color.black.opacity(0.8))
+                                )
+                                .transition(.scale.combined(with: .opacity))
+                            Spacer()
+                        }
+                        Spacer()
+                            .frame(height: 150)  // 距离底部的距离
+                    }
+                    .animation(.easeInOut(duration: 0.3), value: specialPointMessage)
+                }
+
+                // 顶部信息栏
+                VStack {
+                    HStack {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(routeName)
+                                .font(.headline)
+                            Text("总距离: \(String(format: "%.1f", totalDistance / 1000)) km")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                        .padding()
+                        .background(Color(.systemBackground).opacity(0.95))
+                        .cornerRadius(12)
+                        .shadow(radius: 4)
+
+                        Spacer()
+                    }
+                    .padding()
+
+                    Spacer()
+
+                    // 底部统计信息（右侧展示）
+                    // 右侧动态统计
+                    VStack(alignment: .trailing, spacing: 4) {
+                        Text("\(String(format: "%.2f", completedDistance / 1000)) 公里")
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundColor(.white)
+                        Text(formattedDuration)
+                            .font(.system(size: 14))
+                            .foregroundColor(.white.opacity(0.8))
+                    }
+                    .padding()
+                    .background(Color.black.opacity(0.8))
+                    .cornerRadius(12)
+                    .padding()
+                }
+
+                // 左下角预览按钮
+                Button(action: {
+                    if isPlaying {
+                        pausePreview()
+                    } else {
+                        startPreview()
+                    }
+                }) {
+                    HStack(spacing: 8) {
+                        Image(systemName: isPlaying ? "pause.fill" : "play.fill")
+                            .font(.title2)
+                        Text(isPlaying ? "暂停" : "预览")
+                            .fontWeight(.semibold)
+                    }
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 24)
+                    .padding(.vertical, 16)
+                    .background(Color.orange)
+                    .cornerRadius(30)
+                    .shadow(radius: 4)
+                }
+                .padding()
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        timer?.invalidate()
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                    }
+                }
+            }
+            .onAppear {
+                // 自动开始预览
+                startPreview()
+            }
+            .onDisappear {
+                timer?.invalidate()
+            }
+        }
+    }
+
+    private func startPreview() {
+        guard !coordinates.isEmpty else { return }
+        isPlaying = true
+
+        // 如果已完成，从头开始
+        if progress >= 1.0 {
+            progress = 0
+            completedDistance = 0
+            isPausedAtSpecialPoint = false
+            specialPointMessage = nil
+            hasShownMaxElevation = false
+            hasShownMaxSpeed = false
+            lastSpecialPointIndex = nil
+            // 重置为全局视图
+            region = MKCoordinateRegion(
+                center: CLLocationCoordinate2D(latitude: routeBounds.centerLat, longitude: routeBounds.centerLon),
+                span: MKCoordinateSpan(latitudeDelta: routeBounds.latDelta, longitudeDelta: routeBounds.lonDelta)
+            )
+        }
+
+        // 每0.05秒更新一次
+        timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { _ in
+            // 如果在特殊点位暂停，跳过此次更新
+            if isPausedAtSpecialPoint {
+                return
+            }
+            
+            // 每次增加进度
+            let step = 0.005  // 提高预览速度
+            let newProgress = min(progress + step, 1.0)
+            let newIndex = Int(newProgress * Double(max(0, coordinates.count - 1)))
+            let oldIndex = currentPointIndex
+            
+            // 检查是否到达特殊点位（检测跨越）
+            var messages: [(String, Int)] = []  // (消息, 索引)
+            
+            // 检查最高点（还未显示过，且索引跨越了该点）
+            if let maxElev = maxElevationPoint, !hasShownMaxElevation {
+                if newIndex >= maxElev.index && oldIndex < maxElev.index {
+                    messages.append(("最高 \(Int(maxElev.elevation))m", maxElev.index))
+                    hasShownMaxElevation = true
+                }
+            }
+            
+            // 检查最快点（还未显示过，且索引跨越了该点）
+            if let maxSpd = maxSpeedPoint, !hasShownMaxSpeed {
+                if newIndex >= maxSpd.index && oldIndex < maxSpd.index {
+                    messages.append(("最快 \(String(format: "%.1f", maxSpd.speed * 3.6))km/h", maxSpd.index))
+                    hasShownMaxSpeed = true
+                }
+            }
+            
+            // 如果需要暂停
+            if !messages.isEmpty {
+                isPausedAtSpecialPoint = true
+                let firstMessage = messages[0].0
+                specialPointMessage = firstMessage
+                
+                // 更新进度（保持在特殊点）
+                progress = newProgress
+                completedDistance = totalDistance * progress
+                
+                // 如果有多个消息（同一点），依次显示
+                if messages.count > 1 {
+                    // 先显示第一个消息
+                    DispatchQueue.main.asyncAfter(deadline: .now() + specialPointPauseDuration) {
+                        // 显示第二个消息
+                        let secondMessage = messages[1].0
+                        specialPointMessage = secondMessage
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + specialPointPauseDuration) {
+                            isPausedAtSpecialPoint = false
+                            specialPointMessage = nil
+                        }
+                    }
+                } else {
+                    // 只有一个消息
+                    DispatchQueue.main.asyncAfter(deadline: .now() + specialPointPauseDuration) {
+                        isPausedAtSpecialPoint = false
+                        specialPointMessage = nil
+                    }
+                }
+            } else {
+                // 更新进度
+                progress = newProgress
+                completedDistance = totalDistance * progress
+            }
+
+            // 更新地图区域 - 跟随位置但保持全局视野
+            if progress < 1.0 {
+                updateRegion()
+            }
+
+            // 预览完成，显示整条路线
+            if progress >= 1.0 {
+                timer?.invalidate()
+                timer = nil
+                isPlaying = false
+
+                // 动画切换到全局视图
+                withAnimation(.easeInOut(duration: 1.0)) {
+                    region = MKCoordinateRegion(
+                        center: CLLocationCoordinate2D(latitude: routeBounds.centerLat, longitude: routeBounds.centerLon),
+                        span: MKCoordinateSpan(latitudeDelta: routeBounds.latDelta, longitudeDelta: routeBounds.lonDelta)
+                    )
+                }
+                print("✅ 预览完成")
+            }
+        }
+    }
+
+    // 更新地图区域 - 跟随位置但保持大范围视野
+    private func updateRegion() {
+        let idx = currentPointIndex
+        guard idx < coordinates.count else { return }
+
+        let currentCoord = coordinates[idx]
+
+        // 保持路线的全局视野（使用路线边界的55%）
+        let spanScale: Double = 0.55
+        let latDelta = routeBounds.latDelta * spanScale
+        let lonDelta = routeBounds.lonDelta * spanScale
+
+        // 平滑过渡
+        withAnimation(.linear(duration: 0.05)) {
+            region = MKCoordinateRegion(
+                center: currentCoord,
+                span: MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: lonDelta)
+            )
+        }
+    }
+
+    private func pausePreview() {
+        isPlaying = false
+        timer?.invalidate()
+        timer = nil
+    }
+
+    // 计算两点间距离（米）
+    private func distanceBetween(_ from: CLLocationCoordinate2D, _ to: CLLocationCoordinate2D) -> Double {
+        let R = 6371000.0
+        let lat1 = from.latitude * .pi / 180
+        let lat2 = to.latitude * .pi / 180
+        let deltaLat = (to.latitude - from.latitude) * .pi / 180
+        let deltaLon = (to.longitude - from.longitude) * .pi / 180
+
+        let a = sin(deltaLat/2) * sin(deltaLat/2) +
+                cos(lat1) * cos(lat2) *
+                sin(deltaLon/2) * sin(deltaLon/2)
+        let c = 2 * atan2(sqrt(a), sqrt(1-a))
+
+        return R * c
+    }
+}
+
+// MARK: - 导航地图视图
+struct NavigationMapView: UIViewRepresentable {
+    let region: MKCoordinateRegion
+    let coordinates: [CLLocationCoordinate2D]
+    let currentIndex: Int
+    let isPlaying: Bool
+    let maxElevationIndex: Int?
+    let maxSpeedIndex: Int?
+    let maxElevationValue: Double?  // 最高海拔值
+    let maxSpeedValue: Double?  // 最快速度值
+
+    func makeUIView(context: Context) -> MKMapView {
+        let mapView = MKMapView()
+        mapView.delegate = context.coordinator
+        mapView.mapType = .standard
+        mapView.isZoomEnabled = true
+        mapView.isScrollEnabled = true
+        mapView.isRotateEnabled = true
+        mapView.showsUserLocation = false
+        mapView.showsCompass = true
+        mapView.showsScale = true
+
+        return mapView
+    }
+
+    func updateUIView(_ mapView: MKMapView, context: Context) {
+        // 设置地图区域（全局预览）
+        mapView.setRegion(region, animated: false)
+
+        // 清除旧的覆盖物和注释
+        mapView.removeOverlays(mapView.overlays)
+        mapView.removeAnnotations(mapView.annotations)
+
+        // 绘制完整路线（灰色）
+        if !coordinates.isEmpty {
+            let fullPolyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
+            fullPolyline.title = "full"
+            mapView.addOverlay(fullPolyline)
+        }
+
+        // 绘制已走过的路线（绿色）
+        if currentIndex > 0 {
+            let completedCoords = Array(coordinates[0...currentIndex])
+            let completedPolyline = MKPolyline(coordinates: completedCoords, count: completedCoords.count)
+            completedPolyline.title = "completed"
+            mapView.addOverlay(completedPolyline)
+        }
+
+        // 添加最高海拔标记（经过后一直显示）
+        if let maxElevIdx = maxElevationIndex, maxElevIdx < coordinates.count, 
+           let elevValue = maxElevationValue, currentIndex >= maxElevIdx {
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = coordinates[maxElevIdx]
+            annotation.title = "最高点"
+            annotation.subtitle = "\(Int(elevValue))m"
+            mapView.addAnnotation(annotation)
+        }
+
+        // 添加最快速度标记（经过后一直显示）
+        if let maxSpdIdx = maxSpeedIndex, maxSpdIdx < coordinates.count, 
+           let spdValue = maxSpeedValue, currentIndex >= maxSpdIdx {
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = coordinates[maxSpdIdx]
+            annotation.title = "最快点"
+            annotation.subtitle = "\(String(format: "%.1f", spdValue * 3.6))km/h"
+            mapView.addAnnotation(annotation)
+        }
+
+        // 添加当前位置标记（带方向的小箭头）
+        if currentIndex < coordinates.count {
+            let annotation = DirectionAnnotation()
+            annotation.coordinate = coordinates[currentIndex]
+            annotation.title = "当前位置"
+
+            // 计算方向（朝向下一个点）
+            if currentIndex < coordinates.count - 1 {
+                let nextCoord = coordinates[currentIndex + 1]
+                let direction = bearing(from: coordinates[currentIndex], to: nextCoord)
+                annotation.heading = direction
+            }
+
+            mapView.addAnnotation(annotation)
+        }
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator()
+    }
+
+    // 计算两点间的方位角（度）
+    private func bearing(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D) -> Double {
+        let lat1 = from.latitude * .pi / 180
+        let lon1 = from.longitude * .pi / 180
+        let lat2 = to.latitude * .pi / 180
+        let lon2 = to.longitude * .pi / 180
+
+        let dLon = lon2 - lon1
+
+        let y = sin(dLon) * cos(lat2)
+        let x = cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(dLon)
+
+        let bearing = atan2(y, x) * 180 / .pi
+
+        return (bearing + 360).truncatingRemainder(dividingBy: 360)
+    }
+
+    class Coordinator: NSObject, MKMapViewDelegate {
+        func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+            if let polyline = overlay as? MKPolyline {
+                let renderer = MKPolylineRenderer(polyline: polyline)
+
+                if polyline.title == "completed" {
+                    // 已走过的路线 - 绿色
+                    renderer.strokeColor = UIColor.systemGreen
+                    renderer.lineWidth = 5
+                } else {
+                    // 完整路线 - 灰色
+                    renderer.strokeColor = UIColor.systemGray.withAlphaComponent(0.5)
+                    renderer.lineWidth = 3
+                }
+
+                return renderer
+            }
+            return MKOverlayRenderer(overlay: overlay)
+        }
+
+        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+            // 处理方向标注（当前位置）
+            if let directionAnnotation = annotation as? DirectionAnnotation {
+                let identifier = "DirectionAnnotation"
+
+                var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+
+                if annotationView == nil {
+                    annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                } else {
+                    annotationView?.annotation = annotation
+                }
+
+                // 创建小箭头图像
+                let config = UIImage.SymbolConfiguration(pointSize: 12, weight: .bold)
+                let image = UIImage(systemName: "arrowtriangle.up.fill", withConfiguration: config)?
+                    .withTintColor(.systemOrange, renderingMode: .alwaysOriginal)
+
+                if let heading = directionAnnotation.heading {
+                    annotationView?.image = image?.rotated(byDegrees: heading)
+                } else {
+                    annotationView?.image = image
+                }
+
+                annotationView?.centerOffset = .zero
+                return annotationView
+            }
+
+            // 处理指标标注
+            if let title = annotation.title {
+                let identifier = "MarkerAnnotation"
+                var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView
+
+                if annotationView == nil {
+                    annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                } else {
+                    annotationView?.annotation = annotation
+                }
+
+                if title == "最高点" {
+                    annotationView?.markerTintColor = UIColor.systemRed
+                    annotationView?.glyphImage = UIImage(systemName: "mountain.2.fill")
+                } else if title == "最快点" {
+                    annotationView?.markerTintColor = UIColor.systemBlue
+                    annotationView?.glyphImage = UIImage(systemName: "wind")
+                }
+
+                return annotationView
+            }
+
+            return nil
+        }
+    }
+}
+
+// 带方向的标注
+class DirectionAnnotation: NSObject, MKAnnotation {
+    var coordinate: CLLocationCoordinate2D
+    var title: String?
+    var heading: Double?
+
+    override init() {
+        self.coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+        super.init()
+    }
+}
+
+// 扩展：旋转图像
+extension UIImage {
+    func rotated(byDegrees degrees: CGFloat) -> UIImage? {
+        let radians = degrees * .pi / 180
+
+        var newSize = CGRect(origin: .zero, size: self.size)
+            .applying(CGAffineTransform(rotationAngle: radians))
+            .integral.size
+        newSize.width = floor(newSize.width)
+        newSize.height = floor(newSize.height)
+
+        UIGraphicsBeginImageContextWithOptions(newSize, false, self.scale)
+        let context = UIGraphicsGetCurrentContext()
+
+        context?.translateBy(x: newSize.width / 2, y: newSize.height / 2)
+        context?.rotate(by: radians)
+
+        self.draw(in: CGRect(
+            x: -self.size.width / 2,
+            y: -self.size.height / 2,
+            width: self.size.width,
+            height: self.size.height
+        ))
+
+        let rotatedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return rotatedImage
     }
 }
 
