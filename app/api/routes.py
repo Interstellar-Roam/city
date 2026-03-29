@@ -79,6 +79,17 @@ async def list_routes(
     )
 
 
+@router.get("/search", summary="关键词搜索路线")
+async def search_routes(
+    keyword: str = Query(..., description="搜索关键词"),
+    limit: int = Query(20, ge=1, le=100),
+    service: RouteService = Depends(get_route_service)
+) -> dict[str, Any]:
+    """根据关键词搜索路线"""
+    results = await service.search_by_keyword(keyword, limit)
+    return {"success": True, "total": len(results), "data": results}
+
+
 @router.get("/{route_id}", response_model=RouteDetail, summary="获取路线详情")
 async def get_route(
     route_id: str,
@@ -126,17 +137,6 @@ async def toggle_favorite(
     is_favorited = await service.toggle_favorite(route_id, user_id)
     action = "已收藏" if is_favorited else "已取消收藏"
     return {"success": True, "message": action}
-
-
-@router.get("/search/{keyword}", summary="关键词搜索路线")
-async def search_routes(
-    keyword: str,
-    limit: int = Query(20, ge=1, le=100),
-    service: RouteService = Depends(get_route_service)
-) -> dict[str, Any]:
-    """根据关键词搜索路线"""
-    results = await service.search_by_keyword(keyword, limit)
-    return {"success": True, "total": len(results), "data": results}
 
 
 # === 轨迹点编辑API ===

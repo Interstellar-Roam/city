@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发现 - CityWalk</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        :root {
+            --primary-color: #10B981;
+            --primary-dark: #059669;
+            --accent-color: #34D399;
+        }
+        
+        body {
+            background: #F9FAFB;
+            max-width: 430px;
+            margin: 0 auto;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .category-tag {
+            transition: all 0.3s ease;
+        }
+        
+        .category-tag.active {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+        
+        .route-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .route-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+        }
+        
+        .route-image {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .fab-button {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 0 15px rgba(16, 185, 129, 0);
+            }
+        }
+        
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        .nav-item.active {
+            color: var(--primary-color);
+        }
+        
+        .nav-item.active i {
+            transform: scale(1.1);
+        }
+        
+        .badge {
+            background: var(--primary-color);
+        }
+        
+        .rating-badge {
+            background: var(--primary-color);
+        }
+        
+        .map-view-btn {
+            background: var(--primary-color);
+            transition: all 0.2s ease;
+        }
+        
+        .map-view-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+        
+        .scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="pb-24">
+    <!-- 顶部导航栏 -->
+    <div class="bg-white px-6 py-4 flex items-center justify-between sticky top-0 z-40 shadow-sm">
+        <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition">
+            <i class="fas fa-search text-gray-600"></i>
+        </button>
+        <h1 class="text-xl font-bold text-emerald-600">CityWalk</h1>
+        <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition relative">
+            <i class="fas fa-bell text-gray-600"></i>
+            <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full text-xs text-white flex items-center justify-center">3</span>
+        </button>
+    </div>
+    
+    <!-- 标题区域 -->
+    <div class="px-6 pt-6 pb-4">
+        <p class="text-emerald-600 font-semibold text-sm tracking-wider uppercase mb-1">发现</p>
+        <h2 class="text-2xl font-bold text-gray-900">探索你的下一个城市故事</h2>
+    </div>
+    
+    <!-- 搜索框 -->
+    <div class="px-6 mb-6">
+        <div class="relative">
+            <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            <input 
+                type="text" 
+                placeholder="搜索社区或路线..." 
+                class="w-full bg-white rounded-2xl py-3.5 pl-12 pr-4 text-gray-700 placeholder-gray-400 shadow-sm border border-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition"
+                id="searchInput"
+            >
+        </div>
+    </div>
+    
+    <!-- 分类筛选标签 -->
+    <div class="px-6 mb-6">
+        <div class="flex gap-3 overflow-x-auto scroll-container pb-2" id="categoryTags">
+            <button class="category-tag active px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap bg-emerald-500 text-white shadow-lg" data-category="all">
+                全部
+            </button>
+            <button class="category-tag px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap bg-white text-gray-700 border border-gray-200" data-category="parks">
+                公园
+            </button>
+            <button class="category-tag px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap bg-white text-gray-700 border border-gray-200" data-category="architecture">
+                建筑
+            </button>
+            <button class="category-tag px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap bg-white text-gray-700 border border-gray-200" data-category="cafes">
+                咖啡
+            </button>
+            <button class="category-tag px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap bg-white text-gray-700 border border-gray-200" data-category="art">
+                艺术
+            </button>
+            <button class="category-tag px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap bg-white text-gray-700 border border-gray-200" data-category="history">
+                历史
+            </button>
+        </div>
+    </div>
+    
+    <!-- 精选路线区域 -->
+    <div class="px-6 mb-6">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-bold text-gray-900">精选路线</h3>
+            <button class="text-emerald-600 text-sm font-medium flex items-center gap-1 hover:text-emerald-700 transition">
+                查看全部 <i class="fas fa-arrow-right text-xs"></i>
+            </button>
+        </div>
+        
+        <!-- 路线卡片列表 -->
+        <div class="space-y-4" id="routeList">
+            <!-- 路线卡片将通过 JS 动态生成 -->
+        </div>
+        
+        <!-- 加载状态 -->
+        <div class="text-center py-8" id="loadingState">
+            <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500"></div>
+            <p class="text-gray-500 mt-2 text-sm">加载中...</p>
+        </div>
+        
+        <!-- 空状态 -->
+        <div class="text-center py-12 hidden" id="emptyState">
+            <i class="fas fa-map-marked-alt text-6xl text-gray-300 mb-4"></i>
+            <p class="text-gray-500">暂无路线数据</p>
+            <button class="mt-4 px-6 py-2 bg-emerald-500 text-white rounded-full font-medium hover:bg-emerald-600 transition" onclick="loadRoutes()">
+                刷新
+            </button>
+        </div>
+    </div>
+    
+    <!-- 浮动操作按钮 -->
+    <button class="fab-button fixed bottom-24 right-6 w-14 h-14 bg-emerald-500 rounded-full shadow-xl flex items-center justify-center text-white text-xl z-50 hover:bg-emerald-600 transition">
+        <i class="fas fa-plus"></i>
+    </button>
+    
+    <!-- 底部导航栏 -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-6 py-3 flex justify-around items-center z-40" style="max-width: 430px; margin: 0 auto;">
+        <button class="nav-item active flex flex-col items-center gap-1 text-emerald-600">
+            <i class="fas fa-compass text-xl"></i>
+            <span class="text-xs font-medium">发现</span>
+        </button>
+        <button class="nav-item flex flex-col items-center gap-1 text-gray-400 hover:text-emerald-600 transition">
+            <i class="fas fa-map text-xl"></i>
+            <span class="text-xs font-medium">地图</span>
+        </button>
+        <button class="nav-item flex flex-col items-center gap-1 text-gray-400 hover:text-emerald-600 transition">
+            <i class="fas fa-heart text-xl"></i>
+            <span class="text-xs font-medium">收藏</span>
+        </button>
+        <button class="nav-item flex flex-col items-center gap-1 text-gray-400 hover:text-emerald-600 transition">
+            <i class="fas fa-user text-xl"></i>
+            <span class="text-xs font-medium">我的</span>
+        </button>
+    </div>
+
+    <script>
+        // 全局状态
+        const API_BASE = '/api/v1';
+        let currentCategory = 'all';
+        let allRoutes = [];
+        
+        // 示例图片列表
+        const exampleImages = [
+            'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
+            'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800',
+            'https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=800',
+            'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800',
+            'https://images.unsplash.com/photo-1514924013432-5c4c8e0a8a8d?w=800'
+        ];
+        
+        // 加载路线列表
+        async function loadRoutes() {
+            try {
+                document.getElementById('loadingState').classList.remove('hidden');
+                document.getElementById('emptyState').classList.add('hidden');
+                
+                const res = await fetch(`${API_BASE}/routes?page=1&page_size=20`);
+                const data = await res.json();
+                
+                allRoutes = data.items || [];
+                
+                document.getElementById('loadingState').classList.add('hidden');
+                
+                if (allRoutes.length === 0) {
+                    document.getElementById('emptyState').classList.remove('hidden');
+                } else {
+                    renderRoutes(allRoutes);
+                }
+            } catch (error) {
+                console.error('加载路线失败:', error);
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('emptyState').classList.remove('hidden');
+            }
+        }
+        
+        // 渲染路线卡片
+        function renderRoutes(routes) {
+            const container = document.getElementById('routeList');
+            container.innerHTML = routes.map((route, index) => createRouteCard(route, index)).join('');
+        }
+        
+        // 创建路线卡片
+        function createRouteCard(route, index) {
+            const distance = (route.distance / 1000).toFixed(1);
+            const duration = route.estimated_duration || 60;
+            const rating = (4.5 + Math.random() * 0.5).toFixed(1);
+            const image = exampleImages[index % exampleImages.length];
+            const badge = index === 0 ? 'TOP RATED' : index === 1 ? 'EDITOR\'S CHOICE' : null;
+            const badgeClass = index === 0 ? 'badge' : 'bg-purple-500';
+            
+            return `
+                <div class="route-card bg-white rounded-2xl overflow-hidden shadow-md cursor-pointer" onclick="viewRoute('${route._id}')">
+                    <div class="relative">
+                        <img src="${image}" alt="${route.name}" class="w-full h-48 object-cover">
+                        
+                        <!-- 评分徽章 -->
+                        <div class="rating-badge absolute top-3 right-3 px-3 py-1 rounded-full text-white font-semibold text-sm flex items-center gap-1">
+                            <i class="fas fa-star text-xs"></i>
+                            ${rating}
+                        </div>
+                        
+                        <!-- 标签徽章 -->
+                        ${badge ? `
+                        <div class="${badgeClass} absolute bottom-3 left-3 px-3 py-1 rounded-full text-white text-xs font-semibold">
+                            ${badge}
+                        </div>
+                        ` : ''}
+                    </div>
+                    
+                    <div class="p-4">
+                        <h4 class="font-bold text-gray-900 mb-2">${route.name}</h4>
+                        
+                        <div class="flex items-center gap-1 text-gray-500 text-sm mb-3">
+                            <i class="fas fa-map-marker-alt text-emerald-500"></i>
+                            <span>${route.city || '深圳'} · ${route.district || '南山'}</span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4 text-sm text-gray-600">
+                                <span class="flex items-center gap-1">
+                                    <i class="fas fa-route text-emerald-500"></i>
+                                    ${distance} km
+                                </span>
+                                <span class="flex items-center gap-1">
+                                    <i class="fas fa-clock text-emerald-500"></i>
+                                    ${duration} 分钟
+                                </span>
+                            </div>
+                            
+                            <button class="map-view-btn px-4 py-2 rounded-full text-white text-sm font-medium">
+                                地图查看
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // 分类筛选
+        document.getElementById('categoryTags').addEventListener('click', (e) => {
+            const tag = e.target.closest('.category-tag');
+            if (!tag) return;
+            
+            // 更新选中状态
+            document.querySelectorAll('.category-tag').forEach(t => {
+                t.classList.remove('active');
+                t.classList.remove('bg-emerald-500', 'text-white', 'shadow-lg');
+                t.classList.add('bg-white', 'text-gray-700');
+            });
+            tag.classList.add('active');
+            tag.classList.remove('bg-white', 'text-gray-700');
+            tag.classList.add('bg-emerald-500', 'text-white', 'shadow-lg');
+            
+            currentCategory = tag.dataset.category;
+            
+            // 筛选路线（前端模拟，实际应该调用API）
+            if (currentCategory === 'all') {
+                renderRoutes(allRoutes);
+            } else {
+                // 这里可以根据标签进行筛选
+                renderRoutes(allRoutes);
+            }
+        });
+        
+        // 搜索功能
+        let searchTimeout;
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            const query = e.target.value.trim();
+            
+            searchTimeout = setTimeout(() => {
+                if (query) {
+                    const filtered = allRoutes.filter(r => 
+                        r.name.includes(query) || 
+                        (r.city && r.city.includes(query)) ||
+                        (r.tags && r.tags.some(t => t.includes(query)))
+                    );
+                    renderRoutes(filtered);
+                } else {
+                    renderRoutes(allRoutes);
+                }
+            }, 300);
+        });
+        
+        // 查看路线详情
+        function viewRoute(routeId) {
+            window.location.href = `/editor.html?id=${routeId}`;
+        }
+        
+        // 初始化加载
+        loadRoutes();
+    </script>
+</body>
+</html>

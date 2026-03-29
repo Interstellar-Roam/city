@@ -1,0 +1,381 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		08632D87F1F65560C11C3793 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB163F2E874BD476AA718235 /* Route.swift */; };
+		22A4F02314ADCCD9950FC33D /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D861E65EB4B5CCABAC5171 /* APIService.swift */; };
+		2E83C89FF341D12751201476 /* CityWalkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2771F50633809434FF248F28 /* CityWalkApp.swift */; };
+		3B526D8530B54A35C82E19F4 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDF5CBE8CB3B1F5943B4AA4 /* ExploreView.swift */; };
+		6C1501883E51A9B88CEA38E7 /* ExploreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8EA0D6D8F96B49F7576838 /* ExploreViewModel.swift */; };
+		8F7423A87B7C6A2D312B6893 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86FFCC8459DC13603BE77776 /* Assets.xcassets */; };
+		AD54B852756A233DD9A5B011 /* CoordinateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDF992238B1D1ACA48E8659 /* CoordinateConverter.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2771F50633809434FF248F28 /* CityWalkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityWalkApp.swift; sourceTree = "<group>"; };
+		2E8EA0D6D8F96B49F7576838 /* ExploreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewModel.swift; sourceTree = "<group>"; };
+		336BD40B99B0E7AB523DF7A0 /* CityWalk.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = CityWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5EDF5CBE8CB3B1F5943B4AA4 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
+		6FDF992238B1D1ACA48E8659 /* CoordinateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateConverter.swift; sourceTree = "<group>"; };
+		86FFCC8459DC13603BE77776 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A5260720EDD69CD77796C0FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		E9D861E65EB4B5CCABAC5171 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		FB163F2E874BD476AA718235 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0070BF4693F7FF72298CAA0B /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				2E8EA0D6D8F96B49F7576838 /* ExploreViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		16EA0BC0570F90D9C67D5FFE /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				6FDF992238B1D1ACA48E8659 /* CoordinateConverter.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		1A65E7A6F076A060A9B32B4B /* CityWalk */ = {
+			isa = PBXGroup;
+			children = (
+				2771F50633809434FF248F28 /* CityWalkApp.swift */,
+				A5260720EDD69CD77796C0FC /* Info.plist */,
+				36B76B5F6402E9D194AE78B8 /* Models */,
+				AF15139F2CDA448125449AA4 /* Resources */,
+				79735117CB7A7CA61716AD83 /* Services */,
+				16EA0BC0570F90D9C67D5FFE /* Utils */,
+				0070BF4693F7FF72298CAA0B /* ViewModels */,
+				29D09854FCCA76FDF78AE7A0 /* Views */,
+			);
+			path = CityWalk;
+			sourceTree = "<group>";
+		};
+		29D09854FCCA76FDF78AE7A0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5EDF5CBE8CB3B1F5943B4AA4 /* ExploreView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		36B76B5F6402E9D194AE78B8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FB163F2E874BD476AA718235 /* Route.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		672E7A7B3AE20B56D9841C04 = {
+			isa = PBXGroup;
+			children = (
+				1A65E7A6F076A060A9B32B4B /* CityWalk */,
+				92926FB9CE7721C73254535C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		79735117CB7A7CA61716AD83 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E9D861E65EB4B5CCABAC5171 /* APIService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		92926FB9CE7721C73254535C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				336BD40B99B0E7AB523DF7A0 /* CityWalk.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AF15139F2CDA448125449AA4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				86FFCC8459DC13603BE77776 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		960D8AFFA1A2CF9E59004839 /* CityWalk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B4564856946F20D8DCCB6EED /* Build configuration list for PBXNativeTarget "CityWalk" */;
+			buildPhases = (
+				A0D2D5E227427E5E79E18F3B /* Sources */,
+				1998188312C4E0892FBB0A82 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CityWalk;
+			packageProductDependencies = (
+			);
+			productName = CityWalk;
+			productReference = 336BD40B99B0E7AB523DF7A0 /* CityWalk.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DE66A5B56B134EE57A3282CB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					960D8AFFA1A2CF9E59004839 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 94EB0CE7C0D10EAA275CC0ED /* Build configuration list for PBXProject "CityWalk" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 672E7A7B3AE20B56D9841C04;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 92926FB9CE7721C73254535C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				960D8AFFA1A2CF9E59004839 /* CityWalk */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1998188312C4E0892FBB0A82 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F7423A87B7C6A2D312B6893 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A0D2D5E227427E5E79E18F3B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22A4F02314ADCCD9950FC33D /* APIService.swift in Sources */,
+				2E83C89FF341D12751201476 /* CityWalkApp.swift in Sources */,
+				AD54B852756A233DD9A5B011 /* CoordinateConverter.swift in Sources */,
+				3B526D8530B54A35C82E19F4 /* ExploreView.swift in Sources */,
+				6C1501883E51A9B88CEA38E7 /* ExploreViewModel.swift in Sources */,
+				08632D87F1F65560C11C3793 /* Route.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0A573C100FA8568F8FC21E94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = CityWalk/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.citywalk.app;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		32DC6475BCFEFE4E3FD0157E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_LANGUAGE = en;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = CityWalk;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.5;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		9D71089C7DA6A67B3ED26F5C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = CityWalk/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.citywalk.app;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D4BFD3159246611145CC88B2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_LANGUAGE = en;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = CityWalk;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.5;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		94EB0CE7C0D10EAA275CC0ED /* Build configuration list for PBXProject "CityWalk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4BFD3159246611145CC88B2 /* Debug */,
+				32DC6475BCFEFE4E3FD0157E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B4564856946F20D8DCCB6EED /* Build configuration list for PBXNativeTarget "CityWalk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A573C100FA8568F8FC21E94 /* Debug */,
+				9D71089C7DA6A67B3ED26F5C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DE66A5B56B134EE57A3282CB /* Project object */;
+}
