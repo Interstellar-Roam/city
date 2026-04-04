@@ -13,8 +13,17 @@ class APIService {
     private init() {}
     
     // MARK: - 获取路线列表
-    func fetchRoutes() async throws -> [Route] {
-        let url = URL(string: "\(baseURL)/routes")!
+    func fetchRoutes(tags: [String]? = nil) async throws -> [Route] {
+        var urlComponents = URLComponents(string: "\(baseURL)/routes")!
+        
+        // 添加标签参数
+        if let tags = tags, !tags.isEmpty {
+            urlComponents.queryItems = [
+                URLQueryItem(name: "tags", value: tags.joined(separator: ","))
+            ]
+        }
+        
+        let url = urlComponents.url!
         
         do {
             let (data, response) = try await URLSession.shared.data(from: url)

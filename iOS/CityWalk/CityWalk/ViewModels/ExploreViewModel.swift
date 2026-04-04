@@ -10,8 +10,8 @@ class ExploreViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
     
-    // 分类标签
-    let categories = ["推荐", "徒步", "骑行", "跑步", "风景", "城市", "公园", "海边"]
+    // 分类标签（与数据库标签对应）
+    let categories = ["推荐", "徒步", "跑步", "骑行", "公园", "海边", "越野跑"]
     
     // MARK: - 服务
     private let apiService = APIService.shared
@@ -99,16 +99,19 @@ class ExploreViewModel: ObservableObject {
     func selectCategory(_ category: String) {
         selectedCategory = category
         
-        // 根据分类筛选（这里用标签匹配）
-        if category == "推荐" {
-            Task {
-                await loadRoutes()
-            }
-        } else {
-            routes = routes.filter { route in
-                route.tags?.contains { tag in
-                    tag.localizedCaseInsensitiveContains(category)
-                } ?? false
+        Task {
+            isLoading = true
+            defer { isLoading = false }
+            
+            do {
+                if category == "推荐" {
+                    routes = try await apiService.fetchRoutes()
+                } else {
+                    // 从后端按标签筛选
+                    routes = try await apiService.fetchRoutes(tags: [category])
+                }
+            } catch {
+                errorMessage = "加载失败: \(error.localizedDescription)"
             }
         }
     }

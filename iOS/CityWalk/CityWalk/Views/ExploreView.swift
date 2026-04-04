@@ -1190,7 +1190,7 @@ struct NavigationView: View {
         }
 
         // 每0.05秒更新一次
-        timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.066, repeats: true) { _ in
             // 如果在特殊点位暂停，跳过此次更新
             if isPausedAtSpecialPoint {
                 return
@@ -1293,7 +1293,7 @@ struct NavigationView: View {
         let lonDelta = routeBounds.lonDelta * spanScale
 
         // 平滑过渡
-        withAnimation(.linear(duration: 0.05)) {
+        withAnimation(.linear(duration: 0.066)) {
             region = MKCoordinateRegion(
                 center: currentCoord,
                 span: MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: lonDelta)
