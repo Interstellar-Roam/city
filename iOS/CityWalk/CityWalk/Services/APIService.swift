@@ -8,7 +8,7 @@ class APIService {
     static let shared = APIService()
     
     // 基础 URL（开发环境）
-    private let baseURL = "http://localhost:8080/api/v1"
+    private let baseURL = "http://localhost:8000/api/v1"
     
     private init() {}
     
@@ -242,6 +242,7 @@ struct AIStreamEvent: Codable {
         case "text": return .text
         case "tool_call": return .toolCall
         case "tool_result": return .toolResult
+        case "route_recommendations": return .routeRecommendations
         case "done": return .done
         case "error": return .error
         case "user_context": return .userContext
@@ -253,6 +254,7 @@ struct AIStreamEvent: Codable {
         case text
         case toolCall
         case toolResult
+        case routeRecommendations
         case done
         case error
         case userContext

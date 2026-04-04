@@ -1599,22 +1599,42 @@ struct AIChatView: View {
 
                 // 输入栏
                 HStack(spacing: 12) {
-                    TextField("输入消息...", text: $inputText)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .onSubmit {
-                            sendMessage()
+                    // 输入框
+                    HStack(spacing: 8) {
+                        TextField("问问 AI 助手...", text: $inputText)
+                            .textFieldStyle(.plain)
+                            .onSubmit {
+                                sendMessage()
+                            }
+                        
+                        if !inputText.isEmpty {
+                            Button {
+                                inputText = ""
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundColor(.gray)
+                                    .font(.system(size: 16))
+                            }
                         }
-
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 10)
+                    .background(Color(.systemGray6))
+                    .cornerRadius(20)
+                    
+                    // 发送按钮
                     Button {
                         sendMessage()
                     } label: {
                         Image(systemName: "arrow.up.circle.fill")
-                            .font(.system(size: 32))
-                            .foregroundColor(.blue)
+                            .font(.system(size: 36))
+                            .foregroundColor(inputText.isEmpty ? .gray.opacity(0.3) : .blue)
                     }
                     .disabled(inputText.isEmpty)
                 }
-                .padding()
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+                .background(Color(.systemBackground))
             }
             .navigationTitle("AI助手")
             .navigationBarTitleDisplayMode(.inline)
@@ -1691,23 +1711,18 @@ struct AIChatView: View {
                 updatedMessage.content += content
             }
         case .toolResult:
-            // 只有 search_routes 工具的结果才处理路线数据
+            // tool_result 是中间结果，不再直接用于显示
             NSLog("📥 收到 tool_result: name=%@, routes数量=%d", event.name ?? "nil", event.routes?.count ?? -1)
-            
-            if event.name == "search_routes" {
-                if let routes = event.routes, !routes.isEmpty {
-                    NSLog("🎯 设置路线推荐: %d 条 (替换之前的 %d 条)", routes.count, updatedMessage.recommendedRoutes.count)
-                    for (idx, route) in routes.enumerated() {
-                        NSLog("  路线[%d]: %@ (id=%@)", idx, route.name, route.id)
-                    }
-                    // 完全替换，不累积
-                    updatedMessage.recommendedRoutes = routes
-                } else {
-                    NSLog("⚠️ search_routes 返回空结果，清空之前的 %d 条", updatedMessage.recommendedRoutes.count)
-                    updatedMessage.recommendedRoutes = []
+        case .routeRecommendations:
+            // 最终推荐的路线数据
+            if let routes = event.routes, !routes.isEmpty {
+                NSLog("🎯 收到最终推荐路线: %d 条", routes.count)
+                for (idx, route) in routes.enumerated() {
+                    NSLog("  路线[%d]: %@ (id=%@)", idx, route.name, route.id)
                 }
+                updatedMessage.recommendedRoutes = routes
             } else {
-                NSLog("📍 忽略非搜索工具结果: %@", event.name ?? "nil")
+                NSLog("⚠️ route_recommendations 返回空结果")
             }
         case .done:
             NSLog("🎯 handleEvent: 收到 done 事件")
@@ -1716,14 +1731,6 @@ struct AIChatView: View {
             if let sessionId = event.sessionId {
                 currentSessionId = sessionId
                 NSLog("📝 保存会话 ID: %@", sessionId)
-            }
-            
-            // 按 AI 文本顺序重新排列路线
-            if !updatedMessage.recommendedRoutes.isEmpty {
-                updatedMessage.recommendedRoutes = reorderRoutesByText(
-                    routes: updatedMessage.recommendedRoutes,
-                    text: updatedMessage.content
-                )
             }
         case .error:
             if let errorMessage = event.message {
@@ -1747,24 +1754,44 @@ struct AIChatView: View {
 
     /// 按 AI 文本中提到的顺序重新排列路线
     private func reorderRoutesByText(routes: [AIRouteRecommend], text: String) -> [AIRouteRecommend] {
-        // 从 AI 文本中提取路线名称（格式：### 1️⃣ **路线名称** 或 **路线名称**）
-        let pattern = #"\*\*([^*]+)\*\*"#
-        guard let regex = try? NSRegularExpression(pattern: pattern) else {
-            NSLog("⚠️ 无法创建正则表达式")
-            return routes
-        }
-
-        let range = NSRange(text.startIndex..., in: text)
-        let matches = regex.matches(in: text, range: range)
-
-        // 提取名称并保持顺序（去重）
+        // 从 AI 文本中提取路线名称
+        // 格式1: ## 1️⃣ 路线名称 🦆 或 ## 1️⃣ 路线名称
+        // 格式2: **路线名称**
+        
         var orderedNames: [String] = []
-        for match in matches {
-            if let nameRange = Range(match.range(at: 1), in: text) {
-                let name = String(text[nameRange]).trimmingCharacters(in: .whitespaces)
-                // 只保留看起来像路线名称的（排除数字、特殊字符开头的）
-                if name.count > 2 && !name.contains("公里") && !name.contains("米") && !name.contains("小时") && !name.contains("分钟") && !name.hasPrefix("距离") && !name.hasPrefix("爬升") && !name.hasPrefix("预计") && !name.hasPrefix("标签") && !name.hasPrefix("难度") && !name.hasPrefix("起点") && !name.hasPrefix("终点") && !name.hasPrefix("简单") && !name.hasPrefix("中等") && !name.hasPrefix("困难") {
-                    if !orderedNames.contains(name) {
+        
+        // 方法1: 提取 ## 或 ### 数字️⃣ 后面的路线名称
+        let headingPattern = #"#{2,3}\s*[\d]+️⃣\s*([^\n⭐🦆🚶🏔️🌊]+)"#
+        if let regex = try? NSRegularExpression(pattern: headingPattern) {
+            let range = NSRange(text.startIndex..., in: text)
+            let matches = regex.matches(in: text, range: range)
+            for match in matches {
+                if let nameRange = Range(match.range(at: 1), in: text) {
+                    let name = String(text[nameRange]).trimmingCharacters(in: .whitespaces)
+                    if !name.isEmpty && !orderedNames.contains(name) {
+                        orderedNames.append(name)
+                    }
+                }
+            }
+        }
+        
+        // 方法2: 提取 **路线名称** 格式（作为补充）
+        let boldPattern = #"\*\*([^*]+)\*\*"#
+        if let regex = try? NSRegularExpression(pattern: boldPattern) {
+            let range = NSRange(text.startIndex..., in: text)
+            let matches = regex.matches(in: text, range: range)
+            for match in matches {
+                if let nameRange = Range(match.range(at: 1), in: text) {
+                    let name = String(text[nameRange]).trimmingCharacters(in: .whitespaces)
+                    // 过滤掉非路线名称
+                    if name.count > 2 && !name.contains("公里") && !name.contains("米") && 
+                       !name.contains("小时") && !name.contains("分钟") &&
+                       !name.hasPrefix("距离") && !name.hasPrefix("爬升") && 
+                       !name.hasPrefix("预计") && !name.hasPrefix("标签") &&
+                       !name.hasPrefix("难度") && !name.hasPrefix("起点") &&
+                       !name.hasPrefix("终点") && !name.hasPrefix("简单") &&
+                       !name.hasPrefix("中等") && !name.hasPrefix("困难") &&
+                       !orderedNames.contains(name) {
                         orderedNames.append(name)
                     }
                 }
@@ -1780,20 +1807,66 @@ struct AIChatView: View {
         for name in orderedNames {
             // 尝试匹配路线名称（模糊匹配）
             if let idx = remaining.firstIndex(where: { route in
-                // 名称包含关系或相似
-                name.contains(route.name) || route.name.contains(name) ||
-                name.lowercased().contains(route.name.lowercased()) ||
-                route.name.lowercased().contains(name.lowercased())
+                let routeName = route.name.lowercased()
+                let searchName = name.lowercased()
+                
+                // 直接包含
+                if routeName.contains(searchName) || searchName.contains(routeName) {
+                    return true
+                }
+                
+                // 提取关键词匹配
+                let keywords = extractChineseKeywords(from: searchName)
+                for keyword in keywords {
+                    if routeName.contains(keyword) {
+                        return true
+                    }
+                }
+                
+                return false
             }) {
                 reordered.append(remaining.remove(at: idx))
             }
         }
 
-        // 添加未匹配的路线
-        reordered.append(contentsOf: remaining)
-
-        NSLog("📝 重新排序后的路线: %@", reordered.map { $0.name }.joined(separator: ", "))
-        return reordered
+        // 如果有匹配到的路线，只显示匹配的；否则显示所有路线
+        if reordered.isEmpty {
+            NSLog("📝 未匹配到路线，显示所有 %d 条路线", routes.count)
+            return routes
+        } else {
+            NSLog("📝 匹配到 %d 条路线: %@", reordered.count, reordered.map { $0.name }.joined(separator: ", "))
+            return reordered
+        }
+    }
+    
+    /// 提取中文关键词
+    private func extractChineseKeywords(from text: String) -> [String] {
+        var keywords: [String] = []
+        
+        // 常见地点关键词
+        let locationPatterns = ["福田", "后海", "深圳湾", "塘朗", "石岩湖", "人才公园", "高新园", "坪洲"]
+        for pattern in locationPatterns {
+            if text.contains(pattern.lowercased()) {
+                keywords.append(pattern.lowercased())
+            }
+        }
+        
+        // 提取2-4个连续中文字符作为关键词
+        let chinesePattern = "[\\u4e00-\\u9fa5]{2,4}"
+        if let regex = try? NSRegularExpression(pattern: chinesePattern) {
+            let range = NSRange(text.startIndex..., in: text)
+            let matches = regex.matches(in: text, range: range)
+            for match in matches {
+                if let keywordRange = Range(match.range(at: 0), in: text) {
+                    let keyword = String(text[keywordRange])
+                    if !keywords.contains(keyword) {
+                        keywords.append(keyword)
+                    }
+                }
+            }
+        }
+        
+        return keywords
     }
 }
 
@@ -1803,7 +1876,7 @@ struct MessageBubble: View {
     var onRouteTap: ((AIRouteRecommend) -> Void)? = nil
     
     var body: some View {
-        HStack {
+        HStack(alignment: .top, spacing: 8) {
             if message.isUser {
                 Spacer()
                 Text(message.content)
@@ -1812,13 +1885,21 @@ struct MessageBubble: View {
                     .foregroundColor(.white)
                     .cornerRadius(16)
             } else {
+                // AI 头像
+                Image(systemName: "sparkles")
+                    .font(.system(size: 20))
+                    .foregroundColor(.white)
+                    .frame(width: 32, height: 32)
+                    .background(
+                        LinearGradient(
+                            colors: [Color.purple, Color.blue],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                    .cornerRadius(16)
+                
                 VStack(alignment: .leading, spacing: 8) {
-                    // 调试信息
-                    Text("DEBUG: isStreaming=\(message.isStreaming), count=\(message.content.count), routes=\(message.recommendedRoutes.count)")
-                        .font(.caption2)
-                        .foregroundColor(.red)
-                        .padding(.horizontal, 4)
-                    
                     if message.isStreaming {
                         // 流式传输时显示原始文本
                         Text(message.content)
@@ -1829,7 +1910,7 @@ struct MessageBubble: View {
                         HStack(spacing: 4) {
                             ProgressView()
                                 .scaleEffect(0.7)
-                            Text("生成中...")
+                            Text("思考中...")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                         }
@@ -1845,12 +1926,6 @@ struct MessageBubble: View {
                         // 显示推荐路线卡片
                         if !message.recommendedRoutes.isEmpty {
                             VStack(alignment: .leading, spacing: 8) {
-                                Text("推荐路线")
-                                    .font(.caption)
-                                    .fontWeight(.semibold)
-                                    .foregroundColor(.secondary)
-                                    .padding(.horizontal, 4)
-                                
                                 ForEach(message.recommendedRoutes) { route in
                                     RouteRecommendCard(route: route) {
                                         onRouteTap?(route)
