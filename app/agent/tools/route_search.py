@@ -93,18 +93,21 @@ class RouteSearchTool(BaseTool):
             # 格式化结果
             formatted_results = []
             for route in results:
+                # 跳过没有 id 或 name 的路线
+                if not route.get("_id") or not route.get("name"):
+                    continue
                 formatted_results.append({
-                    "id": route["_id"],
+                    "id": str(route["_id"]),
                     "name": route["name"],
-                    "description": route.get("description", "")[:100],
-                    "distance": route.get("distance", 0),
-                    "elevation_gain": route.get("elevation_gain", 0),
-                    "estimated_duration": route.get("estimated_duration", 0),
+                    "description": route.get("description", "")[:100] if route.get("description") else "",
+                    "distance": route.get("distance", 0) or 0,
+                    "elevation_gain": route.get("elevation_gain", 0) or 0,
+                    "estimated_duration": route.get("estimated_duration", 0) or 0,
                     "city": route.get("city"),
                     "difficulty": route.get("difficulty"),
-                    "favorites_count": route.get("favorites_count", 0),
+                    "favorites_count": route.get("favorites_count", 0) or 0,
                     "preview_image": route.get("preview_image"),
-                    "tags": route.get("tags", [])
+                    "tags": route.get("tags", []) or []
                 })
 
             logger.info(f"路线搜索完成: 查询'{query}', 找到{len(formatted_results)}条结果")
