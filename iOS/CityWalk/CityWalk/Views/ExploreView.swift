@@ -9,6 +9,7 @@ struct ExploreView: View {
     @State private var showAIChat = false
     @State private var aiMessages: [AIChatMessage] = []
     @State private var aiInputText = ""
+    @State private var currentSessionId: String?  // 当前会话 ID
     
     var body: some View {
         NavigationStack {
@@ -56,12 +57,16 @@ struct ExploreView: View {
             .sheet(isPresented: $showAIChat) {
                 AIChatView(
                     messages: $aiMessages,
-                    inputText: $aiInputText
+                    inputText: $aiInputText,
+                    currentSessionId: $currentSessionId
                 )
             }
         }
         .task {
-            await viewModel.loadRoutes()
+            // 只在首次加载时调用
+            if viewModel.routes.isEmpty {
+                await viewModel.loadRoutes()
+            }
         }
         .onChange(of: searchText) { newValue in
             Task {
@@ -1550,15 +1555,19 @@ struct AIChatMessage: Identifiable {
     let isUser: Bool
     let timestamp = Date()
     var isStreaming = false
+    var recommendedRoutes: [AIRouteRecommend] = []  // 推荐路线列表
 }
 
 // MARK: - AI聊天视图
 struct AIChatView: View {
     @Binding var messages: [AIChatMessage]
     @Binding var inputText: String
+    @Binding var currentSessionId: String?  // 当前会话ID
     @Environment(\.dismiss) var dismiss
     @State private var refreshTrigger = 0  // 用于强制刷新视图
-    
+    @State private var showRouteDetail = false
+    @State private var selectedRouteId: String?  // 选中的路线ID
+
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
@@ -1567,8 +1576,12 @@ struct AIChatView: View {
                     ScrollView {
                         LazyVStack(spacing: 12) {
                             ForEach(messages) { message in
-                                MessageBubble(message: message)
-                                    .id("\(message.id.uuidString)-\(refreshTrigger)")
+                                MessageBubble(message: message) { route in
+                                    // 点击路线卡片，设置导航
+                                    selectedRouteId = route.id
+                                    showRouteDetail = true
+                                }
+                                .id("\(message.id.uuidString)-\(refreshTrigger)")
                             }
                         }
                         .padding()
@@ -1581,9 +1594,9 @@ struct AIChatView: View {
                         }
                     }
                 }
-                
+
                 Divider()
-                
+
                 // 输入栏
                 HStack(spacing: 12) {
                     TextField("输入消息...", text: $inputText)
@@ -1591,7 +1604,7 @@ struct AIChatView: View {
                         .onSubmit {
                             sendMessage()
                         }
-                    
+
                     Button {
                         sendMessage()
                     } label: {
@@ -1607,10 +1620,10 @@ struct AIChatView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("测试") {
-                        // 自动发送测试消息
-                        inputText = "深圳"
-                        sendMessage()
+                    Button("新会话") {
+                        // 清空当前会话
+                        messages = []
+                        currentSessionId = nil
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
@@ -1619,25 +1632,38 @@ struct AIChatView: View {
                     }
                 }
             }
+            .navigationDestination(for: Route.self) { route in
+                RouteDetailView(route: route)
+            }
+            // 使用 sheet 显示路线详情
+            .sheet(isPresented: $showRouteDetail) {
+                if let routeId = selectedRouteId {
+                    RouteDetailSheet(routeId: routeId)
+                }
+            }
         }
     }
-    
+
     private func sendMessage() {
         guard !inputText.trimmingCharacters(in: .whitespaces).isEmpty else { return }
-        
+
         let userMessage = AIChatMessage(content: inputText, isUser: true)
         messages.append(userMessage)
-        
+
         let aiMessage = AIChatMessage(content: "", isUser: false, isStreaming: true)
         let aiMessageId = aiMessage.id
         messages.append(aiMessage)
         
         let query = inputText
         inputText = ""
-        
+
         Task { @MainActor in
             do {
-                try await APIService.shared.streamSearch(query: query) { event in
+                try await APIService.shared.streamSearch(
+                    query: query,
+                    userId: "ios_user",
+                    sessionId: currentSessionId
+                ) { event in
                     Task { @MainActor in
                         handleEvent(event, messageId: aiMessageId)
                     }
@@ -1650,24 +1676,55 @@ struct AIChatView: View {
             }
         }
     }
-    
+
     private func handleEvent(_ event: AIStreamEvent, messageId: UUID) {
         guard let index = messages.firstIndex(where: { $0.id == messageId }) else {
             return
         }
-        
+
         // 创建消息的副本
         var updatedMessage = messages[index]
-        
+
         switch event.eventType {
         case .text:
             if let content = event.content {
                 updatedMessage.content += content
             }
+        case .toolResult:
+            // 只有 search_routes 工具的结果才处理路线数据
+            NSLog("📥 收到 tool_result: name=%@, routes数量=%d", event.name ?? "nil", event.routes?.count ?? -1)
+            
+            if event.name == "search_routes" {
+                if let routes = event.routes, !routes.isEmpty {
+                    NSLog("🎯 设置路线推荐: %d 条 (替换之前的 %d 条)", routes.count, updatedMessage.recommendedRoutes.count)
+                    for (idx, route) in routes.enumerated() {
+                        NSLog("  路线[%d]: %@ (id=%@)", idx, route.name, route.id)
+                    }
+                    // 完全替换，不累积
+                    updatedMessage.recommendedRoutes = routes
+                } else {
+                    NSLog("⚠️ search_routes 返回空结果，清空之前的 %d 条", updatedMessage.recommendedRoutes.count)
+                    updatedMessage.recommendedRoutes = []
+                }
+            } else {
+                NSLog("📍 忽略非搜索工具结果: %@", event.name ?? "nil")
+            }
         case .done:
             NSLog("🎯 handleEvent: 收到 done 事件")
             updatedMessage.isStreaming = false
-            NSLog("🎯 handleEvent: isStreaming = %d", updatedMessage.isStreaming)
+            // 保存会话 ID
+            if let sessionId = event.sessionId {
+                currentSessionId = sessionId
+                NSLog("📝 保存会话 ID: %@", sessionId)
+            }
+            
+            // 按 AI 文本顺序重新排列路线
+            if !updatedMessage.recommendedRoutes.isEmpty {
+                updatedMessage.recommendedRoutes = reorderRoutesByText(
+                    routes: updatedMessage.recommendedRoutes,
+                    text: updatedMessage.content
+                )
+            }
         case .error:
             if let errorMessage = event.message {
                 updatedMessage.content = "错误: \(errorMessage)"
@@ -1676,22 +1733,74 @@ struct AIChatView: View {
         default:
             break
         }
-        
+
         // 创建新数组并重新赋值以触发更新
         var newMessages = messages
         newMessages[index] = updatedMessage
         messages = newMessages
-        
+
         // 强制刷新视图
         refreshTrigger += 1
-        
-        NSLog("🎯 handleEvent: 消息已更新，当前 isStreaming = %d, refreshTrigger = %d", messages[index].isStreaming, refreshTrigger)
+
+        NSLog("🎯 handleEvent: 消息已更新，当前 isStreaming = %d, refreshTrigger = %d, routes = %d", messages[index].isStreaming, refreshTrigger, messages[index].recommendedRoutes.count)
+    }
+
+    /// 按 AI 文本中提到的顺序重新排列路线
+    private func reorderRoutesByText(routes: [AIRouteRecommend], text: String) -> [AIRouteRecommend] {
+        // 从 AI 文本中提取路线名称（格式：### 1️⃣ **路线名称** 或 **路线名称**）
+        let pattern = #"\*\*([^*]+)\*\*"#
+        guard let regex = try? NSRegularExpression(pattern: pattern) else {
+            NSLog("⚠️ 无法创建正则表达式")
+            return routes
+        }
+
+        let range = NSRange(text.startIndex..., in: text)
+        let matches = regex.matches(in: text, range: range)
+
+        // 提取名称并保持顺序（去重）
+        var orderedNames: [String] = []
+        for match in matches {
+            if let nameRange = Range(match.range(at: 1), in: text) {
+                let name = String(text[nameRange]).trimmingCharacters(in: .whitespaces)
+                // 只保留看起来像路线名称的（排除数字、特殊字符开头的）
+                if name.count > 2 && !name.contains("公里") && !name.contains("米") && !name.contains("小时") && !name.contains("分钟") && !name.hasPrefix("距离") && !name.hasPrefix("爬升") && !name.hasPrefix("预计") && !name.hasPrefix("标签") && !name.hasPrefix("难度") && !name.hasPrefix("起点") && !name.hasPrefix("终点") && !name.hasPrefix("简单") && !name.hasPrefix("中等") && !name.hasPrefix("困难") {
+                    if !orderedNames.contains(name) {
+                        orderedNames.append(name)
+                    }
+                }
+            }
+        }
+
+        NSLog("📝 AI 文本中提取的名称: %@", orderedNames.joined(separator: ", "))
+
+        // 按文本顺序排列路线
+        var reordered: [AIRouteRecommend] = []
+        var remaining = routes
+
+        for name in orderedNames {
+            // 尝试匹配路线名称（模糊匹配）
+            if let idx = remaining.firstIndex(where: { route in
+                // 名称包含关系或相似
+                name.contains(route.name) || route.name.contains(name) ||
+                name.lowercased().contains(route.name.lowercased()) ||
+                route.name.lowercased().contains(name.lowercased())
+            }) {
+                reordered.append(remaining.remove(at: idx))
+            }
+        }
+
+        // 添加未匹配的路线
+        reordered.append(contentsOf: remaining)
+
+        NSLog("📝 重新排序后的路线: %@", reordered.map { $0.name }.joined(separator: ", "))
+        return reordered
     }
 }
 
 // MARK: - 消息气泡
 struct MessageBubble: View {
     let message: AIChatMessage
+    var onRouteTap: ((AIRouteRecommend) -> Void)? = nil
     
     var body: some View {
         HStack {
@@ -1703,9 +1812,9 @@ struct MessageBubble: View {
                     .foregroundColor(.white)
                     .cornerRadius(16)
             } else {
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading, spacing: 8) {
                     // 调试信息
-                    Text("DEBUG: isStreaming=\(message.isStreaming), count=\(message.content.count)")
+                    Text("DEBUG: isStreaming=\(message.isStreaming), count=\(message.content.count), routes=\(message.recommendedRoutes.count)")
                         .font(.caption2)
                         .foregroundColor(.red)
                         .padding(.horizontal, 4)
@@ -1725,11 +1834,30 @@ struct MessageBubble: View {
                                 .foregroundColor(.secondary)
                         }
                     } else {
-                        // 完成后显示清理后的文本（不使用 Markdown 渲染）
-                        Text(simpleFormat(message.content))
-                            .padding()
-                            .background(Color(.systemGray5))
-                            .cornerRadius(16)
+                        // 完成后显示清理后的文本
+                        if !message.content.isEmpty {
+                            Text(simpleFormat(message.content))
+                                .padding()
+                                .background(Color(.systemGray5))
+                                .cornerRadius(16)
+                        }
+                        
+                        // 显示推荐路线卡片
+                        if !message.recommendedRoutes.isEmpty {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("推荐路线")
+                                    .font(.caption)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.secondary)
+                                    .padding(.horizontal, 4)
+                                
+                                ForEach(message.recommendedRoutes) { route in
+                                    RouteRecommendCard(route: route) {
+                                        onRouteTap?(route)
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
                 Spacer()
@@ -1746,6 +1874,91 @@ struct MessageBubble: View {
         result = result.replacingOccurrences(of: "---", with: "")
         result = result.replacingOccurrences(of: "|", with: " ")
         return result
+    }
+}
+
+// MARK: - 路线推荐卡片
+struct RouteRecommendCard: View {
+    let route: AIRouteRecommend
+    let onTap: () -> Void
+    
+    var body: some View {
+        Button(action: onTap) {
+            HStack(spacing: 12) {
+                // 图标
+                Image(systemName: "map")
+                    .font(.title2)
+                    .foregroundColor(.blue)
+                    .frame(width: 44, height: 44)
+                    .background(Color.blue.opacity(0.1))
+                    .cornerRadius(8)
+                
+                // 信息
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(route.name)
+                        .font(.headline)
+                        .foregroundColor(.primary)
+                        .lineLimit(1)
+                    
+                    HStack(spacing: 8) {
+                        if let distance = route.distance {
+                            Label("\(String(format: "%.1f", distance / 1000)) km", systemImage: "figure.walk")
+                        }
+                        if let city = route.city {
+                            Label(city, systemImage: "location.fill")
+                        }
+                        if let difficulty = route.difficulty {
+                            DifficultyBadge(difficulty: difficulty)
+                        }
+                    }
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                }
+                
+                Spacer()
+                
+                Image(systemName: "chevron.right")
+                    .foregroundColor(.gray)
+            }
+            .padding(12)
+            .background(Color(.systemBackground))
+            .cornerRadius(12)
+            .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
+        }
+        .buttonStyle(PlainButtonStyle())
+    }
+}
+
+// MARK: - 难度徽章
+struct DifficultyBadge: View {
+    let difficulty: String
+    
+    var color: Color {
+        switch difficulty.lowercased() {
+        case "easy": return .green
+        case "medium": return .orange
+        case "hard": return .red
+        default: return .gray
+        }
+    }
+    
+    var displayName: String {
+        switch difficulty.lowercased() {
+        case "easy": return "简单"
+        case "medium": return "中等"
+        case "hard": return "困难"
+        default: return difficulty
+        }
+    }
+    
+    var body: some View {
+        Text(displayName)
+            .font(.caption2)
+            .padding(.horizontal, 6)
+            .padding(.vertical, 2)
+            .background(color.opacity(0.15))
+            .foregroundColor(color)
+            .cornerRadius(4)
     }
 }
 
@@ -1823,6 +2036,65 @@ struct MarkdownTextView: View {
 struct MarkdownLine {
     let text: String
     var isHeader: Bool = false
+}
+
+// MARK: - 路线详情 Sheet
+struct RouteDetailSheet: View {
+    let routeId: String
+    @State private var route: Route?
+    @State private var isLoading = true
+    @Environment(\.dismiss) var dismiss
+    
+    var body: some View {
+        NavigationStack {
+            Group {
+                if isLoading {
+                    ProgressView("加载中...")
+                } else if let route = route {
+                    RouteDetailView(route: route)
+                } else {
+                    VStack(spacing: 16) {
+                        Image(systemName: "exclamationmark.triangle")
+                            .font(.system(size: 48))
+                            .foregroundColor(.orange)
+                        Text("路线不存在")
+                            .font(.headline)
+                        Button("关闭") {
+                            dismiss()
+                        }
+                        .buttonStyle(.bordered)
+                    }
+                }
+            }
+            .navigationTitle("路线详情")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("关闭") {
+                        dismiss()
+                    }
+                }
+            }
+        }
+        .task {
+            await loadRoute()
+        }
+    }
+    
+    private func loadRoute() async {
+        do {
+            let loadedRoute = try await APIService.shared.fetchRoute(id: routeId)
+            await MainActor.run {
+                self.route = loadedRoute
+                self.isLoading = false
+            }
+        } catch {
+            NSLog("❌ 加载路线失败: %@", error.localizedDescription)
+            await MainActor.run {
+                self.isLoading = false
+            }
+        }
+    }
 }
 
 // MARK: - 预览

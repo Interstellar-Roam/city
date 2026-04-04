@@ -16,25 +16,57 @@ class ExploreViewModel: ObservableObject {
     // MARK: - 服务
     private let apiService = APIService.shared
     
+    // MARK: - 任务管理
+    private var currentTask: Task<Void, Never>?
+    private var isLoadedOnce = false  // 是否已加载过一次
+    
     // MARK: - 方法
     
     /// 加载所有路线
     func loadRoutes() async {
-        isLoading = true
-        errorMessage = nil
+        // 取消之前的任务
+        currentTask?.cancel()
         
-        do {
-            let fetchedRoutes = try await apiService.fetchRoutes()
-            routes = fetchedRoutes
+        currentTask = Task {
+            isLoading = true
+            errorMessage = nil
             
-            // 设置精选路线（取前3条或按距离排序）
-            featuredRoutes = Array(fetchedRoutes.sorted { $0.distance > $1.distance }.prefix(3))
-            
-            isLoading = false
-        } catch {
-            errorMessage = error.localizedDescription
-            isLoading = false
+            do {
+                let fetchedRoutes = try await apiService.fetchRoutes()
+                
+                // 检查是否被取消
+                if Task.isCancelled {
+                    isLoading = false
+                    return
+                }
+                
+                routes = fetchedRoutes
+                isLoadedOnce = true
+                
+                // 设置精选路线（取前3条或按距离排序）
+                featuredRoutes = Array(fetchedRoutes.sorted { $0.distance > $1.distance }.prefix(3))
+                
+                isLoading = false
+            } catch is CancellationError {
+                // 请求被取消，不做任何处理
+                print("ℹ️ 请求被取消")
+                isLoading = false
+            } catch {
+                // 检查是否被取消
+                if Task.isCancelled {
+                    isLoading = false
+                    return
+                }
+                
+                // 只在没有成功加载过时才显示错误
+                if !isLoadedOnce {
+                    errorMessage = error.localizedDescription
+                }
+                isLoading = false
+            }
         }
+        
+        await currentTask?.value
     }
     
     /// 搜索路线
@@ -83,6 +115,8 @@ class ExploreViewModel: ObservableObject {
     
     /// 刷新数据
     func refresh() async {
+        // 重置错误信息
+        errorMessage = nil
         await loadRoutes()
     }
 }

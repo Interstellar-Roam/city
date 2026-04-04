@@ -141,20 +141,28 @@ class APIService {
         return config
     }
     
-    // MARK: - AI流式搜索
-    func streamSearch(query: String, userId: String = "ios_user", onEvent: @escaping (AIStreamEvent) -> Void) async throws {
+    // MARK: - AI流式搜索（支持会话）
+    func streamSearch(
+        query: String,
+        userId: String = "ios_user",
+        sessionId: String? = nil,
+        onEvent: @escaping (AIStreamEvent) -> Void
+    ) async throws {
         let url = URL(string: "\(baseURL)/search/stream")!
-        
+
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("text/event-stream", forHTTPHeaderField: "Accept")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let body: [String: Any] = [
+
+        var body: [String: Any] = [
             "query": query,
             "user_id": userId,
-            "session_id": UUID().uuidString
+            "include_history": true
         ]
+        if let sessionId = sessionId {
+            body["session_id"] = sessionId
+        }
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
         
         let (bytes, response) = try await URLSession.shared.bytes(for: request)
@@ -217,7 +225,9 @@ struct AIStreamEvent: Codable {
     let arguments: String?
     let result: String?
     let message: String?
-    
+    let routes: [AIRouteRecommend]?  // 直接从后端接收路线数据
+    let sessionId: String?  // 会话 ID
+
     var eventType: EventType {
         switch type {
         case "text": return .text
@@ -225,17 +235,42 @@ struct AIStreamEvent: Codable {
         case "tool_result": return .toolResult
         case "done": return .done
         case "error": return .error
+        case "user_context": return .userContext
         default: return .unknown
         }
     }
-    
+
     enum EventType {
         case text
         case toolCall
         case toolResult
         case done
         case error
+        case userContext
         case unknown
+    }
+}
+
+// MARK: - AI推荐路线
+struct AIRouteRecommend: Codable, Identifiable {
+    let id: String
+    let name: String
+    let description: String?
+    let distance: Double?
+    let elevationGain: Double?
+    let estimatedDuration: Int?
+    let difficulty: String?
+    let city: String?
+    let favoritesCount: Int?
+    let previewImage: String?
+    let tags: [String]?
+    
+    enum CodingKeys: String, CodingKey {
+        case id, name, description, distance, difficulty, city, tags
+        case elevationGain = "elevation_gain"
+        case estimatedDuration = "estimated_duration"
+        case favoritesCount = "favorites_count"
+        case previewImage = "preview_image"
     }
 }
 
@@ -281,38 +316,38 @@ extension JSONDecoder {
             
             print("📅 尝试解析日期: \(dateString)")
             
-            // 尝试 ISO8601 带毫秒
-            let iso8601WithMs = ISO8601DateFormatter()
-            iso8601WithMs.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-            if let date = iso8601WithMs.date(from: dateString) {
-                print("✅ 使用 ISO8601 带毫秒解析成功")
+            // 尝试多种日期格式
+            let formatters: [(DateFormatter, String)] = [
+                // 格式1: ISO8601 带毫秒和时区 (2026-04-04T12:21:13.623Z)
+                (createFormatter("yyyy-MM-dd'T'HH:mm:ss.SSSZ"), "ISO8601带毫秒时区"),
+                // 格式2: ISO8601 带微秒无时区 (2026-04-04T12:21:13.623000)
+                (createFormatter("yyyy-MM-dd'T'HH:mm:ss.SSSSSS"), "ISO8601带微秒无时区"),
+                // 格式3: ISO8601 带毫秒无时区 (2026-04-04T12:21:13.623)
+                (createFormatter("yyyy-MM-dd'T'HH:mm:ss.SSS"), "ISO8601带毫秒无时区"),
+                // 格式4: ISO8601 无毫秒带时区 (2026-04-04T12:21:13Z)
+                (createFormatter("yyyy-MM-dd'T'HH:mm:ssZ"), "ISO8601无毫秒时区"),
+                // 格式5: ISO8601 无毫秒无时区 (2026-04-04T12:21:13)
+                (createFormatter("yyyy-MM-dd'T'HH:mm:ss"), "ISO8601无毫秒无时区"),
+            ]
+            
+            for (formatter, name) in formatters {
+                if let date = formatter.date(from: dateString) {
+                    print("✅ 使用 \(name) 解析成功")
+                    return date
+                }
+            }
+            
+            // 最后尝试 ISO8601DateFormatter
+            let iso8601 = ISO8601DateFormatter()
+            iso8601.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+            if let date = iso8601.date(from: dateString) {
+                print("✅ 使用 ISO8601DateFormatter 解析成功")
                 return date
             }
             
-            // 尝试 ISO8601 不带毫秒
-            let iso8601 = ISO8601DateFormatter()
             iso8601.formatOptions = [.withInternetDateTime]
             if let date = iso8601.date(from: dateString) {
-                print("✅ 使用 ISO8601 不带毫秒解析成功")
-                return date
-            }
-            
-            // 尝试自定义格式 "2026-03-21T14:22:25.108000"
-            let custom = DateFormatter()
-            custom.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
-            custom.locale = Locale(identifier: "en_US_POSIX")
-            custom.timeZone = TimeZone(secondsFromGMT: 0)
-            if let date = custom.date(from: dateString) {
-                print("✅ 使用自定义格式解析成功")
-                return date
-            }
-            
-            // 尝试带时区的格式
-            let customWithTz = DateFormatter()
-            customWithTz.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZZZZZ"
-            customWithTz.locale = Locale(identifier: "en_US_POSIX")
-            if let date = customWithTz.date(from: dateString) {
-                print("✅ 使用带时区格式解析成功")
+                print("✅ 使用 ISO8601DateFormatter (无毫秒) 解析成功")
                 return date
             }
             
@@ -321,4 +356,141 @@ extension JSONDecoder {
         }
         return decoder
     }()
+    
+    private static func createFormatter(_ format: String) -> DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        return formatter
+    }
+}
+
+// MARK: - 会话管理
+extension APIService {
+    /// 获取用户的会话列表
+    func fetchUserSessions(userId: String, limit: Int = 20) async throws -> [ChatSession] {
+        var components = URLComponents(string: "\(baseURL)/sessions/user/\(userId)")!
+        components.queryItems = [
+            URLQueryItem(name: "limit", value: String(limit))
+        ]
+
+        guard let url = components.url else {
+            throw APIError.invalidURL
+        }
+
+        let (data, _) = try await URLSession.shared.data(from: url)
+
+        let response = try JSONDecoder().decode(SessionsResponse.self, from: data)
+        return response.sessions
+    }
+
+    /// 获取会话详情（包含消息历史）
+    func fetchSession(sessionId: String) async throws -> ChatSessionDetail {
+        let url = URL(string: "\(baseURL)/sessions/\(sessionId)")!
+
+        let (data, response) = try await URLSession.shared.data(from: url)
+
+        guard let httpResponse = response as? HTTPURLResponse,
+              httpResponse.statusCode == 200 else {
+            throw APIError.invalidResponse
+        }
+
+        return try JSONDecoder.routeDecoder.decode(ChatSessionDetail.self, from: data)
+    }
+}
+
+// MARK: - 会话模型
+struct ChatSession: Codable, Identifiable {
+    let id: String
+    let userId: String
+    let title: String?
+    let createdAt: Date
+    let updatedAt: Date
+    let messageCount: Int
+    let lastMessage: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id = "_id"
+        case userId = "user_id"
+        case title
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case messageCount = "message_count"
+        case lastMessage = "last_message"
+    }
+}
+
+struct ChatSessionDetail: Codable {
+    let id: String
+    let userId: String
+    let title: String?
+    let messages: [ChatMessageRecord]
+    let createdAt: Date
+    let updatedAt: Date
+    let messageCount: Int
+
+    enum CodingKeys: String, CodingKey {
+        case id = "_id"
+        case userId = "user_id"
+        case title, messages
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case messageCount = "message_count"
+    }
+}
+
+struct ChatMessageRecord: Codable {
+    let role: String
+    let content: String
+    let timestamp: Date
+    let metadata: [String: AnyCodable]?
+
+    enum CodingKeys: String, CodingKey {
+        case role, content, timestamp, metadata
+    }
+}
+
+struct SessionsResponse: Codable {
+    let success: Bool
+    let total: Int
+    let sessions: [ChatSession]
+}
+
+/// 用于解码任意 JSON 值
+struct AnyCodable: Codable {
+    let value: Any
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+
+        if let string = try? container.decode(String.self) {
+            value = string
+        } else if let int = try? container.decode(Int.self) {
+            value = int
+        } else if let double = try? container.decode(Double.self) {
+            value = double
+        } else if let bool = try? container.decode(Bool.self) {
+            value = bool
+        } else if let array = try? container.decode([AnyCodable].self) {
+            value = array.map { $0.value }
+        } else if let dict = try? container.decode([String: AnyCodable].self) {
+            value = dict.mapValues { $0.value }
+        } else {
+            value = ""
+        }
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        if let string = value as? String {
+            try container.encode(string)
+        } else if let int = value as? Int {
+            try container.encode(int)
+        } else if let double = value as? Double {
+            try container.encode(double)
+        } else if let bool = value as? Bool {
+            try container.encode(bool)
+        }
+    }
 }
