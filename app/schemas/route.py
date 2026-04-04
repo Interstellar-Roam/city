@@ -73,6 +73,13 @@ class RoutePointResponse(BaseModel):
     poi_id: str | None = None
 
 
+class RoutePointLight(BaseModel):
+    """轨迹点精简版（用于前端地图渲染）"""
+    location: dict[str, Any]
+    elevation: float | None = None
+    timestamp: datetime | None = None
+
+
 class RouteCreate(BaseModel):
     """创建路线请求"""
     name: str = Field(..., min_length=1, max_length=100)

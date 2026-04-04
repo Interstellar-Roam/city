@@ -93,12 +93,29 @@ async def search_routes(
 @router.get("/{route_id}", response_model=RouteDetail, summary="获取路线详情")
 async def get_route(
     route_id: str,
+    lightweight: bool = Query(True, description="返回精简版轨迹点数据"),
     service: RouteService = Depends(get_route_service)
 ) -> RouteDetail:
-    """获取指定路线的详细信息"""
+    """获取指定路线的详细信息
+    
+    Args:
+        lightweight: 是否返回精简版轨迹点（只包含location、elevation、timestamp）
+    """
     route = await service.get_route_by_id(route_id)
     if not route:
         raise HTTPException(status_code=404, detail="路线不存在")
+    
+    # 精简轨迹点数据
+    if lightweight and "points" in route:
+        route["points"] = [
+            {
+                "location": p.get("location"),
+                "elevation": p.get("elevation"),
+                "timestamp": p.get("timestamp")
+            }
+            for p in route["points"]
+        ]
+    
     return RouteDetail(**route)
 
 
