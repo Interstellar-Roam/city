@@ -48,12 +48,20 @@ class Database:
         await db.routes.create_index([("name", "text"), ("description", "text")])
         await db.routes.create_index([("created_at", -1)])
         await db.routes.create_index([("favorites_count", -1)])
-        
+
         # GPS轨迹索引
         await db.gps_tracks.create_index([("route_id", 1)])
         await db.gps_tracks.create_index([("user_id", 1)])
         await db.gps_tracks.create_index([("created_at", -1)])
-        
+
+        # 会话索引
+        await db.chat_sessions.create_index([("user_id", 1)])
+        await db.chat_sessions.create_index([("user_id", 1), ("updated_at", -1)])
+        await db.chat_sessions.create_index([("created_at", -1)])
+
+        # 用户偏好索引
+        await db.user_preferences.create_index([("user_id", 1)], unique=True)
+
         logger.info("数据库索引创建完成")
 
 

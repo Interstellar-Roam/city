@@ -10,6 +10,8 @@ from app.config import get_settings
 from app.agent.context import ContextBuilder
 from app.agent.memory import MemoryStore, KnowledgeBaseClient
 from app.agent.tools import ToolRegistry
+from app.database import Database
+from app.services.session_service import SessionService
 
 
 class AgentLoop:
@@ -21,6 +23,7 @@ class AgentLoop:
         self.memory = MemoryStore()
         self.knowledge = KnowledgeBaseClient()
         self.tools = ToolRegistry()
+        self.session_service: SessionService | None = None
 
         # 初始化LLM客户端
         self.client = AsyncOpenAI(
@@ -36,6 +39,7 @@ class AgentLoop:
             return
 
         await self.knowledge.connect()
+        self.session_service = SessionService(Database.get_db())
         self._connected = True
         logger.info("Agent已初始化")
 
@@ -45,7 +49,7 @@ class AgentLoop:
         user_id: str | None = None,
         session_id: str | None = None,
         context: dict[str, Any] | None = None,
-        include_history: bool = False,
+        include_history: bool = True,  # 默认包含历史
     ) -> AsyncGenerator[str, None]:
         """
         处理用户查询（流式响应）
@@ -53,9 +57,9 @@ class AgentLoop:
         Args:
             query: 用户查询
             user_id: 用户ID
-            session_id: 会话ID
+            session_id: 会话ID（可选，不传则创建新会话）
             context: 额外上下文
-            include_history: 是否包含历史消息（默认False，搜索API应为无状态）
+            include_history: 是否包含历史消息
 
         Yields:
             str: 流式响应的文本片段
@@ -63,10 +67,18 @@ class AgentLoop:
         if not self._connected:
             await self.connect()
 
-        session_id = session_id or user_id or "default"
+        user_id = user_id or "anonymous"
 
-        # 获取历史消息（仅在需要时）
-        history = self.memory.get_history(session_id) if include_history else []
+        # 获取或创建会话
+        actual_session_id, db_history = await self.session_service.get_or_create_session(
+            session_id, user_id
+        )
+
+        # 保存用户消息
+        await self.session_service.add_message(actual_session_id, "user", query)
+
+        # 获取历史消息
+        history = db_history if include_history else []
 
         # 构建消息
         messages = self.context.build_messages(
@@ -76,31 +88,65 @@ class AgentLoop:
             context=context
         )
 
-        # 记录用户消息
-        self.memory.add_message(session_id, "user", query)
-
         # 获取工具定义
         tool_defs = self.tools.get_definitions()
 
         # 调用LLM
         final_content = ""
-        async for chunk in self._run_llm_loop(messages, tool_defs):
+        tool_calls_made = []  # 记录工具调用
+
+        async for chunk in self._run_llm_loop(messages, tool_defs, user_id):
             if chunk.get("type") == "text":
                 final_content += chunk["content"]
                 yield f"data: {json.dumps(chunk, ensure_ascii=False)}\n\n"
             elif chunk.get("type") == "tool_call":
+                tool_calls_made.append({
+                    "name": chunk.get("name"),
+                    "arguments": chunk.get("arguments")
+                })
+                yield f"data: {json.dumps(chunk, ensure_ascii=False)}\n\n"
+            elif chunk.get("type") == "tool_result":
+                yield f"data: {json.dumps(chunk, ensure_ascii=False)}\n\n"
+            elif chunk.get("type") == "session":
+                # 返回会话ID给客户端
                 yield f"data: {json.dumps(chunk, ensure_ascii=False)}\n\n"
             elif chunk.get("type") == "done":
-                # 记录助手响应
-                self.memory.add_message(session_id, "assistant", final_content)
+                # 保存助手响应（包含工具调用元数据）
+                metadata = {}
+                if tool_calls_made:
+                    metadata["tool_calls"] = tool_calls_made
+
+                await self.session_service.add_message(
+                    actual_session_id,
+                    "assistant",
+                    final_content,
+                    metadata
+                )
+
+                # 返回完成事件和会话ID
+                chunk["session_id"] = actual_session_id
                 yield f"data: {json.dumps(chunk, ensure_ascii=False)}\n\n"
 
     async def _run_llm_loop(
         self,
         messages: list[dict[str, Any]],
         tool_defs: list[dict[str, Any]],
+        user_id: str = "anonymous",
     ) -> AsyncGenerator[dict[str, Any], None]:
         """运行LLM循环"""
+        # 先发送用户偏好上下文（如果有）
+        if self.session_service and user_id != "anonymous":
+            pref = await self.session_service.get_user_preference(user_id)
+            if pref:
+                yield {
+                    "type": "user_context",
+                    "preference": {
+                        "cities": pref.preferred_cities,
+                        "difficulty": pref.preferred_difficulty,
+                        "tags": pref.preferred_tags
+                    }
+                }
+
         iteration = 0
         max_iterations = self.settings.max_iterations
 
@@ -177,6 +223,20 @@ class AgentLoop:
                         json.loads(func_args)
                     )
 
+                    # 更新用户偏好（如果是搜索工具）
+                    if func_name == "search_routes" and self.session_service and user_id != "anonymous":
+                        try:
+                            args = json.loads(func_args)
+                            await self.session_service.update_user_preference(
+                                user_id=user_id,
+                                city=args.get("city"),
+                                difficulty=args.get("difficulty"),
+                                distance=args.get("max_distance"),
+                                tags=args.get("tags")
+                            )
+                        except Exception as e:
+                            logger.warning(f"更新用户偏好失败: {e}")
+
                     # 添加工具结果
                     messages = self.context.add_tool_result(
                         messages,
@@ -185,10 +245,22 @@ class AgentLoop:
                         result
                     )
 
+                    # 尝试解析为 JSON 以提取路线数据
+                    routes_data = None
+                    try:
+                        parsed = json.loads(result)
+                        if isinstance(parsed, dict) and "results" in parsed:
+                            routes_data = parsed["results"]
+                            logger.info(f"提取到 {len(routes_data)} 条路线数据")
+                    except Exception as e:
+                        logger.error(f"解析路线数据失败: {e}")
+
+                    logger.info(f"发送 tool_result 事件, routes={routes_data is not None}")
                     yield {
                         "type": "tool_result",
                         "name": func_name,
-                        "result": result[:200] + "..." if len(result) > 200 else result
+                        "result": result[:200] + "..." if len(result) > 200 else result,
+                        "routes": routes_data  # 单独发送路线数据
                     }
             else:
                 # 没有工具调用，结束循环

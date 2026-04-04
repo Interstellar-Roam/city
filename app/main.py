@@ -11,7 +11,7 @@ from loguru import logger
 
 from app.config import get_settings
 from app.database import Database
-from app.api import routes, gps, navigation, search, knowledge_graph
+from app.api import routes, gps, navigation, search, knowledge_graph, sessions
 
 
 @asynccontextmanager
@@ -83,6 +83,7 @@ def create_app() -> FastAPI:
     app.include_router(navigation.router, prefix="/api/v1")
     app.include_router(search.router, prefix="/api/v1")
     app.include_router(knowledge_graph.router, prefix="/api/v1")
+    app.include_router(sessions.router, prefix="/api/v1")
 
     # 挂载静态文件
     import os
