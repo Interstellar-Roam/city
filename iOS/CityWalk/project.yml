@@ -30,6 +30,10 @@ targets:
       - path: CityWalk
         excludes:
           - "**/.DS_Store"
+    dependencies:
+      - sdk: CoreLocation.framework
+      - sdk: MapKit.framework
+      # 高德地图 SDK (需要通过 CocoaPods 或手动集成)
     settings:
       base:
         INFOPLIST_FILE: CityWalk/Info.plist

@@ -5,25 +5,59 @@ struct ExploreView: View {
     @StateObject private var viewModel = ExploreViewModel()
     @State private var searchText = ""
     
+    // AI聊天状态
+    @State private var showAIChat = false
+    @State private var aiMessages: [AIChatMessage] = []
+    @State private var aiInputText = ""
+    
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 0) {
-                    // 搜索栏
-                    searchBarView
-                    
-                    // 分类标签
-                    categoryView
-                    
-                    // 路线列表
-                    routeListView
+            ZStack(alignment: .bottomTrailing) {
+                ScrollView {
+                    VStack(spacing: 0) {
+                        // 搜索栏
+                        searchBarView
+                        
+                        // 分类标签
+                        categoryView
+                        
+                        // 路线列表
+                        routeListView
+                    }
                 }
+                .background(Color(.systemGroupedBackground))
+                
+                // AI浮动按钮
+                Button {
+                    showAIChat = true
+                } label: {
+                    Image(systemName: "sparkles")
+                        .font(.system(size: 24))
+                        .foregroundColor(.white)
+                        .frame(width: 56, height: 56)
+                        .background(
+                            LinearGradient(
+                                colors: [.purple, .blue],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .clipShape(Circle())
+                        .shadow(radius: 4)
+                }
+                .padding(.trailing, 16)
+                .padding(.bottom, 16)
             }
-            .background(Color(.systemGroupedBackground))
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
             .refreshable {
                 await viewModel.refresh()
+            }
+            .sheet(isPresented: $showAIChat) {
+                AIChatView(
+                    messages: $aiMessages,
+                    inputText: $aiInputText
+                )
             }
         }
         .task {
@@ -1507,6 +1541,288 @@ extension UIImage {
 
         return rotatedImage
     }
+}
+
+// MARK: - AI聊天消息模型
+struct AIChatMessage: Identifiable {
+    let id = UUID()
+    var content: String
+    let isUser: Bool
+    let timestamp = Date()
+    var isStreaming = false
+}
+
+// MARK: - AI聊天视图
+struct AIChatView: View {
+    @Binding var messages: [AIChatMessage]
+    @Binding var inputText: String
+    @Environment(\.dismiss) var dismiss
+    @State private var refreshTrigger = 0  // 用于强制刷新视图
+    
+    var body: some View {
+        NavigationStack {
+            VStack(spacing: 0) {
+                // 消息列表
+                ScrollViewReader { proxy in
+                    ScrollView {
+                        LazyVStack(spacing: 12) {
+                            ForEach(messages) { message in
+                                MessageBubble(message: message)
+                                    .id("\(message.id.uuidString)-\(refreshTrigger)")
+                            }
+                        }
+                        .padding()
+                    }
+                    .onChange(of: refreshTrigger) { _ in
+                        if let last = messages.last {
+                            withAnimation {
+                                proxy.scrollTo(last.id, anchor: .bottom)
+                            }
+                        }
+                    }
+                }
+                
+                Divider()
+                
+                // 输入栏
+                HStack(spacing: 12) {
+                    TextField("输入消息...", text: $inputText)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .onSubmit {
+                            sendMessage()
+                        }
+                    
+                    Button {
+                        sendMessage()
+                    } label: {
+                        Image(systemName: "arrow.up.circle.fill")
+                            .font(.system(size: 32))
+                            .foregroundColor(.blue)
+                    }
+                    .disabled(inputText.isEmpty)
+                }
+                .padding()
+            }
+            .navigationTitle("AI助手")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("测试") {
+                        // 自动发送测试消息
+                        inputText = "深圳"
+                        sendMessage()
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("关闭") {
+                        dismiss()
+                    }
+                }
+            }
+        }
+    }
+    
+    private func sendMessage() {
+        guard !inputText.trimmingCharacters(in: .whitespaces).isEmpty else { return }
+        
+        let userMessage = AIChatMessage(content: inputText, isUser: true)
+        messages.append(userMessage)
+        
+        let aiMessage = AIChatMessage(content: "", isUser: false, isStreaming: true)
+        let aiMessageId = aiMessage.id
+        messages.append(aiMessage)
+        
+        let query = inputText
+        inputText = ""
+        
+        Task { @MainActor in
+            do {
+                try await APIService.shared.streamSearch(query: query) { event in
+                    Task { @MainActor in
+                        handleEvent(event, messageId: aiMessageId)
+                    }
+                }
+            } catch {
+                if let index = messages.firstIndex(where: { $0.id == aiMessageId }) {
+                    messages[index].content = "抱歉，连接失败：\(error.localizedDescription)"
+                    messages[index].isStreaming = false
+                }
+            }
+        }
+    }
+    
+    private func handleEvent(_ event: AIStreamEvent, messageId: UUID) {
+        guard let index = messages.firstIndex(where: { $0.id == messageId }) else {
+            return
+        }
+        
+        // 创建消息的副本
+        var updatedMessage = messages[index]
+        
+        switch event.eventType {
+        case .text:
+            if let content = event.content {
+                updatedMessage.content += content
+            }
+        case .done:
+            NSLog("🎯 handleEvent: 收到 done 事件")
+            updatedMessage.isStreaming = false
+            NSLog("🎯 handleEvent: isStreaming = %d", updatedMessage.isStreaming)
+        case .error:
+            if let errorMessage = event.message {
+                updatedMessage.content = "错误: \(errorMessage)"
+            }
+            updatedMessage.isStreaming = false
+        default:
+            break
+        }
+        
+        // 创建新数组并重新赋值以触发更新
+        var newMessages = messages
+        newMessages[index] = updatedMessage
+        messages = newMessages
+        
+        // 强制刷新视图
+        refreshTrigger += 1
+        
+        NSLog("🎯 handleEvent: 消息已更新，当前 isStreaming = %d, refreshTrigger = %d", messages[index].isStreaming, refreshTrigger)
+    }
+}
+
+// MARK: - 消息气泡
+struct MessageBubble: View {
+    let message: AIChatMessage
+    
+    var body: some View {
+        HStack {
+            if message.isUser {
+                Spacer()
+                Text(message.content)
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(16)
+            } else {
+                VStack(alignment: .leading, spacing: 4) {
+                    // 调试信息
+                    Text("DEBUG: isStreaming=\(message.isStreaming), count=\(message.content.count)")
+                        .font(.caption2)
+                        .foregroundColor(.red)
+                        .padding(.horizontal, 4)
+                    
+                    if message.isStreaming {
+                        // 流式传输时显示原始文本
+                        Text(message.content)
+                            .padding()
+                            .background(Color(.systemGray5))
+                            .cornerRadius(16)
+                        
+                        HStack(spacing: 4) {
+                            ProgressView()
+                                .scaleEffect(0.7)
+                            Text("生成中...")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                    } else {
+                        // 完成后显示清理后的文本（不使用 Markdown 渲染）
+                        Text(simpleFormat(message.content))
+                            .padding()
+                            .background(Color(.systemGray5))
+                            .cornerRadius(16)
+                    }
+                }
+                Spacer()
+            }
+        }
+    }
+    
+    // 简单格式化：移除 Markdown 标记
+    private func simpleFormat(_ text: String) -> String {
+        var result = text
+        result = result.replacingOccurrences(of: "**", with: "")
+        result = result.replacingOccurrences(of: "##", with: "")
+        result = result.replacingOccurrences(of: "#", with: "")
+        result = result.replacingOccurrences(of: "---", with: "")
+        result = result.replacingOccurrences(of: "|", with: " ")
+        return result
+    }
+}
+
+// MARK: - Markdown 文本视图
+struct MarkdownTextView: View {
+    let content: String
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            ForEach(Array(formatContent().enumerated()), id: \.offset) { _, line in
+                if line.isHeader {
+                    Text(line.text)
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundColor(.primary)
+                } else {
+                    Text(line.text)
+                        .font(.body)
+                        .foregroundColor(.primary)
+                }
+            }
+        }
+    }
+    
+    // 格式化内容
+    private func formatContent() -> [MarkdownLine] {
+        var lines: [MarkdownLine] = []
+        let rawLines = content.components(separatedBy: "\n")
+        
+        for rawLine in rawLines {
+            var line = rawLine
+            
+            // 跳过空行
+            if line.trimmingCharacters(in: .whitespaces).isEmpty { continue }
+            
+            // 跳过分隔线
+            if line.trimmingCharacters(in: .whitespaces) == "---" { continue }
+            
+            // 跳过表格分隔行
+            if line.contains("|---|") || line.contains("| --- |") { continue }
+            
+            var isHeader = false
+            
+            // 处理标题
+            if line.hasPrefix("## ") {
+                line = String(line.dropFirst(3))
+                isHeader = true
+            } else if line.hasPrefix("# ") {
+                line = String(line.dropFirst(2))
+                isHeader = true
+            }
+            
+            // 移除 Markdown 标记
+            line = line.replacingOccurrences(of: "**", with: "")
+            line = line.replacingOccurrences(of: "*", with: "")
+            
+            // 处理表格行 - 简单移除 | 符号
+            if line.contains("|") {
+                line = line.replacingOccurrences(of: "|", with: " ")
+                line = line.replacingOccurrences(of: "  ", with: " ")
+            }
+            
+            line = line.trimmingCharacters(in: .whitespaces)
+            
+            if !line.isEmpty {
+                lines.append(MarkdownLine(text: line, isHeader: isHeader))
+            }
+        }
+        
+        return lines
+    }
+}
+
+// Markdown 行模型
+struct MarkdownLine {
+    let text: String
+    var isHeader: Bool = false
 }
 
 // MARK: - 预览

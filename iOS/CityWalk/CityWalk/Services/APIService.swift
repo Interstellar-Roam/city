@@ -1,4 +1,7 @@
 import Foundation
+import os.log
+
+private let logger = Logger(subsystem: "com.citywalk.app", category: "APIService")
 
 // MARK: - API 服务
 class APIService {
@@ -136,6 +139,103 @@ class APIService {
         
         let config = try JSONDecoder().decode(AmapConfig.self, from: data)
         return config
+    }
+    
+    // MARK: - AI流式搜索
+    func streamSearch(query: String, userId: String = "ios_user", onEvent: @escaping (AIStreamEvent) -> Void) async throws {
+        let url = URL(string: "\(baseURL)/search/stream")!
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("text/event-stream", forHTTPHeaderField: "Accept")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let body: [String: Any] = [
+            "query": query,
+            "user_id": userId,
+            "session_id": UUID().uuidString
+        ]
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+        
+        let (bytes, response) = try await URLSession.shared.bytes(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              httpResponse.statusCode == 200 else {
+            throw APIError.invalidResponse
+        }
+        
+        var buffer = Data()
+        var lineBuffer = ""
+        
+        for try await byte in bytes {
+            buffer.append(byte)
+            
+            // 尝试将累积的数据解码为字符串
+            if let decoded = String(data: buffer, encoding: .utf8) {
+                lineBuffer = decoded
+                
+                // 检查是否有完整的行
+                while let newlineRange = lineBuffer.range(of: "\n") {
+                    let line = String(lineBuffer[..<newlineRange.lowerBound])
+                    lineBuffer = String(lineBuffer[newlineRange.upperBound...])
+                    
+                    // 清空已处理的 buffer
+                    if let remainingData = lineBuffer.data(using: .utf8) {
+                        buffer = remainingData
+                    }
+                    
+                    let trimmed = line.trimmingCharacters(in: .whitespaces)
+                    guard !trimmed.isEmpty, !trimmed.hasPrefix(":") else { continue }
+                    
+                    if trimmed.hasPrefix("data: ") {
+                        let jsonStr = String(trimmed.dropFirst(6))
+                        NSLog("📡 SSE 数据: %@", jsonStr)
+                        if let data = jsonStr.data(using: .utf8) {
+                            do {
+                                let event = try JSONDecoder().decode(AIStreamEvent.self, from: data)
+                                NSLog("✅ 解码成功: type=%@, content长度=%d", event.type, event.content?.count ?? 0)
+                                if let content = event.content {
+                                    NSLog("📝 内容预览: %@", String(content.prefix(50)))
+                                }
+                                onEvent(event)
+                            } catch {
+                                NSLog("❌ 解码失败: %@, JSON: %@", error.localizedDescription, jsonStr)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// MARK: - AI流式事件
+struct AIStreamEvent: Codable {
+    let type: String
+    let content: String?
+    let name: String?
+    let arguments: String?
+    let result: String?
+    let message: String?
+    
+    var eventType: EventType {
+        switch type {
+        case "text": return .text
+        case "tool_call": return .toolCall
+        case "tool_result": return .toolResult
+        case "done": return .done
+        case "error": return .error
+        default: return .unknown
+        }
+    }
+    
+    enum EventType {
+        case text
+        case toolCall
+        case toolResult
+        case done
+        case error
+        case unknown
     }
 }
 
