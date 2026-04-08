@@ -14,19 +14,36 @@
 		6C1501883E51A9B88CEA38E7 /* ExploreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8EA0D6D8F96B49F7576838 /* ExploreViewModel.swift */; };
 		8F7423A87B7C6A2D312B6893 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86FFCC8459DC13603BE77776 /* Assets.xcassets */; };
 		AD54B852756A233DD9A5B011 /* CoordinateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDF992238B1D1ACA48E8659 /* CoordinateConverter.swift */; };
+		DB30BFE49315F03B00681A2A /* Pods_CityWalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92217E0E376A39AA90414C4E /* Pods_CityWalk.framework */; };
+		F1A2B3C4D5E6F78901234567 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B8C7D6E5F4012345678901 /* AppConfig.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2771F50633809434FF248F28 /* CityWalkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityWalkApp.swift; sourceTree = "<group>"; };
 		2E8EA0D6D8F96B49F7576838 /* ExploreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewModel.swift; sourceTree = "<group>"; };
-		336BD40B99B0E7AB523DF7A0 /* CityWalk.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = CityWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		336BD40B99B0E7AB523DF7A0 /* CityWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CityWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		46400CEDFBD5F2C91D1AD6F2 /* Pods-CityWalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CityWalk.release.xcconfig"; path = "Target Support Files/Pods-CityWalk/Pods-CityWalk.release.xcconfig"; sourceTree = "<group>"; };
 		5EDF5CBE8CB3B1F5943B4AA4 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		6FDF992238B1D1ACA48E8659 /* CoordinateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateConverter.swift; sourceTree = "<group>"; };
 		86FFCC8459DC13603BE77776 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		92217E0E376A39AA90414C4E /* Pods_CityWalk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CityWalk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		972FAC48E88D8DB3156E97D5 /* Pods-CityWalk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CityWalk.debug.xcconfig"; path = "Target Support Files/Pods-CityWalk/Pods-CityWalk.debug.xcconfig"; sourceTree = "<group>"; };
 		A5260720EDD69CD77796C0FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		A9B8C7D6E5F4012345678901 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		E9D861E65EB4B5CCABAC5171 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		FB163F2E874BD476AA718235 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C13B672B5B851331DC2012B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB30BFE49315F03B00681A2A /* Pods_CityWalk.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		0070BF4693F7FF72298CAA0B /* ViewModels */ = {
@@ -35,6 +52,15 @@
 				2E8EA0D6D8F96B49F7576838 /* ExploreViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		0B987BDB3AD2F3AE6D23B21E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				972FAC48E88D8DB3156E97D5 /* Pods-CityWalk.debug.xcconfig */,
+				46400CEDFBD5F2C91D1AD6F2 /* Pods-CityWalk.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		16EA0BC0570F90D9C67D5FFE /* Utils */ = {
@@ -81,12 +107,15 @@
 			children = (
 				1A65E7A6F076A060A9B32B4B /* CityWalk */,
 				92926FB9CE7721C73254535C /* Products */,
+				0B987BDB3AD2F3AE6D23B21E /* Pods */,
+				FE27B5183813AE048C50BB13 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		79735117CB7A7CA61716AD83 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				A9B8C7D6E5F4012345678901 /* AppConfig.swift */,
 				E9D861E65EB4B5CCABAC5171 /* APIService.swift */,
 			);
 			path = Services;
@@ -108,6 +137,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		FE27B5183813AE048C50BB13 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				92217E0E376A39AA90414C4E /* Pods_CityWalk.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -115,16 +152,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B4564856946F20D8DCCB6EED /* Build configuration list for PBXNativeTarget "CityWalk" */;
 			buildPhases = (
+				B28B48825BA7728D47B04393 /* [CP] Check Pods Manifest.lock */,
 				A0D2D5E227427E5E79E18F3B /* Sources */,
 				1998188312C4E0892FBB0A82 /* Resources */,
+				C13B672B5B851331DC2012B5 /* Frameworks */,
+				5CE65B9EA368BEC4DCA6EE45 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = CityWalk;
-			packageProductDependencies = (
-			);
 			productName = CityWalk;
 			productReference = 336BD40B99B0E7AB523DF7A0 /* CityWalk.app */;
 			productType = "com.apple.product-type.application";
@@ -139,7 +177,6 @@
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					960D8AFFA1A2CF9E59004839 = {
-						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -174,11 +211,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5CE65B9EA368BEC4DCA6EE45 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CityWalk/Pods-CityWalk-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CityWalk/Pods-CityWalk-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CityWalk/Pods-CityWalk-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B28B48825BA7728D47B04393 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CityWalk-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A0D2D5E227427E5E79E18F3B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1A2B3C4D5E6F78901234567 /* AppConfig.swift in Sources */,
 				22A4F02314ADCCD9950FC33D /* APIService.swift in Sources */,
 				2E83C89FF341D12751201476 /* CityWalkApp.swift in Sources */,
 				AD54B852756A233DD9A5B011 /* CoordinateConverter.swift in Sources */,
@@ -193,12 +273,13 @@
 /* Begin XCBuildConfiguration section */
 		0A573C100FA8568F8FC21E94 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 972FAC48E88D8DB3156E97D5 /* Pods-CityWalk.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = HY79M87Y8X;
 				INFOPLIST_FILE = CityWalk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -271,12 +352,13 @@
 		};
 		9D71089C7DA6A67B3ED26F5C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 46400CEDFBD5F2C91D1AD6F2 /* Pods-CityWalk.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = HY79M87Y8X;
 				INFOPLIST_FILE = CityWalk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

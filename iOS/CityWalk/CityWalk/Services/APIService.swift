@@ -7,8 +7,10 @@ private let logger = Logger(subsystem: "com.citywalk.app", category: "APIService
 class APIService {
     static let shared = APIService()
     
-    // 基础 URL（开发环境）
-    private let baseURL = "http://localhost:8000/api/v1"
+    /// 基础 URL（从全局配置获取）
+    private var baseURL: String {
+        AppConfig.apiBaseURL
+    }
     
     private init() {}
     

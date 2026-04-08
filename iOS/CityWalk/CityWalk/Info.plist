@@ -60,5 +60,7 @@
     <string>需要您的位置来记录和显示路线</string>
     <key>NSMotionUsageDescription</key>
     <string>需要运动数据来记录您的步行</string>
+    <key>AMapApiKey</key>
+    <string>6a35590781eabd0f2adc39e41c9f6ba1</string>
 </dict>
 </plist>

@@ -56,3 +56,18 @@ htmlcov/
 
 # Jupyter
 .ipynb_checkpoints/
+
+# CocoaPods
+iOS/CityWalk/Pods/
+iOS/CityWalk/*.xcworkspace
+
+# MongoDB dump archives
+*.archive
+
+# KML/GPX data files (large)
+*.kml
+*.gpx
+
+# Misc
+stream-response.txt
+explore-home.png

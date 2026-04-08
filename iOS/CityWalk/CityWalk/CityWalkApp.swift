@@ -1,7 +1,14 @@
 import SwiftUI
+import AMapFoundationKit
+import AMapLocationKit
 
 @main
 struct CityWalkApp: App {
+    init() {
+        // 初始化高德地图 SDK
+        AMapServices.shared().apiKey = "6a35590781eabd0f2adc39e41c9f6ba1"
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

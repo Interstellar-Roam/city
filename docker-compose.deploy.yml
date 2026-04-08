@@ -1,13 +1,15 @@
-version: '3.8'
+# CityWalk 后端远端部署配置
+# 用法: docker compose -f docker-compose.deploy.yml up -d
 
 services:
   # MongoDB - 路线数据存储
   mongodb:
-    image: mongo:latest
+    image: mongo:8
     container_name: citywalk-mongo
     restart: unless-stopped
-    ports:
-      - "27017:27017"
+    # 不暴露端口到宿主机，仅容器内网络访问
+    expose:
+      - "27017"
     volumes:
       - mongodb_data:/data/db
     environment:
@@ -17,16 +19,20 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+    networks:
+      - citywalk-net
 
   # FalkorDB - 知识图谱存储
   falkordb:
     image: falkordb/falkordb:latest
     container_name: citywalk-falkordb
     restart: unless-stopped
-    ports:
-      - "6381:6379"
+    expose:
+      - "6379"
     volumes:
       - falkordb_data:/data
+    networks:
+      - citywalk-net
 
   # CityWalk Backend API
   api:
@@ -45,6 +51,7 @@ services:
       - MONGODB_DB_NAME=citywalk
       - FALKORDB_HOST=falkordb
       - FALKORDB_PORT=6379
+      - FALKORDB_GRAPH_NAME=${FALKORDB_GRAPH_NAME:-citywalk_kg}
       - LLM_PROVIDER=${LLM_PROVIDER:-openai}
       - LLM_API_KEY=${LLM_API_KEY:-}
       - LLM_MODEL=${LLM_MODEL:-gpt-4o-mini}
@@ -55,7 +62,13 @@ services:
       - DEBUG=false
     env_file:
       - .env
+    networks:
+      - citywalk-net
 
 volumes:
   mongodb_data:
   falkordb_data:
+
+networks:
+  citywalk-net:
+    driver: bridge
