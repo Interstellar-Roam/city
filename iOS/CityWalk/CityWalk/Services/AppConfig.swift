@@ -3,23 +3,8 @@ import Foundation
 /// 应用全局配置
 enum AppConfig {
     // MARK: - 服务器配置
-    /// 服务器地址（修改此地址以连接不同的后端服务器）
-    /// 开发环境示例：
-    /// - 本机模拟器: "localhost"
-    /// - 真机测试: "192.168.x.x" (本机IP)
-    /// - 生产环境: "api.citywalk.com"
-    static let serverHost = "192.168.31.34"
-    
-    /// 服务器端口
-    static let serverPort = 8080
-    
-    /// API 版本
-    static let apiVersion = "v1"
-    
-    /// 完整的 API Base URL
-    static var apiBaseURL: String {
-        "http://\(serverHost):\(serverPort)/api/\(apiVersion)"
-    }
+    /// API Base URL
+    static let apiBaseURL = "https://api.moon-alpha.com/api/v1"
     
     // MARK: - 高德地图配置
     /// 高德地图 API Key (iOS端)
