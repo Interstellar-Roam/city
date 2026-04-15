@@ -116,8 +116,8 @@ struct Location: Codable, Hashable {
     let type: String
     let coordinates: [Double]  // [经度, 纬度]
     
-    var longitude: Double { coordinates[0] }
-    var latitude: Double { coordinates[1] }
+    var longitude: Double { coordinates.count > 0 ? coordinates[0] : 0 }
+    var latitude: Double { coordinates.count > 1 ? coordinates[1] : 0 }
     
     var coordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(latitude: latitude, longitude: longitude)

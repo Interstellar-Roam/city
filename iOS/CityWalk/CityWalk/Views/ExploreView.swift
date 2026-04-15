@@ -595,7 +595,7 @@ struct RouteDetailView: View {
             await loadRouteDetail()
         }
         .sheet(isPresented: $showNavigation) {
-            NavigationView(routeName: route.name, coordinates: navigationCoordinates, points: detailedRoute?.points ?? route.points ?? [])
+            RoutePreviewView(routeName: route.name, coordinates: navigationCoordinates, points: detailedRoute?.points ?? route.points ?? [])
         }
         .sheet(isPresented: $showNavigationPrep) {
             if let route = detailedRoute {
@@ -948,8 +948,8 @@ struct ElevationChartView: View {
     }
 }
 
-// MARK: - 导航视图
-struct NavigationView: View {
+// MARK: - 路线预览视图
+struct RoutePreviewView: View {
     let routeName: String
     let coordinates: [CLLocationCoordinate2D]
     let points: [RoutePoint]  // 添加原始轨迹点数据
@@ -2315,7 +2315,7 @@ struct NavigationPrepView: View {
                     .background(.ultraThinMaterial)
                 }
             )
-            .sheet(isPresented: $showNavigationActive) {
+            .fullScreenCover(isPresented: $showNavigationActive) {
                 NavigationActiveView(
                     route: route,
                     mode: selectedMode,
@@ -2527,6 +2527,7 @@ struct NavigationActiveView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject private var navigationService: AMapNavigationService
     @State private var showEndConfirmation = false
+    @State private var showOverview = false
     
     init(route: Route, mode: NavigationMode, enableVoice: Bool, powerSavingMode: Bool) {
         self.route = route
@@ -2543,187 +2544,278 @@ struct NavigationActiveView: View {
     }
     
     var body: some View {
-        ZStack {
-            // 高德地图
-            AMapNavigationView(
-                routeCoordinates: navigationService.routeCoordinates,
-                currentLocation: navigationService.currentLocation,
-                currentHeading: navigationService.currentHeading,
-                currentSegmentIndex: navigationService.currentSegmentIndex,
-                isOffRoute: navigationService.isOffRoute
-            )
-            .ignoresSafeArea()
-            
-            VStack(spacing: 0) {
-                // 顶部：转向提示
-                if let turn = navigationService.nextTurn {
-                    HStack(spacing: 12) {
-                        Image(systemName: turn.icon)
-                            .font(.system(size: 28))
-                            .foregroundColor(.white)
-                            .frame(width: 44, height: 44)
-                            .background(Color.orange)
-                            .cornerRadius(22)
-                        
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("前方 \(Int(turn.distance)) 米\(turn.direction)")
-                                .font(.headline)
-                                .foregroundColor(.primary)
-                            if let road = turn.roadName {
-                                Text(road)
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                            }
+        ZStack(alignment: .top) {
+            // 全屏地图
+            if navigationService.routeCoordinates.count >= 2 {
+                NavigationMapWrapper(
+                    routeCoordinates: navigationService.routeCoordinates,
+                    currentLocation: navigationService.currentLocation,
+                    currentHeading: navigationService.currentHeading,
+                    currentSegmentIndex: navigationService.currentSegmentIndex,
+                    isOffRoute: navigationService.isOffRoute,
+                    showOverview: showOverview
+                )
+                .ignoresSafeArea()
+            } else {
+                Color(UIColor.systemGray6)
+                    .ignoresSafeArea()
+                    .overlay(
+                        VStack(spacing: 16) {
+                            Image(systemName: "exclamationmark.triangle")
+                                .font(.system(size: 48))
+                                .foregroundColor(.orange)
+                            Text("路线数据不完整")
+                                .font(.title2.bold())
+                            Text("该路线没有轨迹点数据，无法导航")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                            Button("返回") { dismiss() }
+                                .buttonStyle(.bordered)
                         }
-                        
-                        Spacer()
-                    }
-                    .padding()
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(12)
-                    .padding()
-                }
+                    )
+            }
+            
+            // 顶部转向指引横幅
+            VStack(spacing: 0) {
+                turnBannerView
+                    .padding(.top, 50)
                 
-                // 偏离路线提示
+                // 偏离路线警告
                 if navigationService.isOffRoute {
-                    HStack {
+                    HStack(spacing: 8) {
                         Image(systemName: "exclamationmark.triangle.fill")
-                            .foregroundColor(.orange)
-                        Text("您已偏离路线")
-                            .font(.subheadline)
-                            .foregroundColor(.primary)
+                            .foregroundColor(.white)
+                        Text("您已偏离路线，请返回")
+                            .font(.subheadline.bold())
+                            .foregroundColor(.white)
                     }
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
-                    .background(Color.orange.opacity(0.2))
+                    .background(Color.orange)
                     .cornerRadius(20)
-                    .padding(.top, navigationService.nextTurn == nil ? 8 : 0)
+                    .padding(.top, 8)
                 }
                 
                 Spacer()
+            }
+            
+            // 底部导航信息面板
+            VStack(spacing: 0) {
+                Spacer()
                 
-                // 底部：导航面板
-                VStack(spacing: 16) {
-                    // 进度条
-                    VStack(alignment: .leading, spacing: 4) {
-                        HStack {
-                            Text("导航进度")
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                            Spacer()
-                            Text("\(Int(navigationService.navigationProgress * 100))%")
-                                .font(.caption)
-                                .foregroundColor(.orange)
-                                .fontWeight(.semibold)
-                        }
-                        
-                        GeometryReader { geometry in
-                            ZStack(alignment: .leading) {
-                                RoundedRectangle(cornerRadius: 4)
-                                    .fill(Color.gray.opacity(0.3))
-                                    .frame(height: 8)
-                                
-                                RoundedRectangle(cornerRadius: 4)
-                                    .fill(
-                                        LinearGradient(
-                                            colors: [.orange, .red],
-                                            startPoint: .leading,
-                                            endPoint: .trailing
-                                        )
-                                    )
-                                    .frame(width: geometry.size.width * navigationService.navigationProgress, height: 8)
-                            }
-                        }
-                        .frame(height: 8)
-                    }
-                    .padding(.horizontal)
-                    
-                    // 信息卡片
-                    HStack(spacing: 12) {
-                        InfoCard(title: "剩余距离", value: navigationService.remainingDistanceText, icon: "point.topleft.down.curvedto.point.bottomright.up")
-                        InfoCard(title: "预计时间", value: navigationService.estimatedTimeText, icon: "clock")
-                        InfoCard(title: "当前速度", value: navigationService.currentSpeedText, icon: "speedometer")
-                    }
-                    
-                    // 操作按钮
-                    HStack(spacing: 12) {
-                        // 暂停/继续
-                        Button {
-                            navigationService.togglePause()
-                        } label: {
-                            VStack(spacing: 4) {
-                                Image(systemName: navigationService.isPaused ? "play.fill" : "pause.fill")
-                                    .font(.title2)
-                                Text(navigationService.isPaused ? "继续" : "暂停")
-                                    .font(.caption2)
-                            }
-                            .frame(width: 60, height: 60)
-                            .background(Color(.systemGray6))
-                            .cornerRadius(30)
-                        }
-                        .foregroundColor(.primary)
-                        
-                        // 结束导航
-                        Button {
-                            showEndConfirmation = true
-                        } label: {
-                            Text("结束导航")
-                                .font(.headline)
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 16)
-                                .background(Color.red)
-                                .cornerRadius(12)
-                        }
-                        
-                        // 查看全程
-                        Button {
-                            // 地图会自动处理
-                            let generator = UIImpactFeedbackGenerator(style: .light)
-                            generator.impactOccurred()
-                        } label: {
-                            VStack(spacing: 4) {
-                                Image(systemName: "map.fill")
-                                    .font(.title2)
-                                Text("全程")
-                                    .font(.caption2)
-                            }
-                            .frame(width: 60, height: 60)
-                            .background(Color(.systemGray6))
-                            .cornerRadius(30)
-                        }
-                        .foregroundColor(.primary)
-                    }
-                }
-                .padding()
-                .background(.ultraThinMaterial)
+                bottomPanel
             }
         }
         .navigationBarBackButtonHidden()
+        .statusBarHidden(true)
         .confirmationDialog("确认结束导航?", isPresented: $showEndConfirmation) {
-            Button("结束导航", role: .destructive) {
-                navigationService.stopNavigation()
-                dismiss()
-            }
+            Button("结束导航", role: .destructive) { navigationService.stopNavigation(); dismiss() }
             Button("取消", role: .cancel) {}
-        } message: {
-            Text("导航进度将被清空")
-        }
+        } message: { Text("导航进度将被清空") }
         .alert("到达目的地", isPresented: $navigationService.showArrivalAlert) {
-            Button("结束导航") {
-                navigationService.stopNavigation()
-                dismiss()
-            }
+            Button("结束导航") { navigationService.stopNavigation(); dismiss() }
             Button("继续", role: .cancel) {}
-        } message: {
-            Text("恭喜您完成本次导航！")
-        }
+        } message: { Text("恭喜您完成本次导航！") }
         .onAppear {
-            navigationService.startNavigation()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                if navigationService.routeCoordinates.count >= 2 {
+                    navigationService.startNavigation()
+                }
+            }
         }
         .onDisappear {
             navigationService.stopNavigation()
         }
+    }
+    
+    // MARK: - 转向横幅
+    private var turnBannerView: some View {
+        HStack(spacing: 14) {
+            if let turn = navigationService.nextTurn {
+                // 转向图标
+                Image(systemName: turn.icon)
+                    .font(.system(size: 30, weight: .bold))
+                    .foregroundColor(.white)
+                    .frame(width: 52, height: 52)
+                    .background(Color(red: 0.13, green: 0.59, blue: 0.95))
+                    .cornerRadius(10)
+                
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("前方 \(Int(turn.distance)) 米\(turn.direction)")
+                        .font(.system(size: 20, weight: .bold))
+                        .foregroundColor(.white)
+                    if let road = turn.roadName {
+                        Text(road)
+                            .font(.system(size: 14))
+                            .foregroundColor(.white.opacity(0.85))
+                    }
+                }
+            } else {
+                // 无转向时显示沿路线前行
+                Image(systemName: "arrow.up")
+                    .font(.system(size: 30, weight: .bold))
+                    .foregroundColor(.white)
+                    .frame(width: 52, height: 52)
+                    .background(Color(red: 0.13, green: 0.59, blue: 0.95))
+                    .cornerRadius(10)
+                
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("沿路线前行")
+                        .font(.system(size: 20, weight: .bold))
+                        .foregroundColor(.white)
+                    Text(navigationService.remainingDistanceText)
+                        .font(.system(size: 14))
+                        .foregroundColor(.white.opacity(0.85))
+                }
+            }
+            
+            Spacer()
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 14)
+        .background(Color(red: 0.10, green: 0.16, blue: 0.25))
+        .cornerRadius(14)
+        .padding(.horizontal, 12)
+        .shadow(color: .black.opacity(0.3), radius: 8, y: 4)
+    }
+    
+    // MARK: - 底部导航面板
+    private var bottomPanel: some View {
+        VStack(spacing: 0) {
+            // 进度条
+            VStack(spacing: 6) {
+                GeometryReader { geometry in
+                    ZStack(alignment: .leading) {
+                        RoundedRectangle(cornerRadius: 4)
+                            .fill(Color.white.opacity(0.2))
+                            .frame(height: 6)
+                        RoundedRectangle(cornerRadius: 4)
+                            .fill(LinearGradient(
+                                colors: [Color(red: 0.13, green: 0.59, blue: 0.95), Color(red: 0.25, green: 0.80, blue: 0.50)],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            ))
+                            .frame(width: max(0, geometry.size.width * navigationService.navigationProgress), height: 6)
+                    }
+                }
+                .frame(height: 6)
+                
+                HStack {
+                    Text("已行进 \(Int(navigationService.navigationProgress * 100))%")
+                        .font(.system(size: 12))
+                        .foregroundColor(.white.opacity(0.7))
+                    Spacer()
+                    Text("剩余 \(navigationService.remainingDistanceText)")
+                        .font(.system(size: 12))
+                        .foregroundColor(.white.opacity(0.7))
+                }
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 16)
+            
+            // 核心数据行
+            HStack(spacing: 0) {
+                // 剩余距离
+                VStack(spacing: 4) {
+                    Text(navigationService.remainingDistanceText)
+                        .font(.system(size: 28, weight: .bold, design: .rounded))
+                        .foregroundColor(.white)
+                    Text("剩余距离")
+                        .font(.system(size: 11))
+                        .foregroundColor(.white.opacity(0.6))
+                }
+                .frame(maxWidth: .infinity)
+                
+                // 分隔线
+                Rectangle()
+                    .fill(Color.white.opacity(0.2))
+                    .frame(width: 1, height: 40)
+                
+                // 预计时间
+                VStack(spacing: 4) {
+                    Text(navigationService.estimatedTimeText)
+                        .font(.system(size: 28, weight: .bold, design: .rounded))
+                        .foregroundColor(.white)
+                    Text("预计时间")
+                        .font(.system(size: 11))
+                        .foregroundColor(.white.opacity(0.6))
+                }
+                .frame(maxWidth: .infinity)
+                
+                // 分隔线
+                Rectangle()
+                    .fill(Color.white.opacity(0.2))
+                    .frame(width: 1, height: 40)
+                
+                // 当前速度
+                VStack(spacing: 4) {
+                    Text(navigationService.currentSpeedText)
+                        .font(.system(size: 28, weight: .bold, design: .rounded))
+                        .foregroundColor(.white)
+                    Text("当前速度")
+                        .font(.system(size: 11))
+                        .foregroundColor(.white.opacity(0.6))
+                }
+                .frame(maxWidth: .infinity)
+            }
+            .padding(.vertical, 16)
+            
+            // 控制按钮行
+            HStack(spacing: 0) {
+                // 暂停/继续
+                Button { navigationService.togglePause() } label: {
+                    VStack(spacing: 3) {
+                        Image(systemName: navigationService.isPaused ? "play.fill" : "pause.fill")
+                            .font(.system(size: 22))
+                        Text(navigationService.isPaused ? "继续" : "暂停")
+                            .font(.system(size: 11))
+                    }
+                    .foregroundColor(.white)
+                    .frame(width: 64, height: 56)
+                    .background(Color.white.opacity(0.15))
+                    .cornerRadius(12)
+                }
+                
+                Spacer()
+                
+                // 结束导航
+                Button { showEndConfirmation = true } label: {
+                    HStack(spacing: 6) {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 14, weight: .bold))
+                        Text("结束导航")
+                            .font(.system(size: 16, weight: .semibold))
+                    }
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 28)
+                    .padding(.vertical, 14)
+                    .background(Color.red)
+                    .cornerRadius(25)
+                }
+                
+                Spacer()
+                
+                // 全程预览
+                Button { showOverview.toggle() } label: {
+                    VStack(spacing: 3) {
+                        Image(systemName: showOverview ? "location.north.fill" : "map.fill")
+                            .font(.system(size: 22))
+                        Text(showOverview ? "跟随" : "全程")
+                            .font(.system(size: 11))
+                    }
+                    .foregroundColor(.white)
+                    .frame(width: 64, height: 56)
+                    .background(Color.white.opacity(0.15))
+                    .cornerRadius(12)
+                }
+            }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 24)
+        }
+        .background(
+            Color(red: 0.10, green: 0.16, blue: 0.25)
+                .ignoresSafeArea()
+        )
     }
 }
 
@@ -2761,7 +2853,14 @@ struct InfoCard: View {
 
 // MARK: - 高德地图导航服务
 class AMapNavigationService: NSObject, ObservableObject {
-    private let locationManager = AMapLocationManager()
+    private lazy var locationManager: AMapLocationManager = {
+        print("🔥 Creating AMapLocationManager...")
+        let mgr = AMapLocationManager()
+        print("🔥 AMapLocationManager created OK")
+        return mgr
+    }()
+    // 独立的 CLLocationManager 用于获取罗盘 heading（静止也能响应手机朝向）
+    private let headingManager = CLLocationManager()
     private let speechSynthesizer = AVSpeechSynthesizer()
     
     let route: Route
@@ -2775,6 +2874,7 @@ class AMapNavigationService: NSObject, ObservableObject {
     private var startTime: Date?
     private var lastLocation: CLLocation?
     private var hasAnnouncedArrival = false
+    private var lastOffRouteAnnounceTime: Date?
     
     @Published var currentLocation: CLLocationCoordinate2D?
     @Published var currentHeading: Double = 0
@@ -2802,15 +2902,49 @@ class AMapNavigationService: NSObject, ObservableObject {
         
         super.init()
         
-        if let points = route.points {
-            self.routeCoordinates = CoordinateConverter.wgs84ToGcj02(points.map { $0.location.coordinate })
-            self.totalDistance = calculateTotalDistance()
+        print("🔥 AMapNavigationService.init START")
+        print("🔥 route.name: \(route.name)")
+        print("🔥 route.points count: \(route.points?.count ?? 0)")
+        print("🔥 route.distance: \(route.distance)")
+        
+        // 设置高德隐私合规（必须在使用定位前设置）
+        AMapLocationManager.updatePrivacyShow(.didShow, privacyInfo: .didContain)
+        AMapLocationManager.updatePrivacyAgree(.didAgree)
+        
+        if let points = route.points, !points.isEmpty {
+            print("🔥 Converting \(points.count) points to GCJ02...")
+            // 先过滤掉无效坐标
+            let allCoords = points.map { $0.location.coordinate }
+            let rawCoords = allCoords.filter { coord in
+                coord.latitude != 0 && coord.longitude != 0 &&
+                !coord.latitude.isNaN && !coord.longitude.isNaN &&
+                abs(coord.latitude) <= 90 && abs(coord.longitude) <= 180
+            }
+            print("🔥 Valid coordinates: \(rawCoords.count)/\(points.count)")
+            if rawCoords.count >= 2 {
+                print("🔥 First point: lat=\(rawCoords.first?.latitude ?? 0), lon=\(rawCoords.first?.longitude ?? 0)")
+                self.routeCoordinates = CoordinateConverter.wgs84ToGcj02(rawCoords)
+                // 过滤转换后可能产生的无效坐标
+                self.routeCoordinates = self.routeCoordinates.filter { coord in
+                    !coord.latitude.isNaN && !coord.longitude.isNaN &&
+                    abs(coord.latitude) <= 90 && abs(coord.longitude) <= 180
+                }
+                if self.routeCoordinates.count >= 2 {
+                    self.totalDistance = calculateTotalDistance()
+                }
+                print("🔥 routeCoordinates count: \(routeCoordinates.count), totalDistance: \(totalDistance)")
+            } else {
+                print("🔥 WARNING: not enough valid coordinates after filtering!")
+            }
+        } else {
+            print("🔥 WARNING: route.points is nil or empty - navigation will not work properly!")
         }
         
         setupLocationManager()
         
         self.remainingDistanceText = route.formattedDistance
         self.estimatedTimeText = route.formattedDuration
+        print("🔥 AMapNavigationService.init DONE")
     }
     
     private func setupLocationManager() {
@@ -2826,10 +2960,17 @@ class AMapNavigationService: NSObject, ObservableObject {
         
         locationManager.pausesLocationUpdatesAutomatically = false
         locationManager.allowsBackgroundLocationUpdates = true
+        
+        // 设置独立的 heading 管理器（磁力计，静止也能响应手机朝向）
+        headingManager.delegate = self
+        headingManager.headingFilter = 2  // 每变化2度更新一次
+        headingManager.headingOrientation = .portrait
+        headingManager.requestWhenInUseAuthorization()  // 必须请求定位权限才能获取 heading
     }
     
     func startNavigation() {
         locationManager.startUpdatingLocation()
+        headingManager.startUpdatingHeading()  // 开始监听磁力计
         startTime = Date()
         
         if enableVoice {
@@ -2839,6 +2980,7 @@ class AMapNavigationService: NSObject, ObservableObject {
     
     func stopNavigation() {
         locationManager.stopUpdatingLocation()
+        headingManager.stopUpdatingHeading()
     }
     
     func togglePause() {
@@ -2846,9 +2988,11 @@ class AMapNavigationService: NSObject, ObservableObject {
         
         if isPaused {
             locationManager.stopUpdatingLocation()
+            headingManager.stopUpdatingHeading()
             speak("导航已暂停")
         } else {
             locationManager.startUpdatingLocation()
+            headingManager.startUpdatingHeading()
             speak("继续导航")
         }
     }
@@ -2877,7 +3021,7 @@ class AMapNavigationService: NSObject, ObservableObject {
     }
     
     private func updateNavigationData(location: CLLocation) {
-        guard !routeCoordinates.isEmpty else { return }
+        guard !routeCoordinates.isEmpty, totalDistance > 0 else { return }
         
         var minDistance = Double.infinity
         var nearestIndex = 0
@@ -2895,7 +3039,11 @@ class AMapNavigationService: NSObject, ObservableObject {
         isOffRoute = minDistance > 50
         
         if isOffRoute {
-            speak("您已偏离路线，请返回")
+            let now = Date()
+            if lastOffRouteAnnounceTime == nil || now.timeIntervalSince(lastOffRouteAnnounceTime!) > 30 {
+                lastOffRouteAnnounceTime = now
+                speak("您已偏离路线，请返回")
+            }
         }
         
         currentSegmentIndex = nearestIndex
@@ -2942,7 +3090,7 @@ class AMapNavigationService: NSObject, ObservableObject {
         }
         
         currentLocation = location.coordinate
-        currentHeading = location.course
+        // currentHeading 由 CLLocationManager 磁力计更新，不再用 location.course
         
         if remainingDistance < 20 && !hasAnnouncedArrival {
             hasAnnouncedArrival = true
@@ -2956,7 +3104,7 @@ class AMapNavigationService: NSObject, ObservableObject {
     }
     
     private func updateTurnInstruction(nearestIndex: Int) {
-        guard nearestIndex < routeCoordinates.count - 10 else {
+        guard routeCoordinates.count > 10, nearestIndex < routeCoordinates.count - 10 else {
             nextTurn = nil
             return
         }
@@ -3033,6 +3181,8 @@ extension AMapNavigationService: AMapLocationManagerDelegate {
     func amapLocationManager(_ manager: AMapLocationManager!, didUpdate location: CLLocation!) {
         guard !isPaused, let location = location else { return }
         
+        print("📍 GPS update: lat=\(location.coordinate.latitude) lon=\(location.coordinate.longitude) course=\(location.course) speed=\(location.speed)")
+        
         DispatchQueue.main.async {
             self.updateNavigationData(location: location)
         }
@@ -3040,6 +3190,363 @@ extension AMapNavigationService: AMapLocationManagerDelegate {
     
     func amapLocationManager(_ manager: AMapLocationManager!, didFailWithError error: Error!) {
         print("❌ 高德定位失败: \(error?.localizedDescription ?? "未知错误")")
+    }
+    
+    func amapLocationManager(_ manager: AMapLocationManager!, didChange status: CLAuthorizationStatus) {
+        if status == .notDetermined {
+            headingManager.requestWhenInUseAuthorization()
+        }
+    }
+}
+
+// MARK: - CLLocationManager 磁力计 delegate（静止也能响应手机朝向）
+extension AMapNavigationService: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        guard newHeading.headingAccuracy >= 0 else { return }
+        
+        // 使用真北方向（magneticHeading + 磁偏 = trueHeading）
+        let heading = newHeading.trueHeading > 0 ? newHeading.trueHeading : newHeading.magneticHeading
+        print("🧭 heading update: true=\(newHeading.trueHeading) magnetic=\(newHeading.magneticHeading) → using \(heading)")
+        
+        DispatchQueue.main.async {
+            self.currentHeading = heading
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        print("🧭 location auth changed: \(status.rawValue)")
+        if status == .authorizedWhenInUse || status == .authorizedAlways {
+            manager.startUpdatingHeading()
+        }
+    }
+}
+
+// MARK: - 导航地图视图（跟随+旋转模式）
+struct NavigationMapWrapper: UIViewRepresentable {
+    let routeCoordinates: [CLLocationCoordinate2D]
+    let currentLocation: CLLocationCoordinate2D?
+    let currentHeading: Double
+    let currentSegmentIndex: Int
+    let isOffRoute: Bool
+    let showOverview: Bool
+    
+    private var validCoordinates: [CLLocationCoordinate2D] {
+        routeCoordinates.filter { coord in
+            coord.latitude != 0 && coord.longitude != 0 &&
+            !coord.latitude.isNaN && !coord.longitude.isNaN &&
+            abs(coord.latitude) <= 90 && abs(coord.longitude) <= 180
+        }
+    }
+    
+    func makeUIView(context: Context) -> MKMapView {
+        let mapView = MKMapView()
+        mapView.delegate = context.coordinator
+        mapView.showsUserLocation = false
+        mapView.isUserInteractionEnabled = true
+        mapView.isPitchEnabled = true
+        mapView.isRotateEnabled = true
+        mapView.showsCompass = false
+        mapView.showsScale = false
+        mapView.showsTraffic = true
+        mapView.mapType = .standard
+        
+        let coords = validCoordinates
+        if coords.count >= 2 {
+            let polyline = MKPolyline(coordinates: coords, count: coords.count)
+            polyline.title = "remaining"
+            mapView.addOverlay(polyline)
+            
+            let endAnnotation = MKPointAnnotation()
+            endAnnotation.coordinate = coords[coords.count - 1]
+            endAnnotation.title = "终点"
+            mapView.addAnnotation(endAnnotation)
+        }
+        
+        // 添加导航位置标注
+        let locationAnnotation = MKPointAnnotation()
+        let initialCoord = coords.first ?? CLLocationCoordinate2D(latitude: 22.5, longitude: 114.0)
+        locationAnnotation.coordinate = initialCoord
+        locationAnnotation.title = "UserPosition"
+        mapView.addAnnotation(locationAnnotation)
+        context.coordinator.locationAnnotation = locationAnnotation
+        
+        context.coordinator.mapView = mapView
+        return mapView
+    }
+    
+    func updateUIView(_ mapView: MKMapView, context: Context) {
+        let coordinator = context.coordinator
+        
+        // 更新路线覆盖物
+        if coordinator.lastCoordinatesCount != routeCoordinates.count || coordinator.lastSegmentIndex != currentSegmentIndex {
+            mapView.removeOverlays(mapView.overlays)
+            let coords = validCoordinates
+            
+            if coords.count >= 2 {
+                if currentSegmentIndex > 0 {
+                    let completedIdx = min(currentSegmentIndex, coords.count)
+                    let completedCoords = Array(coords[0..<completedIdx])
+                    if completedCoords.count >= 2 {
+                        let completedPolyline = MKPolyline(coordinates: completedCoords, count: completedCoords.count)
+                        completedPolyline.title = "completed"
+                        mapView.addOverlay(completedPolyline)
+                    }
+                }
+                
+                let remainingStart = min(currentSegmentIndex, coords.count - 1)
+                let remainingCoords = Array(coords[remainingStart..<coords.count])
+                if remainingCoords.count >= 2 {
+                    let remainingPolyline = MKPolyline(coordinates: remainingCoords, count: remainingCoords.count)
+                    remainingPolyline.title = "remaining"
+                    mapView.addOverlay(remainingPolyline)
+                }
+                
+                let existingEnd = mapView.annotations.first { $0.title == "终点" }
+                if existingEnd == nil {
+                    let endAnnotation = MKPointAnnotation()
+                    endAnnotation.coordinate = coords[coords.count - 1]
+                    endAnnotation.title = "终点"
+                    mapView.addAnnotation(endAnnotation)
+                }
+            }
+            
+            coordinator.lastCoordinatesCount = routeCoordinates.count
+            coordinator.lastSegmentIndex = currentSegmentIndex
+        }
+        
+        // 更新偏离连线：GPS 位置 → 路线上最近点
+        let coords = validCoordinates
+        if let location = currentLocation, currentSegmentIndex < coords.count, isOffRoute {
+            let nearestCoord = coords[currentSegmentIndex]
+            let snapLine = MKPolyline(coordinates: [location, nearestCoord], count: 2)
+            snapLine.title = "snapLine"
+            // 先移除旧的 snapLine
+            let oldSnapLines = mapView.overlays.filter { ($0 as? MKPolyline)?.title == "snapLine" }
+            if !oldSnapLines.isEmpty {
+                mapView.removeOverlays(oldSnapLines)
+            }
+            mapView.addOverlay(snapLine)
+        } else {
+            // 不偏离时移除 snapLine
+            let oldSnapLines = mapView.overlays.filter { ($0 as? MKPolyline)?.title == "snapLine" }
+            if !oldSnapLines.isEmpty {
+                mapView.removeOverlays(oldSnapLines)
+            }
+        }
+        
+        // 箭头位置：始终在 GPS 真实位置，偏离路线也在真实位置
+        let arrowLocation: CLLocationCoordinate2D
+        if let location = currentLocation {
+            arrowLocation = location
+        } else if currentSegmentIndex < coords.count {
+            // 没有 GPS 时 fallback 到路线上的最近点
+            arrowLocation = coords[currentSegmentIndex]
+        } else if let first = coords.first {
+            arrowLocation = first
+        } else {
+            return
+        }
+        
+        // 相机中心：跟随箭头位置
+        let centerLocation = arrowLocation
+        
+        // 更新位置标注坐标
+        if let locationAnnotation = coordinator.locationAnnotation {
+            locationAnnotation.coordinate = centerLocation
+        }
+        
+        // 计算航向
+        let heading: Double
+        if currentHeading > 0 && currentHeading < 360 {
+            heading = currentHeading
+        } else {
+            let lookAhead = min(currentSegmentIndex + 5, coords.count - 1)
+            if currentSegmentIndex < coords.count && lookAhead < coords.count && currentSegmentIndex != lookAhead {
+                heading = bearing(from: coords[currentSegmentIndex], to: coords[lookAhead])
+            } else if coords.count >= 2 {
+                heading = bearing(from: coords[0], to: coords[min(5, coords.count - 1)])
+            } else {
+                heading = 0
+            }
+        }
+        
+        if showOverview {
+            if coords.count >= 2 {
+                let lats = coords.map { $0.latitude }
+                let lons = coords.map { $0.longitude }
+                if let minLat = lats.min(), let maxLat = lats.max(),
+                   let minLon = lons.min(), let maxLon = lons.max() {
+                    let span = MKCoordinateSpan(
+                        latitudeDelta: (maxLat - minLat) * 1.3 + 0.01,
+                        longitudeDelta: (maxLon - minLon) * 1.3 + 0.01
+                    )
+                    mapView.setRegion(MKCoordinateRegion(
+                        center: CLLocationCoordinate2D(latitude: (minLat + maxLat) / 2, longitude: (minLon + maxLon) / 2),
+                        span: span
+                    ), animated: true)
+                }
+            }
+        } else {
+            let camera = MKMapCamera(
+                lookingAtCenter: centerLocation,
+                fromDistance: 200,
+                pitch: 60,
+                heading: heading
+            )
+            mapView.setCamera(camera, animated: true)
+        }
+        
+        // 关键：旋转位置标注，让它始终"指向上方"
+        // 地图相机 heading 旋转时，annotation view 也跟着旋转
+        // 所以需要反向旋转来补偿：annotation 旋转角 = -heading
+        if let annotationView = coordinator.locationAnnotationView {
+            let rotationAngle = CGFloat(-heading * .pi / 180)
+            UIView.animate(withDuration: 0.3) {
+                annotationView.transform = CGAffineTransform(rotationAngle: rotationAngle)
+            }
+        }
+    }
+    
+    private func bearing(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D) -> Double {
+        let lat1 = from.latitude * .pi / 180
+        let lon1 = from.longitude * .pi / 180
+        let lat2 = to.latitude * .pi / 180
+        let lon2 = to.longitude * .pi / 180
+        
+        let dLon = lon2 - lon1
+        let y = sin(dLon) * cos(lat2)
+        let x = cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(dLon)
+        
+        return (atan2(y, x) * 180 / .pi + 360).truncatingRemainder(dividingBy: 360)
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator()
+    }
+    
+    /// 绘制导航箭头图片：蓝色尖头 + 光晕
+    private static func makeNavigationArrowImage() -> UIImage {
+        let size = CGSize(width: 60, height: 60)
+        let renderer = UIGraphicsImageRenderer(size: size)
+        return renderer.image { context in
+            let cx = size.width / 2
+            let cy = size.height / 2
+            
+            // 外圈光晕
+            let glowColor = UIColor(red: 0.13, green: 0.59, blue: 0.95, alpha: 0.25)
+            glowColor.setFill()
+            context.cgContext.fillEllipse(in: CGRect(x: 8, y: 8, width: 44, height: 44))
+            
+            // 蓝色箭头（指向上方）
+            let arrowColor = UIColor(red: 0.13, green: 0.59, blue: 0.95, alpha: 1.0)
+            arrowColor.setFill()
+            
+            let path = UIBezierPath()
+            // 箭头尖（顶部中心）
+            path.move(to: CGPoint(x: cx, y: 4))
+            // 右侧
+            path.addLine(to: CGPoint(x: cx + 14, y: cy + 8))
+            // 右内缩
+            path.addLine(to: CGPoint(x: cx + 5, y: cy + 2))
+            // 底部右
+            path.addLine(to: CGPoint(x: cx + 5, y: cy + 18))
+            // 底部左
+            path.addLine(to: CGPoint(x: cx - 5, y: cy + 18))
+            // 左内缩
+            path.addLine(to: CGPoint(x: cx - 5, y: cy + 2))
+            // 左侧
+            path.addLine(to: CGPoint(x: cx - 14, y: cy + 8))
+            path.close()
+            
+            // 添加阴影
+            context.cgContext.setShadow(offset: CGSize(width: 0, height: 2), blur: 4, color: UIColor.black.withAlphaComponent(0.3).cgColor)
+            
+            path.fill()
+            
+            // 白色边框高光
+            let strokePath = UIBezierPath()
+            strokePath.move(to: CGPoint(x: cx, y: 4))
+            strokePath.addLine(to: CGPoint(x: cx + 14, y: cy + 8))
+            strokePath.addLine(to: CGPoint(x: cx + 5, y: cy + 2))
+            strokePath.addLine(to: CGPoint(x: cx + 5, y: cy + 18))
+            strokePath.addLine(to: CGPoint(x: cx - 5, y: cy + 18))
+            strokePath.addLine(to: CGPoint(x: cx - 5, y: cy + 2))
+            strokePath.addLine(to: CGPoint(x: cx - 14, y: cy + 8))
+            strokePath.close()
+            strokePath.lineWidth = 1.5
+            UIColor.white.withAlphaComponent(0.5).setStroke()
+            strokePath.stroke()
+        }
+    }
+    
+    class Coordinator: NSObject, MKMapViewDelegate {
+        weak var mapView: MKMapView?
+        var lastCoordinatesCount: Int = -1
+        var lastSegmentIndex: Int = -1
+        var locationAnnotation: MKPointAnnotation?
+        var locationAnnotationView: MKAnnotationView?
+        
+        func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+            if let polyline = overlay as? MKPolyline {
+                let renderer = MKPolylineRenderer(polyline: polyline)
+                if polyline.title == "completed" {
+                    renderer.strokeColor = UIColor.systemGreen.withAlphaComponent(0.8)
+                    renderer.lineWidth = 6
+                } else if polyline.title == "snapLine" {
+                    // 偏离路线时的虚线连接
+                    renderer.strokeColor = UIColor.systemOrange.withAlphaComponent(0.7)
+                    renderer.lineWidth = 3
+                    renderer.lineDashPattern = [6, 4]  // 虚线
+                } else {
+                    renderer.strokeColor = UIColor(red: 0.13, green: 0.59, blue: 0.95, alpha: 1.0)
+                    renderer.lineWidth = 8
+                }
+                return renderer
+            }
+            return MKOverlayRenderer(overlay: overlay)
+        }
+        
+        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+            if annotation.title == "UserPosition" {
+                let identifier = "NavigationUserLocation"
+                var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+                
+                if annotationView == nil {
+                    annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                } else {
+                    annotationView?.annotation = annotation
+                }
+                
+                annotationView?.image = NavigationMapWrapper.makeNavigationArrowImage()
+                annotationView?.canShowCallout = false
+                annotationView?.displayPriority = .required
+                annotationView?.centerOffset = CGPoint(x: 0, y: -12)  // 箭头尖对准坐标点
+                
+                // 保存引用以便后续旋转
+                self.locationAnnotationView = annotationView
+                
+                return annotationView
+            }
+            
+            if annotation.title == "终点" {
+                let identifier = "EndPoint"
+                var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView
+                
+                if annotationView == nil {
+                    annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                } else {
+                    annotationView?.annotation = annotation
+                }
+                
+                annotationView?.markerTintColor = .systemRed
+                annotationView?.glyphImage = UIImage(systemName: "flag.fill")
+                annotationView?.canShowCallout = false
+                
+                return annotationView
+            }
+            
+            return nil
+        }
     }
 }
 
@@ -3052,6 +3559,11 @@ struct AMapNavigationView: UIViewRepresentable {
     let isOffRoute: Bool
     
     func makeUIView(context: Context) -> MAMapView {
+        print("🔥 AMapNavigationView.makeUIView called, routeCoordinates count: \(routeCoordinates.count)")
+        
+        // 设置高德地图隐私合规（确保在创建 MAMapView 前设置）
+        AMapServices.shared().apiKey = AppConfig.amapAPIKey
+        
         let mapView = MAMapView()
         mapView.delegate = context.coordinator
         
@@ -3059,24 +3571,104 @@ struct AMapNavigationView: UIViewRepresentable {
         mapView.isZoomEnabled = true
         mapView.isScrollEnabled = true
         mapView.isRotateEnabled = true
-        mapView.showsUserLocation = false
         mapView.showsCompass = true
         mapView.showsScale = true
-        mapView.userTrackingMode = .followWithHeading
+        // 不使用 MAMapView 内置的用户位置追踪，由我们手动管理
+        mapView.showsUserLocation = false
+        mapView.userTrackingMode = .none
+        
+        // 初始绘制路线（仅在坐标数据有效时）
+        if routeCoordinates.count >= 2 {
+            context.coordinator.updateOverlays(mapView: mapView, routeCoordinates: routeCoordinates, currentSegmentIndex: currentSegmentIndex)
+        }
         
         return mapView
     }
     
     func updateUIView(_ mapView: MAMapView, context: Context) {
-        mapView.removeOverlays(mapView.overlays)
-        mapView.removeAnnotations(mapView.annotations)
+        let coordinator = context.coordinator
         
-        if !routeCoordinates.isEmpty {
-            var coords = routeCoordinates
-            let fullPolyline = MAPolyline(coordinates: &coords, count: UInt(routeCoordinates.count))
-            mapView.add(fullPolyline)
+        // 路线数据为空时不更新
+        guard routeCoordinates.count >= 2 else { return }
+        
+        // 只在路线数据真正变化时才重建覆盖物
+        let needsFullUpdate = coordinator.lastRouteCoordinatesCount != routeCoordinates.count
+        let needsProgressUpdate = coordinator.lastSegmentIndex != currentSegmentIndex
+        let needsLocationUpdate = !coordinator.isSameLocation(coordinator.lastLocation, currentLocation)
+        
+        if needsFullUpdate {
+            coordinator.updateOverlays(mapView: mapView, routeCoordinates: routeCoordinates, currentSegmentIndex: currentSegmentIndex)
+            coordinator.lastRouteCoordinatesCount = routeCoordinates.count
+            coordinator.lastSegmentIndex = currentSegmentIndex
+        } else if needsProgressUpdate {
+            coordinator.updateProgressOverlay(mapView: mapView, routeCoordinates: routeCoordinates, currentSegmentIndex: currentSegmentIndex)
+            coordinator.lastSegmentIndex = currentSegmentIndex
+        }
+        
+        // 更新当前位置标注
+        if needsLocationUpdate {
+            coordinator.updateLocationAnnotation(mapView: mapView, currentLocation: currentLocation, isOffRoute: isOffRoute)
+            coordinator.lastLocation = currentLocation
+        } else if let location = currentLocation, !isOffRoute {
+            mapView.setCenter(location, animated: true)
+        }
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator()
+    }
+    
+    class Coordinator: NSObject, MAMapViewDelegate {
+        var lastRouteCoordinatesCount: Int = -1
+        var lastSegmentIndex: Int = -1
+        var lastLocation: CLLocationCoordinate2D?
+        
+        private let fullRouteOverlayKey = "fullRoute"
+        private let completedRouteOverlayKey = "completedRoute"
+        
+        func isSameLocation(_ a: CLLocationCoordinate2D?, _ b: CLLocationCoordinate2D?) -> Bool {
+            guard let a = a, let b = b else {
+                return a == nil && b == nil
+            }
+            return abs(a.latitude - b.latitude) < 0.00001 && abs(a.longitude - b.longitude) < 0.00001
+        }
+        
+        func updateOverlays(mapView: MAMapView, routeCoordinates: [CLLocationCoordinate2D], currentSegmentIndex: Int) {
+            mapView.removeOverlays(mapView.overlays)
+            mapView.removeAnnotations(mapView.annotations)
             
-            if let first = routeCoordinates.first {
+            guard routeCoordinates.count >= 2 else { return }
+            
+            // 绘制完整路线（灰色）
+            var fullCoords = routeCoordinates
+            if let fullPolyline = MAPolyline(coordinates: &fullCoords, count: UInt(routeCoordinates.count)) {
+                fullPolyline.title = fullRouteOverlayKey
+                mapView.add(fullPolyline)
+            }
+            
+            // 绘制已走过的路线（绿色）
+            if currentSegmentIndex > 0 && currentSegmentIndex < routeCoordinates.count {
+                var completedCoords = Array(routeCoordinates[0..<currentSegmentIndex])
+                if completedCoords.count >= 2, let completedPolyline = MAPolyline(coordinates: &completedCoords, count: UInt(completedCoords.count)) {
+                    completedPolyline.title = completedRouteOverlayKey
+                    mapView.add(completedPolyline)
+                }
+            }
+            
+            // 添加起点标记
+            let startAnnotation = MAPointAnnotation()
+            startAnnotation.coordinate = routeCoordinates[0]
+            startAnnotation.title = "起点"
+            mapView.addAnnotation(startAnnotation)
+            
+            // 添加终点标记
+            let endAnnotation = MAPointAnnotation()
+            endAnnotation.coordinate = routeCoordinates[routeCoordinates.count - 1]
+            endAnnotation.title = "终点"
+            mapView.addAnnotation(endAnnotation)
+            
+            // 仅首次设置地图区域
+            if lastRouteCoordinatesCount == -1 {
                 let lats = routeCoordinates.map { $0.latitude }
                 let lons = routeCoordinates.map { $0.longitude }
                 
@@ -3100,50 +3692,46 @@ struct AMapNavigationView: UIViewRepresentable {
             }
         }
         
-        if currentSegmentIndex > 0 && currentSegmentIndex < routeCoordinates.count {
-            var completedCoords = Array(routeCoordinates[0..<currentSegmentIndex])
-            if let completedPolyline = MAPolyline(coordinates: &completedCoords, count: UInt(completedCoords.count)) {
-                completedPolyline.title = "completed"
-                mapView.add(completedPolyline)
+        func updateProgressOverlay(mapView: MAMapView, routeCoordinates: [CLLocationCoordinate2D], currentSegmentIndex: Int) {
+            let overlaysToRemove = mapView.overlays.filter { ($0 as? MAPolyline)?.title == completedRouteOverlayKey }
+            if !overlaysToRemove.isEmpty {
+                mapView.removeOverlays(overlaysToRemove)
             }
-        }
-        
-        if let start = routeCoordinates.first {
-            let annotation = MAPointAnnotation()
-            annotation.coordinate = start
-            annotation.title = "起点"
-            mapView.addAnnotation(annotation)
-        }
-        
-        if let end = routeCoordinates.last, routeCoordinates.count > 1 {
-            let annotation = MAPointAnnotation()
-            annotation.coordinate = end
-            annotation.title = "终点"
-            mapView.addAnnotation(annotation)
-        }
-        
-        if let location = currentLocation {
-            let annotation = MAPointAnnotation()
-            annotation.coordinate = location
-            annotation.title = "当前位置"
-            mapView.addAnnotation(annotation)
             
-            if !isOffRoute {
-                mapView.setCenter(location, animated: true)
+            if currentSegmentIndex > 0 && currentSegmentIndex < routeCoordinates.count {
+                var completedCoords = Array(routeCoordinates[0..<currentSegmentIndex])
+                if completedCoords.count >= 2, let completedPolyline = MAPolyline(coordinates: &completedCoords, count: UInt(completedCoords.count)) {
+                    completedPolyline.title = completedRouteOverlayKey
+                    mapView.add(completedPolyline)
+                }
             }
         }
-    }
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator()
-    }
-    
-    class Coordinator: NSObject, MAMapViewDelegate {
+        
+        func updateLocationAnnotation(mapView: MAMapView, currentLocation: CLLocationCoordinate2D?, isOffRoute: Bool) {
+            let annotationsToRemove = mapView.annotations.filter { $0 is MAUserLocationAnnotation }
+            if !annotationsToRemove.isEmpty {
+                mapView.removeAnnotations(annotationsToRemove)
+            }
+            
+            if let location = currentLocation {
+                let annotation = MAUserLocationAnnotation()
+                annotation.coordinate = location
+                annotation.title = "当前位置"
+                mapView.addAnnotation(annotation)
+                
+                if !isOffRoute {
+                    mapView.setCenter(location, animated: true)
+                }
+            }
+        }
+        
         func mapView(_ mapView: MAMapView!, rendererFor overlay: MAOverlay!) -> MAOverlayRenderer! {
+            guard let mapView = mapView, let overlay = overlay else { return nil }
+            
             if let polyline = overlay as? MAPolyline {
                 let renderer = MAPolylineRenderer(overlay: polyline)
                 
-                if let title = polyline.title, title == "completed" {
+                if let title = polyline.title, title == completedRouteOverlayKey {
                     renderer?.strokeColor = UIColor.systemGreen
                     renderer?.lineWidth = 5
                 } else {
@@ -3158,6 +3746,28 @@ struct AMapNavigationView: UIViewRepresentable {
         }
         
         func mapView(_ mapView: MAMapView!, viewFor annotation: MAAnnotation!) -> MAAnnotationView! {
+            guard let mapView = mapView, let annotation = annotation else { return nil }
+            
+            if annotation is MAUserLocationAnnotation {
+                let identifier = "UserLocation"
+                var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+                
+                if annotationView == nil {
+                    annotationView = MAAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                } else {
+                    annotationView?.annotation = annotation
+                }
+                
+                let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)
+                let image = UIImage(systemName: "location.north.fill", withConfiguration: config)?
+                    .withTintColor(.systemBlue, renderingMode: .alwaysOriginal)
+                
+                annotationView?.image = image
+                annotationView?.centerOffset = .zero
+                
+                return annotationView
+            }
+            
             if let title = annotation.title {
                 let identifier = "RoutePoint"
                 var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MAPinAnnotationView
@@ -3172,8 +3782,6 @@ struct AMapNavigationView: UIViewRepresentable {
                     annotationView?.pinColor = .green
                 } else if title == "终点" {
                     annotationView?.pinColor = .red
-                } else if title == "当前位置" {
-                    annotationView?.pinColor = .purple
                 }
                 
                 annotationView?.canShowCallout = true
@@ -3186,8 +3794,7 @@ struct AMapNavigationView: UIViewRepresentable {
     }
 }
 
-
-// MARK: - String Identifiable 扩展
-extension String: Identifiable {
-    public var id: String { self }
+// 自定义用户位置标注
+class MAUserLocationAnnotation: MAPointAnnotation {
+    
 }

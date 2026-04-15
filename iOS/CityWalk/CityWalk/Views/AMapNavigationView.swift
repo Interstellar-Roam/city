@@ -23,21 +23,87 @@ struct AMapNavigationView: UIViewRepresentable {
         mapView.showsScale = true
         mapView.userTrackingMode = .followWithHeading
         
+        // 初始绘制路线
+        context.coordinator.updateOverlays(mapView: mapView, routeCoordinates: routeCoordinates, currentSegmentIndex: currentSegmentIndex)
+        
         return mapView
     }
     
     func updateUIView(_ mapView: MAMapView, context: Context) {
-        // 清除旧的覆盖物
-        mapView.removeOverlays(mapView.overlays)
-        mapView.removeAnnotations(mapView.annotations)
+        let coordinator = context.coordinator
         
-        // 绘制完整路线（灰色）
-        if !routeCoordinates.isEmpty {
+        // 只在路线数据真正变化时才重建覆盖物
+        let needsFullUpdate = coordinator.lastRouteCoordinatesCount != routeCoordinates.count
+        let needsProgressUpdate = coordinator.lastSegmentIndex != currentSegmentIndex
+        let needsLocationUpdate = coordinator.lastLocation != currentLocation
+        
+        if needsFullUpdate {
+            coordinator.updateOverlays(mapView: mapView, routeCoordinates: routeCoordinates, currentSegmentIndex: currentSegmentIndex)
+            coordinator.lastRouteCoordinatesCount = routeCoordinates.count
+            coordinator.lastSegmentIndex = currentSegmentIndex
+        } else if needsProgressUpdate {
+            // 只更新已完成路线的覆盖物
+            coordinator.updateProgressOverlay(mapView: mapView, routeCoordinates: routeCoordinates, currentSegmentIndex: currentSegmentIndex)
+            coordinator.lastSegmentIndex = currentSegmentIndex
+        }
+        
+        // 更新当前位置标注
+        if needsLocationUpdate {
+            coordinator.updateLocationAnnotation(mapView: mapView, currentLocation: currentLocation, isOffRoute: isOffRoute)
+            coordinator.lastLocation = currentLocation
+        } else if let location = currentLocation, !isOffRoute {
+            // 即使位置对象相同，也需要跟随用户位置
+            mapView.setCenter(location, animated: true)
+        }
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator()
+    }
+    
+    class Coordinator: NSObject, MAMapViewDelegate {
+        var lastRouteCoordinatesCount: Int = -1
+        var lastSegmentIndex: Int = -1
+        var lastLocation: CLLocationCoordinate2D?
+        
+        private let fullRouteOverlayKey = "fullRoute"
+        private let completedRouteOverlayKey = "completedRoute"
+        
+        func updateOverlays(mapView: MAMapView, routeCoordinates: [CLLocationCoordinate2D], currentSegmentIndex: Int) {
+            mapView.removeOverlays(mapView.overlays)
+            mapView.removeAnnotations(mapView.annotations)
+            
+            guard !routeCoordinates.isEmpty else { return }
+            
+            // 绘制完整路线（灰色）
             let fullPolyline = MAPolyline(coordinates: routeCoordinates, count: UInt(routeCoordinates.count))
+            fullPolyline.title = fullRouteOverlayKey
             mapView.add(fullPolyline)
             
-            // 调整地图视野以显示整条路线
-            if let first = routeCoordinates.first {
+            // 绘制已走过的路线（绿色）
+            if currentSegmentIndex > 0 && currentSegmentIndex < routeCoordinates.count {
+                let completedCoords = Array(routeCoordinates[0..<currentSegmentIndex])
+                let completedPolyline = MAPolyline(coordinates: completedCoords, count: UInt(completedCoords.count))
+                completedPolyline.title = completedRouteOverlayKey
+                mapView.add(completedPolyline)
+            }
+            
+            // 添加起点标记
+            let startAnnotation = MAPointAnnotation()
+            startAnnotation.coordinate = routeCoordinates.first!
+            startAnnotation.title = "起点"
+            mapView.addAnnotation(startAnnotation)
+            
+            // 添加终点标记
+            if routeCoordinates.count > 1 {
+                let endAnnotation = MAPointAnnotation()
+                endAnnotation.coordinate = routeCoordinates.last!
+                endAnnotation.title = "终点"
+                mapView.addAnnotation(endAnnotation)
+            }
+            
+            // 仅首次设置地图区域
+            if lastRouteCoordinatesCount == -1 {
                 let lats = routeCoordinates.map { $0.latitude }
                 let lons = routeCoordinates.map { $0.longitude }
                 
@@ -61,54 +127,50 @@ struct AMapNavigationView: UIViewRepresentable {
             }
         }
         
-        // 绘制已走过的路线（绿色）
-        if currentSegmentIndex > 0 && currentSegmentIndex < routeCoordinates.count {
-            let completedCoords = Array(routeCoordinates[0..<currentSegmentIndex])
-            let completedPolyline = MAPolyline(coordinates: completedCoords, count: UInt(completedCoords.count))
-            mapView.add(completedPolyline)
-        }
-        
-        // 添加起点标记
-        if let start = routeCoordinates.first {
-            let annotation = MAPointAnnotation()
-            annotation.coordinate = start
-            annotation.title = "起点"
-            mapView.addAnnotation(annotation)
-        }
-        
-        // 添加终点标记
-        if let end = routeCoordinates.last, routeCoordinates.count > 1 {
-            let annotation = MAPointAnnotation()
-            annotation.coordinate = end
-            annotation.title = "终点"
-            mapView.addAnnotation(annotation)
-        }
-        
-        // 添加当前位置标记
-        if let location = currentLocation {
-            let annotation = MAUserLocationAnnotation()
-            annotation.coordinate = location
-            annotation.title = "当前位置"
-            mapView.addAnnotation(annotation)
+        func updateProgressOverlay(mapView: MAMapView, routeCoordinates: [CLLocationCoordinate2D], currentSegmentIndex: Int) {
+            // 移除旧的已完成路线覆盖物
+            let overlaysToRemove = mapView.overlays.filter { ($0 as? MAPolyline)?.title == completedRouteOverlayKey }
+            if !overlaysToRemove.isEmpty {
+                mapView.removeOverlays(overlaysToRemove)
+            }
             
-            // 跟随用户位置
-            if !isOffRoute {
-                mapView.setCenter(location, animated: true)
+            // 添加新的已完成路线
+            if currentSegmentIndex > 0 && currentSegmentIndex < routeCoordinates.count {
+                let completedCoords = Array(routeCoordinates[0..<currentSegmentIndex])
+                let completedPolyline = MAPolyline(coordinates: completedCoords, count: UInt(completedCoords.count))
+                completedPolyline.title = completedRouteOverlayKey
+                mapView.add(completedPolyline)
             }
         }
-    }
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator()
-    }
-    
-    class Coordinator: NSObject, MAMapViewDelegate {
+        
+        func updateLocationAnnotation(mapView: MAMapView, currentLocation: CLLocationCoordinate2D?, isOffRoute: Bool) {
+            // 移除旧的位置标注
+            let annotationsToRemove = mapView.annotations.filter { $0 is MAUserLocationAnnotation }
+            if !annotationsToRemove.isEmpty {
+                mapView.removeAnnotations(annotationsToRemove)
+            }
+            
+            // 添加当前位置标记
+            if let location = currentLocation {
+                let annotation = MAUserLocationAnnotation()
+                annotation.coordinate = location
+                annotation.title = "当前位置"
+                mapView.addAnnotation(annotation)
+                
+                if !isOffRoute {
+                    mapView.setCenter(location, animated: true)
+                }
+            }
+        }
+        
         func mapView(_ mapView: MAMapView!, rendererFor overlay: MAOverlay!) -> MAOverlayRenderer! {
+            guard let mapView = mapView, let overlay = overlay else { return nil }
+            
             if let polyline = overlay as? MAPolyline {
                 let renderer = MAPolylineRenderer(overlay: polyline)
                 
                 // 根据路线类型设置不同颜色
-                if let title = polyline.title, title == "completed" {
+                if let title = polyline.title, title == completedRouteOverlayKey {
                     renderer?.strokeColor = UIColor.systemGreen
                     renderer?.lineWidth = 5
                 } else {
@@ -123,6 +185,8 @@ struct AMapNavigationView: UIViewRepresentable {
         }
         
         func mapView(_ mapView: MAMapView!, viewFor annotation: MAAnnotation!) -> MAAnnotationView! {
+            guard let mapView = mapView, let annotation = annotation else { return nil }
+            
             // 处理用户位置标注
             if annotation is MAUserLocationAnnotation {
                 let identifier = "UserLocation"

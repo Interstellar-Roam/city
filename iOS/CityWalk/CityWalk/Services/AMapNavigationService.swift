@@ -14,12 +14,13 @@ class AMapNavigationService: NSObject, ObservableObject {
     let enableVoice: Bool
     let powerSavingMode: Bool
     
-    private var routeCoordinates: [CLLocationCoordinate2D] = []
+    var routeCoordinates: [CLLocationCoordinate2D] = []
     private var totalDistance: Double = 0
-    private var currentSegmentIndex: Int = 0
+    var currentSegmentIndex: Int = 0
     private var startTime: Date?
     private var lastLocation: CLLocation?
     private var hasAnnouncedArrival = false
+    private var lastOffRouteAnnounceTime: Date?
     
     @Published var currentLocation: CLLocationCoordinate2D?
     @Published var currentHeading: Double = 0
@@ -122,7 +123,7 @@ class AMapNavigationService: NSObject, ObservableObject {
     }
     
     private func updateNavigationData(location: CLLocation) {
-        guard !routeCoordinates.isEmpty else { return }
+        guard !routeCoordinates.isEmpty, totalDistance > 0 else { return }
         
         // 1. 找到路线上最近的点
         var minDistance = Double.infinity
@@ -142,7 +143,11 @@ class AMapNavigationService: NSObject, ObservableObject {
         isOffRoute = minDistance > 50
         
         if isOffRoute {
-            speak("您已偏离路线，请返回")
+            let now = Date()
+            if lastOffRouteAnnounceTime == nil || now.timeIntervalSince(lastOffRouteAnnounceTime!) > 30 {
+                lastOffRouteAnnounceTime = now
+                speak("您已偏离路线，请返回")
+            }
         }
         
         // 3. 更新当前路段索引

@@ -11,7 +11,7 @@ enum AppConfig {
     static let serverHost = "192.168.31.34"
     
     /// 服务器端口
-    static let serverPort = 8000
+    static let serverPort = 8080
     
     /// API 版本
     static let apiVersion = "v1"

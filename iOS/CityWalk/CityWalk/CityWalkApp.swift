@@ -7,6 +7,25 @@ struct CityWalkApp: App {
     init() {
         // 初始化高德地图 SDK
         AMapServices.shared().apiKey = "6a35590781eabd0f2adc39e41c9f6ba1"
+        
+        // 高德隐私合规（必须在 SDK 使用前设置）
+        AMapLocationManager.updatePrivacyShow(.didShow, privacyInfo: .didContain)
+        AMapLocationManager.updatePrivacyAgree(.didAgree)
+        
+        // 设置全局异常处理器来捕获崩溃信息
+        NSSetUncaughtExceptionHandler { exception in
+            let reason = """
+            CRASH: \(exception.name.rawValue)
+            Reason: \(exception.reason ?? "unknown")
+            Stack: \(exception.callStackSymbols.prefix(10).joined(separator: "\n"))
+            """
+            print("🔥 \(reason)")
+            // 写入文件
+            if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                let file = dir.appendingPathComponent("crash_log.txt")
+                try? reason.write(to: file, atomically: true, encoding: .utf8)
+            }
+        }
     }
     
     var body: some Scene {
