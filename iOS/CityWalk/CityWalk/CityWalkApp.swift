@@ -47,10 +47,10 @@ struct ContentView: View {
                 }
                 .tag(0)
             
-            Text("我的路线")
+            RouteRecordingView()
                 .tabItem {
-                    Image(systemName: "map")
-                    Text("路线")
+                    Image(systemName: "record.circle")
+                    Text("记录")
                 }
                 .tag(1)
             
