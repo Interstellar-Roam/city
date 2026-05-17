@@ -148,9 +148,12 @@ class RouteRecordingService: NSObject, ObservableObject {
             return
         }
         
+        // AMapLocationManager 返回的是 GCJ-02 坐标，转为 WGS-84 原始坐标再存储
+        let wgs84Coord = CoordinateConverter.gcj02ToWgs84(location.coordinate)
+        
         let point = TrackPoint(
-            latitude: location.coordinate.latitude,
-            longitude: location.coordinate.longitude,
+            latitude: wgs84Coord.latitude,
+            longitude: wgs84Coord.longitude,
             altitude: location.altitude > 0 ? location.altitude : nil,
             speed: location.speed >= 0 ? location.speed : nil,
             course: location.course >= 0 ? location.course : nil,

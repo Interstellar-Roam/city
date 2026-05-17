@@ -84,14 +84,15 @@ struct RouteRecordingView: View {
         VStack(spacing: 32) {
             Image(systemName: "figure.walk")
                 .font(.system(size: 64))
-                .foregroundColor(.orange)
+                .foregroundColor(AppTheme.accent)
             
             VStack(spacing: 8) {
                 Text("记录你的路线")
                     .font(.title2.bold())
+                    .foregroundColor(AppTheme.textPrimary)
                 Text("开始记录后，GPS 将追踪你的轨迹")
                     .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(AppTheme.textSecondary)
                     .multilineTextAlignment(.center)
             }
             
@@ -107,7 +108,7 @@ struct RouteRecordingView: View {
                 .foregroundColor(.white)
                 .padding(.horizontal, 40)
                 .padding(.vertical, 16)
-                .background(Color.red)
+                .background(AppTheme.error)
                 .cornerRadius(30)
             }
         }
@@ -121,7 +122,7 @@ struct RouteRecordingView: View {
             VStack(alignment: .leading, spacing: 4) {
                 HStack(spacing: 6) {
                     Circle()
-                        .fill(recordingService.isPaused ? Color.orange : Color.red)
+                        .fill(recordingService.isPaused ? AppTheme.warning : AppTheme.error)
                         .frame(width: 8, height: 8)
                     Text(recordingService.isPaused ? "已暂停" : "记录中")
                         .font(.caption.bold())
@@ -143,7 +144,7 @@ struct RouteRecordingView: View {
             }
         }
         .padding()
-        .background(Color(red: 0.10, green: 0.16, blue: 0.25))
+        .background(AppTheme.surface)
     }
     
     // MARK: - 记录面板
@@ -174,7 +175,7 @@ struct RouteRecordingView: View {
                         Text(recordingService.isPaused ? "继续" : "暂停")
                             .font(.caption)
                     }
-                    .foregroundColor(recordingService.isPaused ? .green : .orange)
+                    .foregroundColor(recordingService.isPaused ? AppTheme.success : AppTheme.warning)
                 }
                 
                 // 停止并保存
@@ -193,13 +194,13 @@ struct RouteRecordingView: View {
                         Text("停止")
                             .font(.caption)
                     }
-                    .foregroundColor(.red)
+                    .foregroundColor(AppTheme.error)
                 }
             }
             .padding(.vertical, 8)
         }
         .padding()
-        .background(.ultraThinMaterial)
+        .background(AppTheme.surface.opacity(0.85))
     }
     
     // MARK: - 保存弹窗
@@ -344,17 +345,18 @@ struct DataCard: View {
         VStack(spacing: 6) {
             Image(systemName: icon)
                 .font(.title3)
-                .foregroundColor(.orange)
+                .foregroundColor(AppTheme.accent)
             Text(value)
                 .font(.system(size: 18, weight: .bold, design: .rounded))
+                .foregroundColor(AppTheme.textPrimary)
             Text(label)
                 .font(.caption2)
-                .foregroundColor(.secondary)
+                .foregroundColor(AppTheme.textSecondary)
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 12)
-        .background(Color(.systemGray6))
-        .cornerRadius(12)
+        .background(AppTheme.surface)
+        .cornerRadius(AppTheme.cornerRadiusMedium)
     }
 }
 
@@ -370,8 +372,8 @@ struct TagChip: View {
                 .font(.subheadline)
                 .padding(.horizontal, 12)
                 .padding(.vertical, 6)
-                .background(isSelected ? Color.orange : Color(.systemGray5))
-                .foregroundColor(isSelected ? .white : .primary)
+                .background(isSelected ? AppTheme.accent : AppTheme.surface)
+                .foregroundColor(isSelected ? .white : AppTheme.textPrimary)
                 .cornerRadius(16)
         }
         .buttonStyle(.plain)

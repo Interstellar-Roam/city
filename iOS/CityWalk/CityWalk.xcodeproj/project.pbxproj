@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		08632D87F1F65560C11C3793 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB163F2E874BD476AA718235 /* Route.swift */; };
+		0E1063FF04A6BD7B592C88A0 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B602B90BC866259DF2CACFEA /* Theme.swift */; };
 		22A4F02314ADCCD9950FC33D /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D861E65EB4B5CCABAC5171 /* APIService.swift */; };
 		2E83C89FF341D12751201476 /* CityWalkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2771F50633809434FF248F28 /* CityWalkApp.swift */; };
 		3B526D8530B54A35C82E19F4 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDF5CBE8CB3B1F5943B4AA4 /* ExploreView.swift */; };
@@ -33,6 +34,7 @@
 		A5260720EDD69CD77796C0FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A9B8C7D6E5F4012345678901 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		AA1B2C3D4E5F6A7B8C9D0E1F /* RouteRecordingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteRecordingService.swift; sourceTree = "<group>"; };
+		B602B90BC866259DF2CACFEA /* Theme.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		BB2C3D4E5F6A7B8C9D0E1F2A /* RouteRecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteRecordingView.swift; sourceTree = "<group>"; };
 		E9D861E65EB4B5CCABAC5171 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		FB163F2E874BD476AA718235 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				16EA0BC0570F90D9C67D5FFE /* Utils */,
 				0070BF4693F7FF72298CAA0B /* ViewModels */,
 				29D09854FCCA76FDF78AE7A0 /* Views */,
+				852693367C7066F5FFEE5F80 /* Theme */,
 			);
 			path = CityWalk;
 			sourceTree = "<group>";
@@ -125,6 +128,15 @@
 				AA1B2C3D4E5F6A7B8C9D0E1F /* RouteRecordingService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		852693367C7066F5FFEE5F80 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				B602B90BC866259DF2CACFEA /* Theme.swift */,
+			);
+			name = Theme;
+			path = Theme;
 			sourceTree = "<group>";
 		};
 		92926FB9CE7721C73254535C /* Products */ = {
@@ -273,6 +285,7 @@
 				7A1B2C3D4E5F6A7B8C9D0E1F /* RouteRecordingService.swift in Sources */,
 				8B2C3D4E5F6A7B8C9D0E1F2A /* RouteRecordingView.swift in Sources */,
 				08632D87F1F65560C11C3793 /* Route.swift in Sources */,
+				0E1063FF04A6BD7B592C88A0 /* Theme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -55,12 +55,15 @@ struct ContentView: View {
                 .tag(1)
             
             Text("个人中心")
+                .font(.title2)
+                .foregroundColor(AppTheme.textSecondary)
                 .tabItem {
                     Image(systemName: "person")
                     Text("我的")
                 }
                 .tag(2)
         }
-        .tint(.orange)
+        .tint(AppTheme.accent)
+        .preferredColorScheme(.dark)
     }
 }

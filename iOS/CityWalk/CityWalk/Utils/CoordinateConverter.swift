@@ -49,9 +49,35 @@ class CoordinateConverter {
         )
     }
     
-    /// 批量转换坐标
+    /// GCJ-02 转 WGS-84（反向转换，使用迭代法）
+    static func gcj02ToWgs84(_ coordinate: CLLocationCoordinate2D) -> CLLocationCoordinate2D {
+        if !isInChina(coordinate) {
+            return coordinate
+        }
+        
+        // 迭代法：用 WGS84→GCJ02 的正变换，找到原始 WGS84 坐标
+        // 误差 < 0.5m
+        var wgs = coordinate
+        for _ in 0..<5 {
+            let gcj = wgs84ToGcj02(wgs)
+            let dLat = gcj.latitude - coordinate.latitude
+            let dLon = gcj.longitude - coordinate.longitude
+            wgs = CLLocationCoordinate2D(
+                latitude: wgs.latitude - dLat,
+                longitude: wgs.longitude - dLon
+            )
+        }
+        return wgs
+    }
+    
+    /// 批量转换坐标 WGS-84 → GCJ-02
     static func wgs84ToGcj02(_ coordinates: [CLLocationCoordinate2D]) -> [CLLocationCoordinate2D] {
         return coordinates.map { wgs84ToGcj02($0) }
+    }
+    
+    /// 批量转换坐标 GCJ-02 → WGS-84
+    static func gcj02ToWgs84(_ coordinates: [CLLocationCoordinate2D]) -> [CLLocationCoordinate2D] {
+        return coordinates.map { gcj02ToWgs84($0) }
     }
     
     // 转换纬度偏移

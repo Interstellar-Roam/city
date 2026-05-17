@@ -30,7 +30,7 @@ struct ExploreView: View {
                         routeListView
                     }
                 }
-                .background(Color(.systemGroupedBackground))
+                .background(AppTheme.background)
                 
                 // AI浮动按钮
                 Button {
@@ -42,13 +42,13 @@ struct ExploreView: View {
                         .frame(width: 56, height: 56)
                         .background(
                             LinearGradient(
-                                colors: [.purple, .blue],
+                                colors: [AppTheme.aiGradient1, AppTheme.aiGradient2],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )
                         )
                         .clipShape(Circle())
-                        .shadow(radius: 4)
+                        .shadow(color: AppTheme.accent.opacity(0.3), radius: 12, x: 0, y: 4)
                 }
                 .padding(.trailing, 16)
                 .padding(.bottom, 16)
@@ -89,7 +89,7 @@ struct ExploreView: View {
     private var searchBarView: some View {
         HStack(spacing: 12) {
             Image(systemName: "magnifyingglass")
-                .foregroundColor(.gray)
+                .foregroundColor(AppTheme.textTertiary)
             
             TextField("搜索路线、城市、关键词", text: $searchText)
                 .textFieldStyle(PlainTextFieldStyle())
@@ -103,17 +103,17 @@ struct ExploreView: View {
                     }
                 } label: {
                     Image(systemName: "xmark.circle.fill")
-                        .foregroundColor(.gray)
+                        .foregroundColor(AppTheme.textTertiary)
                 }
             }
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
-        .background(Color(.systemGray6))
+        .background(AppTheme.surface)
         .cornerRadius(12)
         .padding(.horizontal)
         .padding(.vertical, 12)
-        .background(Color(.systemBackground))
+        .background(AppTheme.surface)
     }
     
     // MARK: - 分类标签
@@ -132,7 +132,7 @@ struct ExploreView: View {
             .padding(.horizontal)
             .padding(.vertical, 12)
         }
-        .background(Color(.systemBackground))
+        .background(AppTheme.surface)
     }
     
     // MARK: - 路线列表
@@ -166,7 +166,7 @@ struct ExploreView: View {
             }
         }
         .padding(.bottom, 20)
-        .background(Color(.systemBackground))
+        .background(AppTheme.background)
         .navigationDestination(for: Route.self) { route in
             RouteDetailView(route: route)
         }
@@ -177,8 +177,9 @@ struct ExploreView: View {
         VStack(spacing: 16) {
             ProgressView()
                 .scaleEffect(1.2)
+                .tint(AppTheme.accent)
             Text("加载中...")
-                .foregroundColor(.secondary)
+                .foregroundColor(AppTheme.textSecondary)
         }
         .frame(height: 200)
     }
@@ -188,15 +189,15 @@ struct ExploreView: View {
         VStack(spacing: 16) {
             Image(systemName: "map")
                 .font(.system(size: 48))
-                .foregroundColor(.gray)
+                .foregroundColor(AppTheme.textTertiary)
             
             Text("暂无路线")
                 .font(.headline)
-                .foregroundColor(.secondary)
+                .foregroundColor(AppTheme.textSecondary)
             
             Text("试试其他分类或关键词")
                 .font(.subheadline)
-                .foregroundColor(.gray)
+                .foregroundColor(AppTheme.textTertiary)
         }
         .frame(height: 200)
     }
@@ -206,10 +207,10 @@ struct ExploreView: View {
         VStack(spacing: 16) {
             Image(systemName: "exclamationmark.triangle")
                 .font(.system(size: 48))
-                .foregroundColor(.orange)
+                .foregroundColor(AppTheme.warning)
             
             Text(message)
-                .foregroundColor(.secondary)
+                .foregroundColor(AppTheme.textSecondary)
                 .multilineTextAlignment(.center)
             
             Button("重试") {
@@ -218,6 +219,7 @@ struct ExploreView: View {
                 }
             }
             .buttonStyle(.bordered)
+            .tint(AppTheme.accent)
         }
         .frame(height: 200)
     }
@@ -233,12 +235,16 @@ struct CategoryChip: View {
         Button(action: action) {
             Text(title)
                 .font(.subheadline.weight(.medium))
-                .foregroundColor(isSelected ? .white : .primary)
+                .foregroundColor(isSelected ? AppTheme.background : AppTheme.textPrimary)
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
                 .background(
                     Capsule()
-                        .fill(isSelected ? Color.orange : Color(.systemGray5))
+                        .fill(isSelected ? AppTheme.textPrimary : AppTheme.surface)
+                )
+                .overlay(
+                    Capsule()
+                        .stroke(isSelected ? Color.clear : AppTheme.border, lineWidth: 1)
                 )
         }
     }
@@ -255,7 +261,7 @@ struct RouteCardView: View {
                 RoundedRectangle(cornerRadius: 12)
                     .fill(
                         LinearGradient(
-                            colors: [.orange.opacity(0.3), .pink.opacity(0.3)],
+                            colors: [AppTheme.primary.opacity(0.4), AppTheme.accent.opacity(0.3)],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         )
@@ -274,7 +280,7 @@ struct RouteCardView: View {
                         .foregroundColor(.white)
                         .padding(.horizontal, 6)
                         .padding(.vertical, 2)
-                        .background(difficultyColor(difficulty))
+                        .background(AppTheme.difficultyColor(difficulty))
                         .cornerRadius(6)
                         .padding(6)
                 }
@@ -284,21 +290,22 @@ struct RouteCardView: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text(route.name)
                     .font(.headline)
+                    .foregroundColor(AppTheme.textPrimary)
                     .lineLimit(1)
                 
                 Text(route.description ?? "暂无描述")
                     .font(.caption)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(AppTheme.textSecondary)
                     .lineLimit(2)
                 
                 HStack(spacing: 12) {
                     Label(route.formattedDistance, systemImage: "point.topleft.down.curvedto.point.bottomright.up")
                         .font(.caption)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(AppTheme.textSecondary)
                     
                     Label(route.formattedDuration, systemImage: "clock")
                         .font(.caption)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(AppTheme.textSecondary)
                 }
                 
                 // 标签
@@ -307,10 +314,10 @@ struct RouteCardView: View {
                         ForEach(tags.prefix(3), id: \.self) { tag in
                             Text(tag)
                                 .font(.caption2)
-                                .foregroundColor(.orange)
+                                .foregroundColor(AppTheme.accent)
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 2)
-                                .background(Color.orange.opacity(0.1))
+                                .background(AppTheme.accent.opacity(0.15))
                                 .cornerRadius(4)
                         }
                     }
@@ -321,20 +328,11 @@ struct RouteCardView: View {
             
             // 箭头
             Image(systemName: "chevron.right")
-                .foregroundColor(.gray)
+                .foregroundColor(AppTheme.textTertiary)
         }
         .padding()
-        .background(Color(.systemBackground))
-        .cornerRadius(12)
-        .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
-    }
-    
-    private func difficultyColor(_ difficulty: Difficulty) -> Color {
-        switch difficulty {
-        case .easy: return .green
-        case .medium: return .orange
-        case .hard: return .red
-        }
+        .background(AppTheme.surface)
+        .cornerRadius(AppTheme.cornerRadiusMedium)
     }
 }
 
@@ -400,9 +398,8 @@ struct RouteDetailView: View {
                         .foregroundColor(.white)
                         .padding(.horizontal, 16)
                         .padding(.vertical, 10)
-                        .background(Color.orange)
+                        .background(AppTheme.accent)
                         .cornerRadius(20)
-                        .shadow(radius: 3)
                     }
                     .padding(12)
                 }
@@ -411,11 +408,12 @@ struct RouteDetailView: View {
                 VStack(alignment: .leading, spacing: 12) {
                     Text(route.name)
                         .font(.title.bold())
+                        .foregroundColor(AppTheme.textPrimary)
                     
                     if let description = route.description {
                         Text(description)
                             .font(.subheadline)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(AppTheme.textSecondary)
                     }
                     
                     // 统计信息
@@ -423,27 +421,29 @@ struct RouteDetailView: View {
                         VStack(alignment: .leading, spacing: 4) {
                             Text("距离")
                                 .font(.caption)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(AppTheme.textSecondary)
                             Text(route.formattedDistance)
                                 .font(.headline)
+                                .foregroundColor(AppTheme.textPrimary)
                         }
                         
                         VStack(alignment: .leading, spacing: 4) {
                             Text("时长")
                                 .font(.caption)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(AppTheme.textSecondary)
                             Text(route.formattedDuration)
                                 .font(.headline)
+                                .foregroundColor(AppTheme.textPrimary)
                         }
                         
                         if let difficulty = route.difficulty {
                             VStack(alignment: .leading, spacing: 4) {
                                 Text("难度")
                                     .font(.caption)
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(AppTheme.textSecondary)
                                 Text(difficulty.displayText)
                                     .font(.headline)
-                                    .foregroundColor(difficultyColor(difficulty))
+                                    .foregroundColor(AppTheme.difficultyColor(difficulty))
                             }
                         }
                     }
@@ -455,10 +455,10 @@ struct RouteDetailView: View {
                             ForEach(tags, id: \.self) { tag in
                                 Text(tag)
                                     .font(.subheadline)
-                                    .foregroundColor(.orange)
+                                    .foregroundColor(AppTheme.accent)
                                     .padding(.horizontal, 12)
                                     .padding(.vertical, 6)
-                                    .background(Color.orange.opacity(0.1))
+                                    .background(AppTheme.accent.opacity(0.15))
                                     .cornerRadius(8)
                             }
                         }
@@ -479,8 +479,8 @@ struct RouteDetailView: View {
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 14)
-                    .background(Color.orange)
-                    .cornerRadius(12)
+                    .background(AppTheme.accent)
+                    .cornerRadius(AppTheme.cornerRadiusMedium)
                 }
                 .padding(.horizontal)
                 
@@ -495,7 +495,7 @@ struct RouteDetailView: View {
 
                         ElevationChartView(points: points)
                             .frame(height: 150)
-                            .background(Color(.systemGray6))
+                            .background(AppTheme.surface)
                             .cornerRadius(8)
 
                         // 海拔信息
@@ -503,15 +503,15 @@ struct RouteDetailView: View {
                             if let stats = elevationStats {
                                 Label("最低 \(Int(stats.min))m", systemImage: "arrow.down")
                                     .font(.caption)
-                                    .foregroundColor(.blue)
+                                    .foregroundColor(AppTheme.info)
                                 Spacer()
                                 Label("最高 \(Int(stats.max))m", systemImage: "arrow.up")
                                     .font(.caption)
-                                    .foregroundColor(.red)
+                                    .foregroundColor(AppTheme.error)
                                 Spacer()
                                 Label("爬升 \(Int(stats.max - stats.min))m", systemImage: "figure.hiking")
                                     .font(.caption)
-                                    .foregroundColor(.orange)
+                                    .foregroundColor(AppTheme.secondary)
                             }
                         }
                     }
@@ -525,16 +525,17 @@ struct RouteDetailView: View {
                 VStack(alignment: .leading, spacing: 12) {
                     Text("路线详情")
                         .font(.title2.bold())
+                        .foregroundColor(AppTheme.textPrimary)
                     
                     HStack {
                         Label("\((detailedRoute?.points ?? route.points)?.count ?? 0) 个轨迹点", systemImage: "location")
-                            .foregroundColor(.secondary)
+                            .foregroundColor(AppTheme.textSecondary)
                         
                         Spacer()
                         
                         if let city = route.city {
                             Label(city, systemImage: "building.2")
-                                .foregroundColor(.secondary)
+                                .foregroundColor(AppTheme.textSecondary)
                         }
                     }
                     
@@ -542,26 +543,28 @@ struct RouteDetailView: View {
                     if let pois = detailedRoute?.pois ?? route.pois, !pois.isEmpty {
                         Text("沿途 POI")
                             .font(.headline)
+                            .foregroundColor(AppTheme.textPrimary)
                             .padding(.top, 8)
                         
                         ForEach(pois.prefix(5)) { poi in
                             HStack {
                                 Image(systemName: "mappin.circle")
-                                    .foregroundColor(.orange)
+                                    .foregroundColor(AppTheme.secondary)
                                 VStack(alignment: .leading) {
                                     Text(poi.name)
                                         .font(.subheadline)
+                                        .foregroundColor(AppTheme.textPrimary)
                                     if let category = poi.category {
                                         Text(category)
                                             .font(.caption)
-                                            .foregroundColor(.secondary)
+                                            .foregroundColor(AppTheme.textSecondary)
                                     }
                                 }
                                 Spacer()
                                 if let distance = poi.distance {
                                     Text("\(Int(distance))m")
                                         .font(.caption)
-                                        .foregroundColor(.secondary)
+                                        .foregroundColor(AppTheme.textSecondary)
                                 }
                             }
                             .padding(.vertical, 4)
@@ -680,11 +683,7 @@ struct RouteDetailView: View {
     }
 
     private func difficultyColor(_ difficulty: Difficulty) -> Color {
-        switch difficulty {
-        case .easy: return .green
-        case .medium: return .orange
-        case .hard: return .red
-        }
+        AppTheme.difficultyColor(difficulty)
     }
 
     /// 简化坐标点（每隔 N 个点取一个）
@@ -1146,9 +1145,8 @@ struct RoutePreviewView: View {
                                 .foregroundColor(.secondary)
                         }
                         .padding()
-                        .background(Color(.systemBackground).opacity(0.95))
-                        .cornerRadius(12)
-                        .shadow(radius: 4)
+                        .background(AppTheme.surface.opacity(0.95))
+                        .cornerRadius(AppTheme.cornerRadiusMedium)
 
                         Spacer()
                     }
@@ -1167,8 +1165,8 @@ struct RoutePreviewView: View {
                             .foregroundColor(.white.opacity(0.8))
                     }
                     .padding()
-                    .background(Color.black.opacity(0.8))
-                    .cornerRadius(12)
+                    .background(AppTheme.surface)
+                    .cornerRadius(AppTheme.cornerRadiusMedium)
                     .padding()
                 }
 
@@ -1189,9 +1187,8 @@ struct RoutePreviewView: View {
                     .foregroundColor(.white)
                     .padding(.horizontal, 24)
                     .padding(.vertical, 16)
-                    .background(Color.orange)
+                    .background(AppTheme.accent)
                     .cornerRadius(30)
-                    .shadow(radius: 4)
                 }
                 .padding()
             }
@@ -1658,14 +1655,14 @@ struct AIChatView: View {
                                 inputText = ""
                             } label: {
                                 Image(systemName: "xmark.circle.fill")
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(AppTheme.textTertiary)
                                     .font(.system(size: 16))
                             }
                         }
                     }
                     .padding(.horizontal, 16)
                     .padding(.vertical, 10)
-                    .background(Color(.systemGray6))
+                    .background(AppTheme.surface)
                     .cornerRadius(20)
                     
                     // 发送按钮
@@ -1674,13 +1671,13 @@ struct AIChatView: View {
                     } label: {
                         Image(systemName: "arrow.up.circle.fill")
                             .font(.system(size: 36))
-                            .foregroundColor(inputText.isEmpty ? .gray.opacity(0.3) : .blue)
+                            .foregroundColor(inputText.isEmpty ? AppTheme.textTertiary.opacity(0.3) : AppTheme.accent)
                     }
                     .disabled(inputText.isEmpty)
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 12)
-                .background(Color(.systemBackground))
+                .background(AppTheme.surface)
             }
             .navigationTitle("AI助手")
             .navigationBarTitleDisplayMode(.inline)
@@ -1925,7 +1922,7 @@ struct MessageBubble: View {
                 Spacer()
                 Text(message.content)
                     .padding()
-                    .background(Color.blue)
+                    .background(AppTheme.userBubble)
                     .foregroundColor(.white)
                     .cornerRadius(16)
             } else {
@@ -1936,34 +1933,37 @@ struct MessageBubble: View {
                     .frame(width: 32, height: 32)
                     .background(
                         LinearGradient(
-                            colors: [Color.purple, Color.blue],
+                            colors: [AppTheme.aiGradient1, AppTheme.aiGradient2],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         )
                     )
-                    .cornerRadius(16)
+                    .cornerRadius(10)
                 
                 VStack(alignment: .leading, spacing: 8) {
                     if message.isStreaming {
                         // 流式传输时显示原始文本
                         Text(message.content)
                             .padding()
-                            .background(Color(.systemGray5))
+                            .background(AppTheme.elevated)
+                            .foregroundColor(AppTheme.textPrimary)
                             .cornerRadius(16)
                         
                         HStack(spacing: 4) {
                             ProgressView()
                                 .scaleEffect(0.7)
+                                .tint(AppTheme.accent)
                             Text("思考中...")
                                 .font(.caption)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(AppTheme.textSecondary)
                         }
                     } else {
                         // 完成后显示清理后的文本
                         if !message.content.isEmpty {
                             Text(simpleFormat(message.content))
                                 .padding()
-                                .background(Color(.systemGray5))
+                                .background(AppTheme.elevated)
+                                .foregroundColor(AppTheme.textPrimary)
                                 .cornerRadius(16)
                         }
                         
@@ -2007,16 +2007,16 @@ struct RouteRecommendCard: View {
                 // 图标
                 Image(systemName: "map")
                     .font(.title2)
-                    .foregroundColor(.blue)
+                    .foregroundColor(AppTheme.accent)
                     .frame(width: 44, height: 44)
-                    .background(Color.blue.opacity(0.1))
+                    .background(AppTheme.accent.opacity(0.15))
                     .cornerRadius(8)
                 
                 // 信息
                 VStack(alignment: .leading, spacing: 4) {
                     Text(route.name)
                         .font(.headline)
-                        .foregroundColor(.primary)
+                        .foregroundColor(AppTheme.textPrimary)
                         .lineLimit(1)
                     
                     HStack(spacing: 8) {
@@ -2031,18 +2031,17 @@ struct RouteRecommendCard: View {
                         }
                     }
                     .font(.caption)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(AppTheme.textSecondary)
                 }
                 
                 Spacer()
                 
                 Image(systemName: "chevron.right")
-                    .foregroundColor(.gray)
+                    .foregroundColor(AppTheme.textTertiary)
             }
             .padding(12)
-            .background(Color(.systemBackground))
-            .cornerRadius(12)
-            .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
+            .background(AppTheme.surface)
+            .cornerRadius(AppTheme.cornerRadiusMedium)
         }
         .buttonStyle(PlainButtonStyle())
     }
@@ -2054,10 +2053,10 @@ struct DifficultyBadge: View {
     
     var color: Color {
         switch difficulty.lowercased() {
-        case "easy": return .green
-        case "medium": return .orange
-        case "hard": return .red
-        default: return .gray
+        case "easy": return AppTheme.success
+        case "medium": return AppTheme.warning
+        case "hard": return AppTheme.error
+        default: return AppTheme.textTertiary
         }
     }
     
@@ -2092,11 +2091,11 @@ struct MarkdownTextView: View {
                     Text(line.text)
                         .font(.headline)
                         .fontWeight(.bold)
-                        .foregroundColor(.primary)
+                        .foregroundColor(AppTheme.textPrimary)
                 } else {
                     Text(line.text)
                         .font(.body)
-                        .foregroundColor(.primary)
+                        .foregroundColor(AppTheme.textPrimary)
                 }
             }
         }
@@ -2183,13 +2182,15 @@ struct RouteDetailSheet: View {
                     VStack(spacing: 16) {
                         Image(systemName: "exclamationmark.triangle")
                             .font(.system(size: 48))
-                            .foregroundColor(.orange)
+                            .foregroundColor(AppTheme.warning)
                         Text("路线不存在")
                             .font(.headline)
+                            .foregroundColor(AppTheme.textPrimary)
                         Button("关闭") {
                             dismiss()
                         }
                         .buttonStyle(.bordered)
+                        .tint(AppTheme.accent)
                     }
                 }
             }
@@ -2308,11 +2309,11 @@ struct NavigationPrepView: View {
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(Color.blue)
-                            .cornerRadius(12)
+                            .background(AppTheme.accent)
+                            .cornerRadius(AppTheme.cornerRadiusMedium)
                     }
                     .padding()
-                    .background(.ultraThinMaterial)
+                    .background(AppTheme.surface)
                 }
             )
             .fullScreenCover(isPresented: $showNavigationActive) {
@@ -2344,11 +2345,12 @@ struct RouteInfoCard: View {
         VStack(alignment: .leading, spacing: 12) {
             Text(route.name)
                 .font(.title2.bold())
+                .foregroundColor(AppTheme.textPrimary)
             
             if let description = route.description {
                 Text(description)
                     .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(AppTheme.textSecondary)
                     .lineLimit(2)
             }
             
@@ -2356,43 +2358,37 @@ struct RouteInfoCard: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("距离")
                         .font(.caption)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(AppTheme.textSecondary)
                     Text(route.formattedDistance)
                         .font(.headline)
+                        .foregroundColor(AppTheme.textPrimary)
                 }
                 
                 VStack(alignment: .leading, spacing: 4) {
                     Text("时长")
                         .font(.caption)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(AppTheme.textSecondary)
                     Text(route.formattedDuration)
                         .font(.headline)
+                        .foregroundColor(AppTheme.textPrimary)
                 }
                 
                 if let difficulty = route.difficulty {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("难度")
                             .font(.caption)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(AppTheme.textSecondary)
                         Text(difficulty.displayText)
                             .font(.headline)
-                            .foregroundColor(difficultyColor(difficulty))
+                            .foregroundColor(AppTheme.difficultyColor(difficulty))
                     }
                 }
             }
         }
         .padding()
-        .background(Color(.systemGray6))
-        .cornerRadius(12)
+        .background(AppTheme.surface)
+        .cornerRadius(AppTheme.cornerRadiusMedium)
         .padding(.horizontal)
-    }
-    
-    private func difficultyColor(_ difficulty: Difficulty) -> Color {
-        switch difficulty {
-        case .easy: return .green
-        case .medium: return .orange
-        case .hard: return .red
-        }
     }
 }
 
@@ -2412,9 +2408,9 @@ struct ModeButton: View {
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical, 12)
-            .background(isSelected ? Color.blue : Color(.systemGray6))
-            .foregroundColor(isSelected ? .white : .primary)
-            .cornerRadius(12)
+            .background(isSelected ? AppTheme.accent : AppTheme.surface)
+            .foregroundColor(isSelected ? .white : AppTheme.textPrimary)
+            .cornerRadius(AppTheme.cornerRadiusMedium)
         }
     }
 }
@@ -2591,7 +2587,7 @@ struct NavigationActiveView: View {
                     }
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
-                    .background(Color.orange)
+                    .background(AppTheme.secondary)
                     .cornerRadius(20)
                     .padding(.top, 8)
                 }
@@ -2829,20 +2825,20 @@ struct InfoCard: View {
         VStack(spacing: 6) {
             Image(systemName: icon)
                 .font(.title3)
-                .foregroundColor(.orange)
+                .foregroundColor(AppTheme.accent)
             
             Text(value)
                 .font(.headline)
-                .foregroundColor(.primary)
+                .foregroundColor(AppTheme.textPrimary)
             
             Text(title)
                 .font(.caption2)
-                .foregroundColor(.secondary)
+                .foregroundColor(AppTheme.textSecondary)
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 12)
-        .background(Color(.systemGray6))
-        .cornerRadius(12)
+        .background(AppTheme.surface)
+        .cornerRadius(AppTheme.cornerRadiusMedium)
     }
 }
 
