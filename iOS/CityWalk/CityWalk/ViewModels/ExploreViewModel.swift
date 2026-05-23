@@ -69,13 +69,34 @@ class ExploreViewModel: ObservableObject {
         await currentTask?.value
     }
     
-    /// 搜索路线
+    // MARK: - 搜索防抖
+    private var searchDebounceTask: Task<Void, Never>?
+    
+    /// 搜索路线（带 300ms 防抖）
     func searchRoutes() async {
         guard !searchKeyword.isEmpty else {
+            searchDebounceTask?.cancel()
             await loadRoutes()
             return
         }
         
+        // 取消之前的防抖任务
+        searchDebounceTask?.cancel()
+        
+        // 创建新的防抖任务
+        searchDebounceTask = Task {
+            // 等待 300ms
+            try? await Task.sleep(nanoseconds: 300_000_000)
+            
+            // 检查是否被取消
+            if Task.isCancelled { return }
+            
+            await performSearch()
+        }
+    }
+    
+    /// 执行实际搜索
+    private func performSearch() async {
         isLoading = true
         errorMessage = nil
         
@@ -88,7 +109,6 @@ class ExploreViewModel: ObservableObject {
             isLoading = false
         } catch {
             print("❌ 搜索失败: \(error.localizedDescription)")
-            // 搜索失败时清空结果
             routes = []
             errorMessage = "搜索失败: \(error.localizedDescription)"
             isLoading = false

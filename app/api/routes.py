@@ -85,8 +85,13 @@ async def search_routes(
     limit: int = Query(20, ge=1, le=100),
     service: RouteService = Depends(get_route_service)
 ) -> dict[str, Any]:
-    """根据关键词搜索路线"""
-    results = await service.search_by_keyword(keyword, limit)
+    """根据关键词搜索路线（支持路线名、城市、标签等）"""
+    if not keyword.strip():
+        return JSONResponse(
+            status_code=400,
+            content={"detail": "keyword 不能为空"}
+        )
+    results = await service.search_by_keyword(keyword.strip(), limit)
     return {"success": True, "total": len(results), "data": results}
 
 
