@@ -45,7 +45,22 @@ class Database:
         db = cls.get_db()
         # 路线索引
         await db.routes.create_index([("location", "2dsphere")])
-        await db.routes.create_index([("name", "text"), ("description", "text")])
+        # 删除旧文本索引（如果存在）
+        try:
+            await db.routes.drop_index("name_text_description_text")
+        except Exception:
+            pass
+
+        # 创建多字段文本索引
+        await db.routes.create_index([
+            ("name", "text"),
+            ("description", "text"),
+            ("tags", "text"),
+            ("city", "text"),
+            ("district", "text"),
+            ("pois.name", "text"),
+            ("pois.tags", "text"),
+        ], default_language="none")
         await db.routes.create_index([("created_at", -1)])
         await db.routes.create_index([("favorites_count", -1)])
 
