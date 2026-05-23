@@ -68,6 +68,9 @@ iOS/CityWalk/*.xcworkspace
 *.kml
 *.gpx
 
+# Git worktrees
+.worktrees/
+
 # Misc
 stream-response.txt
 explore-home.png
