@@ -11,10 +11,12 @@ class User(BaseModel):
     """用户模型"""
 
     id: str = Field(default_factory=lambda: str(ObjectId()), alias="_id")
-    username: str
+    phone: str = Field(...)  # 手机号，必填，唯一标识
+    username: str | None = None  # 昵称，可选
     email: str | None = None
     avatar: str | None = None
     bio: str | None = None
+    is_active: bool = True
 
     # 用户统计
     total_distance: float = 0.0  # 总步行距离

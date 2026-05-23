@@ -37,6 +37,17 @@ class Settings(BaseSettings):
     amap_api_key_backend: str = ""  # Web服务 Key (后端POI查询)
     amap_security_key: str = ""
 
+    # JWT 认证配置
+    jwt_secret: str = "dev-secret-change-in-production"
+    jwt_algorithm: str = "HS256"
+    access_token_expire_minutes: int = 15
+    refresh_token_expire_days: int = 7
+
+    # 短信验证码配置
+    sms_mock: bool = True
+    sms_resend_interval: int = 60
+    sms_code_expire: int = 300
+
     # Agent配置
     max_iterations: int = 20
     context_window_tokens: int = 32_768
