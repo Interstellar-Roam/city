@@ -193,13 +193,45 @@ class RouteService:
         return not is_favorited
 
     async def search_by_keyword(self, keyword: str, limit: int = 20) -> list[dict[str, Any]]:
-        """关键词搜索"""
+        """多字段关键词搜索，支持 $text 优先 + $regex 降级
+
+        搜索范围: name, description, tags, city, district, pois.name, pois.tags
+        """
+        import re
+
+        keyword = keyword.strip()[:200]  # 截断超长输入
+
+        if not keyword:
+            return []
+
+        # 策略1: 使用 $text 索引搜索
         cursor = self.collection.find(
             {"$text": {"$search": keyword}, "is_published": True},
             {"score": {"$meta": "textScore"}}
         ).sort([("score", {"$meta": "textScore"})]).limit(limit)
 
-        return await cursor.to_list(length=limit)
+        results = await cursor.to_list(length=limit)
+
+        # 策略2: $text 无结果时降级为 $regex 模糊匹配
+        if not results:
+            pattern = re.escape(keyword)
+            cursor = self.collection.find(
+                {
+                    "is_published": True,
+                    "$or": [
+                        {"name": {"$regex": pattern, "$options": "i"}},
+                        {"description": {"$regex": pattern, "$options": "i"}},
+                        {"tags": {"$regex": pattern, "$options": "i"}},
+                        {"city": {"$regex": pattern, "$options": "i"}},
+                        {"district": {"$regex": pattern, "$options": "i"}},
+                        {"pois.name": {"$regex": pattern, "$options": "i"}},
+                        {"pois.tags": {"$regex": pattern, "$options": "i"}},
+                    ]
+                }
+            ).limit(limit)
+            results = await cursor.to_list(length=limit)
+
+        return results
 
     # === 轨迹点编辑相关方法 ===
 
