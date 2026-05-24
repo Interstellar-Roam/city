@@ -40,8 +40,8 @@ class Settings(BaseSettings):
     # JWT 认证配置
     jwt_secret: str = "dev-secret-change-in-production"
     jwt_algorithm: str = "HS256"
-    access_token_expire_minutes: int = 15
-    refresh_token_expire_days: int = 7
+    access_token_expire_minutes: int = 30
+    refresh_token_expire_days: int = 14
 
     # 短信验证码配置
     sms_mock: bool = True

@@ -391,7 +391,7 @@ extension APIService {
         )
         
         let bodyData = try? JSONSerialization.data(withJSONObject: body)
-        var request = try authenticatedRequest(for: url, method: "POST", body: bodyData)
+        var request = try await authenticatedRequest(for: url, method: "POST", body: bodyData)
         
         let (data, response) = try await URLSession.shared.data(for: request)
         

@@ -17,7 +17,11 @@ class APIService {
 
     // MARK: - 认证请求构建
 
-    func authenticatedRequest(for url: URL, method: String = "GET", body: Data? = nil) throws -> URLRequest {
+    func authenticatedRequest(for url: URL, method: String = "GET", body: Data? = nil) async throws -> URLRequest {
+        // 自动刷新即将过期的 token
+        if TokenStorage.shared.isExpiringSoon, let _ = TokenStorage.shared.getRefreshToken() {
+            try? await AuthService.shared.refreshToken()
+        }
         var request = URLRequest(url: url)
         request.httpMethod = method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -49,7 +53,7 @@ class APIService {
         }
 
         guard let url = urlComponents.url else { throw APIError.invalidURL }
-        let request = try authenticatedRequest(for: url)
+        let request = try await authenticatedRequest(for: url)
 
         let (data, _) = try await URLSession.shared.data(for: request)
         let response = try decodeResponse(PaginatedData.self, from: data)
@@ -69,7 +73,7 @@ class APIService {
         ]
 
         guard let url = urlComponents.url else { throw APIError.invalidURL }
-        let request = try authenticatedRequest(for: url)
+        let request = try await authenticatedRequest(for: url)
 
         let (data, _) = try await URLSession.shared.data(for: request)
         let response = try decodeResponse(PaginatedData.self, from: data)
@@ -83,7 +87,7 @@ class APIService {
     // MARK: - 获取路线详情
     func fetchRoute(id: String) async throws -> Route {
         guard let url = URL(string: "\(baseURL)/routes/\(id)") else { throw APIError.invalidURL }
-        let request = try authenticatedRequest(for: url)
+        let request = try await authenticatedRequest(for: url)
 
         let (data, _) = try await URLSession.shared.data(for: request)
         let response = try decodeResponse(Route.self, from: data)
@@ -100,7 +104,7 @@ class APIService {
         components.queryItems = [URLQueryItem(name: "keyword", value: keyword)]
 
         guard let url = components.url else { throw APIError.invalidURL }
-        let request = try authenticatedRequest(for: url)
+        let request = try await authenticatedRequest(for: url)
 
         let (data, _) = try await URLSession.shared.data(for: request)
 
@@ -285,7 +289,7 @@ extension APIService {
         ]
 
         guard let url = components.url else { throw APIError.invalidURL }
-        let request = try authenticatedRequest(for: url)
+        let request = try await authenticatedRequest(for: url)
 
         let (data, _) = try await URLSession.shared.data(for: request)
         let response = try decodeResponse(SessionsData.self, from: data)
@@ -298,7 +302,7 @@ extension APIService {
 
     func fetchSession(sessionId: String) async throws -> ChatSessionDetail {
         guard let url = URL(string: "\(baseURL)/sessions/\(sessionId)") else { throw APIError.invalidURL }
-        let request = try authenticatedRequest(for: url)
+        let request = try await authenticatedRequest(for: url)
 
         let (data, _) = try await URLSession.shared.data(for: request)
         let response = try decodeResponse(ChatSessionDetail.self, from: data)
@@ -395,7 +399,7 @@ extension APIService {
     /// 删除路线
     func deleteRoute(id: String) async throws {
         guard let url = URL(string: "\(baseURL)/routes/\(id)") else { throw APIError.invalidURL }
-        var request = try authenticatedRequest(for: url, method: "DELETE")
+        var request = try await authenticatedRequest(for: url, method: "DELETE")
         let (_, _) = try await URLSession.shared.data(for: request)
     }
 
@@ -403,7 +407,7 @@ extension APIService {
     /// 获取精选路线
     func fetchFeaturedRoutes() async throws -> [Route] {
         guard let url = URL(string: "\(baseURL)/routes/featured") else { throw APIError.invalidURL }
-        let request = try authenticatedRequest(for: url)
+        let request = try await authenticatedRequest(for: url)
         let (data, _) = try await URLSession.shared.data(for: request)
         let response = try decodeResponse(FeaturedData.self, from: data)
         guard response.code == 0, let featured = response.data else {
@@ -426,7 +430,7 @@ extension APIService {
         if let isPublished = isPublished { body["is_published"] = isPublished }
 
         let bodyData = try? JSONSerialization.data(withJSONObject: body)
-        var request = try authenticatedRequest(for: url, method: "PUT", body: bodyData)
+        var request = try await authenticatedRequest(for: url, method: "PUT", body: bodyData)
         let (_, _) = try await URLSession.shared.data(for: request)
     }
 
