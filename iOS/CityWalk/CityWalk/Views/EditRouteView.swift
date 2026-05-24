@@ -132,21 +132,31 @@ struct EditRouteView: View {
                     .fill(Color(.systemGray5))
                     .frame(height: 180)
 
-                VStack(spacing: 8) {
-                    Image(systemName: selectedImageData != nil ? "checkmark.circle.fill" : "photo.on.rectangle.angled")
-                        .font(.system(size: 32))
-                        .foregroundColor(selectedImageData != nil ? .green : .secondary.opacity(0.6))
-                    Text(selectedImageData != nil ? "已选择新封面" : (coverURL.isEmpty ? "点击上传封面图" : "点击更换封面图"))
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                    if selectedImageData != nil {
-                        Text("\(selectedImageData!.count / 1024) KB")
-                            .font(.caption2).foregroundColor(.secondary)
-                    }
+                // 预览已选择的图片
+                if let imgData = selectedImageData, let uiImage = UIImage(data: imgData) {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(height: 180)
+                        .cornerRadius(16)
+                        .clipped()
                 }
+
+                // 覆盖层
+                VStack(spacing: 8) {
+                    Image(systemName: selectedImageData != nil ? "arrow.triangle.2.circlepath" : "photo.on.rectangle.angled")
+                        .font(.system(size: 32))
+                        .foregroundColor(selectedImageData != nil ? .white : .secondary.opacity(0.6))
+                    Text(selectedImageData != nil ? "点击更换" : (coverURL.isEmpty ? "点击上传封面图" : "点击更换封面图"))
+                        .font(.subheadline)
+                        .foregroundColor(selectedImageData != nil ? .white : .secondary)
+                }
+                .padding(8)
+                .background(selectedImageData != nil ? Color.black.opacity(0.3) : Color.clear)
+                .cornerRadius(8)
             }
             .overlay(RoundedRectangle(cornerRadius: 16)
-                .stroke(Color.orange.opacity(0.3), style: StrokeStyle(lineWidth: 1.5, dash: [6])))
+                .stroke(Color.orange.opacity(0.4), style: StrokeStyle(lineWidth: 1.5, dash: [6])))
         }
     }
 

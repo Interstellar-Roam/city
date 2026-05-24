@@ -302,24 +302,43 @@ struct RouteCardView: View {
         return cardPalette[idx]
     }
 
+    private var gradientPlaceholder: some View {
+        RoundedRectangle(cornerRadius: 12)
+            .fill(
+                LinearGradient(
+                    colors: [gradientColors.0.opacity(0.3), gradientColors.1.opacity(0.3)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+            .frame(width: 100, height: 100)
+            .overlay(
+                Image(systemName: "mountain.2.fill")
+                    .font(.title)
+                    .foregroundColor(.white.opacity(0.6))
+            )
+    }
+
     var body: some View {
         HStack(spacing: 16) {
             // 封面图 / 渐变占位
             ZStack(alignment: .topTrailing) {
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(
-                        LinearGradient(
-                            colors: [gradientColors.0.opacity(0.3), gradientColors.1.opacity(0.3)],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
-                    .frame(width: 100, height: 100)
-                    .overlay(
-                        Image(systemName: "mountain.2.fill")
-                            .font(.title)
-                            .foregroundColor(.white.opacity(0.6))
-                    )
+                // 有封面 URL → 加载真实图片
+                if let coverURL = route.coverImage, let url = URL(string: coverURL) {
+                    AsyncImage(url: url) { phase in
+                        switch phase {
+                        case .success(let image):
+                            image.resizable().scaledToFill()
+                                .frame(width: 100, height: 100).cornerRadius(12).clipped()
+                        case .failure, .empty:
+                            gradientPlaceholder
+                        @unknown default:
+                            gradientPlaceholder
+                        }
+                    }
+                } else {
+                    gradientPlaceholder
+                }
 
                 // 难度标签
                 if let difficulty = route.difficulty {
@@ -403,19 +422,21 @@ struct HeroBannerView: View {
             ForEach(Array(routes.enumerated()), id: \.element.id) { idx, route in
                 NavigationLink(value: route) {
                     ZStack(alignment: .bottomLeading) {
-                        // 渐变背景
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(
-                                LinearGradient(
-                                    colors: [
-                                        Color(hue: Double(idx * 60 % 360) / 360.0, saturation: 0.6, brightness: 0.8),
-                                        Color(hue: Double((idx * 60 + 30) % 360) / 360.0, saturation: 0.7, brightness: 0.5)
-                                    ],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )
-                            )
-                            .aspectRatio(16/9, contentMode: .fit)
+                        // 有封面图时显示真实图片，否则渐变色
+                        if let coverURL = route.coverImage, !coverURL.isEmpty, let url = URL(string: coverURL) {
+                            AsyncImage(url: url) { phase in
+                                switch phase {
+                                case .success(let image):
+                                    image.resizable().scaledToFill()
+                                        .aspectRatio(16/9, contentMode: .fit)
+                                        .cornerRadius(16).clipped()
+                                default:
+                                    bannerGradient(idx)
+                                }
+                            }
+                        } else {
+                            bannerGradient(idx)
+                        }
 
                         // 底部渐变遮罩
                         LinearGradient(
@@ -466,6 +487,21 @@ struct HeroBannerView: View {
             }
         }
     }
+
+    private func bannerGradient(_ idx: Int) -> some View {
+        RoundedRectangle(cornerRadius: 16)
+            .fill(
+                LinearGradient(
+                    colors: [
+                        Color(hue: Double(idx * 60 % 360) / 360.0, saturation: 0.6, brightness: 0.8),
+                        Color(hue: Double((idx * 60 + 30) % 360) / 360.0, saturation: 0.7, brightness: 0.5)
+                    ],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+            .aspectRatio(16/9, contentMode: .fit)
+    }
 }
 
 // MARK: - 迷你路线卡片（搜索空状态推荐）
@@ -477,21 +513,37 @@ struct MiniRouteCard: View {
         return cardPalette[idx]
     }
 
+    private var miniGradientPlaceholder: some View {
+        RoundedRectangle(cornerRadius: 10)
+            .fill(
+                LinearGradient(
+                    colors: [gradientColors.0.opacity(0.3), gradientColors.1.opacity(0.3)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+            .frame(width: 140, height: 80)
+            .overlay(
+                Image(systemName: "mountain.2.fill")
+                    .foregroundColor(.white.opacity(0.5))
+            )
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            RoundedRectangle(cornerRadius: 10)
-                .fill(
-                    LinearGradient(
-                        colors: [gradientColors.0.opacity(0.3), gradientColors.1.opacity(0.3)],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
-                .frame(width: 140, height: 80)
-                .overlay(
-                    Image(systemName: "mountain.2.fill")
-                        .foregroundColor(.white.opacity(0.5))
-                )
+            if let coverURL = route.coverImage, let url = URL(string: coverURL) {
+                AsyncImage(url: url) { phase in
+                    switch phase {
+                    case .success(let image):
+                        image.resizable().scaledToFill()
+                            .frame(width: 140, height: 80).cornerRadius(10).clipped()
+                    default:
+                        miniGradientPlaceholder
+                    }
+                }
+            } else {
+                miniGradientPlaceholder
+            }
 
             Text(route.name)
                 .font(.caption)
