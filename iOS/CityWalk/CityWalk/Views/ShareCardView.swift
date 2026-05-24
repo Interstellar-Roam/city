@@ -8,6 +8,7 @@ struct ShareCardView: View {
     @State private var isSaving = false
     @State private var showToast = false
     @State private var mapImage: UIImage?
+    @State private var snapshotError: String?
     @Environment(\.dismiss) private var dismiss
 
     private let cardWidth: CGFloat = 300
@@ -74,6 +75,13 @@ struct ShareCardView: View {
                 Image(uiImage: img)
                     .resizable().scaledToFill()
                     .frame(width: cardWidth, height: mapHeight).clipped()
+            } else if let err = snapshotError {
+                Rectangle().fill(Color(.systemGray5))
+                    .overlay(VStack(spacing: 8) {
+                        Image(systemName: "exclamationmark.triangle").font(.title2).foregroundColor(.orange)
+                        Text("地图加载失败").font(.caption).foregroundColor(.secondary)
+                        Text(err).font(.caption2).foregroundColor(.secondary.opacity(0.6))
+                    })
             } else {
                 Rectangle().fill(Color(.systemGray5))
                     .overlay(ProgressView().tint(.orange))
@@ -161,30 +169,28 @@ struct ShareCardView: View {
             return
         }
 
-        let latDelta = max(maxLat - minLat, 0.001) + 0.01
-        let lonDelta = max(maxLon - minLon, 0.001) + 0.01
+        let latDelta = max(maxLat - minLat, 0.003) + 0.015
+        let lonDelta = max(maxLon - minLon, 0.003) + 0.015
         let center = CLLocationCoordinate2D(
             latitude: (minLat + maxLat) / 2,
             longitude: (minLon + maxLon) / 2
         )
 
+        let screenScale = await MainActor.run { UIScreen.main.scale }
+        let snapSize = CGSize(width: cardWidth * screenScale, height: mapHeight * screenScale)
+
         let options = MKMapSnapshotter.Options()
         options.region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: lonDelta))
-        options.size = CGSize(width: cardWidth * 3, height: mapHeight * 3)
-        options.scale = 3.0
+        options.size = snapSize
         options.mapType = .standard
 
-        mapImage = await withCheckedContinuation { continuation in
+        do {
             let snapshotter = MKMapSnapshotter(options: options)
-            snapshotter.start { snapshot, error in
-                if let snap = snapshot {
-                    let img = drawRoute(on: snap.image, snapshot: snap, coords: coords)
-                    continuation.resume(returning: img)
-                } else {
-                    print("⚠️ Map snapshot failed: \(error?.localizedDescription ?? "unknown")")
-                    continuation.resume(returning: fallbackImage())
-                }
-            }
+            let snapshot = try await snapshotter.start()
+            mapImage = drawRoute(on: snapshot.image, snapshot: snapshot, coords: coords)
+        } catch {
+            snapshotError = error.localizedDescription
+            mapImage = fallbackImage()
         }
     }
 
