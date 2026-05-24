@@ -169,7 +169,7 @@ struct ExploreView: View {
                         NavigationLink(value: route) {
                             RouteCardView(route: route)
                         }
-                        .buttonStyle(PlainButtonStyle())
+                        .buttonStyle(ScaleButtonStyle())
                     }
                 }
                 .padding(.horizontal)
@@ -284,10 +284,18 @@ private let cardPalette: [(Color, Color)] = [
     (.yellow, .orange), (.cyan, .blue), (.brown, .orange)
 ]
 
+// MARK: - 按压缩放按钮样式
+struct ScaleButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.97 : 1.0)
+            .animation(.spring(response: 0.3, dampingFraction: 0.6), value: configuration.isPressed)
+    }
+}
+
 // MARK: - 路线卡片
 struct RouteCardView: View {
     let route: Route
-    @State private var isPressed = false
 
     private var gradientColors: (Color, Color) {
         let idx = abs(route.name.hashValue) % cardPalette.count
@@ -373,11 +381,6 @@ struct RouteCardView: View {
         .background(Color(.systemBackground))
         .cornerRadius(12)
         .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
-        .scaleEffect(isPressed ? 0.97 : 1.0)
-        .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isPressed)
-        .onLongPressGesture(minimumDuration: 0.01, pressing: { pressing in
-            isPressed = pressing
-        }, perform: {})
     }
 
     private func difficultyColor(_ difficulty: Difficulty) -> Color {
