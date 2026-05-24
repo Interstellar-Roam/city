@@ -148,34 +148,52 @@ struct ShareCardView: View {
     // MARK: - 生成地图快照
     private func generateMapSnapshot() async {
         let coords = clCoordinates
-        guard coords.count >= 2 else { return }
+        guard coords.count >= 2 else {
+            mapImage = fallbackImage()
+            return
+        }
 
         let lats = coords.map(\.latitude)
         let lons = coords.map(\.longitude)
         guard let minLat = lats.min(), let maxLat = lats.max(),
-              let minLon = lons.min(), let maxLon = lons.max() else { return }
+              let minLon = lons.min(), let maxLon = lons.max() else {
+            mapImage = fallbackImage()
+            return
+        }
 
+        let latDelta = max(maxLat - minLat, 0.001) + 0.01
+        let lonDelta = max(maxLon - minLon, 0.001) + 0.01
         let center = CLLocationCoordinate2D(
             latitude: (minLat + maxLat) / 2,
             longitude: (minLon + maxLon) / 2
         )
-        let span = MKCoordinateSpan(
-            latitudeDelta: maxLat - minLat + 0.008,
-            longitudeDelta: maxLon - minLon + 0.008
-        )
 
         let options = MKMapSnapshotter.Options()
-        options.region = MKCoordinateRegion(center: center, span: span)
+        options.region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: lonDelta))
         options.size = CGSize(width: cardWidth * 3, height: mapHeight * 3)
-        options.scale = UIScreen.main.scale
+        options.scale = 3.0
         options.mapType = .standard
 
-        let snapshotter = MKMapSnapshotter(options: options)
-        do {
-            let snapshot = try await snapshotter.start()
-            mapImage = await drawRoute(on: snapshot.image, snapshot: snapshot, coords: coords)
-        } catch {
-            print("Map snapshot failed: \(error)")
+        mapImage = await withCheckedContinuation { continuation in
+            let snapshotter = MKMapSnapshotter(options: options)
+            snapshotter.start { snapshot, error in
+                if let snap = snapshot {
+                    let img = drawRoute(on: snap.image, snapshot: snap, coords: coords)
+                    continuation.resume(returning: img)
+                } else {
+                    print("⚠️ Map snapshot failed: \(error?.localizedDescription ?? "unknown")")
+                    continuation.resume(returning: fallbackImage())
+                }
+            }
+        }
+    }
+
+    private func fallbackImage() -> UIImage {
+        let size = CGSize(width: cardWidth * 3, height: mapHeight * 3)
+        let renderer = UIGraphicsImageRenderer(size: size)
+        return renderer.image { ctx in
+            UIColor(red: 0.12, green: 0.12, blue: 0.18, alpha: 1).setFill()
+            ctx.fill(CGRect(origin: .zero, size: size))
         }
     }
 
