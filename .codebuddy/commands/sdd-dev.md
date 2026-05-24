@@ -43,6 +43,13 @@ disable-model-invocation: false
 │  └──────────────────────────────────────────────┘                 │
 │              │                                                     │
 │              ▼                                                     │
+│  🟡 YELLOW (Live API 外部接口测试)                                  │
+│  ┌─────────────────────────┐                                      │
+│  │ curl / httpie 真实调用    │  ← 自动：启动服务 → curl 测试 → 修复  │
+│  │ 验证响应码 + 数据正确性   │                                      │
+│  └───────────┬─────────────┘                                      │
+│              │ 全部通过 → 进入归档                                   │
+│              ▼                                                     │
 │  🔵 归档 → 询问：目标达成？ → 未达成则回到 🧠 或 🔵 开始下一轮        │
 └───────────────────────────────────────────────────────────────────┘
 ```
@@ -136,9 +143,15 @@ openspec/changes/<change-id>/
 
 ---
 
-### 🟢 Step 3: GREEN — TDD Red-Green 反馈循环全自动执行
+### 🟢 Step 3: GREEN + 🟡 YELLOW — TDD Red-Green 反馈循环 + Live API 测试
 
-**核心：整个过程由 TDD Red-Green 反馈循环驱动。零交互，异常时才暂停。**
+**核心：整个过程由 TDD Red-Green 反馈循环驱动 + Live API curl 外部测试。零交互，异常时才暂停。**
+
+Step 3 包含两个不可跳过的子阶段：
+1. **🟢 TDD Red-Green-Refactor**（3.1-3.6）：代码级单元测试 + E2E 测试
+2. **🟡 Live API 外部测试**（3.7）：curl 真实接口调用验证
+
+**两个子阶段必须全部 PASS 后才能进入 Step 4 归档。**
 
 #### 3.1 细化计划
 
@@ -222,6 +235,7 @@ openspec/changes/<change-id>/
 | REFACTOR 阶段测试变红 | **回退 refactor，定位问题** |
 | 声称完成但未运行 `pytest` | **不可接受，立即运行验证** |
 | 跳过某个 phase（"这次简单"） | **禁止，任何理由都不行** |
+| 跳过 Live API curl 测试 | **禁止，必须对所有变更端点执行 curl 验证** |
 
 #### 3.4 全自动编排
 
@@ -348,9 +362,118 @@ openspec/changes/<change-id>/
 - 不同失败原因的新失败（非修复引入）→ ✅ 继续修复
 - E2E 测试文件不存在 → ✅ 自动创建并运行
 
+#### 3.7 🟡 YELLOW — Live API 外部接口测试 (External HTTP Testing)
+
+**目标：使用外部工具（curl/httpie）对真实运行的服务进行接口测试，确保部署后功能如预期工作。这是 Step 3 的最后一道闸门，必须在所有 Task 完成后执行。**
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                Live API 外部接口测试 (Yellow Phase)                 │
+│                                                                  │
+│  ┌──────────────────────────────────────────────────────────┐   │
+│  │  Phase 4: 启动服务 → curl 测试 → 验证 → 修复 → 循环        │   │
+│  │                                                          │   │
+│  │  1. 启动后端服务（若未运行）:                               │   │
+│  │     nohup uv run uvicorn app.main:app --host 0.0.0.0     │   │
+│  │     --port 8000 --reload &                                │   │
+│  │                                                          │   │
+│  │  2. 对每个 API 端点执行 curl 测试:                          │   │
+│  │     • 完整用户流程覆盖（happy path）                         │   │
+│  │     • 关键错误路径验证（error cases）                        │   │
+│  │     • 响应格式验证（code/msg/data 结构）                     │   │
+│  │     • 数据正确性验证（字段值匹配）                            │   │
+│  │                                                          │   │
+│  │  3. 全部 PASS → 进入 Step 4 归档                          │   │
+│  │  4. 有 FAIL → 自动诊断修复循环                              │   │
+│  └──────────────────────────────────────────────────────────┘   │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+##### 测试命令规范
+
+**每个 API 端点必须使用独立的 curl 命令测试，用 `python3 -m json.tool` 格式化输出便于验证：**
+
+```bash
+# 示例：登录流程完整测试链
+# 1. 发送验证码
+curl -s http://localhost:8000/api/v1/auth/send-code \
+  -X POST -H 'Content-Type: application/json' \
+  -d '{"phone":"13800138000"}' | python3 -m json.tool
+
+# 2. 登录获取 token
+TOKEN=$(curl -s http://localhost:8000/api/v1/auth/login \
+  -X POST -H 'Content-Type: application/json' \
+  -d '{"phone":"13800138000","code":"123456"}' \
+  | python3 -c 'import sys,json; print(json.load(sys.stdin)["data"]["access_token"])')
+
+# 3. 调用需要认证的接口
+curl -s http://localhost:8000/api/v1/routes/mine \
+  -H "Authorization: Bearer $TOKEN" | python3 -m json.tool
+```
+
+##### 自动诊断 & 修复循环 (max 5 次全局迭代)
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│  对每个失败 curl 测试:                                            │
+│  a. 读取失败响应 + HTTP 状态码 + 响应体                            │
+│  b. 分类问题类型:                                                 │
+│     • 服务未启动 → 自动启动/重启服务                              │
+│     • HTTP 4xx → 检查认证/参数 → 修复代码                        │
+│     • HTTP 5xx → 读取服务端日志 → 修复代码                       │
+│     • 响应格式错误 → 检查 schema → 修复代码                       │
+│     • 数据值错误 → 检查业务逻辑 → 修复代码                        │
+│  c. 修复后重新运行该 curl 测试                                    │
+│  d. 通过 → 处理下一个失败                                        │
+│  e. 仍失败 → 重试（最多 3 次同一问题）                            │
+│                                                                  │
+│  ⛔ 同一问题 3 次修复失败 → 暂停，报告用户                        │
+│  ⛔ 第 5 次全局迭代仍有失败 → 暂停，报告用户                       │
+│  ✅ 全部修复 → git commit → 进入 Step 4                         │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+##### 测试覆盖要求
+
+**每个涉及 API 变更的 feature 必须至少覆盖：**
+
+| 覆盖类型 | 说明 | 示例 |
+|----------|------|------|
+| Happy Path | 完整的用户操作流程 | 发送验证码 → 登录 → 创建路线 → 查看我的路线 |
+| 认证验证 | 未登录/过期 token 场景 | 无 Authorization 请求 → 期望 code=2001 |
+| 错误输入 | 非法参数 | 缺少必填字段 → 期望 422/400 |
+| 空数据 | 新用户/空列表 | 新用户查路线 → 期望 total=0 |
+| 数据一致性 | 写入后立即读取验证 | POST 创建 → GET 查询 → 验证字段一致 |
+
+##### 测试报告格式
+
+测试完成后必须输出：
+
+```
+📊 API 接口测试报告
+├── 1. POST /auth/send-code     ✅ PASS (200)
+├── 2. POST /auth/login          ✅ PASS (200, token 有效)
+├── 3. POST /routes              ✅ PASS (200, 返回 RouteDetail)
+├── 4. GET /routes/mine          ✅ PASS (200, items 含新路线)
+├── 5. GET /routes/mine (无auth)  ✅ PASS (200, code=2001)
+└── 修复迭代次数: 0
+状态: ✅ 全部通过 / ⚠️ 需人工介入
+```
+
+##### Live API 铁律（新增）
+
+| 违规行为 | 后果 |
+|----------|------|
+| 跳过 curl 测试直接声明完成 | **不可接受，必须补测** |
+| curl 测试失败但声称通过 | **撤销 commit，修复后重测** |
+| 只测 happy path 不测 error case | **补充错误路径测试** |
+| 只跑 pytest 不跑 curl | **禁止，两者都是必须项** |
+
 ---
 
 ### 🔵 Step 4: 归档 & 迭代
+
+**前置条件：🟢 全量单元测试 PASS + 🟡 Live API curl 测试 PASS。**
 
 #### 4.1 完成开发
 
@@ -379,6 +502,7 @@ git add openspec/ && git commit -m "docs: archive specs"
 | 🧠 Brainstorm | **高交互** | 每次只问一个问题；苏格拉底式引导；绝不跳过用户确认 |
 | 🔵 OpenSpec | **低交互** | 一次性审查确认；确认后锁死规范 |
 | 🟢 Execute | **零交互**（除异常） | TDD Red-Green 循环驱动；全自动 subagent；只在阻塞时暂停 |
+| 🟡 API Test | **零交互**（全自动） | curl 外部测试；自动修复循环；必须全部 PASS 才能归档 |
 | 🔵 Archive | **低交互** | 仅确认是否继续迭代 |
 
 ## 违规 STOP 信号
@@ -393,6 +517,8 @@ git add openspec/ && git commit -m "docs: archive specs"
 | GREEN 阶段改测试不改代码 | 🟢 |
 | 声称完成但未运行验证命令 | 🟢 |
 | 遇到异常自行猜测而不询问用户 | 🟢 |
+| 跳过 Live API curl 测试 | 🟡 |
+| curl 测试失败但声称全部通过 | 🟡 |
 
 ## 开始
 
