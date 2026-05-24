@@ -392,6 +392,14 @@ struct FeaturedData: Codable {
 }
 
 extension APIService {
+    /// 删除路线
+    func deleteRoute(id: String) async throws {
+        guard let url = URL(string: "\(baseURL)/routes/\(id)") else { throw APIError.invalidURL }
+        var request = try authenticatedRequest(for: url, method: "DELETE")
+        let (_, _) = try await URLSession.shared.data(for: request)
+    }
+
+
     /// 获取精选路线
     func fetchFeaturedRoutes() async throws -> [Route] {
         guard let url = URL(string: "\(baseURL)/routes/featured") else { throw APIError.invalidURL }

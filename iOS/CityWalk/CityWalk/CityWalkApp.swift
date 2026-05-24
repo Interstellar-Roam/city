@@ -78,6 +78,8 @@ struct ProfileView: View {
     @State private var myRoutes: [Route] = []
     @State private var isLoadingRoutes = false
     @State private var routesErrorMessage: String?
+    @State private var actionRoute: Route?
+    @State private var showActionSheet = false
 
     private let envManager = EnvironmentManager.shared
 
@@ -121,6 +123,14 @@ struct ProfileView: View {
                         ForEach(Array(myRoutes.prefix(3))) { route in
                             NavigationLink(destination: RouteDetailView(route: route)) {
                                 MyRouteRow(route: route)
+                            }
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                Button(role: .destructive) {
+                                    actionRoute = route
+                                    showActionSheet = true
+                                } label: {
+                                    Label("删除", systemImage: "trash")
+                                }
                             }
                         }
                         if myRoutes.count > 3 {
@@ -189,6 +199,17 @@ struct ProfileView: View {
             } message: {
                 Text("切换后将自动退出登录。当前: \(envManager.current.displayName)")
             }
+            .confirmationDialog("路线操作", isPresented: $showActionSheet, presenting: actionRoute) { route in
+                Button("设为私密", role: .none) {
+                    Task { await setRoutePrivate(route) }
+                }
+                Button("删除路线", role: .destructive) {
+                    Task { await deleteMyRoute(route) }
+                }
+                Button("取消", role: .cancel) {}
+            } message: { route in
+                Text("\"\(route.name)\" — 删除后将无法恢复。您也可以选择设为私密，仅自己可见。")
+            }
         }
     }
 
@@ -202,6 +223,24 @@ struct ProfileView: View {
             routesErrorMessage = error.localizedDescription
         }
         isLoadingRoutes = false
+    }
+
+    private func deleteMyRoute(_ route: Route) async {
+        do {
+            try await APIService.shared.deleteRoute(id: route.id)
+            myRoutes.removeAll { $0.id == route.id }
+        } catch {
+            routesErrorMessage = error.localizedDescription
+        }
+    }
+
+    private func setRoutePrivate(_ route: Route) async {
+        do {
+            try await APIService.shared.updateRoute(id: route.id, name: nil, description: nil, difficulty: nil, tags: nil, city: nil, isPublished: false)
+            await loadMyRoutes()
+        } catch {
+            routesErrorMessage = error.localizedDescription
+        }
     }
 }
 
@@ -277,6 +316,14 @@ struct MyRouteRow: View {
 // MARK: - 全部路线列表
 struct AllRoutesView: View {
     let routes: [Route]
+    @State private var actionRoute: Route?
+    @State private var showActionSheet = false
+    @State private var currentRoutes: [Route]
+
+    init(routes: [Route]) {
+        self.routes = routes
+        _currentRoutes = State(initialValue: routes)
+    }
 
     private struct GroupedRoutes {
         let title: String
@@ -291,7 +338,7 @@ struct AllRoutesView: View {
         var weekRoutes: [Route] = []
         var olderRoutes: [Route] = []
 
-        for route in routes {
+        for route in currentRoutes {
             guard let date = route.createdAt else {
                 olderRoutes.append(route)
                 continue
@@ -353,6 +400,14 @@ struct AllRoutesView: View {
                             }
                             .padding(.vertical, 2)
                         }
+                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                            Button(role: .destructive) {
+                                actionRoute = route
+                                showActionSheet = true
+                            } label: {
+                                Label("删除", systemImage: "trash")
+                            }
+                        }
                     }
                 }
             }
@@ -360,6 +415,23 @@ struct AllRoutesView: View {
         .listStyle(.insetGrouped)
         .navigationTitle("我的路线")
         .navigationBarTitleDisplayMode(.inline)
+        .confirmationDialog("路线操作", isPresented: $showActionSheet, presenting: actionRoute) { route in
+            Button("设为私密", role: .none) {
+                Task {
+                    try? await APIService.shared.updateRoute(id: route.id, name: nil, description: nil, difficulty: nil, tags: nil, city: nil, isPublished: false)
+                    currentRoutes.removeAll { $0.id == route.id }
+                }
+            }
+            Button("删除路线", role: .destructive) {
+                Task {
+                    try? await APIService.shared.deleteRoute(id: route.id)
+                    currentRoutes.removeAll { $0.id == route.id }
+                }
+            }
+            Button("取消", role: .cancel) {}
+        } message: { route in
+            Text("\"\(route.name)\" — 删除后将无法恢复。也可以设为私密，仅自己可见。")
+        }
     }
 
     private func formatDate(_ date: Date) -> String {
