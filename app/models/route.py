@@ -104,6 +104,7 @@ class Route(BaseModel):
     created_at: datetime = Field(default_factory=datetime.now)
     updated_at: datetime = Field(default_factory=datetime.now)
     is_published: bool = True
+    is_featured: bool = False  # 是否精选路线
 
     class Config:
         populate_by_name = True

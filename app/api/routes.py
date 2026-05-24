@@ -11,6 +11,7 @@ from app.database import Database
 from app.middleware.auth import get_current_user
 from app.schemas.common import APIResponse
 from app.schemas.route import (
+    CoverUpload,
     PaginatedRoutes,
     RouteCreate,
     RouteDetail,
@@ -109,6 +110,16 @@ async def list_my_routes(
     return APIResponse(data=result).model_dump()
 
 
+@router.get("/featured", summary="获取精选路线")
+async def get_featured_routes(
+    limit: int = Query(5, ge=1, le=10, description="返回数量"),
+    service: RouteService = Depends(get_route_service)
+) -> dict[str, Any]:
+    """获取精选路线列表（按收藏数排序）"""
+    routes = await service.get_featured_routes(limit)
+    return APIResponse(data={"items": routes, "total": len(routes)}).model_dump()
+
+
 @router.get("/search", summary="关键词搜索路线")
 async def search_routes(
     keyword: str = Query(..., description="搜索关键词"),
@@ -185,6 +196,30 @@ async def toggle_favorite(
     is_favorited = await service.toggle_favorite(route_id, user_id)
     action = "已收藏" if is_favorited else "已取消收藏"
     return APIResponse(message=action).model_dump()
+
+
+# === 封面图 ===
+
+@router.post("/{route_id}/cover", summary="上传路线封面图")
+async def upload_cover(
+    route_id: str,
+    cover_data: CoverUpload,
+    service: RouteService = Depends(get_route_service)
+) -> dict[str, Any]:
+    """上传路线封面图（Base64 JPEG，≤500KB）"""
+    # 校验图片大小
+    import base64
+    try:
+        raw = base64.b64decode(cover_data.image)
+        if len(raw) > 500 * 1024:
+            return APIResponse(code=3001, message="图片大小不能超过500KB").model_dump()
+    except Exception:
+        return APIResponse(code=3001, message="无效的Base64图片数据").model_dump()
+
+    route = await service.update_route_preview(route_id, cover_data.image)
+    if not route:
+        return APIResponse(code=3001, message="路线不存在").model_dump()
+    return APIResponse(data={"success": True, "preview_image": cover_data.image[:50] + "..."}).model_dump()
 
 
 # === 轨迹点编辑API ===

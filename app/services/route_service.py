@@ -131,6 +131,30 @@ class RouteService:
             has_more=skip + len(items) < total
         )
 
+    async def get_featured_routes(self, limit: int = 5) -> list[dict[str, Any]]:
+        """获取精选路线列表"""
+        cursor = self.collection.find(
+            {"is_featured": True, "is_published": True}
+        ).sort("favorites_count", -1).limit(limit)
+        routes = []
+        async for doc in cursor:
+            doc["_id"] = str(doc["_id"])
+            routes.append(RouteListItem(**doc).model_dump())
+        return routes
+
+    async def update_route_preview(self, route_id: str, image_base64: str) -> dict[str, Any] | None:
+        """更新路线封面图"""
+        if not ObjectId.is_valid(route_id):
+            return None
+        result = await self.collection.find_one_and_update(
+            {"_id": route_id},
+            {"$set": {"preview_image": image_base64, "updated_at": datetime.now()}},
+            return_document=True
+        )
+        if result:
+            result["_id"] = str(result["_id"])
+        return result
+
     async def update_route(self, route_id: str, route_data: RouteUpdate) -> dict[str, Any] | None:
         """更新路线"""
         if not ObjectId.is_valid(route_id):

@@ -154,6 +154,7 @@ class RouteListItem(BaseModel):
     tags: list[str]
     created_at: datetime
     created_by: str | None = None
+    is_featured: bool = False
 
     class Config:
         populate_by_name = True
@@ -189,6 +190,7 @@ class RouteDetail(BaseModel):
     created_by: str | None = None
     is_published: bool = True
     score: float | None = None
+    is_featured: bool = False
 
     class Config:
         populate_by_name = True
@@ -221,6 +223,11 @@ class PaginatedRoutes(BaseModel):
     page: int
     page_size: int
     has_more: bool
+
+
+class CoverUpload(BaseModel):
+    """封面图上传"""
+    image: str = Field(..., description="Base64编码的图片数据（JPEG，≤500KB）")
 
 
 class NavigationData(BaseModel):
