@@ -28,8 +28,8 @@ async def upload_image(
         return APIResponse(code=3001, message="仅支持图片文件").model_dump()
 
     data = await file.read()
-    if len(data) > 2 * 1024 * 1024:  # 2MB 上限
-        return APIResponse(code=3001, message="图片大小不能超过 2MB").model_dump()
+    if len(data) > 5 * 1024 * 1024:  # 5MB 上限
+        return APIResponse(code=3001, message="图片大小不能超过 5MB").model_dump()
 
     img = Image(
         data=data,
