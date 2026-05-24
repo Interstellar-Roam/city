@@ -127,12 +127,7 @@ struct EditRouteView: View {
         .onChange(of: selectedPhoto) { newItem in
             Task {
                 if let data = try? await newItem?.loadTransferable(type: Data.self) {
-                    if let img = UIImage(data: data),
-                       let compressed = img.jpegData(compressionQuality: 0.6) {
-                        selectedImageData = compressed
-                    } else {
-                        selectedImageData = data
-                    }
+                    selectedImageData = optimizeImage(data)
                 }
             }
         }
@@ -172,6 +167,37 @@ struct EditRouteView: View {
             .overlay(RoundedRectangle(cornerRadius: 16)
                 .stroke(Color.orange.opacity(0.4), style: StrokeStyle(lineWidth: 1.5, dash: [6])))
         }
+    }
+
+    // MARK: - 图片优化
+    private func optimizeImage(_ data: Data, targetKB: Int = 200) -> Data {
+        guard let image = UIImage(data: data) else { return data }
+
+        // 1. 缩放到 1200px 以内
+        let maxDim: CGFloat = 1200
+        let scale = min(maxDim / image.size.width, maxDim / image.size.height, 1.0)
+        let resized: UIImage
+        if scale < 1.0 {
+            let newSize = CGSize(width: image.size.width * scale, height: image.size.height * scale)
+            let renderer = UIGraphicsImageRenderer(size: newSize)
+            resized = renderer.image { _ in image.draw(in: CGRect(origin: .zero, size: newSize)) }
+        } else {
+            resized = image
+        }
+
+        // 2. 二分搜索压缩质量，目标 ~200KB
+        var low: CGFloat = 0.0, high: CGFloat = 1.0
+        var best = resized.jpegData(compressionQuality: 1.0) ?? data
+        for _ in 0..<8 {
+            let mid = (low + high) / 2
+            guard let d = resized.jpegData(compressionQuality: mid) else { break }
+            if d.count <= targetKB * 1024 {
+                best = d; high = mid
+            } else {
+                low = mid
+            }
+        }
+        return best
     }
 
     // MARK: - 保存

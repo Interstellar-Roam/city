@@ -1,7 +1,10 @@
 """图片存储 API"""
 
+from io import BytesIO
+
 from fastapi import APIRouter, Depends, Request, UploadFile, File
 from fastapi.responses import Response
+from PIL import Image as PILImage
 
 from app.database import Database
 from app.middleware.auth import get_current_user
@@ -32,6 +35,27 @@ async def upload_image(
     data = await file.read()
     if len(data) > 5 * 1024 * 1024:  # 5MB 上限
         return APIResponse(code=3001, message="图片大小不能超过 5MB").model_dump()
+
+    # 压缩优化到 ~200KB
+    try:
+        img = PILImage.open(BytesIO(data))
+        img = img.convert("RGB")
+        # 缩放到 1200px
+        max_dim = 1200
+        if max(img.size) > max_dim:
+            ratio = max_dim / max(img.size)
+            img = img.resize((int(img.size[0] * ratio), int(img.size[1] * ratio)), PILImage.LANCZOS)
+        # 二分搜索 JPEG 质量
+        out = BytesIO()
+        quality = 85
+        img.save(out, "JPEG", quality=quality, optimize=True)
+        while out.tell() > 200 * 1024 and quality > 20:
+            quality -= 10
+            out = BytesIO()
+            img.save(out, "JPEG", quality=quality, optimize=True)
+        data = out.getvalue()
+    except Exception:
+        pass  # 非图片或转换失败，使用原始数据
 
     img = Image(
         data=data,
