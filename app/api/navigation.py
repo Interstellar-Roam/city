@@ -8,6 +8,7 @@ from loguru import logger
 
 from app.config import get_settings
 from app.database import Database
+from app.middleware.auth import get_current_user
 from app.schemas.route import NavigationData
 from app.services.route_service import RouteService
 
@@ -146,7 +147,7 @@ async def get_route_pois(
 @router.post("/track/{route_id}", summary="记录用户导航轨迹")
 async def record_navigation_track(
     route_id: str,
-    user_id: str = Query(..., description="用户ID"),
+    user_id: str = Depends(get_current_user),
     longitude: float = Query(..., description="当前经度"),
     latitude: float = Query(..., description="当前纬度"),
     service: RouteService = Depends(get_route_service)
