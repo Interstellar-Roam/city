@@ -186,6 +186,12 @@ struct LoginView: View {
         .onAppear {
             focusedField = .phone
         }
+        .onChange(of: viewModel.code) { code in
+            if code.count == 6, !viewModel.phone.isEmpty {
+                focusedField = nil
+                Task { await viewModel.login() }
+            }
+        }
         .animation(.easeInOut(duration: 0.3), value: viewModel.errorMessage)
     }
 
