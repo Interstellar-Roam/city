@@ -69,7 +69,13 @@ async def upload_image(
     await collection.insert_one(doc)
 
     ext = file.filename.split(".")[-1] if file.filename and "." in file.filename else "jpeg"
-    url = f"{request.base_url}api/v1/images/{img.id}.{ext}"
+    # 检测是否通过 HTTPS 代理（nginx X-Forwarded-Proto），生产环境强制 HTTPS
+    forwarded_proto = request.headers.get("X-Forwarded-Proto", "http")
+    scheme = "https" if forwarded_proto == "https" else request.url.scheme
+    base = f"{scheme}://{request.base_url.hostname}"
+    if request.base_url.port and request.base_url.port not in (80, 443):
+        base += f":{request.base_url.port}"
+    url = f"{base}/api/v1/images/{img.id}.{ext}"
 
     return APIResponse(data={"id": img.id, "url": url, "size": img.size}).model_dump()
 
