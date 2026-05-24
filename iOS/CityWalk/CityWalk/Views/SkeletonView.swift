@@ -35,43 +35,60 @@ extension View {
     }
 }
 
-// MARK: - 路线卡片骨架屏
+// MARK: - 路线卡片骨架屏（匹配真实 RouteCardView 布局）
 struct RouteCardSkeleton: View {
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            // 封面图占位
+        HStack(spacing: 16) {
+            // 封面图占位 (100x100)
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color(.systemGray5))
                 .frame(width: 100, height: 100)
                 .shimmer()
 
-            VStack(alignment: .leading, spacing: 6) {
+            // 文字信息占位
+            VStack(alignment: .leading, spacing: 8) {
                 // 标题
                 RoundedRectangle(cornerRadius: 4)
                     .fill(Color(.systemGray5))
-                    .frame(width: 80, height: 14)
+                    .frame(width: 140, height: 16)
+                    .shimmer()
+
+                // 描述
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(Color(.systemGray5))
+                    .frame(width: 200, height: 12)
                     .shimmer()
 
                 // 距离/时长
-                RoundedRectangle(cornerRadius: 4)
-                    .fill(Color(.systemGray5))
-                    .frame(width: 120, height: 12)
-                    .shimmer()
+                HStack(spacing: 12) {
+                    RoundedRectangle(cornerRadius: 4)
+                        .fill(Color(.systemGray5))
+                        .frame(width: 60, height: 12)
+                        .shimmer()
+                    RoundedRectangle(cornerRadius: 4)
+                        .fill(Color(.systemGray5))
+                        .frame(width: 50, height: 12)
+                        .shimmer()
+                }
 
                 // 标签
-                RoundedRectangle(cornerRadius: 4)
-                    .fill(Color(.systemGray5))
-                    .frame(width: 60, height: 10)
-                    .shimmer()
+                HStack(spacing: 6) {
+                    ForEach(0..<3, id: \.self) { _ in
+                        RoundedRectangle(cornerRadius: 4)
+                            .fill(Color(.systemGray5))
+                            .frame(width: 40, height: 18)
+                            .shimmer()
+                    }
+                }
             }
-            .padding(.horizontal, 8)
-            .padding(.vertical, 8)
+
+            Spacer()
+            Image(systemName: "chevron.right")
+                .foregroundColor(Color(.systemGray5))
         }
-        .frame(width: 140)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color(.systemGray6))
-        )
-        .clipped()
+        .padding()
+        .background(Color(.systemBackground))
+        .cornerRadius(12)
+        .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
     }
 }
