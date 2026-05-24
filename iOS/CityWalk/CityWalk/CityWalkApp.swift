@@ -274,19 +274,23 @@ struct ProfileView: View {
     // MARK: - Section Headers
     private var routesSectionHeader: some View {
         HStack {
-            Text("我的路线")
             if !myRoutes.isEmpty {
                 Button {
                     showRecording = true
                 } label: {
-                    HStack(spacing: 4) {
+                    HStack(spacing: 5) {
                         Image(systemName: "record.circle")
-                            .font(.subheadline)
+                            .font(.system(size: 13, weight: .semibold))
                         Text("去记录")
-                            .font(.subheadline)
+                            .font(.system(size: 13, weight: .semibold))
                     }
-                    .foregroundColor(.orange)
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(Capsule().fill(Color.orange))
                 }
+            } else {
+                Text("我的路线")
             }
             Spacer()
             if !myRoutes.isEmpty {
