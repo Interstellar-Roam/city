@@ -1725,7 +1725,6 @@ struct AIChatView: View {
             do {
                 try await APIService.shared.streamSearch(
                     query: query,
-                    userId: "ios_user",
                     sessionId: currentSessionId
                 ) { event in
                     Task { @MainActor in

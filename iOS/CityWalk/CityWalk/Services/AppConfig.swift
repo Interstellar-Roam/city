@@ -11,9 +11,6 @@ enum AppConfig {
     static let amapAPIKey = "6a35590781eabd0f2adc39e41c9f6ba1"
     
     // MARK: - 其他配置
-    /// 默认用户ID
-    static let defaultUserId = "ios_user"
-    
     /// 请求超时时间（秒）
     static let requestTimeout: TimeInterval = 30
 }

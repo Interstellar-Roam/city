@@ -183,28 +183,6 @@ struct POI: Identifiable, Codable, Hashable {
     }
 }
 
-// MARK: - 分页响应
-struct PaginatedResponse<T: Codable>: Codable {
-    let items: [T]
-    let total: Int
-    let page: Int
-    let pageSize: Int
-    let hasMore: Bool
-    
-    enum CodingKeys: String, CodingKey {
-        case items, total, page
-        case pageSize = "page_size"
-        case hasMore = "has_more"
-    }
-}
-
-// MARK: - 搜索响应
-struct SearchResponse<T: Codable>: Codable {
-    let success: Bool
-    let total: Int
-    let data: [T]
-}
-
 // MARK: - 路线卡片（用于列表展示）
 struct RouteCard: Identifiable {
     let id: String
