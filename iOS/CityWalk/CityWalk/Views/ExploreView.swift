@@ -667,87 +667,94 @@ struct RouteDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                // 地图视图（立即显示，不等待加载）
-                ZStack(alignment: .bottomLeading) {
+                // 地图视图 — 占屏幕 60%
+                ZStack(alignment: .bottomTrailing) {
                     RouteMapView(region: $region, coordinates: routeCoordinates, routeName: route.name, selectedLayer: selectedLayer)
-                        .frame(height: UIScreen.main.bounds.height * 0.45)
+                        .frame(height: UIScreen.main.bounds.height * 0.60)
                         .onAppear {
                             isMapReady = true
                         }
 
                     // 图层切换按钮（右下角）
-                    HStack {
-                        Spacer()
-                        MapLayerToggle(selectedLayer: $selectedLayer)
-                            .padding(.trailing, 12)
-                            .padding(.bottom, 48)
-                    }
-                    
-                    // 预览路线按钮（在地图左下角）
-                    Button(action: {
-                        showNavigation = true
-                    }) {
-                        HStack(spacing: 6) {
-                            Image(systemName: "play.fill")
-                                .font(.system(size: 14))
-                            Text("预览")
-                                .fontWeight(.semibold)
-                                .font(.system(size: 14))
-                        }
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 10)
-                        .background(Color.orange)
-                        .cornerRadius(20)
-                        .shadow(radius: 3)
-                    }
-                    .padding(12)
+                    MapLayerToggle(selectedLayer: $selectedLayer)
+                        .padding(.trailing, 12)
+                        .padding(.bottom, 48)
                 }
                 
-                // 基本信息
-                VStack(alignment: .leading, spacing: 12) {
+                // 紧凑信息 + 开始导航（首次可见，不用滑动）
+                VStack(alignment: .leading, spacing: 10) {
                     Text(route.name)
-                        .font(.title.bold())
+                        .font(.title2.bold())
+                        .lineLimit(1)
                     
-                    if let description = route.description {
+                    if let description = route.description, !description.isEmpty {
                         Text(description)
                             .font(.subheadline)
                             .foregroundColor(.secondary)
+                            .lineLimit(2)
                     }
                     
-                    // 统计信息
-                    HStack(spacing: 24) {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("距离")
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                            Text(route.formattedDistance)
+                    // 开始导航按钮
+                    Button {
+                        showNavigationPrep = true
+                    } label: {
+                        HStack(spacing: 8) {
+                            Image(systemName: "navigation.fill")
+                                .font(.system(size: 16))
+                            Text("开始导航")
                                 .font(.headline)
                         }
-                        
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 14)
+                        .background(Color.orange)
+                        .cornerRadius(12)
+                    }
+                    .padding(.top, 4)
+                }
+                .padding(.horizontal)
+                .padding(.top, 16)
+                
+                Divider()
+                    .padding(.horizontal)
+                    .padding(.top, 16)
+                
+                // 以下为可滑动内容 — 上滑查看
+                // 统计信息
+                HStack(spacing: 24) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("距离")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        Text(route.formattedDistance)
+                            .font(.headline)
+                    }
+                    
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("时长")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        Text(route.formattedDuration)
+                            .font(.headline)
+                    }
+                    
+                    if let difficulty = route.difficulty {
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("时长")
+                            Text("难度")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
-                            Text(route.formattedDuration)
+                            Text(difficulty.displayText)
                                 .font(.headline)
-                        }
-                        
-                        if let difficulty = route.difficulty {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text("难度")
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                                Text(difficulty.displayText)
-                                    .font(.headline)
-                                    .foregroundColor(difficultyColor(difficulty))
-                            }
+                                .foregroundColor(difficultyColor(difficulty))
                         }
                     }
-                    .padding(.vertical, 12)
-                    
-                    // 标签
-                    if let tags = route.tags {
+                }
+                .padding(.horizontal)
+                .padding(.vertical, 12)
+                
+                // 标签
+                if let tags = route.tags {
+                    ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 8) {
                             ForEach(tags, id: \.self) { tag in
                                 Text(tag)
@@ -759,27 +766,9 @@ struct RouteDetailView: View {
                                     .cornerRadius(8)
                             }
                         }
+                        .padding(.horizontal)
                     }
                 }
-                .padding()
-                
-                // 开始导航按钮
-                Button {
-                    showNavigationPrep = true
-                } label: {
-                    HStack(spacing: 8) {
-                        Image(systemName: "navigation.fill")
-                            .font(.system(size: 16))
-                        Text("开始导航")
-                            .font(.headline)
-                    }
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 14)
-                    .background(Color.orange)
-                    .cornerRadius(12)
-                }
-                .padding(.horizontal)
                 
                 Divider()
                     .padding(.horizontal)
