@@ -670,7 +670,7 @@ struct RouteDetailView: View {
                 // 地图视图（立即显示，不等待加载）
                 ZStack(alignment: .bottomLeading) {
                     RouteMapView(region: $region, coordinates: routeCoordinates, routeName: route.name, selectedLayer: selectedLayer)
-                        .frame(height: 300)
+                        .frame(height: UIScreen.main.bounds.height * 0.45)
                         .onAppear {
                             isMapReady = true
                         }
