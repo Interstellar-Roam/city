@@ -8,6 +8,7 @@ class TokenStorage {
     private let refreshTokenKey = "auth.refresh_token"
     private let expiresAtKey = "auth.expires_at"
     private let userPhoneKey = "auth.user_phone"
+    private let userIdKey = "auth.user_id"
 
     private let defaults = UserDefaults.standard
 
@@ -34,6 +35,14 @@ class TokenStorage {
         return defaults.string(forKey: userPhoneKey)
     }
 
+    func saveUserId(_ id: String) {
+        defaults.set(id, forKey: userIdKey)
+    }
+
+    func getUserId() -> String? {
+        return defaults.string(forKey: userIdKey)
+    }
+
     var isLoggedIn: Bool {
         guard let token = getAccessToken(), !token.isEmpty else { return false }
         guard let expires = defaults.object(forKey: expiresAtKey) as? Date else { return false }
@@ -50,5 +59,6 @@ class TokenStorage {
         defaults.removeObject(forKey: refreshTokenKey)
         defaults.removeObject(forKey: expiresAtKey)
         defaults.removeObject(forKey: userPhoneKey)
+        defaults.removeObject(forKey: userIdKey)
     }
 }

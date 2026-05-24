@@ -31,6 +31,7 @@ struct Route: Identifiable, Codable, Hashable {
     let completionsCount: Int?
     let isPublished: Bool?
     let score: Double?
+    let isFeatured: Bool?
 
     enum CodingKeys: String, CodingKey {
         case id = "_id"
@@ -45,6 +46,7 @@ struct Route: Identifiable, Codable, Hashable {
         case viewsCount = "views_count"
         case completionsCount = "completions_count"
         case isPublished = "is_published"
+        case isFeatured = "is_featured"
     }
 
     init(from decoder: Decoder) throws {
@@ -77,6 +79,7 @@ struct Route: Identifiable, Codable, Hashable {
         completionsCount = try container.decodeIfPresent(Int.self, forKey: .completionsCount)
         isPublished = try container.decodeIfPresent(Bool.self, forKey: .isPublished)
         score = try container.decodeIfPresent(Double.self, forKey: .score)
+        isFeatured = try container.decodeIfPresent(Bool.self, forKey: .isFeatured)
     }
     
     // 格式化距离显示

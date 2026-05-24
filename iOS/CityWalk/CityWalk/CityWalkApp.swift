@@ -60,7 +60,7 @@ struct ContentView: View {
                 }
                 .tag(1)
             
-            ProfileView(authVM: authVM)
+            ProfileView(authVM: authVM, selectedTab: $selectedTab)
                 .tabItem {
                     Image(systemName: "person")
                     Text("我的")
@@ -73,6 +73,7 @@ struct ContentView: View {
 
 struct ProfileView: View {
     @ObservedObject var authVM: AuthViewModel
+    @Binding var selectedTab: Int
     @State private var showEnvPicker = false
     @State private var myRoutes: [Route] = []
     @State private var isLoadingRoutes = false
@@ -109,9 +110,13 @@ struct ProfileView: View {
                             .foregroundColor(.secondary)
                             .font(.subheadline)
                     } else if myRoutes.isEmpty {
-                        Text("还没有记录过路线")
-                            .foregroundColor(.secondary)
-                            .font(.subheadline)
+                        EmptyStateView(
+                            icon: "map",
+                            title: "还没有记录过路线",
+                            subtitle: "走出去，探索你的城市",
+                            actionTitle: "去记录第一条路线",
+                            onAction: { selectedTab = 1 }
+                        )
                     } else {
                         ForEach(Array(myRoutes.prefix(3))) { route in
                             NavigationLink(destination: RouteDetailView(route: route)) {

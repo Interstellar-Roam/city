@@ -383,6 +383,56 @@ struct AnyCodable: Codable {
     }
 }
 
+// MARK: - Phase 1 新增 API
+
+/// 精选路线响应
+struct FeaturedData: Codable {
+    let items: [Route]
+    let total: Int
+}
+
+extension APIService {
+    /// 获取精选路线
+    func fetchFeaturedRoutes() async throws -> [Route] {
+        guard let url = URL(string: "\(baseURL)/routes/featured") else { throw APIError.invalidURL }
+        let request = try authenticatedRequest(for: url)
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let response = try decodeResponse(FeaturedData.self, from: data)
+        guard response.code == 0, let featured = response.data else {
+            throw APIError.networkError(response.message)
+        }
+        return featured.items
+    }
+
+    /// 更新路线信息
+    func updateRoute(id: String, name: String?, description: String?, difficulty: String?, tags: [String]?, city: String?) async throws {
+        guard let url = URL(string: "\(baseURL)/routes/\(id)") else { throw APIError.invalidURL }
+
+        var body: [String: Any] = [:]
+        if let name = name { body["name"] = name }
+        if let description = description { body["description"] = description }
+        if let difficulty = difficulty { body["difficulty"] = difficulty }
+        if let tags = tags { body["tags"] = tags }
+        if let city = city { body["city"] = city }
+
+        let bodyData = try? JSONSerialization.data(withJSONObject: body)
+        var request = try authenticatedRequest(for: url, method: "PUT", body: bodyData)
+        let (_, _) = try await URLSession.shared.data(for: request)
+    }
+
+    /// 上传封面图
+    func uploadCoverImage(routeId: String, imageBase64: String) async throws {
+        guard let url = URL(string: "\(baseURL)/routes/\(routeId)/cover") else { throw APIError.invalidURL }
+        let body = ["image": imageBase64]
+        let bodyData = try? JSONSerialization.data(withJSONObject: body)
+        var request = try authenticatedRequest(for: url, method: "POST", body: bodyData)
+        let (_, response) = try await URLSession.shared.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            throw APIError.invalidResponse
+        }
+    }
+}
+
 // MARK: - API 错误
 enum APIError: Error, LocalizedError {
     case invalidURL

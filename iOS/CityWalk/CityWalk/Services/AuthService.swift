@@ -85,6 +85,7 @@ class AuthService {
             expiresIn: tokenPair.expiresIn,
             phone: phone
         )
+        TokenStorage.shared.saveUserId(tokenPair.user.id)
 
         return tokenPair
     }

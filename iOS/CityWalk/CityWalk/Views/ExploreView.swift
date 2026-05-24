@@ -14,6 +14,7 @@ struct ExploreView: View {
     @State private var aiMessages: [AIChatMessage] = []
     @State private var aiInputText = ""
     @State private var currentSessionId: String?  // 当前会话 ID
+    @State private var featuredRoutes: [Route] = []
     
     var body: some View {
         NavigationStack {
@@ -22,6 +23,11 @@ struct ExploreView: View {
                     VStack(spacing: 0) {
                         // 搜索栏
                         searchBarView
+                        
+                        // Hero Banner 精选路线
+                        if !featuredRoutes.isEmpty {
+                            HeroBannerView(routes: featuredRoutes)
+                        }
                         
                         // 分类标签
                         categoryView
@@ -70,6 +76,10 @@ struct ExploreView: View {
             // 只在首次加载时调用
             if viewModel.routes.isEmpty {
                 await viewModel.loadRoutes()
+            }
+            // 加载精选路线
+            if let featured = try? await APIService.shared.fetchFeaturedRoutes() {
+                featuredRoutes = featured
             }
         }
         .onChange(of: searchText) { newValue in
@@ -185,20 +195,42 @@ struct ExploreView: View {
     
     // MARK: - 空视图
     private var emptyView: some View {
-        VStack(spacing: 16) {
-            Image(systemName: "map")
-                .font(.system(size: 48))
-                .foregroundColor(.gray)
-            
-            Text("暂无路线")
+        VStack(spacing: 20) {
+            Image(systemName: "magnifyingglass")
+                .font(.system(size: 40, weight: .light))
+                .foregroundColor(.secondary.opacity(0.5))
+                .padding(.top, 20)
+
+            Text(searchText.isEmpty ? "暂无路线" : "没有找到匹配路线")
                 .font(.headline)
                 .foregroundColor(.secondary)
-            
-            Text("试试其他分类或关键词")
-                .font(.subheadline)
-                .foregroundColor(.gray)
+
+            if !searchText.isEmpty, !featuredRoutes.isEmpty {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("试试这些热门路线")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                        .padding(.horizontal)
+
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 12) {
+                            ForEach(featuredRoutes.prefix(3)) { route in
+                                NavigationLink(value: route) {
+                                    MiniRouteCard(route: route)
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                            }
+                        }
+                        .padding(.horizontal)
+                    }
+                }
+            } else if searchText.isEmpty {
+                Text("换个分类试试")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+            }
         }
-        .frame(height: 200)
+        .frame(minHeight: 200)
     }
     
     // MARK: - 错误视图
@@ -244,18 +276,32 @@ struct CategoryChip: View {
     }
 }
 
+// MARK: - 12色调色板
+private let cardPalette: [(Color, Color)] = [
+    (.orange, .pink), (.blue, .purple), (.green, .teal),
+    (.red, .orange), (.purple, .blue), (.teal, .green),
+    (.pink, .red), (.mint, .blue), (.indigo, .purple),
+    (.yellow, .orange), (.cyan, .blue), (.brown, .orange)
+]
+
 // MARK: - 路线卡片
 struct RouteCardView: View {
     let route: Route
-    
+    @State private var isPressed = false
+
+    private var gradientColors: (Color, Color) {
+        let idx = abs(route.name.hashValue) % cardPalette.count
+        return cardPalette[idx]
+    }
+
     var body: some View {
         HStack(spacing: 16) {
-            // 图片
+            // 封面图 / 渐变占位
             ZStack(alignment: .topTrailing) {
                 RoundedRectangle(cornerRadius: 12)
                     .fill(
                         LinearGradient(
-                            colors: [.orange.opacity(0.3), .pink.opacity(0.3)],
+                            colors: [gradientColors.0.opacity(0.3), gradientColors.1.opacity(0.3)],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         )
@@ -266,7 +312,7 @@ struct RouteCardView: View {
                             .font(.title)
                             .foregroundColor(.white.opacity(0.6))
                     )
-                
+
                 // 难度标签
                 if let difficulty = route.difficulty {
                     Text(difficulty.displayText)
@@ -279,28 +325,30 @@ struct RouteCardView: View {
                         .padding(6)
                 }
             }
-            
+
             // 信息
             VStack(alignment: .leading, spacing: 8) {
                 Text(route.name)
                     .font(.headline)
                     .lineLimit(1)
-                
-                Text(route.description ?? "暂无描述")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                    .lineLimit(2)
-                
+
+                if let desc = route.description, !desc.isEmpty {
+                    Text(desc)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .lineLimit(2)
+                }
+
                 HStack(spacing: 12) {
                     Label(route.formattedDistance, systemImage: "point.topleft.down.curvedto.point.bottomright.up")
                         .font(.caption)
                         .foregroundColor(.secondary)
-                    
+
                     Label(route.formattedDuration, systemImage: "clock")
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
-                
+
                 // 标签
                 if let tags = route.tags {
                     HStack(spacing: 6) {
@@ -316,10 +364,8 @@ struct RouteCardView: View {
                     }
                 }
             }
-            
+
             Spacer()
-            
-            // 箭头
             Image(systemName: "chevron.right")
                 .foregroundColor(.gray)
         }
@@ -327,14 +373,136 @@ struct RouteCardView: View {
         .background(Color(.systemBackground))
         .cornerRadius(12)
         .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
+        .scaleEffect(isPressed ? 0.97 : 1.0)
+        .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isPressed)
+        .onLongPressGesture(minimumDuration: 0.01, pressing: { pressing in
+            isPressed = pressing
+        }, perform: {})
     }
-    
+
     private func difficultyColor(_ difficulty: Difficulty) -> Color {
         switch difficulty {
         case .easy: return .green
         case .medium: return .orange
         case .hard: return .red
         }
+    }
+}
+
+// MARK: - Hero Banner 精选路线轮播
+struct HeroBannerView: View {
+    let routes: [Route]
+    @State private var currentIndex = 0
+    private let timer = Timer.publish(every: 4, on: .main, in: .common).autoconnect()
+
+    var body: some View {
+        TabView(selection: $currentIndex) {
+            ForEach(Array(routes.enumerated()), id: \.element.id) { idx, route in
+                NavigationLink(value: route) {
+                    ZStack(alignment: .bottomLeading) {
+                        // 渐变背景
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(
+                                LinearGradient(
+                                    colors: [
+                                        Color(hue: Double(idx * 60 % 360) / 360.0, saturation: 0.6, brightness: 0.8),
+                                        Color(hue: Double((idx * 60 + 30) % 360) / 360.0, saturation: 0.7, brightness: 0.5)
+                                    ],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                            .aspectRatio(16/9, contentMode: .fit)
+
+                        // 底部渐变遮罩
+                        LinearGradient(
+                            colors: [.clear, .black.opacity(0.6)],
+                            startPoint: .center,
+                            endPoint: .bottom
+                        )
+                        .cornerRadius(16)
+
+                        // 文字信息
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(route.name)
+                                .font(.title3.bold())
+                                .foregroundColor(.white)
+                            HStack(spacing: 8) {
+                                Text(route.formattedDistance)
+                                    .font(.caption)
+                                    .foregroundColor(.white.opacity(0.8))
+                                if let diff = route.difficulty {
+                                    Text(diff.displayText)
+                                        .font(.caption2)
+                                        .padding(.horizontal, 6)
+                                        .padding(.vertical, 2)
+                                        .background(Color.white.opacity(0.2))
+                                        .cornerRadius(4)
+                                        .foregroundColor(.white)
+                                }
+                                if let tags = route.tags, let first = tags.first {
+                                    Text(first)
+                                        .font(.caption2)
+                                        .foregroundColor(.white.opacity(0.7))
+                                }
+                            }
+                        }
+                        .padding(16)
+                    }
+                }
+                .buttonStyle(PlainButtonStyle())
+                .padding(.horizontal)
+                .tag(idx)
+            }
+        }
+        .tabViewStyle(.page(indexDisplayMode: routes.count > 1 ? .always : .never))
+        .frame(height: 220)
+        .onReceive(timer) { _ in
+            withAnimation(.easeInOut(duration: 0.5)) {
+                currentIndex = (currentIndex + 1) % routes.count
+            }
+        }
+    }
+}
+
+// MARK: - 迷你路线卡片（搜索空状态推荐）
+struct MiniRouteCard: View {
+    let route: Route
+
+    private var gradientColors: (Color, Color) {
+        let idx = abs(route.name.hashValue) % cardPalette.count
+        return cardPalette[idx]
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            RoundedRectangle(cornerRadius: 10)
+                .fill(
+                    LinearGradient(
+                        colors: [gradientColors.0.opacity(0.3), gradientColors.1.opacity(0.3)],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+                .frame(width: 140, height: 80)
+                .overlay(
+                    Image(systemName: "mountain.2.fill")
+                        .foregroundColor(.white.opacity(0.5))
+                )
+
+            Text(route.name)
+                .font(.caption)
+                .lineLimit(1)
+
+            Text(route.formattedDistance)
+                .font(.caption2)
+                .foregroundColor(.secondary)
+        }
+        .frame(width: 140)
+        .padding(8)
+        .background(Color(.systemBackground))
+        .cornerRadius(12)
+        .shadow(color: .black.opacity(0.04), radius: 4, y: 2)
     }
 }
 
@@ -347,6 +515,9 @@ struct RouteDetailView: View {
     @State private var showNavigationPrep = false
     @State private var isMapReady = false
     @State private var cachedCoordinates: [CLLocationCoordinate2D] = []  // 缓存转换后的坐标
+    @State private var showShareSheet = false
+    @State private var showEditSheet = false
+    @State private var isFavorited = false
     
     init(route: Route) {
         self.route = route
@@ -575,17 +746,19 @@ struct RouteDetailView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    // TODO: 收藏功能
-                } label: {
-                    Image(systemName: "heart")
+            // 编辑按钮（仅自己的路线）
+            if route.createdBy == TokenStorage.shared.getUserId() {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showEditSheet = true
+                    } label: {
+                        Image(systemName: "pencil")
+                    }
                 }
             }
-            
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    // TODO: 分享功能
+                    showShareSheet = true
                 } label: {
                     Image(systemName: "square.and.arrow.up")
                 }
@@ -603,6 +776,12 @@ struct RouteDetailView: View {
             } else {
                 NavigationPrepView(route: route)
             }
+        }
+        .sheet(isPresented: $showShareSheet) {
+            ShareCardView(route: route)
+        }
+        .sheet(isPresented: $showEditSheet) {
+            EditRouteView(route: route)
         }
     }
     

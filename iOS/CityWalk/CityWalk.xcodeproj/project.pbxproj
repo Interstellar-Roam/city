@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		08632D87F1F65560C11C3793 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB163F2E874BD476AA718235 /* Route.swift */; };
+		12E3A94BF863245C68B7F055 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA7CA43F07966E246427348 /* EmptyStateView.swift */; };
 		22A4F02314ADCCD9950FC33D /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D861E65EB4B5CCABAC5171 /* APIService.swift */; };
 		2E83C89FF341D12751201476 /* CityWalkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2771F50633809434FF248F28 /* CityWalkApp.swift */; };
 		35C86AF387578048C9166FA0 /* TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2107F697AAA34C3319277B9A /* TokenStorage.swift */; };
@@ -15,9 +16,11 @@
 		5E8B76ECCC9EFC8150B865BC /* EnvironmentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A120C9AAA7647D52FEF6434 /* EnvironmentManager.swift */; };
 		68AF6C3FCFAD76A4F76728E5 /* AuthModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51263039C8FDD2855B4BF440 /* AuthModels.swift */; };
 		6C1501883E51A9B88CEA38E7 /* ExploreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8EA0D6D8F96B49F7576838 /* ExploreViewModel.swift */; };
+		74C8AB197987E5B223C2B341 /* ShareCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEF291FB153E6CDA4866860 /* ShareCardView.swift */; };
 		7A1B2C3D4E5F6A7B8C9D0E1F /* RouteRecordingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1B2C3D4E5F6A7B8C9D0E1F /* RouteRecordingService.swift */; };
 		8B2C3D4E5F6A7B8C9D0E1F2A /* RouteRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2C3D4E5F6A7B8C9D0E1F2A /* RouteRecordingView.swift */; };
 		8F7423A87B7C6A2D312B6893 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86FFCC8459DC13603BE77776 /* Assets.xcassets */; };
+		92157A2035835458CCD72E77 /* EditRouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6220D4E3970763052758AB /* EditRouteView.swift */; };
 		AC4E1E05892326BE3B50D08A /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F76CD64EC9D42EEF93E1CF4 /* AuthService.swift */; };
 		AD54B852756A233DD9A5B011 /* CoordinateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDF992238B1D1ACA48E8659 /* CoordinateConverter.swift */; };
 		D3B0AA513DE7CADF619622F6 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E2BFB137E4AE46BBCAB4F /* AuthViewModel.swift */; };
@@ -36,6 +39,8 @@
 		46400CEDFBD5F2C91D1AD6F2 /* Pods-CityWalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CityWalk.release.xcconfig"; path = "Target Support Files/Pods-CityWalk/Pods-CityWalk.release.xcconfig"; sourceTree = "<group>"; };
 		51263039C8FDD2855B4BF440 /* AuthModels.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AuthModels.swift; path = AuthModels.swift; sourceTree = "<group>"; };
 		5EDF5CBE8CB3B1F5943B4AA4 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
+		5FA7CA43F07966E246427348 /* EmptyStateView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		6C6220D4E3970763052758AB /* EditRouteView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EditRouteView.swift; sourceTree = "<group>"; };
 		6FDF992238B1D1ACA48E8659 /* CoordinateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateConverter.swift; sourceTree = "<group>"; };
 		7C7E2BFB137E4AE46BBCAB4F /* AuthViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AuthViewModel.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		86FFCC8459DC13603BE77776 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -46,6 +51,7 @@
 		AA1B2C3D4E5F6A7B8C9D0E1F /* RouteRecordingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteRecordingService.swift; sourceTree = "<group>"; };
 		BB2C3D4E5F6A7B8C9D0E1F2A /* RouteRecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteRecordingView.swift; sourceTree = "<group>"; };
 		C9D71381913D16C121E26DC7 /* LoginView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LoginView.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		CDEF291FB153E6CDA4866860 /* ShareCardView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ShareCardView.swift; sourceTree = "<group>"; };
 		E9D861E65EB4B5CCABAC5171 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		FB163F2E874BD476AA718235 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,6 +115,9 @@
 				5EDF5CBE8CB3B1F5943B4AA4 /* ExploreView.swift */,
 				BB2C3D4E5F6A7B8C9D0E1F2A /* RouteRecordingView.swift */,
 				C9D71381913D16C121E26DC7 /* LoginView.swift */,
+				5FA7CA43F07966E246427348 /* EmptyStateView.swift */,
+				6C6220D4E3970763052758AB /* EditRouteView.swift */,
+				CDEF291FB153E6CDA4866860 /* ShareCardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -297,6 +306,9 @@
 				68AF6C3FCFAD76A4F76728E5 /* AuthModels.swift in Sources */,
 				D3B0AA513DE7CADF619622F6 /* AuthViewModel.swift in Sources */,
 				F372C746F093859B8E5E0461 /* LoginView.swift in Sources */,
+				12E3A94BF863245C68B7F055 /* EmptyStateView.swift in Sources */,
+				92157A2035835458CCD72E77 /* EditRouteView.swift in Sources */,
+				74C8AB197987E5B223C2B341 /* ShareCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
