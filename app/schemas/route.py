@@ -148,7 +148,7 @@ class RouteListItem(BaseModel):
     elevation_gain: float
     estimated_duration: int
     city: str | None = None
-    favorites_count: int
+    favorites_count: int = 0
     difficulty: str
     tags: list[str]
     created_at: datetime
@@ -180,9 +180,9 @@ class RouteDetail(BaseModel):
     city: str | None = None
     district: str | None = None
 
-    favorites_count: int
-    views_count: int
-    completions_count: int
+    favorites_count: int = 0
+    views_count: int = 0
+    completions_count: int = 0
     difficulty: str
     tags: list[str]
     created_at: datetime
