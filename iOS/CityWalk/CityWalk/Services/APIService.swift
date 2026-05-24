@@ -405,7 +405,7 @@ extension APIService {
     }
 
     /// 更新路线信息
-    func updateRoute(id: String, name: String?, description: String?, difficulty: String?, tags: [String]?, city: String?, cover: String? = nil) async throws {
+    func updateRoute(id: String, name: String?, description: String?, difficulty: String?, tags: [String]?, city: String?, cover: String? = nil, isPublished: Bool? = nil) async throws {
         guard let url = URL(string: "\(baseURL)/routes/\(id)") else { throw APIError.invalidURL }
 
         var body: [String: Any] = [:]
@@ -415,6 +415,7 @@ extension APIService {
         if let tags = tags { body["tags"] = tags }
         if let city = city { body["city"] = city }
         if let cover = cover { body["cover"] = cover }
+        if let isPublished = isPublished { body["is_published"] = isPublished }
 
         let bodyData = try? JSONSerialization.data(withJSONObject: body)
         var request = try authenticatedRequest(for: url, method: "PUT", body: bodyData)

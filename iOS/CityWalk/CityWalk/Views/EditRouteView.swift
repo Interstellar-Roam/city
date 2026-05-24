@@ -17,6 +17,7 @@ struct EditRouteView: View {
     @State private var selectedImageData: Data?
     @State private var isSaving = false
     @State private var errorMessage: String?
+    @State private var isPublished: Bool
 
     private let difficultyOptions = ["easy", "medium", "hard"]
     private let difficultyLabels = ["简单", "中等", "困难"]
@@ -30,6 +31,7 @@ struct EditRouteView: View {
         _tags = State(initialValue: route.tags ?? [])
         _city = State(initialValue: route.city ?? "")
         _coverURL = State(initialValue: route.coverImage ?? "")
+        _isPublished = State(initialValue: route.isPublished ?? true)
     }
 
     var body: some View {
@@ -92,6 +94,18 @@ struct EditRouteView: View {
                         Text("城市").font(.caption).foregroundColor(.secondary)
                         TextField("城市", text: $city).textFieldStyle(.roundedBorder)
                     }
+
+                    // 公开设置
+                    VStack(alignment: .leading, spacing: 4) {
+                        Toggle(isOn: $isPublished) {
+                            Label(isPublished ? "公开路线" : "私密路线", systemImage: isPublished ? "globe.asia.australia" : "lock.fill")
+                        }
+                        .tint(.orange)
+                        Text(isPublished ? "所有人可在发现页看到这条路线" : "仅自己可见，不会出现在发现和搜索中")
+                            .font(.caption).foregroundColor(.secondary)
+                    }
+                    .padding(.vertical, 4)
+
                     if let error = errorMessage {
                         Text(error).font(.caption).foregroundColor(.red)
                     }
@@ -181,7 +195,8 @@ struct EditRouteView: View {
                     difficulty: difficulty,
                     tags: tags,
                     city: city.isEmpty ? nil : city,
-                    cover: finalCoverURL.isEmpty ? nil : finalCoverURL
+                    cover: finalCoverURL.isEmpty ? nil : finalCoverURL,
+                    isPublished: isPublished
                 )
 
                 await MainActor.run { isSaving = false; dismiss() }
