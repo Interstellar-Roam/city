@@ -6,7 +6,6 @@ from app.database import Database
 from app.schemas.auth import SendCodeRequest, LoginRequest, RefreshRequest
 from app.schemas.common import APIResponse
 from app.services.auth_service import AuthService
-from app.middleware.auth import get_current_user
 
 router = APIRouter(prefix="/auth", tags=["认证"])
 
@@ -45,8 +44,15 @@ async def refresh(req: RefreshRequest, service: AuthService = Depends(get_auth_s
 @router.post("/logout", summary="登出")
 async def logout(request: Request, service: AuthService = Depends(get_auth_service)):
     """登出并失效所有 Refresh Token"""
-    user_id = await get_current_user(request)
-    if not user_id:
+    from app.services.auth_service import AuthService as AS
+
+    authorization = request.headers.get("Authorization", "")
+    if not authorization.startswith("Bearer "):
         return APIResponse(code=2001, message="未登录")
-    await service.logout(user_id)
+
+    code, msg, payload = AS.verify_access_token(authorization[7:])
+    if code != 0:
+        return APIResponse(code=code, message=msg)
+
+    await service.logout(payload["sub"])
     return APIResponse(message="已登出")

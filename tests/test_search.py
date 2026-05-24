@@ -126,8 +126,8 @@ class TestSearchAPI:
 
     @pytest.mark.asyncio
     async def test_search_endpoint_rejects_empty_keyword(self):
-        """空关键词应返回 code=3001"""
-        from unittest.mock import MagicMock
+        """空关键词应返回 code=3001（需带有效 Token）"""
+        from unittest.mock import MagicMock, patch
         from httpx import AsyncClient, ASGITransport
         from app.main import app
         from app.api.routes import get_route_service
@@ -136,12 +136,20 @@ class TestSearchAPI:
         mock_service = RouteService(MagicMock())
         app.dependency_overrides[get_route_service] = lambda: mock_service
 
-        transport = ASGITransport(app=app)
-        async with AsyncClient(transport=transport, base_url="http://test") as client:
-            response = await client.get("/api/v1/routes/search", params={"keyword": ""})
-            assert response.status_code == 200
-            data = response.json()
-            assert data["code"] == 3001
-            assert "keyword 不能为空" in data["message"]
+        # Mock JWT 验证使其返回有效 payload
+        with patch("app.middleware.auth.AuthService.verify_access_token") as mock_verify:
+            mock_verify.return_value = (0, "ok", {"sub": "user1", "phone": "13800138000"})
+
+            transport = ASGITransport(app=app)
+            async with AsyncClient(transport=transport, base_url="http://test") as client:
+                response = await client.get(
+                    "/api/v1/routes/search",
+                    params={"keyword": ""},
+                    headers={"Authorization": "Bearer valid-token"}
+                )
+                assert response.status_code == 200
+                data = response.json()
+                assert data["code"] == 3001, f"Expected 3001, got {data}"
+                assert "keyword 不能为空" in data["message"]
 
         app.dependency_overrides.clear()

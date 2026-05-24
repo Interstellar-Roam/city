@@ -106,20 +106,17 @@ class TestAuthAPI:
     @pytest.mark.asyncio
     async def test_routes_require_auth(self):
         """未登录访问业务接口返回 code=2001"""
-        from unittest.mock import AsyncMock, MagicMock
+        import pytest
+        from unittest.mock import MagicMock
         from fastapi import Request
-        from app.middleware.auth import get_current_user
-        from fastapi.responses import JSONResponse
+        from app.middleware.auth import get_current_user, AuthError
 
-        # 模拟一个非公开路径的请求（无 Authorization header）
+        # 模拟非公开路径请求（无 Authorization header）
         scope = {"type": "http", "path": "/api/v1/routes", "headers": []}
         request = Request(scope)
-        
-        result = await get_current_user(request)
-        
-        # 应返回 JSONResponse(code=2001)
-        assert isinstance(result, JSONResponse)
-        import json
-        body = json.loads(result.body.decode())
-        assert body["code"] == 2001, f"Expected code=2001, got {body}"
-        assert "未登录" in body["message"]
+
+        with pytest.raises(AuthError) as exc_info:
+            await get_current_user(request)
+
+        assert exc_info.value.code == 2001
+        assert "未登录" in exc_info.value.message

@@ -3,7 +3,7 @@
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
@@ -12,6 +12,8 @@ from loguru import logger
 from app.config import get_settings
 from app.database import Database
 from app.api import routes, gps, navigation, search, knowledge_graph, sessions, auth
+from app.middleware.auth import AuthError
+from app.schemas.common import APIResponse
 
 
 @asynccontextmanager
@@ -71,11 +73,20 @@ def create_app() -> FastAPI:
     # CORS中间件
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],  # 生产环境应限制域名
+        allow_origins=["*"],
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+    # AuthError 异常处理 — 统一返回 {code, message}
+    @app.exception_handler(AuthError)
+    async def auth_error_handler(request: Request, exc: AuthError):
+        from fastapi.responses import JSONResponse
+        return JSONResponse(
+            status_code=200,
+            content=APIResponse(code=exc.code, message=exc.message).model_dump()
+        )
 
     # 注册路由
     app.include_router(routes.router, prefix="/api/v1")
