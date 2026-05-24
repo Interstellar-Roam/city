@@ -333,7 +333,7 @@ struct ProfileView: View {
     }
 
     private func actionMessage(_ route: Route) -> Text {
-        Text("\"\(route.name)\" — 删除后将无法恢复。您也可以选择设为私密，仅自己可见。")
+        Text("删除「\(route.name)」后将无法恢复")
     }
 
     private func handleAvatarChange() {
@@ -645,7 +645,7 @@ struct AllRoutesView: View {
             }
             Button("取消", role: .cancel) {}
         } message: { route in
-            Text("\"\(route.name)\" — 删除后将无法恢复。也可以设为私密，仅自己可见。")
+            Text("删除「\(route.name)」后将无法恢复")
         }
     }
 
