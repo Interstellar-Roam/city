@@ -330,12 +330,14 @@ extension TrackData {
     }
     
     /// 转换为后端 RouteCreate 请求格式
+    /// 坐标转换：记录时是高德 GCJ-02 → 上传转为 WGS-84（GPS 标准）
     func toRouteCreateRequest(name: String, description: String? = nil, difficulty: String = "medium", tags: [String] = [], isPublished: Bool = true) -> [String: Any] {
         let pointsData = points.map { point -> [String: Any] in
+            let (wgsLng, wgsLat) = CoordTransform.gcj02ToWgs84(lng: point.longitude, lat: point.latitude)
             var pt: [String: Any] = [
                 "location": [
                     "type": "Point",
-                    "coordinates": [point.longitude, point.latitude]
+                    "coordinates": [wgsLng, wgsLat]
                 ],
                 "is_waypoint": false
             ]
@@ -349,6 +351,9 @@ extension TrackData {
             return [:]
         }
         
+        let (firstWgsLng, firstWgsLat) = CoordTransform.gcj02ToWgs84(lng: first.longitude, lat: first.latitude)
+        let (lastWgsLng, lastWgsLat) = CoordTransform.gcj02ToWgs84(lng: last.longitude, lat: last.latitude)
+        
         var body: [String: Any] = [
             "name": name,
             "points": pointsData,
@@ -356,12 +361,12 @@ extension TrackData {
             "elevation_gain": elevationGain,
             "estimated_duration": duration,
             "start_location": [
-                "longitude": first.longitude,
-                "latitude": first.latitude
+                "longitude": firstWgsLng,
+                "latitude": firstWgsLat
             ],
             "end_location": [
-                "longitude": last.longitude,
-                "latitude": last.latitude
+                "longitude": lastWgsLng,
+                "latitude": lastWgsLat
             ],
             "difficulty": difficulty,
             "tags": tags,
