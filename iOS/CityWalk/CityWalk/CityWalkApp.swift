@@ -55,19 +55,12 @@ struct ContentView: View {
                 }
                 .tag(0)
             
-            RouteRecordingView()
-                .tabItem {
-                    Image(systemName: "record.circle")
-                    Text("记录")
-                }
-                .tag(1)
-            
-            ProfileView(authVM: authVM, selectedTab: $selectedTab)
+            ProfileView(authVM: authVM)
                 .tabItem {
                     Image(systemName: "person")
                     Text("我的")
                 }
-                .tag(2)
+                .tag(1)
         }
         .tint(.orange)
     }
@@ -75,7 +68,7 @@ struct ContentView: View {
 
 struct ProfileView: View {
     @ObservedObject var authVM: AuthViewModel
-    @Binding var selectedTab: Int
+    @State private var showRecording = false
     @State private var showEnvPicker = false
     @State private var myRoutes: [Route] = []
     @State private var favoriteRoutes: [Route] = []
@@ -121,6 +114,9 @@ struct ProfileView: View {
             }
             .confirmationDialog("路线操作", isPresented: $showActionSheet, presenting: actionRoute, actions: routeActionButtons) { actionMessage($0) }
             .onChange(of: selectedAvatarPhoto) { _ in handleAvatarChange() }
+            .fullScreenCover(isPresented: $showRecording) {
+                RouteRecordingView()
+            }
         }
     }
 
@@ -204,7 +200,7 @@ struct ProfileView: View {
             } else if let error = routesErrorMessage {
                 Text(error).foregroundColor(.secondary).font(.subheadline)
             } else if myRoutes.isEmpty {
-                EmptyStateView(icon: "map", title: "还没有记录过路线", subtitle: "走出去，探索你的城市", actionTitle: "去记录第一条路线", onAction: { selectedTab = 1 })
+                EmptyStateView(icon: "map", title: "还没有记录过路线", subtitle: "走出去，探索你的城市", actionTitle: "去记录第一条路线", onAction: { showRecording = true })
             } else {
                 ForEach(Array(myRoutes.prefix(3))) { route in
                     NavigationLink(destination: RouteDetailView(route: route)) {
@@ -279,10 +275,25 @@ struct ProfileView: View {
     private var routesSectionHeader: some View {
         HStack {
             Text("我的路线")
+            if !myRoutes.isEmpty {
+                Button {
+                    showRecording = true
+                } label: {
+                    HStack(spacing: 4) {
+                        Image(systemName: "record.circle")
+                            .font(.subheadline)
+                        Text("去记录")
+                            .font(.subheadline)
+                    }
+                    .foregroundColor(.orange)
+                }
+            }
             Spacer()
-            Text("\(myRoutes.count) 条")
-                .foregroundColor(.secondary)
-                .font(.subheadline)
+            if !myRoutes.isEmpty {
+                Text("\(myRoutes.count) 条")
+                    .foregroundColor(.secondary)
+                    .font(.subheadline)
+            }
         }
     }
 

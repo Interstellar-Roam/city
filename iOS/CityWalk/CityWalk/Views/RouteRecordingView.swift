@@ -3,6 +3,7 @@ import MapKit
 
 // MARK: - 路线记录主界面
 struct RouteRecordingView: View {
+    @Environment(\.dismiss) private var dismiss
     @StateObject private var recordingService = RouteRecordingService()
     @State private var showSaveSheet = false
     @State private var showMapPreview = false
@@ -50,7 +51,7 @@ struct RouteRecordingView: View {
                     }
                 }
             }
-            .navigationTitle(recordingService.isRecording ? "" : "新建路线")
+            .navigationTitle(recordingService.isRecording ? "" : "记录路线")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 if recordingService.isRecording {
@@ -61,13 +62,19 @@ struct RouteRecordingView: View {
                             Image(systemName: showMapPreview ? "eye.slash" : "map")
                         }
                     }
+                } else {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button("关闭") {
+                            dismiss()
+                        }
+                    }
                 }
             }
             .sheet(isPresented: $showSaveSheet) {
                 saveSheetView
             }
             .alert("保存成功！", isPresented: $uploadSuccess) {
-                Button("好的") {}
+                Button("好的") { dismiss() }
             } message: {
                 Text("路线已保存并上传到云端")
             }
