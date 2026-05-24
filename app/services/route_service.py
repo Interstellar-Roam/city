@@ -49,7 +49,7 @@ class RouteService:
 
         return route_dict
 
-    async def get_route_by_id(self, route_id: str, increment_view: bool = True) -> dict[str, Any] | None:
+    async def get_route_by_id(self, route_id: str, increment_view: bool = True, current_user_id: str | None = None) -> dict[str, Any] | None:
         """获取路线详情"""
         if not ObjectId.is_valid(route_id):
             return None
@@ -64,6 +64,11 @@ class RouteService:
                 {"_id": route_id},
                 {"$inc": {"views_count": 1}}
             )
+
+        # 注入 is_favorited
+        if current_user_id:
+            fav_ids = await self._get_user_favorite_ids(current_user_id)
+            route["is_favorited"] = route_id in fav_ids
 
         return route
 
@@ -80,6 +85,7 @@ class RouteService:
         near_location: tuple[float, float] | None = None,  # (lon, lat)
         max_distance: float = 5000,  # 米
         exclude_unpublished: bool = True,
+        current_user_id: str | None = None,
     ) -> PaginatedRoutes:
         """分页获取路线列表"""
         skip = (page - 1) * page_size
@@ -125,22 +131,32 @@ class RouteService:
 
         items = await cursor.to_list(length=page_size)
 
+        # 注入 is_favorited
+        favorited_ids = await self._get_user_favorite_ids(current_user_id) if current_user_id else set()
+
+        result_items = []
+        for item in items:
+            item["is_favorited"] = item.get("_id", "") in favorited_ids
+            result_items.append(RouteListItem(**item))
+
         return PaginatedRoutes(
-            items=[RouteListItem(**item) for item in items],
+            items=result_items,
             total=total,
             page=page,
             page_size=page_size,
             has_more=skip + len(items) < total
         )
 
-    async def get_featured_routes(self, limit: int = 5) -> list[dict[str, Any]]:
+    async def get_featured_routes(self, limit: int = 5, current_user_id: str | None = None) -> list[dict[str, Any]]:
         """获取精选路线列表"""
         cursor = self.collection.find(
             {"is_featured": True, "is_published": True}
         ).sort("favorites_count", -1).limit(limit)
+        favorited_ids = await self._get_user_favorite_ids(current_user_id) if current_user_id else set()
         routes = []
         async for doc in cursor:
             doc["_id"] = str(doc["_id"])
+            doc["is_favorited"] = doc.get("_id", "") in favorited_ids
             routes.append(RouteListItem(**doc).model_dump())
         return routes
 
@@ -208,7 +224,45 @@ class RouteService:
 
         return not is_favorited
 
-    async def search_by_keyword(self, keyword: str, limit: int = 20) -> list[dict[str, Any]]:
+    async def get_favorites(self, user_id: str, page: int = 1, page_size: int = 20) -> PaginatedRoutes:
+        """获取用户收藏的路线列表"""
+        user = await self.db.users.find_one({"_id": user_id})
+        fav_ids = user.get("favorite_routes", []) if user else []
+
+        if not fav_ids:
+            return PaginatedRoutes(items=[], total=0, page=page, page_size=page_size, has_more=False)
+
+        skip = (page - 1) * page_size
+        total = len(fav_ids)
+
+        # 分页截取
+        page_ids = fav_ids[skip:skip + page_size]
+        cursor = self.collection.find({"_id": {"$in": page_ids}})
+        items = await cursor.to_list(length=page_size)
+
+        # 保持原始顺序 + 注入 is_favorited
+        fav_set = set(page_ids)
+        id_order = {rid: i for i, rid in enumerate(page_ids)}
+        for item in items:
+            item["is_favorited"] = True
+        items.sort(key=lambda x: id_order.get(x.get("_id", ""), 999))
+
+        return PaginatedRoutes(
+            items=[RouteListItem(**item) for item in items],
+            total=total,
+            page=page,
+            page_size=page_size,
+            has_more=skip + len(items) < total,
+        )
+
+    async def _get_user_favorite_ids(self, user_id: str) -> set[str]:
+        """获取用户的收藏路线ID集合"""
+        if not user_id:
+            return set()
+        user = await self.db.users.find_one({"_id": user_id})
+        return set(user.get("favorite_routes", [])) if user else set()
+
+    async def search_by_keyword(self, keyword: str, limit: int = 20, current_user_id: str | None = None) -> list[dict[str, Any]]:
         """多字段关键词搜索，支持 $text 优先 + $regex 降级
 
         搜索范围: name, description, tags, city, district, pois.name, pois.tags
@@ -219,6 +273,9 @@ class RouteService:
 
         if not keyword:
             return []
+
+        # 获取用户收藏列表
+        favorited_ids = await self._get_user_favorite_ids(current_user_id) if current_user_id else set()
 
         # 策略1: 使用 $text 索引搜索
         cursor = self.collection.find(
@@ -246,6 +303,10 @@ class RouteService:
                 }
             ).limit(limit)
             results = await cursor.to_list(length=limit)
+
+        # 注入 is_favorited
+        for r in results:
+            r["is_favorited"] = r.get("_id", "") in favorited_ids
 
         return results
 

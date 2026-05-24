@@ -470,6 +470,77 @@ struct ImageUploadResult: Codable {
     let size: Int
 }
 
+// MARK: - Favorite toggle result
+struct FavoriteResult: Codable {
+    let favorited: Bool
+    let favoriteCount: Int
+
+    enum CodingKeys: String, CodingKey {
+        case favorited
+        case favoriteCount = "favorite_count"
+    }
+}
+
+// MARK: - Phase 2: 收藏 + 用户 API
+extension APIService {
+    /// 切换收藏状态，返回最新状态 + 计数
+    func toggleFavorite(routeId: String) async throws -> FavoriteResult {
+        guard let url = URL(string: "\(baseURL)/routes/\(routeId)/favorite") else { throw APIError.invalidURL }
+        let request = try await authenticatedRequest(for: url, method: "POST")
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let response = try decodeResponse(FavoriteResult.self, from: data)
+        guard response.code == 0, let result = response.data else {
+            throw APIError.networkError(response.message)
+        }
+        return result
+    }
+
+    /// 获取收藏路线列表
+    func fetchFavorites(page: Int = 1, pageSize: Int = 20) async throws -> PaginatedData {
+        var components = URLComponents(string: "\(baseURL)/routes/favorites")!
+        components.queryItems = [
+            URLQueryItem(name: "page", value: String(page)),
+            URLQueryItem(name: "page_size", value: String(pageSize))
+        ]
+        guard let url = components.url else { throw APIError.invalidURL }
+        let request = try await authenticatedRequest(for: url)
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let response = try decodeResponse(PaginatedData.self, from: data)
+        guard response.code == 0, let paginated = response.data else {
+            throw APIError.networkError(response.message)
+        }
+        return paginated
+    }
+
+    /// 获取用户信息
+    func fetchUserProfile() async throws -> UserProfile {
+        guard let url = URL(string: "\(baseURL)/users/me") else { throw APIError.invalidURL }
+        let request = try await authenticatedRequest(for: url)
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let response = try decodeResponse(UserProfile.self, from: data)
+        guard response.code == 0, let profile = response.data else {
+            throw APIError.networkError(response.message)
+        }
+        return profile
+    }
+
+    /// 更新用户信息
+    func updateUserProfile(nickname: String? = nil, avatar: String? = nil) async throws -> UserProfile {
+        guard let url = URL(string: "\(baseURL)/users/me") else { throw APIError.invalidURL }
+        var body: [String: Any] = [:]
+        if let nickname = nickname { body["nickname"] = nickname }
+        if let avatar = avatar { body["avatar"] = avatar }
+        let bodyData = try? JSONSerialization.data(withJSONObject: body)
+        let request = try await authenticatedRequest(for: url, method: "PUT", body: bodyData)
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let response = try decodeResponse(UserProfile.self, from: data)
+        guard response.code == 0, let profile = response.data else {
+            throw APIError.networkError(response.message)
+        }
+        return profile
+    }
+}
+
 // MARK: - API 错误
 enum APIError: Error, LocalizedError {
     case invalidURL

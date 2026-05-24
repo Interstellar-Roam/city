@@ -14,6 +14,7 @@
 		35C86AF387578048C9166FA0 /* TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2107F697AAA34C3319277B9A /* TokenStorage.swift */; };
 		3B526D8530B54A35C82E19F4 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDF5CBE8CB3B1F5943B4AA4 /* ExploreView.swift */; };
 		5E8B76ECCC9EFC8150B865BC /* EnvironmentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A120C9AAA7647D52FEF6434 /* EnvironmentManager.swift */; };
+		63FC3937180B89CEC062639F /* SkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D6E530F6F95D8607BE3F4 /* SkeletonView.swift */; };
 		68AF6C3FCFAD76A4F76728E5 /* AuthModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51263039C8FDD2855B4BF440 /* AuthModels.swift */; };
 		6C1501883E51A9B88CEA38E7 /* ExploreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8EA0D6D8F96B49F7576838 /* ExploreViewModel.swift */; };
 		74C8AB197987E5B223C2B341 /* ShareCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEF291FB153E6CDA4866860 /* ShareCardView.swift */; };
@@ -24,6 +25,7 @@
 		AC4E1E05892326BE3B50D08A /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F76CD64EC9D42EEF93E1CF4 /* AuthService.swift */; };
 		AD54B852756A233DD9A5B011 /* CoordinateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDF992238B1D1ACA48E8659 /* CoordinateConverter.swift */; };
 		D3B0AA513DE7CADF619622F6 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7E2BFB137E4AE46BBCAB4F /* AuthViewModel.swift */; };
+		D61BA36E63FFEE29DA605E7B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B83EB79CE42A81044B87FE /* User.swift */; };
 		DB30BFE49315F03B00681A2A /* Pods_CityWalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92217E0E376A39AA90414C4E /* Pods_CityWalk.framework */; };
 		F1A2B3C4D5E6F78901234567 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B8C7D6E5F4012345678901 /* AppConfig.swift */; };
 		F372C746F093859B8E5E0461 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D71381913D16C121E26DC7 /* LoginView.swift */; };
@@ -50,8 +52,10 @@
 		A9B8C7D6E5F4012345678901 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		AA1B2C3D4E5F6A7B8C9D0E1F /* RouteRecordingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteRecordingService.swift; sourceTree = "<group>"; };
 		BB2C3D4E5F6A7B8C9D0E1F2A /* RouteRecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteRecordingView.swift; sourceTree = "<group>"; };
+		C1B83EB79CE42A81044B87FE /* User.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C9D71381913D16C121E26DC7 /* LoginView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LoginView.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		CDEF291FB153E6CDA4866860 /* ShareCardView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ShareCardView.swift; sourceTree = "<group>"; };
+		CE1D6E530F6F95D8607BE3F4 /* SkeletonView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SkeletonView.swift; sourceTree = "<group>"; };
 		E9D861E65EB4B5CCABAC5171 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		FB163F2E874BD476AA718235 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -118,6 +122,7 @@
 				5FA7CA43F07966E246427348 /* EmptyStateView.swift */,
 				6C6220D4E3970763052758AB /* EditRouteView.swift */,
 				CDEF291FB153E6CDA4866860 /* ShareCardView.swift */,
+				CE1D6E530F6F95D8607BE3F4 /* SkeletonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -127,6 +132,7 @@
 			children = (
 				FB163F2E874BD476AA718235 /* Route.swift */,
 				51263039C8FDD2855B4BF440 /* AuthModels.swift */,
+				C1B83EB79CE42A81044B87FE /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -309,6 +315,8 @@
 				12E3A94BF863245C68B7F055 /* EmptyStateView.swift in Sources */,
 				92157A2035835458CCD72E77 /* EditRouteView.swift in Sources */,
 				74C8AB197987E5B223C2B341 /* ShareCardView.swift in Sources */,
+				D61BA36E63FFEE29DA605E7B /* User.swift in Sources */,
+				63FC3937180B89CEC062639F /* SkeletonView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

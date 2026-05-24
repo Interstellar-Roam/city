@@ -47,3 +47,17 @@ async def get_current_user(request: Request) -> str:
         raise AuthError(code, message)
 
     return payload["sub"]
+
+
+async def get_optional_user(request: Request) -> str | None:
+    """尝试从请求头提取用户 ID，不抛异常。用于公开接口的可选鉴权"""
+    authorization = request.headers.get("Authorization", "")
+    if not authorization.startswith("Bearer "):
+        return None
+
+    token = authorization[7:]
+    code, _, payload = AuthService.verify_access_token(token)
+    if code != 0:
+        return None
+
+    return payload.get("sub")

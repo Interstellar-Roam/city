@@ -185,12 +185,11 @@ struct ExploreView: View {
     // MARK: - 加载视图
     private var loadingView: some View {
         VStack(spacing: 16) {
-            ProgressView()
-                .scaleEffect(1.2)
-            Text("加载中...")
-                .foregroundColor(.secondary)
+            ForEach(0..<3, id: \.self) { _ in
+                RouteCardSkeleton()
+            }
         }
-        .frame(height: 200)
+        .padding(.horizontal)
     }
     
     // MARK: - 空视图
@@ -296,6 +295,14 @@ struct ScaleButtonStyle: ButtonStyle {
 // MARK: - 路线卡片
 struct RouteCardView: View {
     let route: Route
+    @State private var isFav: Bool
+    @State private var favCount: Int
+
+    init(route: Route) {
+        self.route = route
+        _isFav = State(initialValue: route.isFavorited ?? false)
+        _favCount = State(initialValue: route.favoritesCount ?? 0)
+    }
 
     private var gradientColors: (Color, Color) {
         let idx = abs(route.name.hashValue) % cardPalette.count
@@ -340,7 +347,7 @@ struct RouteCardView: View {
                     gradientPlaceholder
                 }
 
-                // 难度标签
+                // 难度标签（颜色随难度变化）
                 if let difficulty = route.difficulty {
                     Text(difficulty.displayText)
                         .font(.caption2.bold())
@@ -393,8 +400,20 @@ struct RouteCardView: View {
             }
 
             Spacer()
-            Image(systemName: "chevron.right")
-                .foregroundColor(.gray)
+
+            // 收藏按钮
+            Button(action: toggleFavorite) {
+                VStack(spacing: 2) {
+                    Image(systemName: isFav ? "heart.fill" : "heart")
+                        .font(.title3)
+                        .foregroundColor(isFav ? .red : .gray)
+                    Text("\(favCount)")
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                }
+                .frame(width: 44)
+            }
+            .buttonStyle(.plain)
         }
         .padding()
         .background(Color(.systemBackground))
@@ -407,6 +426,34 @@ struct RouteCardView: View {
         case .easy: return .green
         case .medium: return .orange
         case .hard: return .red
+        }
+    }
+
+    private func toggleFavorite() {
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.impactOccurred()
+
+        // 乐观更新
+        let previousFav = isFav
+        let previousCount = favCount
+        isFav.toggle()
+        favCount += isFav ? 1 : -1
+
+        Task {
+            do {
+                let result = try await APIService.shared.toggleFavorite(routeId: route.id)
+                // 用服务端数据修正
+                await MainActor.run {
+                    isFav = result.favorited
+                    favCount = result.favoriteCount
+                }
+            } catch {
+                // 回滚
+                await MainActor.run {
+                    isFav = previousFav
+                    favCount = previousCount
+                }
+            }
         }
     }
 }
@@ -451,25 +498,7 @@ struct HeroBannerView: View {
                             Text(route.name)
                                 .font(.title3.bold())
                                 .foregroundColor(.white)
-                            HStack(spacing: 8) {
-                                Text(route.formattedDistance)
-                                    .font(.caption)
-                                    .foregroundColor(.white.opacity(0.8))
-                                if let diff = route.difficulty {
-                                    Text(diff.displayText)
-                                        .font(.caption2)
-                                        .padding(.horizontal, 6)
-                                        .padding(.vertical, 2)
-                                        .background(Color.white.opacity(0.2))
-                                        .cornerRadius(4)
-                                        .foregroundColor(.white)
-                                }
-                                if let tags = route.tags, let first = tags.first {
-                                    Text(first)
-                                        .font(.caption2)
-                                        .foregroundColor(.white.opacity(0.7))
-                                }
-                            }
+                            bannerInfoRow(route: route)
                         }
                         .padding(16)
                     }
@@ -501,6 +530,36 @@ struct HeroBannerView: View {
                 )
             )
             .aspectRatio(16/9, contentMode: .fit)
+    }
+
+    private func bannerInfoRow(route: Route) -> some View {
+        HStack(spacing: 8) {
+            Text(route.formattedDistance)
+                .font(.caption)
+                .foregroundColor(.white.opacity(0.8))
+            if let diff = route.difficulty {
+                Text(diff.displayText)
+                    .font(.caption2)
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 2)
+                    .background(difficultyColor(diff).opacity(0.8))
+                    .cornerRadius(4)
+                    .foregroundColor(.white)
+            }
+            if let tags = route.tags, let first = tags.first {
+                Text(first)
+                    .font(.caption2)
+                    .foregroundColor(.white.opacity(0.7))
+            }
+        }
+    }
+
+    private func difficultyColor(_ difficulty: Difficulty) -> Color {
+        switch difficulty {
+        case .easy: return .green
+        case .medium: return .orange
+        case .hard: return .red
+        }
     }
 }
 
@@ -572,10 +631,13 @@ struct RouteDetailView: View {
     @State private var cachedCoordinates: [CLLocationCoordinate2D] = []  // 缓存转换后的坐标
     @State private var showShareSheet = false
     @State private var showEditSheet = false
-    @State private var isFavorited = false
+    @State private var isFavorited: Bool
+    @State private var favCount: Int
     
     init(route: Route) {
         self.route = route
+        _isFavorited = State(initialValue: route.isFavorited ?? false)
+        _favCount = State(initialValue: route.favoritesCount ?? 0)
         
         // 初始化地图区域（先用深圳默认）
         _region = State(initialValue: MKCoordinateRegion(
@@ -801,6 +863,38 @@ struct RouteDetailView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            // 收藏按钮
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                    let prev = isFavorited
+                    let prevCount = favCount
+                    isFavorited.toggle()
+                    favCount += isFavorited ? 1 : -1
+                    Task {
+                        do {
+                            let result = try await APIService.shared.toggleFavorite(routeId: route.id)
+                            await MainActor.run {
+                                isFavorited = result.favorited
+                                favCount = result.favoriteCount
+                            }
+                        } catch {
+                            await MainActor.run {
+                                isFavorited = prev
+                                favCount = prevCount
+                            }
+                        }
+                    }
+                } label: {
+                    HStack(spacing: 2) {
+                        Image(systemName: isFavorited ? "heart.fill" : "heart")
+                            .foregroundColor(isFavorited ? .red : .gray)
+                        Text("\(favCount)")
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                    }
+                }
+            }
             // 编辑按钮（仅自己的路线）
             if route.createdBy == TokenStorage.shared.getUserId() {
                 ToolbarItem(placement: .topBarTrailing) {

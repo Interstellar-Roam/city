@@ -154,6 +154,8 @@ class RouteListItem(BaseModel):
     created_at: datetime
     created_by: str | None = None
     is_featured: bool = False
+    is_favorited: bool = False
+    is_published: bool = True
 
     class Config:
         populate_by_name = True
@@ -189,6 +191,7 @@ class RouteDetail(BaseModel):
     is_published: bool = True
     score: float | None = None
     is_featured: bool = False
+    is_favorited: bool = False
 
     class Config:
         populate_by_name = True

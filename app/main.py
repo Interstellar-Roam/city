@@ -11,7 +11,7 @@ from loguru import logger
 
 from app.config import get_settings
 from app.database import Database
-from app.api import routes, gps, navigation, search, knowledge_graph, sessions, auth, images
+from app.api import routes, gps, navigation, search, knowledge_graph, sessions, auth, images, users
 from app.middleware.auth import AuthError
 from app.schemas.common import APIResponse
 
@@ -97,6 +97,7 @@ def create_app() -> FastAPI:
     app.include_router(sessions.router, prefix="/api/v1")
     app.include_router(auth.router, prefix="/api/v1")
     app.include_router(images.router, prefix="/api/v1")
+    app.include_router(users.router, prefix="/api/v1")
 
     # 挂载静态文件
     import os

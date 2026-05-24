@@ -1,14 +1,12 @@
 """路线相关API路由"""
 
-from typing import Any
-
-from typing import Any
+from typing import Any, Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from fastapi.responses import JSONResponse
 
 from app.database import Database
-from app.middleware.auth import get_current_user
+from app.middleware.auth import get_current_user, get_optional_user
 from app.schemas.common import APIResponse
 from app.schemas.route import (
     PaginatedRoutes,
@@ -65,6 +63,7 @@ async def list_routes(
     longitude: float | None = Query(None, description="经度（用于附近搜索）"),
     latitude: float | None = Query(None, description="纬度（用于附近搜索）"),
     max_distance: float = Query(5000, description="最大距离（米）"),
+    user_id: str | None = Depends(get_optional_user),
     service: RouteService = Depends(get_route_service)
 ) -> dict[str, Any]:
     """分页获取路线列表"""
@@ -81,7 +80,8 @@ async def list_routes(
         sort_by=sort_by,
         sort_order=sort_order,
         near_location=near_location,
-        max_distance=max_distance
+        max_distance=max_distance,
+        current_user_id=user_id,
     )
     return APIResponse(data=result).model_dump()
 
@@ -106,6 +106,7 @@ async def list_my_routes(
         sort_by=sort_by,
         sort_order=sort_order,
         exclude_unpublished=False,
+        current_user_id=user_id,
     )
     return APIResponse(data=result).model_dump()
 
@@ -113,10 +114,11 @@ async def list_my_routes(
 @router.get("/featured", summary="获取精选路线")
 async def get_featured_routes(
     limit: int = Query(5, ge=1, le=10, description="返回数量"),
+    user_id: str | None = Depends(get_optional_user),
     service: RouteService = Depends(get_route_service)
 ) -> dict[str, Any]:
     """获取精选路线列表（按收藏数排序）"""
-    routes = await service.get_featured_routes(limit)
+    routes = await service.get_featured_routes(limit, current_user_id=user_id)
     return APIResponse(data={"items": routes, "total": len(routes)}).model_dump()
 
 
@@ -124,24 +126,39 @@ async def get_featured_routes(
 async def search_routes(
     keyword: str = Query(..., description="搜索关键词"),
     limit: int = Query(20, ge=1, le=100),
-    _user_id: str = Depends(get_current_user),
+    user_id: str | None = Depends(get_optional_user),
     service: RouteService = Depends(get_route_service)
 ) -> dict[str, Any]:
     """根据关键词搜索路线（支持路线名、城市、标签等）"""
     if not keyword.strip():
         return APIResponse(code=3001, message="keyword 不能为空").model_dump()
-    results = await service.search_by_keyword(keyword.strip(), limit)
+    results = await service.search_by_keyword(keyword.strip(), limit, current_user_id=user_id)
     return APIResponse(data={"total": len(results), "items": results}).model_dump()
+
+
+@router.get("/favorites", summary="获取收藏路线")
+async def list_favorites(
+    page: int = Query(1, ge=1, description="页码"),
+    page_size: int = Query(20, ge=1, le=100, description="每页数量"),
+    user_id: str = Depends(get_current_user),
+    service: RouteService = Depends(get_route_service)
+) -> dict[str, Any]:
+    """获取当前用户收藏的路线列表"""
+    if not user_id:
+        return APIResponse(code=2001, message="未登录").model_dump()
+    result = await service.get_favorites(user_id, page=page, page_size=page_size)
+    return APIResponse(data=result).model_dump()
 
 
 @router.get("/{route_id}", summary="获取路线详情")
 async def get_route(
     route_id: str,
     lightweight: bool = Query(True, description="返回精简版轨迹点数据"),
+    user_id: str | None = Depends(get_optional_user),
     service: RouteService = Depends(get_route_service)
 ) -> dict[str, Any]:
     """获取指定路线的详细信息"""
-    route = await service.get_route_by_id(route_id)
+    route = await service.get_route_by_id(route_id, current_user_id=user_id)
     if not route:
         return APIResponse(code=3001, message="路线不存在").model_dump()
 
@@ -194,8 +211,12 @@ async def toggle_favorite(
     if not user_id:
         return JSONResponse(status_code=200, content=APIResponse(code=2001, message="未登录").model_dump())
     is_favorited = await service.toggle_favorite(route_id, user_id)
-    action = "已收藏" if is_favorited else "已取消收藏"
-    return APIResponse(message=action).model_dump()
+    # 获取最新收藏数
+    route = await service.get_route_by_id(route_id, increment_view=False)
+    count = route.get("favorites_count", 0) if route else 0
+    return APIResponse(
+        data={"favorited": is_favorited, "favorite_count": count}
+    ).model_dump()
 
 
 # === 轨迹点编辑API ===
