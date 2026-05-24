@@ -109,10 +109,10 @@ struct ProfileView: View {
                 Button("确定") { Task { await saveNickname() } }
                 Button("取消", role: .cancel) {}
             }
-            .confirmationDialog("切换环境", isPresented: $showEnvPicker, titleVisibility: .visible, actions: switchEnvActions) {
-                Text("切换后将自动退出登录。当前: \(envManager.current.displayName)")
+            .confirmationDialog("", isPresented: $showEnvPicker, titleVisibility: .hidden, actions: switchEnvActions) {
+                Text("切换到 \(envManager.current == .production ? "测试" : "生产") 环境将自动退出登录")
             }
-            .confirmationDialog("路线操作", isPresented: $showActionSheet, presenting: actionRoute, actions: routeActionButtons) { actionMessage($0) }
+            .confirmationDialog("", isPresented: $showActionSheet, presenting: actionRoute, actions: routeActionButtons) { actionMessage($0) }
             .onChange(of: selectedAvatarPhoto) { _ in handleAvatarChange() }
             .fullScreenCover(isPresented: $showRecording) {
                 RouteRecordingView()
@@ -630,7 +630,7 @@ struct AllRoutesView: View {
         .listStyle(.insetGrouped)
         .navigationTitle(title)
         .navigationBarTitleDisplayMode(.inline)
-        .confirmationDialog("路线操作", isPresented: $showActionSheet, presenting: actionRoute) { route in
+        .confirmationDialog("", isPresented: $showActionSheet, presenting: actionRoute) { route in
             Button("设为私密", role: .none) {
                 Task {
                     try? await APIService.shared.updateRoute(id: route.id, name: nil, description: nil, difficulty: nil, tags: nil, city: nil, isPublished: false)
