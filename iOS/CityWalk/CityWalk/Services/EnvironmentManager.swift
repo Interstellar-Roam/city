@@ -34,7 +34,7 @@ class EnvironmentManager {
 
     /// 测试环境 Host IP（可自定义）
     var testHost: String {
-        get { defaults.string(forKey: testHostKey) ?? "192.168.1.100" }
+        get { defaults.string(forKey: testHostKey) ?? "192.168.31.34" }
         set { defaults.set(newValue, forKey: testHostKey) }
     }
 
