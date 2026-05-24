@@ -1166,7 +1166,7 @@ struct RouteMapView: UIViewRepresentable {
                 mapView.removeOverlays(existingOCM)
             }
             if selectedLayer == .contour {
-                mapView.add(OCMTileOverlay())
+                mapView.add(OCMTileOverlay.create())
             }
         }
         
@@ -1176,6 +1176,9 @@ struct RouteMapView: UIViewRepresentable {
                 renderer?.strokeColor = UIColor.systemOrange
                 renderer?.lineWidth = 4
                 return renderer
+            }
+            if let tileOverlay = overlay as? MATileOverlay {
+                return MATileOverlayRenderer(tileOverlay: tileOverlay)
             }
             return nil
         }

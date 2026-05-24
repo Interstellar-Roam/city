@@ -80,16 +80,12 @@ struct AMapNavigationView: UIViewRepresentable {
         private let ocmOverlayKey = "ocmContour"
         
         func updateLayer(mapView: MAMapView, selectedLayer: MapLayerMode) {
-            // 移除旧的 OCM overlay
             let existingOCM = mapView.overlays.filter { ($0 as? OCMTileOverlay) != nil }
             if !existingOCM.isEmpty {
                 mapView.removeOverlays(existingOCM)
             }
-            
-            // 添加新的 OCM overlay
             if selectedLayer == .contour {
-                let ocmOverlay = OCMTileOverlay()
-                mapView.add(ocmOverlay)
+                mapView.add(OCMTileOverlay.create())
             }
         }
         
