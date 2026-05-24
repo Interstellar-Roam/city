@@ -1,4 +1,5 @@
 import SwiftUI
+import MapKit
 import Photos
 
 // MARK: - 路线分享卡片
@@ -6,28 +7,20 @@ struct ShareCardView: View {
     let route: Route
     @State private var isSaving = false
     @State private var showToast = false
+    @State private var mapImage: UIImage?
     @Environment(\.dismiss) private var dismiss
 
     private let cardWidth: CGFloat = 300
-    private let mapHeight: CGFloat = 220
-    private let infoHeight: CGFloat = 150
+    private let mapHeight: CGFloat = 240
+    private let infoHeight: CGFloat = 140
 
-    // 从 route.points 提取坐标
-    private var coordinates: [(x: Double, y: Double)] {
-        guard let points = route.points, points.count >= 2 else { return [] }
-        let lons = points.map { $0.location.coordinates[0] }
-        let lats = points.map { $0.location.coordinates[1] }
-        guard let minLon = lons.min(), let maxLon = lons.max(),
-              let minLat = lats.min(), let maxLat = lats.max() else { return [] }
-        let rangeLon = max(maxLon - minLon, 0.001)
-        let rangeLat = max(maxLat - minLat, 0.001)
-        let padding: Double = 0.12
-        let scaleX = (1.0 - padding * 2) / rangeLon
-        let scaleY = (1.0 - padding * 2) / rangeLat
-        return points.map {
-            ((($0.location.coordinates[0] - minLon) * scaleX + padding),
-             (($0.location.coordinates[1] - minLat) * scaleY + padding))
-        }
+    // 解析坐标
+    private var clCoordinates: [CLLocationCoordinate2D] {
+        route.points?.compactMap { p in
+            let coords = p.location.coordinates
+            guard coords.count == 2 else { return nil }
+            return CLLocationCoordinate2D(latitude: coords[1], longitude: coords[0])
+        } ?? []
     }
 
     var body: some View {
@@ -55,162 +48,184 @@ struct ShareCardView: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) { Button("关闭") { dismiss() } }
             }
-            .overlay(
-                Group {
-                    if showToast {
-                        toastView.transition(.move(edge: .bottom).combined(with: .opacity))
-                    }
-                }, alignment: .bottom
-            )
+            .overlay(Group {
+                if showToast { toastView.transition(.move(edge: .bottom).combined(with: .opacity)) }
+            }, alignment: .bottom)
             .animation(.easeInOut, value: showToast)
+            .task { await generateMapSnapshot() }
         }
     }
 
     // MARK: - 卡片
     private var cardView: some View {
         VStack(spacing: 0) {
-            // 地图轨迹区
-            routeMapSection
-                .frame(width: cardWidth, height: mapHeight)
-
-            // 路线信息区
-            infoSection
-                .frame(width: cardWidth, height: infoHeight)
+            // 地图区域
+            mapSection.frame(width: cardWidth, height: mapHeight)
+            // 信息区域
+            infoSection.frame(width: cardWidth, height: infoHeight)
         }
         .frame(width: cardWidth, height: mapHeight + infoHeight)
     }
 
-    // MARK: - 地图轨迹
-    private var routeMapSection: some View {
+    // MARK: - 地图
+    private var mapSection: some View {
         ZStack(alignment: .bottomLeading) {
-            // 深色背景
-            Rectangle()
-                .fill(Color(red: 0.12, green: 0.12, blue: 0.18))
-
-            // 路线折线
-            if coordinates.count >= 2 {
-                Path { path in
-                    let w = cardWidth
-                    let h = mapHeight
-                    for (i, coord) in coordinates.enumerated() {
-                        let pt = CGPoint(x: coord.x * w, y: (1 - coord.y) * h)
-                        if i == 0 { path.move(to: pt) }
-                        else { path.addLine(to: pt) }
-                    }
-                }
-                .stroke(
-                    LinearGradient(colors: [.orange, .pink], startPoint: .leading, endPoint: .trailing),
-                    style: StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round)
-                )
-                .shadow(color: .orange.opacity(0.5), radius: 4)
-
-                // 外发光
-                Path { path in
-                    let w = cardWidth
-                    let h = mapHeight
-                    for (i, coord) in coordinates.enumerated() {
-                        let pt = CGPoint(x: coord.x * w, y: (1 - coord.y) * h)
-                        if i == 0 { path.move(to: pt) }
-                        else { path.addLine(to: pt) }
-                    }
-                }
-                .stroke(
-                    Color.orange.opacity(0.2),
-                    style: StrokeStyle(lineWidth: 8, lineCap: .round, lineJoin: .round)
-                )
-
-                // 起点
-                let start = CGPoint(x: coordinates[0].x * cardWidth, y: (1 - coordinates[0].y) * mapHeight)
-                Circle()
-                    .fill(.green)
-                    .frame(width: 10, height: 10)
-                    .overlay(Circle().stroke(.white, lineWidth: 2))
-                    .position(start)
-
-                // 终点
-                let end = CGPoint(x: coordinates.last!.x * cardWidth, y: (1 - coordinates.last!.y) * mapHeight)
-                Circle()
-                    .fill(.red)
-                    .frame(width: 10, height: 10)
-                    .overlay(Circle().stroke(.white, lineWidth: 2))
-                    .position(end)
+            if let img = mapImage {
+                Image(uiImage: img)
+                    .resizable().scaledToFill()
+                    .frame(width: cardWidth, height: mapHeight).clipped()
+            } else {
+                Rectangle().fill(Color(.systemGray5))
+                    .overlay(ProgressView().tint(.orange))
             }
+
+            // 底部渐变遮罩
+            LinearGradient(colors: [.clear, .black.opacity(0.5)], startPoint: .top, endPoint: .bottom)
+                .frame(height: 60)
 
             // 图例
-            HStack(spacing: 16) {
-                Label("起点", systemImage: "circle.fill")
-                    .font(.caption2).foregroundColor(.green)
-                Label("终点", systemImage: "circle.fill")
-                    .font(.caption2).foregroundColor(.red)
+            HStack(spacing: 12) {
+                Label("起", systemImage: "circle.fill").font(.caption2).foregroundColor(.green)
+                Label("终", systemImage: "circle.fill").font(.caption2).foregroundColor(.red)
+                if let coords = route.points, !coords.isEmpty {
+                    Text("\(coords.count)点").font(.caption2).foregroundColor(.white.opacity(0.7))
+                }
             }
-            .padding(12)
-            .background(Color.black.opacity(0.4))
-            .cornerRadius(8)
+            .padding(.horizontal, 12).padding(.vertical, 6)
+            .background(Color.black.opacity(0.4)).cornerRadius(8)
             .padding(12)
         }
-        .clipped()
+        .frame(width: cardWidth, height: mapHeight).clipped()
     }
 
     // MARK: - 路线信息
     private var infoSection: some View {
         VStack(alignment: .leading, spacing: 0) {
-            // 路线名
             Text(route.name)
                 .font(.system(size: 18, weight: .bold, design: .rounded))
-                .lineLimit(1)
-                .padding(.top, 16)
+                .lineLimit(1).padding(.top, 14)
 
-            // 统计
             HStack(spacing: 16) {
-                statItem(icon: "point.topleft.down.to.point.bottomright.curvepath", value: route.formattedDistance, label: "距离")
-                if let duration = route.duration {
-                    statItem(icon: "clock", value: route.formattedDuration, label: "时长")
+                statBlock(icon: "point.topleft.down.to.point.bottomright.curvepath", value: route.formattedDistance, label: "距离")
+                if let d = route.duration {
+                    statBlock(icon: "clock", value: route.formattedDuration, label: "时长")
                 }
-                if let gain = route.elevationGain {
-                    statItem(icon: "mountain.2.fill", value: String(format: "%.0fm", gain), label: "爬升")
+                if let g = route.elevationGain {
+                    statBlock(icon: "mountain.2.fill", value: String(format: "%.0fm", g), label: "爬升")
                 }
-            }
-            .padding(.top, 12)
+            }.padding(.top, 10)
 
             Spacer()
 
-            // 难度 + 标签 + Watermark
             HStack {
                 if let diff = route.difficulty {
-                    HStack(spacing: 4) {
-                        Image(systemName: diff.icon).font(.caption)
-                        Text(diff.displayText).font(.caption2)
-                    }
-                    .foregroundColor(diff.color == "green" ? .green : diff.color == "orange" ? .orange : .red)
-                    .padding(.horizontal, 8).padding(.vertical, 4)
-                    .background(Color(.systemGray6))
-                    .cornerRadius(6)
-                }
-                if let tags = route.tags, let first = tags.first {
-                    Text(first).font(.caption2).foregroundColor(.orange)
+                    Label(diff.displayText, systemImage: diff.icon).font(.caption2)
+                        .foregroundColor(diff.color == "green" ? .green : diff.color == "orange" ? .orange : .red)
                         .padding(.horizontal, 8).padding(.vertical, 4)
-                        .background(Color.orange.opacity(0.1)).cornerRadius(6)
+                        .background(Color(.systemGray6)).cornerRadius(6)
                 }
                 Spacer()
                 HStack(spacing: 4) {
                     Image(systemName: "figure.walk.circle.fill").font(.caption2)
                     Text("CityWalk").font(.caption2.bold())
-                }
-                .foregroundColor(.secondary)
-            }
-            .padding(.bottom, 14)
+                }.foregroundColor(.secondary)
+            }.padding(.bottom, 12)
         }
         .padding(.horizontal, 20)
         .background(Color(.systemBackground))
     }
 
-    private func statItem(icon: String, value: String, label: String) -> some View {
+    private func statBlock(icon: String, value: String, label: String) -> some View {
         VStack(spacing: 2) {
             HStack(spacing: 4) {
                 Image(systemName: icon).font(.caption2).foregroundColor(.orange)
-                Text(value).font(.system(size: 14, weight: .medium, design: .rounded))
+                Text(value).font(.system(size: 13, weight: .medium, design: .rounded))
             }
             Text(label).font(.caption2).foregroundColor(.secondary)
+        }
+    }
+
+    // MARK: - 生成地图快照
+    private func generateMapSnapshot() async {
+        let coords = clCoordinates
+        guard coords.count >= 2 else { return }
+
+        let lats = coords.map(\.latitude)
+        let lons = coords.map(\.longitude)
+        guard let minLat = lats.min(), let maxLat = lats.max(),
+              let minLon = lons.min(), let maxLon = lons.max() else { return }
+
+        let center = CLLocationCoordinate2D(
+            latitude: (minLat + maxLat) / 2,
+            longitude: (minLon + maxLon) / 2
+        )
+        let span = MKCoordinateSpan(
+            latitudeDelta: maxLat - minLat + 0.008,
+            longitudeDelta: maxLon - minLon + 0.008
+        )
+
+        let options = MKMapSnapshotter.Options()
+        options.region = MKCoordinateRegion(center: center, span: span)
+        options.size = CGSize(width: cardWidth * 3, height: mapHeight * 3)
+        options.scale = UIScreen.main.scale
+        options.mapType = .standard
+
+        let snapshotter = MKMapSnapshotter(options: options)
+        do {
+            let snapshot = try await snapshotter.start()
+            mapImage = await drawRoute(on: snapshot.image, snapshot: snapshot, coords: coords)
+        } catch {
+            print("Map snapshot failed: \(error)")
+        }
+    }
+
+    // 在地图上绘制路线
+    private func drawRoute(on image: UIImage, snapshot: MKMapSnapshotter.Snapshot, coords: [CLLocationCoordinate2D]) -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size: image.size, format: image.imageRendererFormat)
+        return renderer.image { ctx in
+            image.draw(at: .zero)
+
+            let points = coords.map { snapshot.point(for: $0) }
+            guard points.count >= 2 else { return }
+
+            // 外发光
+            let glowPath = UIBezierPath()
+            glowPath.move(to: points[0])
+            for pt in points.dropFirst() { glowPath.addLine(to: pt) }
+            glowPath.lineWidth = 8
+            glowPath.lineCapStyle = .round
+            glowPath.lineJoinStyle = .round
+            UIColor.orange.withAlphaComponent(0.25).setStroke()
+            glowPath.stroke()
+
+            // 主线
+            let path = UIBezierPath()
+            path.move(to: points[0])
+            for pt in points.dropFirst() { path.addLine(to: pt) }
+            path.lineWidth = 5
+            path.lineCapStyle = .round
+            path.lineJoinStyle = .round
+            UIColor.systemOrange.setStroke()
+            path.stroke()
+
+            // 起点标记
+            let startPt = points[0]
+            let startCircle = UIBezierPath(ovalIn: CGRect(x: startPt.x - 7, y: startPt.y - 7, width: 14, height: 14))
+            UIColor.white.setFill()
+            startCircle.fill()
+            let startInner = UIBezierPath(ovalIn: CGRect(x: startPt.x - 4, y: startPt.y - 4, width: 8, height: 8))
+            UIColor.systemGreen.setFill()
+            startInner.fill()
+
+            // 终点标记
+            if let endPt = points.last {
+                let endCircle = UIBezierPath(ovalIn: CGRect(x: endPt.x - 7, y: endPt.y - 7, width: 14, height: 14))
+                UIColor.white.setFill()
+                endCircle.fill()
+                let endInner = UIBezierPath(ovalIn: CGRect(x: endPt.x - 4, y: endPt.y - 4, width: 8, height: 8))
+                UIColor.systemRed.setFill()
+                endInner.fill()
+            }
         }
     }
 
@@ -221,8 +236,7 @@ struct ShareCardView: View {
             Text("已保存到相册").font(.subheadline).foregroundColor(.white)
         }
         .padding(.horizontal, 20).padding(.vertical, 12)
-        .background(Capsule().fill(Color.black.opacity(0.8)))
-        .padding(.bottom, 40)
+        .background(Capsule().fill(Color.black.opacity(0.8))).padding(.bottom, 40)
     }
 
     // MARK: - 保存
@@ -233,13 +247,11 @@ struct ShareCardView: View {
         if let image = renderer.uiImage {
             PHPhotoLibrary.shared().performChanges {
                 PHAssetChangeRequest.creationRequestForAsset(from: image)
-            } completionHandler: { success, error in
+            } completionHandler: { success, _ in
                 DispatchQueue.main.async {
                     isSaving = false
                     if success { showToast = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                            showToast = false; dismiss()
-                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { showToast = false; dismiss() }
                     }
                 }
             }
