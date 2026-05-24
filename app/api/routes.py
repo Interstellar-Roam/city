@@ -2,10 +2,14 @@
 
 from typing import Any
 
-from fastapi import APIRouter, Depends, HTTPException, Query
+from typing import Any
+
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from fastapi.responses import JSONResponse
 
 from app.database import Database
+from app.middleware.auth import get_current_user
+from app.schemas.common import APIResponse
 from app.schemas.route import (
     PaginatedRoutes,
     RouteCreate,
@@ -29,7 +33,7 @@ def get_route_service() -> RouteService:
 @router.post("", response_model=dict[str, Any], summary="创建路线")
 async def create_route(
     route_data: RouteCreate,
-    user_id: str | None = Query(None, description="用户ID"),
+    user_id: str = Depends(get_current_user),
     service: RouteService = Depends(get_route_service)
 ) -> dict[str, Any]:
     """
@@ -40,8 +44,10 @@ async def create_route(
     - **points**: 路线点数据
     - **start_location**: 起点坐标
     """
+    if not user_id:
+        return JSONResponse(status_code=200, content=APIResponse(code=2001, message="未登录").model_dump())
     route = await service.create_route(route_data, user_id)
-    return {"success": True, "data": route}
+    return APIResponse(data=route).model_dump()
 
 
 @router.get("", response_model=PaginatedRoutes, summary="获取路线列表")
@@ -56,6 +62,7 @@ async def list_routes(
     longitude: float | None = Query(None, description="经度（用于附近搜索）"),
     latitude: float | None = Query(None, description="纬度（用于附近搜索）"),
     max_distance: float = Query(5000, description="最大距离（米）"),
+    _user_id: str = Depends(get_current_user),
     service: RouteService = Depends(get_route_service)
 ) -> PaginatedRoutes:
     """
@@ -83,16 +90,14 @@ async def list_routes(
 async def search_routes(
     keyword: str = Query(..., description="搜索关键词"),
     limit: int = Query(20, ge=1, le=100),
+    _user_id: str = Depends(get_current_user),
     service: RouteService = Depends(get_route_service)
 ) -> dict[str, Any]:
     """根据关键词搜索路线（支持路线名、城市、标签等）"""
     if not keyword.strip():
-        return JSONResponse(
-            status_code=400,
-            content={"detail": "keyword 不能为空"}
-        )
+        return APIResponse(code=3001, message="keyword 不能为空").model_dump()
     results = await service.search_by_keyword(keyword.strip(), limit)
-    return {"success": True, "total": len(results), "data": results}
+    return APIResponse(data={"total": len(results), "items": results}).model_dump()
 
 
 @router.get("/{route_id}", response_model=RouteDetail, summary="获取路线详情")
@@ -152,13 +157,15 @@ async def delete_route(
 @router.post("/{route_id}/favorite", summary="收藏/取消收藏路线")
 async def toggle_favorite(
     route_id: str,
-    user_id: str = Query(..., description="用户ID"),
+    user_id: str = Depends(get_current_user),
     service: RouteService = Depends(get_route_service)
 ) -> dict[str, Any]:
     """切换路线的收藏状态"""
+    if not user_id:
+        return JSONResponse(status_code=200, content=APIResponse(code=2001, message="未登录").model_dump())
     is_favorited = await service.toggle_favorite(route_id, user_id)
     action = "已收藏" if is_favorited else "已取消收藏"
-    return {"success": True, "message": action}
+    return APIResponse(message=action).model_dump()
 
 
 # === 轨迹点编辑API ===

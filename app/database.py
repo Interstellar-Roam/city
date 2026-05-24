@@ -77,6 +77,13 @@ class Database:
         # 用户偏好索引
         await db.user_preferences.create_index([("user_id", 1)], unique=True)
 
+        # 认证索引
+        await db.users.create_index([("phone", 1)], unique=True)
+        await db.refresh_tokens.create_index([("token", 1)], unique=True)
+        await db.refresh_tokens.create_index([("user_id", 1)])
+        await db.refresh_tokens.create_index([("expires_at", 1)], expireAfterSeconds=0)
+        await db.verification_codes.create_index([("expires_at", 1)], expireAfterSeconds=0)
+
         logger.info("数据库索引创建完成")
 
 

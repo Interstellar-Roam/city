@@ -126,22 +126,22 @@ class TestSearchAPI:
 
     @pytest.mark.asyncio
     async def test_search_endpoint_rejects_empty_keyword(self):
-        """空关键词应返回 400"""
+        """空关键词应返回 code=3001"""
         from unittest.mock import MagicMock
         from httpx import AsyncClient, ASGITransport
         from app.main import app
         from app.api.routes import get_route_service
         from app.services.route_service import RouteService
 
-        # 模拟 RouteService 避免需要数据库连接
         mock_service = RouteService(MagicMock())
         app.dependency_overrides[get_route_service] = lambda: mock_service
 
         transport = ASGITransport(app=app)
         async with AsyncClient(transport=transport, base_url="http://test") as client:
             response = await client.get("/api/v1/routes/search", params={"keyword": ""})
-            assert response.status_code == 400
-            assert "keyword 不能为空" in response.json()["detail"]
+            assert response.status_code == 200
+            data = response.json()
+            assert data["code"] == 3001
+            assert "keyword 不能为空" in data["message"]
 
-        # 清理
         app.dependency_overrides.clear()
