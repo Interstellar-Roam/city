@@ -43,7 +43,6 @@ class RouteService:
         route_dict["favorites_count"] = 0
         route_dict["views_count"] = 0
         route_dict["completions_count"] = 0
-        route_dict["is_published"] = True
 
         await self.collection.insert_one(route_dict)
         logger.info(f"创建路线: {route_dict['_id']}")
@@ -80,10 +79,13 @@ class RouteService:
         sort_order: int = -1,
         near_location: tuple[float, float] | None = None,  # (lon, lat)
         max_distance: float = 5000,  # 米
+        exclude_unpublished: bool = True,
     ) -> PaginatedRoutes:
         """分页获取路线列表"""
         skip = (page - 1) * page_size
-        query: dict[str, Any] = {"is_published": True}
+        query: dict[str, Any] = {}
+        if exclude_unpublished:
+            query["is_published"] = True
 
         # 过滤条件
         if city:

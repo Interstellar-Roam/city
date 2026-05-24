@@ -13,6 +13,7 @@ struct RouteRecordingView: View {
     @State private var isUploading = false
     @State private var uploadSuccess = false
     @State private var errorMessage: String?
+    @State private var isPublished = true
     
     private let difficulties = [("简单", "easy"), ("中等", "medium"), ("困难", "hard")]
     private let availableTags = ["徒步", "跑步", "骑行", "公园", "海边", "越野跑", "城市", "山地"]
@@ -235,6 +236,14 @@ struct RouteRecordingView: View {
                         }
                     }
                 }
+
+                Section {
+                    Toggle(isOn: $isPublished) {
+                        Label("公开路线", systemImage: isPublished ? "globe.asia.australia" : "lock")
+                    }
+                } footer: {
+                    Text(isPublished ? "所有人可在发现页看到这条路线" : "仅自己可见，不会出现在发现和搜索中")
+                }
             }
             .navigationTitle("保存路线")
             .navigationBarTitleDisplayMode(.inline)
@@ -277,7 +286,8 @@ struct RouteRecordingView: View {
                     name: routeName,
                     description: routeDescription.isEmpty ? nil : routeDescription,
                     difficulty: routeDifficulty,
-                    tags: routeTags
+                    tags: routeTags,
+                    isPublished: isPublished
                 )
                 isUploading = false
                 uploadSuccess = true

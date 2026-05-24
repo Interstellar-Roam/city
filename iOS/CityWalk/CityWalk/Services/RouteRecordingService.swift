@@ -330,7 +330,7 @@ extension TrackData {
     }
     
     /// 转换为后端 RouteCreate 请求格式
-    func toRouteCreateRequest(name: String, description: String? = nil, difficulty: String = "medium", tags: [String] = []) -> [String: Any] {
+    func toRouteCreateRequest(name: String, description: String? = nil, difficulty: String = "medium", tags: [String] = [], isPublished: Bool = true) -> [String: Any] {
         let pointsData = points.map { point -> [String: Any] in
             var pt: [String: Any] = [
                 "location": [
@@ -364,7 +364,8 @@ extension TrackData {
                 "latitude": last.latitude
             ],
             "difficulty": difficulty,
-            "tags": tags
+            "tags": tags,
+            "is_published": isPublished
         ]
         
         if let desc = description {
@@ -378,14 +379,15 @@ extension TrackData {
 // MARK: - 上传服务
 extension APIService {
     /// 上传路线到远端
-    func uploadRoute(trackData: TrackData, name: String, description: String? = nil, difficulty: String = "medium", tags: [String] = []) async throws -> Route {
+    func uploadRoute(trackData: TrackData, name: String, description: String? = nil, difficulty: String = "medium", tags: [String] = [], isPublished: Bool = true) async throws -> Route {
         let url = URL(string: "\(AppConfig.apiBaseURL)/routes")!
         
         let body = trackData.toRouteCreateRequest(
             name: name,
             description: description,
             difficulty: difficulty,
-            tags: tags
+            tags: tags,
+            isPublished: isPublished
         )
         
         let bodyData = try? JSONSerialization.data(withJSONObject: body)

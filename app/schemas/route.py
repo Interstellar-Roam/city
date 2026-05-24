@@ -100,6 +100,7 @@ class RouteCreate(BaseModel):
 
     difficulty: str = "medium"
     tags: list[str] = Field(default_factory=list)
+    is_published: bool = True
 
 
 class RouteUpdate(BaseModel):

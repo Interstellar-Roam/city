@@ -105,6 +105,7 @@ async def list_my_routes(
         created_by=user_id,
         sort_by=sort_by,
         sort_order=sort_order,
+        exclude_unpublished=False,
     )
     return APIResponse(data=result).model_dump()
 
