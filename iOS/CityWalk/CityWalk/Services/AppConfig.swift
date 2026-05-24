@@ -3,8 +3,10 @@ import Foundation
 /// 应用全局配置
 enum AppConfig {
     // MARK: - 服务器配置
-    /// API Base URL
-    static let apiBaseURL = "https://api.moon-alpha.com/api/v1"
+    /// API Base URL（动态，根据当前环境返回）
+    static var apiBaseURL: String {
+        EnvironmentManager.shared.apiBaseURL
+    }
     
     // MARK: - 高德地图配置
     /// 高德地图 API Key (iOS端)

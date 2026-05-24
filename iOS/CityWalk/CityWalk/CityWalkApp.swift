@@ -74,6 +74,9 @@ struct ContentView: View {
 
 struct ProfileView: View {
     @ObservedObject var authVM: AuthViewModel
+    @State private var showEnvPicker = false
+
+    private let envManager = EnvironmentManager.shared
 
     var body: some View {
         NavigationView {
@@ -90,7 +93,21 @@ struct ProfileView: View {
                     }
                     .padding(.vertical, 8)
                 }
-                
+
+                Section {
+                    HStack {
+                        Text("当前环境")
+                        Spacer()
+                        Text(envManager.current.displayName)
+                            .foregroundColor(envManager.current == .production ? .green : .orange)
+                        Image(systemName: "chevron.right")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                    .contentShape(Rectangle())
+                    .onTapGesture { showEnvPicker = true }
+                }
+
                 Section {
                     Button(role: .destructive, action: {
                         Task { await authVM.logout() }
@@ -104,6 +121,17 @@ struct ProfileView: View {
                 }
             }
             .navigationTitle("个人中心")
+            .confirmationDialog("切换环境", isPresented: $showEnvPicker, titleVisibility: .visible) {
+                ForEach(EnvironmentManager.Environment.allCases, id: \.self) { env in
+                    Button(env.displayName) {
+                        envManager.switchTo(env)
+                        authVM.isLoggedIn = false
+                    }
+                }
+                Button("取消", role: .cancel) {}
+            } message: {
+                Text("切换后将自动退出登录。当前: \(envManager.current.displayName)")
+            }
         }
     }
 }
