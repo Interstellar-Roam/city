@@ -87,35 +87,125 @@ struct ProfileView: View {
     private let envManager = EnvironmentManager.shared
 
     var body: some View {
-        NavigationView {
-            List {
-                profileHeaderSection
-                statsSection
-                myRoutesSection
-                myFavoritesSection
-                envSection
-                logoutSection
+        ZStack {
+            NavigationView {
+                List {
+                    profileHeaderSection
+                    statsSection
+                    myRoutesSection
+                    myFavoritesSection
+                    envSection
+                    logoutSection
+                }
+                .navigationTitle("个人中心")
+                .task {
+                    await loadAll()
+                }
+                .refreshable {
+                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                    await loadAll()
+                }
+                .alert("设置昵称", isPresented: $showNicknameEditor) {
+                    TextField("昵称（最多20字）", text: $nicknameInput)
+                    Button("确定") { Task { await saveNickname() } }
+                    Button("取消", role: .cancel) {}
+                }
+                .onChange(of: selectedAvatarPhoto) { _ in handleAvatarChange() }
+                .fullScreenCover(isPresented: $showRecording) {
+                    RouteRecordingView()
+                }
             }
-            .navigationTitle("个人中心")
-            .task {
-                await loadAll()
+            
+            // 自定义底部 sheet — 紧贴操作区域
+            if showActionSheet, let route = actionRoute {
+                Color.black.opacity(0.3).ignoresSafeArea()
+                    .onTapGesture { showActionSheet = false }
+                VStack(spacing: 0) {
+                    Spacer()
+                    VStack(spacing: 0) {
+                        Text("删除「\(route.name)」后将无法恢复")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                            .padding(.vertical, 16)
+                        Divider()
+                        Button(role: .destructive) {
+                            showActionSheet = false
+                            Task { await deleteMyRoute(route) }
+                        } label: {
+                            Text("删除路线")
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 16)
+                        }
+                        Divider()
+                        Button {
+                            showActionSheet = false
+                            Task { await setRoutePrivate(route) }
+                        } label: {
+                            Text("设为私密")
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 16)
+                        }
+                        Divider()
+                        Button {
+                            showActionSheet = false
+                        } label: {
+                            Text("取消")
+                                .fontWeight(.semibold)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 16)
+                        }
+                    }
+                    .background(.regularMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
+                    .padding(.horizontal, 12)
+                    .padding(.bottom, 12)
+                }
+                .transition(.move(edge: .bottom))
+                .animation(.easeOut(duration: 0.2), value: showActionSheet)
             }
-            .refreshable {
-                UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                await loadAll()
-            }
-            .alert("设置昵称", isPresented: $showNicknameEditor) {
-                TextField("昵称（最多20字）", text: $nicknameInput)
-                Button("确定") { Task { await saveNickname() } }
-                Button("取消", role: .cancel) {}
-            }
-            .confirmationDialog("", isPresented: $showEnvPicker, titleVisibility: .hidden, actions: switchEnvActions) {
-                Text("切换到 \(envManager.current == .production ? "测试" : "生产") 环境将自动退出登录")
-            }
-            .confirmationDialog("", isPresented: $showActionSheet, presenting: actionRoute, actions: routeActionButtons) { actionMessage($0) }
-            .onChange(of: selectedAvatarPhoto) { _ in handleAvatarChange() }
-            .fullScreenCover(isPresented: $showRecording) {
-                RouteRecordingView()
+            
+            if showEnvPicker {
+                Color.black.opacity(0.3).ignoresSafeArea()
+                    .onTapGesture { showEnvPicker = false }
+                VStack(spacing: 0) {
+                    Spacer()
+                    VStack(spacing: 0) {
+                        Text("切换到 \(envManager.current == .production ? "测试" : "生产") 环境将自动退出登录")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                            .padding(.vertical, 16)
+                        Divider()
+                        ForEach(EnvironmentManager.Environment.allCases, id: \.self) { env in
+                            Button {
+                                showEnvPicker = false
+                                envManager.switchTo(env)
+                                authVM.isLoggedIn = false
+                            } label: {
+                                Text(env.displayName)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 16)
+                            }
+                            if env != EnvironmentManager.Environment.allCases.last {
+                                Divider()
+                            }
+                        }
+                        Divider()
+                        Button {
+                            showEnvPicker = false
+                        } label: {
+                            Text("取消")
+                                .fontWeight(.semibold)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 16)
+                        }
+                    }
+                    .background(.regularMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
+                    .padding(.horizontal, 12)
+                    .padding(.bottom, 12)
+                }
+                .transition(.move(edge: .bottom))
+                .animation(.easeOut(duration: 0.2), value: showEnvPicker)
             }
         }
     }
@@ -311,30 +401,6 @@ struct ProfileView: View {
     }
 
     // MARK: - Helpers
-    @ViewBuilder
-    private func routeActionButtons(_ route: Route) -> some View {
-        Button("设为私密", role: .none) { Task { await setRoutePrivate(route) } }
-        Button("删除路线", role: .destructive) {
-            UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-            Task { await deleteMyRoute(route) }
-        }
-        Button("取消", role: .cancel) {}
-    }
-
-    @ViewBuilder
-    private func switchEnvActions() -> some View {
-        ForEach(EnvironmentManager.Environment.allCases, id: \.self) { env in
-            Button(env.displayName) {
-                envManager.switchTo(env)
-                authVM.isLoggedIn = false
-            }
-        }
-        Button("取消", role: .cancel) {}
-    }
-
-    private func actionMessage(_ route: Route) -> Text {
-        Text("删除「\(route.name)」后将无法恢复")
-    }
 
     private func handleAvatarChange() {
         Task {
@@ -575,77 +641,94 @@ struct AllRoutesView: View {
     }
 
     var body: some View {
-        List {
-            ForEach(groupedRoutes, id: \.title) { group in
-                Section(group.title) {
-                    ForEach(group.routes) { route in
-                        NavigationLink(destination: RouteDetailView(route: route)) {
-                            HStack(spacing: 12) {
-                                // 缩略图
-                                if let coverURL = route.coverImage, let url = URL(string: coverURL) {
-                                    AsyncImage(url: url) { phase in
-                                        if case .success(let image) = phase {
-                                            image.resizable().scaledToFill()
-                                                .frame(width: 40, height: 40)
-                                                .cornerRadius(6).clipped()
+        ZStack {
+            List {
+                ForEach(groupedRoutes, id: \.title) { group in
+                    Section(group.title) {
+                        ForEach(group.routes) { route in
+                            NavigationLink(destination: RouteDetailView(route: route)) {
+                                HStack(spacing: 12) {
+                                    if let coverURL = route.coverImage, let url = URL(string: coverURL) {
+                                        AsyncImage(url: url) { phase in
+                                            if case .success(let image) = phase {
+                                                image.resizable().scaledToFill()
+                                                    .frame(width: 40, height: 40)
+                                                    .cornerRadius(6).clipped()
+                                            }
+                                        }
+                                    }
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(route.name).font(.headline).lineLimit(1)
+                                        HStack(spacing: 8) {
+                                            Text(route.formattedDistance).font(.subheadline).foregroundColor(.secondary)
+                                            if let diff = route.difficulty {
+                                                Text(diff.displayText).font(.caption).foregroundColor(diff.color == "green" ? .green : diff.color == "orange" ? .orange : .red)
+                                            }
+                                            if let date = route.createdAt {
+                                                Text(formatDate(date)).font(.caption).foregroundColor(.secondary)
+                                            }
                                         }
                                     }
                                 }
-
-                                VStack(alignment: .leading, spacing: 4) {
-                                    Text(route.name)
-                                        .font(.headline)
-                                        .lineLimit(1)
-                                    HStack(spacing: 8) {
-                                        Text(route.formattedDistance)
-                                            .font(.subheadline)
-                                            .foregroundColor(.secondary)
-                                        if let diff = route.difficulty {
-                                            Text(diff.displayText)
-                                                .font(.caption)
-                                                .foregroundColor(diff.color == "green" ? .green : diff.color == "orange" ? .orange : .red)
-                                        }
-                                        if let date = route.createdAt {
-                                            Text(formatDate(date))
-                                                .font(.caption)
-                                                .foregroundColor(.secondary)
-                                        }
-                                    }
-                                }
+                                .padding(.vertical, 2)
                             }
-                            .padding(.vertical, 2)
-                        }
-                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                            Button(role: .destructive) {
-                                actionRoute = route
-                                showActionSheet = true
-                            } label: {
-                                Label("删除", systemImage: "trash")
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                Button(role: .destructive) {
+                                    actionRoute = route
+                                    showActionSheet = true
+                                } label: { Label("删除", systemImage: "trash") }
                             }
                         }
                     }
                 }
             }
-        }
-        .listStyle(.insetGrouped)
-        .navigationTitle(title)
-        .navigationBarTitleDisplayMode(.inline)
-        .confirmationDialog("", isPresented: $showActionSheet, presenting: actionRoute) { route in
-            Button("设为私密", role: .none) {
-                Task {
-                    try? await APIService.shared.updateRoute(id: route.id, name: nil, description: nil, difficulty: nil, tags: nil, city: nil, isPublished: false)
-                    currentRoutes.removeAll { $0.id == route.id }
+            .listStyle(.insetGrouped)
+            .navigationTitle(title)
+            .navigationBarTitleDisplayMode(.inline)
+            
+            if showActionSheet, let route = actionRoute {
+                Color.black.opacity(0.3).ignoresSafeArea()
+                    .onTapGesture { showActionSheet = false }
+                VStack(spacing: 0) {
+                    Spacer()
+                    VStack(spacing: 0) {
+                        Text("删除「\(route.name)」后将无法恢复")
+                            .font(.subheadline).foregroundColor(.secondary)
+                            .padding(.vertical, 16)
+                        Divider()
+                        Button(role: .destructive) {
+                            showActionSheet = false
+                            Task {
+                                try? await APIService.shared.deleteRoute(id: route.id)
+                                currentRoutes.removeAll { $0.id == route.id }
+                            }
+                        } label: {
+                            Text("删除路线").frame(maxWidth: .infinity).padding(.vertical, 16)
+                        }
+                        Divider()
+                        Button {
+                            showActionSheet = false
+                            Task {
+                                try? await APIService.shared.updateRoute(id: route.id, name: nil, description: nil, difficulty: nil, tags: nil, city: nil, isPublished: false)
+                                currentRoutes.removeAll { $0.id == route.id }
+                            }
+                        } label: {
+                            Text("设为私密").frame(maxWidth: .infinity).padding(.vertical, 16)
+                        }
+                        Divider()
+                        Button {
+                            showActionSheet = false
+                        } label: {
+                            Text("取消").fontWeight(.semibold).frame(maxWidth: .infinity).padding(.vertical, 16)
+                        }
+                    }
+                    .background(.regularMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
+                    .padding(.horizontal, 12).padding(.bottom, 12)
                 }
+                .transition(.move(edge: .bottom))
+                .animation(.easeOut(duration: 0.2), value: showActionSheet)
             }
-            Button("删除路线", role: .destructive) {
-                Task {
-                    try? await APIService.shared.deleteRoute(id: route.id)
-                    currentRoutes.removeAll { $0.id == route.id }
-                }
-            }
-            Button("取消", role: .cancel) {}
-        } message: { route in
-            Text("删除「\(route.name)」后将无法恢复")
         }
     }
 
