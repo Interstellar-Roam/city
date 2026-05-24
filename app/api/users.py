@@ -32,9 +32,9 @@ async def get_me(
     routes = await routes_cursor.to_list(None)
     total_distance = sum(r.get("distance", 0) for r in routes) / 1000
 
-    # 统计收藏数
-    fav_cursor = db.routes.find({"favorites": {"$in": [user_id]}})
-    fav_routes = await fav_cursor.to_list(None)
+    # 统计收藏数（从 user.favorite_routes 中读取）
+    fav_route_ids = user.get("favorite_routes", [])
+    favorite_count = len(fav_route_ids)
 
     nickname = user.get("nickname") or user.get("username")
 
@@ -45,7 +45,7 @@ async def get_me(
         stats=UserStats(
             total_distance_km=round(total_distance, 1),
             route_count=len(routes),
-            favorite_count=len(fav_routes),
+            favorite_count=favorite_count,
         ),
     )
     return APIResponse(data=profile.model_dump()).model_dump()
