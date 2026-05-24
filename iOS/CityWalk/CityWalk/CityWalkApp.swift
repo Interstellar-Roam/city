@@ -209,37 +209,68 @@ struct ProfileView: View {
 struct MyRouteRow: View {
     let route: Route
 
+    private let thumbWidth: CGFloat = 44
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(route.name)
-                .font(.headline)
-                .lineLimit(1)
-
-            HStack(spacing: 12) {
-                Label(route.formattedDistance, systemImage: "point.topleft.down.to.point.bottomright.curvepath")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-
-                if let duration = route.duration {
-                    Label(route.formattedDuration, systemImage: "clock")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
+        HStack(spacing: 12) {
+            // 封面缩略图
+            if let coverURL = route.coverImage, let url = URL(string: coverURL) {
+                AsyncImage(url: url) { phase in
+                    switch phase {
+                    case .success(let image):
+                        image.resizable().scaledToFill()
+                            .frame(width: thumbWidth, height: thumbWidth)
+                            .cornerRadius(8).clipped()
+                    default:
+                        thumbnailPlaceholder
+                    }
                 }
-
-                if let difficulty = route.difficulty {
-                    Label(difficulty.displayText, systemImage: difficulty.icon)
-                        .font(.subheadline)
-                        .foregroundColor(difficulty.color == "green" ? .green : difficulty.color == "orange" ? .orange : .red)
-                }
+            } else {
+                thumbnailPlaceholder
             }
 
-            if let city = route.city {
-                Text(city)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+            VStack(alignment: .leading, spacing: 6) {
+                Text(route.name)
+                    .font(.headline)
+                    .lineLimit(1)
+
+                HStack(spacing: 12) {
+                    Label(route.formattedDistance, systemImage: "point.topleft.down.to.point.bottomright.curvepath")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+
+                    if let duration = route.duration {
+                        Label(route.formattedDuration, systemImage: "clock")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                    }
+
+                    if let difficulty = route.difficulty {
+                        Label(difficulty.displayText, systemImage: difficulty.icon)
+                            .font(.subheadline)
+                            .foregroundColor(difficulty.color == "green" ? .green : difficulty.color == "orange" ? .orange : .red)
+                    }
+                }
+
+                if let city = route.city {
+                    Text(city)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
             }
         }
         .padding(.vertical, 4)
+    }
+
+    private var thumbnailPlaceholder: some View {
+        RoundedRectangle(cornerRadius: 8)
+            .fill(Color(.systemGray5))
+            .frame(width: thumbWidth, height: thumbWidth)
+            .overlay(
+                Image(systemName: "mountain.2.fill")
+                    .font(.caption)
+                    .foregroundColor(.secondary.opacity(0.5))
+            )
     }
 }
 
@@ -287,23 +318,36 @@ struct AllRoutesView: View {
                 Section(group.title) {
                     ForEach(group.routes) { route in
                         NavigationLink(destination: RouteDetailView(route: route)) {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(route.name)
-                                    .font(.headline)
-                                    .lineLimit(1)
-                                HStack(spacing: 8) {
-                                    Text(route.formattedDistance)
-                                        .font(.subheadline)
-                                        .foregroundColor(.secondary)
-                                    if let diff = route.difficulty {
-                                        Text(diff.displayText)
-                                            .font(.caption)
-                                            .foregroundColor(diff.color == "green" ? .green : diff.color == "orange" ? .orange : .red)
+                            HStack(spacing: 12) {
+                                // 缩略图
+                                if let coverURL = route.coverImage, let url = URL(string: coverURL) {
+                                    AsyncImage(url: url) { phase in
+                                        if case .success(let image) = phase {
+                                            image.resizable().scaledToFill()
+                                                .frame(width: 40, height: 40)
+                                                .cornerRadius(6).clipped()
+                                        }
                                     }
-                                    if let date = route.createdAt {
-                                        Text(formatDate(date))
-                                            .font(.caption)
+                                }
+
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text(route.name)
+                                        .font(.headline)
+                                        .lineLimit(1)
+                                    HStack(spacing: 8) {
+                                        Text(route.formattedDistance)
+                                            .font(.subheadline)
                                             .foregroundColor(.secondary)
+                                        if let diff = route.difficulty {
+                                            Text(diff.displayText)
+                                                .font(.caption)
+                                                .foregroundColor(diff.color == "green" ? .green : diff.color == "orange" ? .orange : .red)
+                                        }
+                                        if let date = route.createdAt {
+                                            Text(formatDate(date))
+                                                .font(.caption)
+                                                .foregroundColor(.secondary)
+                                        }
                                     }
                                 }
                             }
