@@ -37,7 +37,7 @@ struct Route: Identifiable, Codable, Hashable {
         case id = "_id"
         case name, description, distance, difficulty, tags, city, district, score
         case duration = "estimated_duration"
-        case coverImage = "preview_image"
+        case coverImage = "cover"
         case points, pois
         case createdAt = "created_at"
         case createdBy = "created_by"

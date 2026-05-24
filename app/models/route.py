@@ -74,8 +74,7 @@ class Route(BaseModel):
     id: str = Field(default_factory=lambda: str(ObjectId()), alias="_id")
     name: str
     description: str | None = None
-    preview_image: str | None = None  # 预览图URL
-    images: list[str] = Field(default_factory=list)  # 景色图片列表
+    cover: str | None = None  # 封面图 URL
 
     # 路线数据
     points: list[RoutePoint] = Field(default_factory=list)

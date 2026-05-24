@@ -84,8 +84,7 @@ class RouteCreate(BaseModel):
     """创建路线请求"""
     name: str = Field(..., min_length=1, max_length=100)
     description: str | None = Field(None, max_length=2000)
-    preview_image: str | None = None
-    images: list[str] = Field(default_factory=list)
+    cover: str | None = None
 
     points: list[dict[str, Any]] = Field(default_factory=list)
     pois: list[dict[str, Any]] = Field(default_factory=list)
@@ -107,8 +106,7 @@ class RouteUpdate(BaseModel):
     """更新路线请求"""
     name: str | None = Field(None, min_length=1, max_length=100)
     description: str | None = Field(None, max_length=2000)
-    preview_image: str | None = None
-    images: list[str] | None = None
+    cover: str | None = None
 
     points: list[dict[str, Any]] | None = None
     pois: list[dict[str, Any]] | None = None
@@ -144,7 +142,7 @@ class RouteListItem(BaseModel):
     id: str = Field(..., alias="_id")
     name: str
     description: str | None = None
-    preview_image: str | None = None
+    cover: str | None = None
     distance: float
     elevation_gain: float
     estimated_duration: int
@@ -165,8 +163,7 @@ class RouteDetail(BaseModel):
     id: str = Field(..., alias="_id")
     name: str
     description: str | None = None
-    preview_image: str | None = None
-    images: list[str] = Field(default_factory=list)
+    cover: str | None = None
 
     points: list[dict[str, Any]] = Field(default_factory=list)
     pois: list[dict[str, Any]] = Field(default_factory=list)
@@ -223,11 +220,6 @@ class PaginatedRoutes(BaseModel):
     page: int
     page_size: int
     has_more: bool
-
-
-class CoverUpload(BaseModel):
-    """封面图上传"""
-    image: str = Field(..., description="Base64编码的图片数据（JPEG，≤500KB）")
 
 
 class NavigationData(BaseModel):

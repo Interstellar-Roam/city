@@ -405,7 +405,7 @@ extension APIService {
     }
 
     /// 更新路线信息
-    func updateRoute(id: String, name: String?, description: String?, difficulty: String?, tags: [String]?, city: String?) async throws {
+    func updateRoute(id: String, name: String?, description: String?, difficulty: String?, tags: [String]?, city: String?, cover: String? = nil) async throws {
         guard let url = URL(string: "\(baseURL)/routes/\(id)") else { throw APIError.invalidURL }
 
         var body: [String: Any] = [:]
@@ -414,23 +414,47 @@ extension APIService {
         if let difficulty = difficulty { body["difficulty"] = difficulty }
         if let tags = tags { body["tags"] = tags }
         if let city = city { body["city"] = city }
+        if let cover = cover { body["cover"] = cover }
 
         let bodyData = try? JSONSerialization.data(withJSONObject: body)
         var request = try authenticatedRequest(for: url, method: "PUT", body: bodyData)
         let (_, _) = try await URLSession.shared.data(for: request)
     }
 
-    /// 上传封面图
-    func uploadCoverImage(routeId: String, imageBase64: String) async throws {
-        guard let url = URL(string: "\(baseURL)/routes/\(routeId)/cover") else { throw APIError.invalidURL }
-        let body = ["image": imageBase64]
-        let bodyData = try? JSONSerialization.data(withJSONObject: body)
-        var request = try authenticatedRequest(for: url, method: "POST", body: bodyData)
-        let (_, response) = try await URLSession.shared.data(for: request)
-        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-            throw APIError.invalidResponse
+    /// 上传封面图（multipart/form-data）
+    func uploadImage(imageData: Data, fileName: String = "cover.jpg") async throws -> String {
+        guard let url = URL(string: "\(baseURL)/images/upload") else { throw APIError.invalidURL }
+
+        let boundary = UUID().uuidString
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        if let token = authToken {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
+
+        var body = Data()
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"file\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
+        body.append("Content-Type: image/jpeg\r\n\r\n".data(using: .utf8)!)
+        body.append(imageData)
+        body.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+        request.httpBody = body
+
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let response = try decodeResponse(ImageUploadResult.self, from: data)
+        guard response.code == 0, let result = response.data else {
+            throw APIError.networkError(response.message)
+        }
+        return result.url
     }
+}
+
+// MARK: - Image upload result
+struct ImageUploadResult: Codable {
+    let id: String
+    let url: String
+    let size: Int
 }
 
 // MARK: - API 错误
