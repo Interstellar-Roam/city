@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request, UploadFile, File
 from fastapi.responses import Response
 
 from app.database import Database
+from app.middleware.auth import get_current_user
 from app.models.image import Image
 from app.schemas.common import APIResponse
 
@@ -21,6 +22,7 @@ async def upload_image(
     request: Request,
     file: UploadFile = File(...),
     route_id: str | None = None,
+    user_id: str = Depends(get_current_user),
     collection=Depends(get_image_service)
 ):
     """上传图片到 MongoDB BLOB 存储，返回图片 URL"""
