@@ -633,6 +633,7 @@ struct RouteDetailView: View {
     @State private var showEditSheet = false
     @State private var isFavorited: Bool
     @State private var favCount: Int
+    @State private var selectedLayer: MapLayerMode = .standard
     
     init(route: Route) {
         self.route = route
@@ -668,12 +669,20 @@ struct RouteDetailView: View {
             VStack(alignment: .leading, spacing: 0) {
                 // 地图视图（立即显示，不等待加载）
                 ZStack(alignment: .bottomLeading) {
-                    RouteMapView(region: $region, coordinates: routeCoordinates, routeName: route.name)
+                    RouteMapView(region: $region, coordinates: routeCoordinates, routeName: route.name, selectedLayer: selectedLayer)
                         .frame(height: 300)
                         .onAppear {
                             isMapReady = true
                         }
 
+                    // 图层切换按钮（右下角）
+                    HStack {
+                        Spacer()
+                        MapLayerToggle(selectedLayer: $selectedLayer)
+                            .padding(.trailing, 12)
+                            .padding(.bottom, 48)
+                    }
+                    
                     // 预览路线按钮（在地图左下角）
                     Button(action: {
                         showNavigation = true
@@ -1041,74 +1050,78 @@ struct RouteDetailView: View {
     }
 }
 
-// MARK: - 路线地图视图
+// MARK: - 路线地图视图（高德版，支持 OCM 等高线叠加）
 struct RouteMapView: UIViewRepresentable {
     @Binding var region: MKCoordinateRegion
     let coordinates: [CLLocationCoordinate2D]
     let routeName: String
+    let selectedLayer: MapLayerMode
     
-    init(region: Binding<MKCoordinateRegion>, coordinates: [CLLocationCoordinate2D], routeName: String = "路线") {
+    init(region: Binding<MKCoordinateRegion>, coordinates: [CLLocationCoordinate2D], routeName: String = "路线", selectedLayer: MapLayerMode = .standard) {
         self._region = region
         self.coordinates = coordinates
         self.routeName = routeName
+        self.selectedLayer = selectedLayer
     }
     
-    func makeUIView(context: Context) -> MKMapView {
-        let mapView = MKMapView()
+    func makeUIView(context: Context) -> MAMapView {
+        AMapServices.shared().apiKey = AppConfig.amapAPIKey
+        
+        let mapView = MAMapView()
         mapView.delegate = context.coordinator
-        mapView.region = region
         
-        // 设置地图类型（标准地图）
         mapView.mapType = .standard
-        
-        // 启用交互
         mapView.isZoomEnabled = true
         mapView.isScrollEnabled = true
         mapView.isRotateEnabled = true
         mapView.showsUserLocation = false
         mapView.showsCompass = true
         mapView.showsScale = true
-        mapView.showsBuildings = true
-        mapView.showsTraffic = false
+        mapView.userTrackingMode = .none
+        
+        // 设置初始区域
+        mapView.setRegion(MACoordinateRegion(
+            center: region.center,
+            span: MACoordinateSpan(
+                latitudeDelta: region.span.latitudeDelta,
+                longitudeDelta: region.span.longitudeDelta
+            )
+        ), animated: false)
         
         return mapView
     }
     
-    func updateUIView(_ mapView: MKMapView, context: Context) {
-        // 更新地图区域
+    func updateUIView(_ mapView: MAMapView, context: Context) {
+        let coordinator = context.coordinator
+        
+        // 更新区域
         let currentCenter = mapView.region.center
         let targetCenter = region.center
-        
-        // 如果区域变化较大，更新地图
         let latDiff = abs(currentCenter.latitude - targetCenter.latitude)
         let lonDiff = abs(currentCenter.longitude - targetCenter.longitude)
         if latDiff > 0.001 || lonDiff > 0.001 {
-            mapView.setRegion(region, animated: true)
+            mapView.setRegion(MACoordinateRegion(
+                center: targetCenter,
+                span: MACoordinateSpan(
+                    latitudeDelta: region.span.latitudeDelta,
+                    longitudeDelta: region.span.longitudeDelta
+                )
+            ), animated: true)
         }
         
-        // 清除旧的覆盖物和注释
-        mapView.removeOverlays(mapView.overlays)
-        mapView.removeAnnotations(mapView.annotations)
+        // 更新路线覆盖物（仅在坐标变化时）
+        let coordsChanged = coordinator.lastPreviewCoords.count != coordinates.count
+            || (coordinates.count > 0 && (coordinator.lastPreviewCoords.first?.latitude != coordinates.first?.latitude
+                || coordinator.lastPreviewCoords.last?.longitude != coordinates.last?.longitude))
+        if coordsChanged {
+            coordinator.updatePreviewOverlays(mapView: mapView, coordinates: coordinates, routeName: routeName)
+            coordinator.lastPreviewCoords = coordinates
+        }
         
-        // 添加路线
-        if !coordinates.isEmpty {
-            let polyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
-            mapView.addOverlay(polyline)
-            
-            // 添加起点标记
-            let startAnnotation = MKPointAnnotation()
-            startAnnotation.coordinate = coordinates.first!
-            startAnnotation.title = "起点"
-            startAnnotation.subtitle = routeName
-            mapView.addAnnotation(startAnnotation)
-            
-            // 添加终点标记
-            if coordinates.count > 1 {
-                let endAnnotation = MKPointAnnotation()
-                endAnnotation.coordinate = coordinates.last!
-                endAnnotation.title = "终点"
-                mapView.addAnnotation(endAnnotation)
-            }
+        // 更新 OCM 图层
+        if coordinator.lastPreviewLayer != selectedLayer {
+            coordinator.updatePreviewLayer(mapView: mapView, selectedLayer: selectedLayer)
+            coordinator.lastPreviewLayer = selectedLayer
         }
     }
     
@@ -1116,42 +1129,74 @@ struct RouteMapView: UIViewRepresentable {
         Coordinator()
     }
     
-    class Coordinator: NSObject, MKMapViewDelegate {
-        var isFirstLoad = true
+    class Coordinator: NSObject, MAMapViewDelegate {
+        var lastPreviewCoords: [CLLocationCoordinate2D] = []
+        var lastPreviewLayer: MapLayerMode = .standard
         
-        func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-            if let polyline = overlay as? MKPolyline {
-                let renderer = MKPolylineRenderer(polyline: polyline)
-                renderer.strokeColor = UIColor.systemOrange
-                renderer.lineWidth = 4
-                return renderer
+        func updatePreviewOverlays(mapView: MAMapView, coordinates: [CLLocationCoordinate2D], routeName: String) {
+            mapView.removeOverlays(mapView.overlays)
+            mapView.removeAnnotations(mapView.annotations)
+            
+            guard !coordinates.isEmpty else { return }
+            
+            // 路线
+            var coords = coordinates
+            if let polyline = MAPolyline(coordinates: &coords, count: UInt(coords.count)) {
+                mapView.add(polyline)
             }
-            return MKOverlayRenderer(overlay: overlay)
+            
+            // 起点
+            let startAnnotation = MAPointAnnotation()
+            startAnnotation.coordinate = coordinates.first!
+            startAnnotation.title = "起点"
+            mapView.addAnnotation(startAnnotation)
+            
+            // 终点
+            if coordinates.count > 1 {
+                let endAnnotation = MAPointAnnotation()
+                endAnnotation.coordinate = coordinates.last!
+                endAnnotation.title = "终点"
+                mapView.addAnnotation(endAnnotation)
+            }
         }
         
-        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-            let identifier = "RouteAnnotation"
-            
-            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+        func updatePreviewLayer(mapView: MAMapView, selectedLayer: MapLayerMode) {
+            let existingOCM = mapView.overlays.filter { ($0 as? OCMTileOverlay) != nil }
+            if !existingOCM.isEmpty {
+                mapView.removeOverlays(existingOCM)
+            }
+            if selectedLayer == .contour {
+                mapView.add(OCMTileOverlay())
+            }
+        }
+        
+        func mapView(_ mapView: MAMapView!, rendererFor overlay: MAOverlay!) -> MAOverlayRenderer! {
+            if let polyline = overlay as? MAPolyline {
+                let renderer = MAPolylineRenderer(overlay: polyline)
+                renderer?.strokeColor = UIColor.systemOrange
+                renderer?.lineWidth = 4
+                return renderer
+            }
+            return nil
+        }
+        
+        func mapView(_ mapView: MAMapView!, viewFor annotation: MAAnnotation!) -> MAAnnotationView! {
+            let identifier = "RoutePreviewAnnotation"
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MAPinAnnotationView
             
             if annotationView == nil {
-                annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                annotationView = MAPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             } else {
                 annotationView?.annotation = annotation
             }
             
-            // 设置标记样式
-            if let markerView = annotationView as? MKMarkerAnnotationView {
-                if annotation.title == "起点" {
-                    markerView.markerTintColor = UIColor.systemGreen
-                    markerView.glyphImage = UIImage(systemName: "play.fill")
-                } else if annotation.title == "终点" {
-                    markerView.markerTintColor = UIColor.systemRed
-                    markerView.glyphImage = UIImage(systemName: "flag.fill")
-                }
-                markerView.canShowCallout = true
+            if annotation.title == "起点" {
+                annotationView?.pinColor = .green
+            } else if annotation.title == "终点" {
+                annotationView?.pinColor = .red
             }
             
+            annotationView?.canShowCallout = true
             return annotationView
         }
     }

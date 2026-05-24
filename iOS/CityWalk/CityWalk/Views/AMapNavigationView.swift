@@ -8,6 +8,7 @@ struct AMapNavigationView: UIViewRepresentable {
     let currentHeading: Double
     let currentSegmentIndex: Int
     let isOffRoute: Bool
+    var selectedLayer: MapLayerMode = .standard
     
     func makeUIView(context: Context) -> MAMapView {
         let mapView = MAMapView()
@@ -36,6 +37,7 @@ struct AMapNavigationView: UIViewRepresentable {
         let needsFullUpdate = coordinator.lastRouteCoordinatesCount != routeCoordinates.count
         let needsProgressUpdate = coordinator.lastSegmentIndex != currentSegmentIndex
         let needsLocationUpdate = coordinator.lastLocation != currentLocation
+        let needsLayerUpdate = coordinator.lastSelectedLayer != selectedLayer
         
         if needsFullUpdate {
             coordinator.updateOverlays(mapView: mapView, routeCoordinates: routeCoordinates, currentSegmentIndex: currentSegmentIndex)
@@ -45,6 +47,12 @@ struct AMapNavigationView: UIViewRepresentable {
             // 只更新已完成路线的覆盖物
             coordinator.updateProgressOverlay(mapView: mapView, routeCoordinates: routeCoordinates, currentSegmentIndex: currentSegmentIndex)
             coordinator.lastSegmentIndex = currentSegmentIndex
+        }
+        
+        // 更新 OCM 图层
+        if needsLayerUpdate || needsFullUpdate {
+            coordinator.updateLayer(mapView: mapView, selectedLayer: selectedLayer)
+            coordinator.lastSelectedLayer = selectedLayer
         }
         
         // 更新当前位置标注
@@ -65,9 +73,25 @@ struct AMapNavigationView: UIViewRepresentable {
         var lastRouteCoordinatesCount: Int = -1
         var lastSegmentIndex: Int = -1
         var lastLocation: CLLocationCoordinate2D?
+        var lastSelectedLayer: MapLayerMode = .standard
         
         private let fullRouteOverlayKey = "fullRoute"
         private let completedRouteOverlayKey = "completedRoute"
+        private let ocmOverlayKey = "ocmContour"
+        
+        func updateLayer(mapView: MAMapView, selectedLayer: MapLayerMode) {
+            // 移除旧的 OCM overlay
+            let existingOCM = mapView.overlays.filter { ($0 as? OCMTileOverlay) != nil }
+            if !existingOCM.isEmpty {
+                mapView.removeOverlays(existingOCM)
+            }
+            
+            // 添加新的 OCM overlay
+            if selectedLayer == .contour {
+                let ocmOverlay = OCMTileOverlay()
+                mapView.add(ocmOverlay)
+            }
+        }
         
         func updateOverlays(mapView: MAMapView, routeCoordinates: [CLLocationCoordinate2D], currentSegmentIndex: Int) {
             mapView.removeOverlays(mapView.overlays)
