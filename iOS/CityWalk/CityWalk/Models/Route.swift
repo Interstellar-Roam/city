@@ -1,6 +1,14 @@
 import Foundation
 import CoreLocation
 
+// MARK: - 动态 CodingKey（用于兼容 "_id" / "id" 两种字段名）
+private struct DynamicCodingKey: CodingKey {
+    var stringValue: String
+    var intValue: Int? { nil }
+    init?(stringValue: String) { self.stringValue = stringValue }
+    init?(intValue: Int) { nil }
+}
+
 // MARK: - 路线模型
 struct Route: Identifiable, Codable, Hashable {
     let id: String
@@ -23,7 +31,7 @@ struct Route: Identifiable, Codable, Hashable {
     let completionsCount: Int?
     let isPublished: Bool?
     let score: Double?
-    
+
     enum CodingKeys: String, CodingKey {
         case id = "_id"
         case name, description, distance, difficulty, tags, city, district, score
@@ -37,6 +45,38 @@ struct Route: Identifiable, Codable, Hashable {
         case viewsCount = "views_count"
         case completionsCount = "completions_count"
         case isPublished = "is_published"
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        // 兼容 "_id" 和 "id" 两种格式：后端 RouteDetail.model_dump() 输出 "id"，MongoDB 原始数据用 "_id"
+        if let underscoreId = try? container.decodeIfPresent(String.self, forKey: .id) {
+            // CodingKeys.id = "_id"，从 JSON 的 "_id" 读取
+            id = underscoreId
+        } else {
+            // fallback: 从 JSON 的 "id" 读取（使用动态 key）
+            let anyContainer = try decoder.container(keyedBy: DynamicCodingKey.self)
+            id = (try? anyContainer.decodeIfPresent(String.self, forKey: DynamicCodingKey(stringValue: "id")!)) ?? ""
+        }
+        name = try container.decode(String.self, forKey: .name)
+        description = try container.decodeIfPresent(String.self, forKey: .description)
+        distance = try container.decode(Double.self, forKey: .distance)
+        duration = try container.decodeIfPresent(Int.self, forKey: .duration)
+        difficulty = try container.decodeIfPresent(Difficulty.self, forKey: .difficulty)
+        tags = try container.decodeIfPresent([String].self, forKey: .tags)
+        coverImage = try container.decodeIfPresent(String.self, forKey: .coverImage)
+        points = try container.decodeIfPresent([RoutePoint].self, forKey: .points)
+        pois = try container.decodeIfPresent([POI].self, forKey: .pois)
+        createdAt = try container.decodeIfPresent(Date.self, forKey: .createdAt)
+        createdBy = try container.decodeIfPresent(String.self, forKey: .createdBy)
+        city = try container.decodeIfPresent(String.self, forKey: .city)
+        district = try container.decodeIfPresent(String.self, forKey: .district)
+        elevationGain = try container.decodeIfPresent(Double.self, forKey: .elevationGain)
+        favoritesCount = try container.decodeIfPresent(Int.self, forKey: .favoritesCount)
+        viewsCount = try container.decodeIfPresent(Int.self, forKey: .viewsCount)
+        completionsCount = try container.decodeIfPresent(Int.self, forKey: .completionsCount)
+        isPublished = try container.decodeIfPresent(Bool.self, forKey: .isPublished)
+        score = try container.decodeIfPresent(Double.self, forKey: .score)
     }
     
     // 格式化距离显示

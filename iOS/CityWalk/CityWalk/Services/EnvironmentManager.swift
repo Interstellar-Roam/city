@@ -25,7 +25,7 @@ class EnvironmentManager {
     var current: Environment {
         get {
             let raw = defaults.string(forKey: envKey) ?? ""
-            return Environment(rawValue: raw) ?? .production
+            return Environment(rawValue: raw) ?? .test
         }
         set {
             defaults.set(newValue.rawValue, forKey: envKey)

@@ -39,6 +39,9 @@ class AuthViewModel: ObservableObject {
             } else {
                 errorMessage = response.message
             }
+        } catch let decodingError as DecodingError {
+            errorMessage = "验证码解析错误: \(decodingError.localizedDescription)"
+            print("SendCode DecodingError: \(decodingError)")
         } catch {
             errorMessage = error.localizedDescription
         }
@@ -60,6 +63,9 @@ class AuthViewModel: ObservableObject {
         do {
             let _ = try await AuthService.shared.login(phone: phone, code: code)
             isLoggedIn = true
+        } catch let decodingError as DecodingError {
+            errorMessage = "登录解析错误: \(decodingError.localizedDescription)"
+            print("Login DecodingError: \(decodingError)")
         } catch {
             errorMessage = error.localizedDescription
         }

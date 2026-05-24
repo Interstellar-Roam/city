@@ -91,8 +91,8 @@ class AuthService:
         payload = {
             "sub": user_id,
             "phone": phone,
-            "iat": datetime.now(),
-            "exp": datetime.now() + timedelta(minutes=self.settings.access_token_expire_minutes)
+            "iat": datetime.utcnow(),
+            "exp": datetime.utcnow() + timedelta(minutes=self.settings.access_token_expire_minutes)
         }
         return jwt.encode(payload, self.settings.jwt_secret, algorithm=self.settings.jwt_algorithm)
 

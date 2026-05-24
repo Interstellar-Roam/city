@@ -153,6 +153,7 @@ class RouteListItem(BaseModel):
     difficulty: str
     tags: list[str]
     created_at: datetime
+    created_by: str | None = None
 
     class Config:
         populate_by_name = True
@@ -185,6 +186,9 @@ class RouteDetail(BaseModel):
     tags: list[str]
     created_at: datetime
     updated_at: datetime
+    created_by: str | None = None
+    is_published: bool = True
+    score: float | None = None
 
     class Config:
         populate_by_name = True

@@ -75,6 +75,7 @@ class RouteService:
         city: str | None = None,
         difficulty: str | None = None,
         tags: list[str] | None = None,
+        created_by: str | None = None,
         sort_by: str = "created_at",
         sort_order: int = -1,
         near_location: tuple[float, float] | None = None,  # (lon, lat)
@@ -91,6 +92,8 @@ class RouteService:
             query["difficulty"] = difficulty
         if tags:
             query["tags"] = {"$in": tags}
+        if created_by:
+            query["created_by"] = created_by
 
         # 位置过滤
         if near_location:

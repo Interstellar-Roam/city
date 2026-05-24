@@ -1,4 +1,7 @@
 import Foundation
+import os.log
+
+private let authLogger = Logger(subsystem: "com.citywalk.app", category: "AuthService")
 
 /// 认证网络服务
 class AuthService {
@@ -9,30 +12,67 @@ class AuthService {
 
     private init() {}
 
+    // MARK: - 响应调试
+
+    private func logResponse(_ data: Data, response: URLResponse?, function: String = #function) {
+        let httpStatus = (response as? HTTPURLResponse)?.statusCode ?? -1
+        let body = String(data: data, encoding: .utf8) ?? "(non-utf8)"
+        authLogger.error("[\(function)] HTTP \(httpStatus) | body: \(body)")
+    }
+
     // MARK: - 发送验证码
 
     func sendCode(phone: String) async throws -> APIEmptyResponse {
-        let url = URL(string: "\(baseURL)/auth/send-code")!
+        let urlStr = "\(baseURL)/auth/send-code"
+        let url = URL(string: urlStr)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try JSONEncoder().encode(SendCodeRequest(phone: phone))
 
-        let (data, _) = try await URLSession.shared.data(for: request)
-        return try decoder.decode(APIEmptyResponse.self, from: data)
+        let (data, urlResponse) = try await URLSession.shared.data(for: request)
+        logResponse(data, response: urlResponse)
+        let httpStatus = (urlResponse as? HTTPURLResponse)?.statusCode ?? -1
+        let rawBody = String(data: data, encoding: .utf8) ?? "(empty)"
+
+        guard httpStatus == 200 else {
+            throw AuthError.networkError("请求失败[\(urlStr) HTTP\(httpStatus)]: \(rawBody.prefix(100))")
+        }
+
+        do {
+            return try decoder.decode(APIEmptyResponse.self, from: data)
+        } catch {
+            authLogger.error("[sendCode] decode failed: \(error)")
+            throw AuthError.networkError("验证码解析失败: \(rawBody.prefix(200))")
+        }
     }
 
     // MARK: - 登录
 
     func login(phone: String, code: String) async throws -> TokenPair {
-        let url = URL(string: "\(baseURL)/auth/login")!
+        let urlStr = "\(baseURL)/auth/login"
+        let url = URL(string: urlStr)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try JSONEncoder().encode(LoginRequest(phone: phone, code: code))
 
-        let (data, _) = try await URLSession.shared.data(for: request)
-        let response = try decoder.decode(APIResponse<TokenPair>.self, from: data)
+        let (data, urlResponse) = try await URLSession.shared.data(for: request)
+        logResponse(data, response: urlResponse)
+        let httpStatus = (urlResponse as? HTTPURLResponse)?.statusCode ?? -1
+        let rawBody = String(data: data, encoding: .utf8) ?? "(empty)"
+
+        guard httpStatus == 200 else {
+            throw AuthError.networkError("请求失败[\(urlStr) HTTP\(httpStatus)]: \(rawBody.prefix(100))")
+        }
+
+        let response: APIResponse<TokenPair>
+        do {
+            response = try decoder.decode(APIResponse<TokenPair>.self, from: data)
+        } catch {
+            authLogger.error("[login] decode failed: \(error)")
+            throw AuthError.networkError("登录解析失败: \(rawBody.prefix(200))")
+        }
 
         guard response.code == 0, let tokenPair = response.data else {
             throw AuthError.serverError(response.code, response.message)
@@ -62,8 +102,17 @@ class AuthService {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try JSONEncoder().encode(RefreshRequest(refreshToken: refresh))
 
-        let (data, _) = try await URLSession.shared.data(for: request)
-        let response = try decoder.decode(APIResponse<TokenPair>.self, from: data)
+        let (data, urlResponse) = try await URLSession.shared.data(for: request)
+        logResponse(data, response: urlResponse)
+        let httpStatus = (urlResponse as? HTTPURLResponse)?.statusCode ?? -1
+        let rawBody = String(data: data, encoding: .utf8) ?? "(empty)"
+
+        let response: APIResponse<TokenPair>
+        do {
+            response = try decoder.decode(APIResponse<TokenPair>.self, from: data)
+        } catch {
+            throw AuthError.networkError("刷新Token解析失败[HTTP\(httpStatus)]: \(rawBody.prefix(200))")
+        }
 
         guard response.code == 0, let tokenPair = response.data else {
             // 刷新失败，清除 Token

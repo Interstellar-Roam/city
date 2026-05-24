@@ -17,7 +17,7 @@ class APIService {
 
     // MARK: - 认证请求构建
 
-    private func authenticatedRequest(for url: URL, method: String = "GET", body: Data? = nil) throws -> URLRequest {
+    func authenticatedRequest(for url: URL, method: String = "GET", body: Data? = nil) throws -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -33,7 +33,7 @@ class APIService {
     // MARK: - 响应解析
 
     /// 解析新格式：{"code": 0, "message": "ok", "data": {...}}
-    private func decodeResponse<T: Codable>(_ type: T.Type, from data: Data) throws -> APIResponse<T> {
+    func decodeResponse<T: Codable>(_ type: T.Type, from data: Data) throws -> APIResponse<T> {
         let decoder = JSONDecoder.routeDecoder
         return try decoder.decode(APIResponse<T>.self, from: data)
     }
@@ -58,6 +58,26 @@ class APIService {
             throw APIError.networkError(response.message)
         }
         return paginated.items
+    }
+
+    // MARK: - 获取我的路线列表
+    func fetchMyRoutes(page: Int = 1, pageSize: Int = 20) async throws -> PaginatedData {
+        var urlComponents = URLComponents(string: "\(baseURL)/routes/mine")!
+        urlComponents.queryItems = [
+            URLQueryItem(name: "page", value: String(page)),
+            URLQueryItem(name: "page_size", value: String(pageSize))
+        ]
+
+        guard let url = urlComponents.url else { throw APIError.invalidURL }
+        let request = try authenticatedRequest(for: url)
+
+        let (data, _) = try await URLSession.shared.data(for: request)
+        let response = try decodeResponse(PaginatedData.self, from: data)
+
+        guard response.code == 0, let paginated = response.data else {
+            throw APIError.networkError(response.message)
+        }
+        return paginated
     }
 
     // MARK: - 获取路线详情

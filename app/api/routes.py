@@ -45,45 +45,68 @@ async def create_route(
     - **start_location**: 起点坐标
     """
     if not user_id:
-        return JSONResponse(status_code=200, content=APIResponse(code=2001, message="未登录").model_dump())
+        return APIResponse(code=2001, message="未登录，无法创建路线").model_dump()
     route = await service.create_route(route_data, user_id)
-    return APIResponse(data=route).model_dump()
+    # 统一使用 RouteDetail schema 序列化，确保字段名一致（_id → id）
+    route_detail = RouteDetail(**route)
+    return APIResponse(data=route_detail.model_dump()).model_dump()
 
 
-@router.get("", response_model=PaginatedRoutes, summary="获取路线列表")
+@router.get("", summary="获取路线列表")
 async def list_routes(
     page: int = Query(1, ge=1, description="页码"),
     page_size: int = Query(20, ge=1, le=100, description="每页数量"),
     city: str | None = Query(None, description="城市"),
     difficulty: str | None = Query(None, description="难度"),
     tags: str | None = Query(None, description="标签（逗号分隔）"),
+    created_by: str | None = Query(None, description="创建者用户ID"),
     sort_by: str = Query("created_at", description="排序字段"),
     sort_order: int = Query(-1, ge=-1, le=1, description="排序方向"),
     longitude: float | None = Query(None, description="经度（用于附近搜索）"),
     latitude: float | None = Query(None, description="纬度（用于附近搜索）"),
     max_distance: float = Query(5000, description="最大距离（米）"),
-    _user_id: str = Depends(get_current_user),
     service: RouteService = Depends(get_route_service)
-) -> PaginatedRoutes:
-    """
-    分页获取路线列表
-
-    支持按城市、难度、标签筛选，支持按距离排序
-    """
+) -> dict[str, Any]:
+    """分页获取路线列表"""
     tags_list = tags.split(",") if tags else None
     near_location = (longitude, latitude) if longitude and latitude else None
 
-    return await service.list_routes(
+    result = await service.list_routes(
         page=page,
         page_size=page_size,
         city=city,
         difficulty=difficulty,
         tags=tags_list,
+        created_by=created_by,
         sort_by=sort_by,
         sort_order=sort_order,
         near_location=near_location,
         max_distance=max_distance
     )
+    return APIResponse(data=result).model_dump()
+
+
+@router.get("/mine", summary="获取我的路线")
+async def list_my_routes(
+    page: int = Query(1, ge=1, description="页码"),
+    page_size: int = Query(20, ge=1, le=100, description="每页数量"),
+    sort_by: str = Query("created_at", description="排序字段"),
+    sort_order: int = Query(-1, ge=-1, le=1, description="排序方向"),
+    user_id: str = Depends(get_current_user),
+    service: RouteService = Depends(get_route_service)
+) -> dict[str, Any]:
+    """获取当前登录用户创建的路线"""
+    if not user_id:
+        return APIResponse(code=2001, message="未登录").model_dump()
+
+    result = await service.list_routes(
+        page=page,
+        page_size=page_size,
+        created_by=user_id,
+        sort_by=sort_by,
+        sort_order=sort_order,
+    )
+    return APIResponse(data=result).model_dump()
 
 
 @router.get("/search", summary="关键词搜索路线")
@@ -100,21 +123,17 @@ async def search_routes(
     return APIResponse(data={"total": len(results), "items": results}).model_dump()
 
 
-@router.get("/{route_id}", response_model=RouteDetail, summary="获取路线详情")
+@router.get("/{route_id}", summary="获取路线详情")
 async def get_route(
     route_id: str,
     lightweight: bool = Query(True, description="返回精简版轨迹点数据"),
     service: RouteService = Depends(get_route_service)
-) -> RouteDetail:
-    """获取指定路线的详细信息
-    
-    Args:
-        lightweight: 是否返回精简版轨迹点（只包含location、elevation、timestamp）
-    """
+) -> dict[str, Any]:
+    """获取指定路线的详细信息"""
     route = await service.get_route_by_id(route_id)
     if not route:
-        raise HTTPException(status_code=404, detail="路线不存在")
-    
+        return APIResponse(code=3001, message="路线不存在").model_dump()
+
     # 精简轨迹点数据
     if lightweight and "points" in route:
         route["points"] = [
@@ -125,8 +144,8 @@ async def get_route(
             }
             for p in route["points"]
         ]
-    
-    return RouteDetail(**route)
+
+    return APIResponse(data=RouteDetail(**route).model_dump()).model_dump()
 
 
 @router.put("/{route_id}", response_model=dict[str, Any], summary="更新路线")

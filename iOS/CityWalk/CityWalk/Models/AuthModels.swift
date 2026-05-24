@@ -50,8 +50,16 @@ struct APIResponse<T: Codable>: Codable {
     let data: T?
 }
 
-/// 空数据响应（仅 code + message）
+/// 简单数据响应（code + message，忽略 data 字段）
 struct APIEmptyResponse: Codable {
     let code: Int
     let message: String
+    let data: ExpiresData?
+
+    struct ExpiresData: Codable {
+        let expiresIn: Int?
+        enum CodingKeys: String, CodingKey {
+            case expiresIn = "expires_in"
+        }
+    }
 }

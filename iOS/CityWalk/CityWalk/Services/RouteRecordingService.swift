@@ -381,10 +381,6 @@ extension APIService {
     func uploadRoute(trackData: TrackData, name: String, description: String? = nil, difficulty: String = "medium", tags: [String] = []) async throws -> Route {
         let url = URL(string: "\(AppConfig.apiBaseURL)/routes")!
         
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
         let body = trackData.toRouteCreateRequest(
             name: name,
             description: description,
@@ -392,25 +388,24 @@ extension APIService {
             tags: tags
         )
         
-        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+        let bodyData = try? JSONSerialization.data(withJSONObject: body)
+        var request = try authenticatedRequest(for: url, method: "POST", body: bodyData)
         
         let (data, response) = try await URLSession.shared.data(for: request)
         
         guard let httpResponse = response as? HTTPURLResponse,
               httpResponse.statusCode == 200 || httpResponse.statusCode == 201 else {
             let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 0
-            let body = String(data: data, encoding: .utf8) ?? ""
-            print("❌ 上传路线失败: status=\(statusCode), body=\(body)")
+            let responseBody = String(data: data, encoding: .utf8) ?? ""
+            print("❌ 上传路线失败: status=\(statusCode), body=\(responseBody)")
             throw APIError.invalidResponse
         }
         
-        // 返回的格式: {"success": true, "data": {...}}
-        if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-           let routeData = json["data"] as? [String: Any] {
-            let routeJsonData = try JSONSerialization.data(withJSONObject: routeData)
-            return try JSONDecoder.routeDecoder.decode(Route.self, from: routeJsonData)
+        // 返回格式: {"code": 0, "message": "ok", "data": {...}}
+        let apiResponse = try decodeResponse(Route.self, from: data)
+        guard apiResponse.code == 0, let route = apiResponse.data else {
+            throw APIError.networkError(apiResponse.message)
         }
-        
-        throw APIError.decodingError
+        return route
     }
 }
