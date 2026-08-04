@@ -1,12 +1,11 @@
 """知识库搜索工具"""
 
 import json
-from typing import Any
 
 from loguru import logger
 
-from app.agent.tools import BaseTool
 from app.agent.memory import KnowledgeBaseClient
+from app.agent.tools import BaseTool
 
 
 class KnowledgeSearchTool(BaseTool):

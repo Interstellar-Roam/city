@@ -2,7 +2,7 @@
 
 import json
 from abc import ABC, abstractmethod
-from typing import Any, Callable
+from typing import Any
 
 from loguru import logger
 
@@ -40,14 +40,13 @@ class ToolRegistry:
 
     def _register_default_tools(self) -> None:
         """注册默认工具"""
-        from app.agent.tools.route_search import RouteSearchTool
         from app.agent.tools.knowledge_search import KnowledgeSearchTool
-        from app.agent.tools.user_preference import UserPreferenceTool, UpdatePreferenceTool
+        from app.agent.tools.route_search import RouteSearchTool
+        from app.agent.tools.user_preference import UserPreferenceTool
 
         self.register(RouteSearchTool())
         self.register(KnowledgeSearchTool())
         self.register(UserPreferenceTool())
-        self.register(UpdatePreferenceTool())
 
     def register(self, tool: BaseTool) -> None:
         """注册工具"""

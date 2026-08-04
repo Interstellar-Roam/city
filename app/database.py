@@ -44,7 +44,7 @@ class Database:
         """创建数据库索引"""
         db = cls.get_db()
         # 路线索引
-        await db.routes.create_index([("location", "2dsphere")])
+        await db.routes.create_index([("start_location", "2dsphere")])
         # 删除旧文本索引（如果存在）
         try:
             await db.routes.drop_index("name_text_description_text")
@@ -76,6 +76,15 @@ class Database:
 
         # 用户偏好索引
         await db.user_preferences.create_index([("user_id", 1)], unique=True)
+
+        # 用户与公域地点的贡献关系（地点本身在 PostGIS）
+        await db.user_place_contributions.create_index([("user_id", 1), ("created_at", -1)])
+        await db.user_place_contributions.create_index([("place_id", 1), ("operation", 1)])
+        await db.user_place_contributions.create_index([("status", 1), ("updated_at", -1)])
+
+        # 用户个性化路线、起点和推荐文本均为 MongoDB 私域数据
+        await db.user_route_plans.create_index([("user_id", 1), ("created_at", -1)])
+        await db.user_route_plans.create_index([("expires_at", 1)], expireAfterSeconds=0)
 
         # 认证索引
         await db.users.create_index([("phone", 1)], unique=True)

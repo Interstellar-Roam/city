@@ -6,10 +6,10 @@ from typing import Any, AsyncGenerator
 from loguru import logger
 from openai import AsyncOpenAI
 
-from app.config import get_settings
 from app.agent.context import ContextBuilder
-from app.agent.memory import MemoryStore, KnowledgeBaseClient
+from app.agent.memory import KnowledgeBaseClient, MemoryStore
 from app.agent.tools import ToolRegistry
+from app.config import get_settings
 from app.database import Database
 from app.services.session_service import SessionService
 
@@ -207,7 +207,7 @@ class AgentLoop:
             # 检查是否有工具调用
             if tool_calls_data:
                 tool_calls = list(tool_calls_data.values())
-                
+
                 # 构建助手消息
                 messages = self.context.add_assistant_message(
                     messages,
@@ -219,23 +219,60 @@ class AgentLoop:
                 for tc in tool_calls:
                     func_name = tc["function"]["name"]
                     func_args = tc["function"]["arguments"]
-                    
+
                     yield {
                         "type": "tool_call",
                         "name": func_name,
                         "arguments": func_args
                     }
 
-                    # 执行工具
+                    try:
+                        parsed_args = json.loads(func_args or "{}")
+                        if not isinstance(parsed_args, dict):
+                            raise ValueError("工具参数必须是 JSON 对象")
+                    except (json.JSONDecodeError, ValueError) as exc:
+                        result = json.dumps(
+                            {"success": False, "error": f"无效工具参数: {exc}"},
+                            ensure_ascii=False,
+                        )
+                        messages = self.context.add_tool_result(
+                            messages, tc["id"], func_name, result
+                        )
+                        yield {
+                            "type": "tool_result",
+                            "name": func_name,
+                            "result": result,
+                            "routes": None,
+                        }
+                        continue
+                    if func_name == "get_user_preference":
+                        if user_id == "anonymous":
+                            result = json.dumps(
+                                {"success": False, "error": "authentication required"},
+                                ensure_ascii=False,
+                            )
+                            messages = self.context.add_tool_result(
+                                messages, tc["id"], func_name, result
+                            )
+                            yield {
+                                "type": "tool_result",
+                                "name": func_name,
+                                "result": result,
+                                "routes": None,
+                            }
+                            continue
+                        parsed_args["user_id"] = user_id
+
+                    # 执行工具；用户身份只能由服务端注入
                     result = await self.tools.execute(
                         func_name,
-                        json.loads(func_args)
+                        parsed_args,
                     )
 
                     # 更新用户偏好（如果是搜索工具）
                     if func_name == "search_routes" and self.session_service and user_id != "anonymous":
                         try:
-                            args = json.loads(func_args)
+                            args = parsed_args
                             await self.session_service.update_user_preference(
                                 user_id=user_id,
                                 city=args.get("city"),
@@ -289,25 +326,25 @@ class AgentLoop:
         yield {"type": "done"}
 
     def _extract_recommended_routes(
-        self, 
-        content: str, 
+        self,
+        content: str,
         all_routes: list[dict[str, Any]]
     ) -> list[dict[str, Any]]:
         """从 AI 回复中提取推荐的路线"""
         import re
-        
+
         # 提取路线名称的多种格式：
         # 1. ### 数字️⃣ 名称（标题格式）
         # 2. | **名称** |（表格加粗格式）
         # 3. | 数字 | 名称 |（表格行格式）
-        
+
         route_names = []
-        
+
         # 方式1: 标题格式
         pattern1 = r'#{2,3}\s*\d+️⃣\s*([^\n|#]+?)(?=\n|\|)'
         matches1 = re.findall(pattern1, content)
         route_names.extend([m.strip() for m in matches1 if m.strip() and len(m.strip()) > 2])
-        
+
         # 方式2: 表格加粗格式 | **名称** |
         pattern2 = r'\|\s*\*\*([^*|]+?)\*\*\s*\|'
         matches2 = re.findall(pattern2, content)
@@ -321,7 +358,7 @@ class AgentLoop:
             if name and len(name) > 2:
                 table_names.append(name)
         route_names.extend(table_names)
-        
+
         # 方式3: 表格行格式 | 数字 | 名称 |
         pattern3 = r'\|\s*\d+\s*\|\s*([^|]+?)\s*\|'
         matches3 = re.findall(pattern3, content)
@@ -329,37 +366,37 @@ class AgentLoop:
             name = m.strip()
             if name and len(name) > 2 and name not in route_names:
                 route_names.append(name)
-        
+
         # 去重
         route_names = list(dict.fromkeys(route_names))
-        
+
         logger.info(f"📝 从 AI 回复中提取的路线名称: {route_names}")
         logger.info(f"📊 数据库中的路线: {[r.get('name') for r in all_routes]}")
-        
+
         if not route_names:
             # 如果没有提取到，返回所有路线
             logger.warning("⚠️ 未提取到路线名称，返回所有路线")
             return all_routes
-        
+
         # 匹配路线（使用已匹配集合避免重复）
         recommended = []
         matched_ids = set()  # 记录已匹配的路线ID
-        
+
         for name in route_names:
             name_lower = name.lower()
             logger.info(f"🔍 尝试匹配: '{name}'")
-            
+
             best_match = None
             best_score = 0
-            
+
             for route in all_routes:
                 route_id = route.get("id") or route.get("_id")
                 if route_id in matched_ids:
                     continue
-                
+
                 route_name = route.get("name", "").lower()
                 score = 0
-                
+
                 # 完全匹配
                 if name_lower == route_name:
                     score = 100
@@ -375,7 +412,7 @@ class AgentLoop:
                     # 过滤掉泛词
                     generic_words = {'路线', '户外', '城市', '运动', '公园', '徒步', '跑步', '骑行', '散步', '休闲', '美食'}
                     specific_keywords = [kw for kw in keywords if kw not in generic_words]
-                    
+
                     if specific_keywords:
                         # 关键词子串匹配
                         matched_count = 0
@@ -389,14 +426,14 @@ class AgentLoop:
                                     if len(sub_kw) >= 2 and sub_kw in route_name:
                                         matched_count += 0.5
                                         break
-                        
+
                         if matched_count >= 1:
                             score = int(50 + matched_count * 10)
-                
+
                 if score > best_score:
                     best_score = score
                     best_match = route
-            
+
             if best_match and best_score >= 50:
                 route_id = best_match.get("id") or best_match.get("_id")
                 matched_ids.add(route_id)
@@ -404,7 +441,7 @@ class AgentLoop:
                 logger.info(f"  ✅ 匹配成功 (分数: {best_score}): '{best_match.get('name')}'")
             else:
                 logger.warning(f"  ❌ 未找到匹配的路线 (最高分数: {best_score})")
-        
+
         # 如果没有匹配到，返回所有路线
         result = recommended if recommended else all_routes
         logger.info(f"📤 最终推荐 {len(result)} 条路线: {[r.get('name') for r in result]}")

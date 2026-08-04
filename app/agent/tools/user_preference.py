@@ -1,7 +1,6 @@
 """用户偏好检索工具"""
 
 import json
-from typing import Any
 
 from loguru import logger
 
@@ -18,17 +17,13 @@ class UserPreferenceTool(BaseTool):
     parameters = {
         "type": "object",
         "properties": {
-            "user_id": {
-                "type": "string",
-                "description": "用户ID"
-            },
             "include_history": {
                 "type": "boolean",
                 "description": "是否包含历史会话分析",
                 "default": False
             }
         },
-        "required": ["user_id"]
+        "required": []
     }
 
     async def execute(self, user_id: str, include_history: bool = False) -> str:
@@ -56,74 +51,6 @@ class UserPreferenceTool(BaseTool):
 
         except Exception as e:
             logger.error(f"获取用户偏好错误: {e}")
-            return json.dumps({
-                "success": False,
-                "error": str(e)
-            }, ensure_ascii=False)
-
-
-class UpdatePreferenceTool(BaseTool):
-    """更新用户偏好工具"""
-
-    name = "update_user_preference"
-    description = "更新用户的路线偏好，如喜欢的城市、难度、距离等"
-    parameters = {
-        "type": "object",
-        "properties": {
-            "user_id": {
-                "type": "string",
-                "description": "用户ID"
-            },
-            "city": {
-                "type": "string",
-                "description": "喜欢的城市"
-            },
-            "difficulty": {
-                "type": "string",
-                "enum": ["easy", "medium", "hard"],
-                "description": "偏好难度"
-            },
-            "max_distance": {
-                "type": "number",
-                "description": "偏好最大距离（米）"
-            },
-            "tags": {
-                "type": "array",
-                "items": {"type": "string"},
-                "description": "感兴趣的标签"
-            }
-        },
-        "required": ["user_id"]
-    }
-
-    async def execute(
-        self,
-        user_id: str,
-        city: str | None = None,
-        difficulty: str | None = None,
-        max_distance: float | None = None,
-        tags: list[str] | None = None
-    ) -> str:
-        """执行用户偏好更新"""
-        try:
-            db = Database.get_db()
-            service = SessionService(db)
-
-            await service.update_user_preference(
-                user_id=user_id,
-                city=city,
-                difficulty=difficulty,
-                distance=max_distance,
-                tags=tags
-            )
-
-            return json.dumps({
-                "success": True,
-                "message": "偏好已更新"
-            }, ensure_ascii=False)
-
-        except Exception as e:
-            logger.error(f"更新用户偏好错误: {e}")
             return json.dumps({
                 "success": False,
                 "error": str(e)

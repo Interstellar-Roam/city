@@ -60,10 +60,10 @@ class RouteSearchTool(BaseTool):
         """执行路线搜索"""
         try:
             db = Database.get_db()
-            
+
             # 构建查询条件
             search_query: dict[str, Any] = {"is_published": True}
-            
+
             if city:
                 search_query["city"] = city
             if difficulty:
@@ -72,7 +72,7 @@ class RouteSearchTool(BaseTool):
                 search_query["tags"] = {"$in": tags}
             if max_distance:
                 search_query["distance"] = {"$lte": max_distance}
-            
+
             # 关键词搜索：在名称和描述中匹配
             if query:
                 # 分词处理
@@ -82,10 +82,10 @@ class RouteSearchTool(BaseTool):
                     or_conditions.append({"name": {"$regex": keyword, "$options": "i"}})
                     or_conditions.append({"description": {"$regex": keyword, "$options": "i"}})
                     or_conditions.append({"tags": {"$regex": keyword, "$options": "i"}})
-                
+
                 if or_conditions:
                     search_query["$or"] = or_conditions
-            
+
             # 执行搜索
             cursor = db.routes.find(search_query).limit(limit)
             results = await cursor.to_list(length=limit)

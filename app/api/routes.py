@@ -63,7 +63,7 @@ async def list_routes(
     longitude: float | None = Query(None, description="经度（用于附近搜索）"),
     latitude: float | None = Query(None, description="纬度（用于附近搜索）"),
     max_distance: float = Query(5000, description="最大距离（米）"),
-    user_id: str | None = Depends(get_optional_user),
+    user_id: str = Depends(get_current_user),
     service: RouteService = Depends(get_route_service)
 ) -> dict[str, Any]:
     """分页获取路线列表"""

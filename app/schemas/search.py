@@ -8,7 +8,10 @@ from pydantic import BaseModel, Field
 class SearchRequest(BaseModel):
     """搜索请求"""
     query: str = Field(..., min_length=1, max_length=500)
-    user_id: str | None = None
+    user_id: str | None = Field(
+        None,
+        description="已废弃，服务端始终使用认证 Token 中的用户 ID",
+    )
     session_id: str | None = None
     context: dict[str, Any] | None = None  # 额外的上下文信息
 

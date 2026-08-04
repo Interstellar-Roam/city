@@ -2,12 +2,13 @@
 
 from typing import Any
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends
 from fastapi.responses import StreamingResponse
 from loguru import logger
 
-from app.schemas.search import SearchRequest, SearchResponse
 from app.agent.loop import AgentLoop
+from app.middleware.auth import get_current_user
+from app.schemas.search import SearchRequest, SearchResponse
 
 router = APIRouter(prefix="/search", tags=["智能搜索"])
 
@@ -45,7 +46,10 @@ async def search_routes(request: SearchRequest) -> SearchResponse:
 
 
 @router.post("/stream", summary="流式智能搜索（SSE）")
-async def search_routes_stream(request: SearchRequest) -> StreamingResponse:
+async def search_routes_stream(
+    request: SearchRequest,
+    user_id: str = Depends(get_current_user),
+) -> StreamingResponse:
     """
     流式智能搜索（Server-Sent Events）
 
@@ -61,7 +65,7 @@ async def search_routes_stream(request: SearchRequest) -> StreamingResponse:
         try:
             async for chunk in agent.process(
                 query=request.query,
-                user_id=request.user_id,
+                user_id=user_id,
                 session_id=request.session_id,
                 context=request.context
             ):

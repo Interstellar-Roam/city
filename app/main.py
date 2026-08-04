@@ -11,7 +11,20 @@ from loguru import logger
 
 from app.config import get_settings
 from app.database import Database
-from app.api import routes, gps, navigation, search, knowledge_graph, sessions, auth, images, users
+from app.api import (
+    auth,
+    gps,
+    images,
+    knowledge_graph,
+    navigation,
+    places,
+    route_plans,
+    routes,
+    search,
+    sessions,
+    users,
+)
+from app.geo.database import GeoDatabase
 from app.middleware.auth import AuthError
 from app.schemas.common import APIResponse
 
@@ -25,11 +38,17 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     logger.info(f"启动 {settings.app_name} v{settings.app_version}")
     await Database.connect()
     await Database.create_indexes()
+    await GeoDatabase.connect()
+    if settings.geo_seed_demo_places:
+        from app.geo.seed import seed_demo_places
+
+        await seed_demo_places()
 
     yield
 
     # 关闭时
     logger.info("关闭应用")
+    await GeoDatabase.disconnect()
     await Database.disconnect()
 
 
@@ -98,6 +117,8 @@ def create_app() -> FastAPI:
     app.include_router(auth.router, prefix="/api/v1")
     app.include_router(images.router, prefix="/api/v1")
     app.include_router(users.router, prefix="/api/v1")
+    app.include_router(places.router, prefix="/api/v1")
+    app.include_router(route_plans.router, prefix="/api/v1")
 
     # 挂载静态文件
     import os

@@ -20,6 +20,23 @@ class Settings(BaseSettings):
     mongodb_url: str = "mongodb://localhost:27017"
     mongodb_db_name: str = "citywalk"
 
+    # PostgreSQL/PostGIS 地理领域数据库
+    postgres_dsn: str = "postgresql://citywalk:citywalk@localhost:5432/citywalk"
+    postgres_min_pool_size: int = 1
+    postgres_max_pool_size: int = 10
+    geo_auto_migrate: bool = True
+    geo_seed_demo_places: bool = False
+
+    # 地点与路线规划
+    routing_provider: Literal["amap", "deterministic"] = "amap"
+    routing_request_timeout_seconds: float = 10.0
+    recommendation_use_llm: bool = False
+    recommendation_agent_enabled: bool = True
+    recommendation_agent_max_iterations: int = 4
+    recommendation_agent_max_searches: int = 3
+    recommendation_agent_timeout_seconds: float = 20.0
+    place_duplicate_radius_m: float = 50.0
+
     # LLM配置
     llm_provider: Literal["openai", "anthropic", "deepseek", "aliyun"] = "openai"
     llm_api_key: str = ""

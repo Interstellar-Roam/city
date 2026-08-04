@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  # MongoDB - 路线数据存储
+  # MongoDB - 用户、认证、会话和偏好
   mongodb:
     image: mongo:latest
     container_name: citywalk-mongo
@@ -17,6 +17,26 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+
+  # PostgreSQL/PostGIS - 地点、路线和空间查询
+  postgres:
+    image: ${POSTGIS_IMAGE:-postgis/postgis:16-3.5}
+    platform: ${POSTGIS_PLATFORM:-linux/amd64}
+    container_name: citywalk-postgis
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: citywalk
+      POSTGRES_USER: citywalk
+      POSTGRES_PASSWORD: citywalk
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U citywalk -d citywalk"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
 
   # FalkorDB - 知识图谱存储
   falkordb:
@@ -40,22 +60,31 @@ services:
     depends_on:
       mongodb:
         condition: service_healthy
+      postgres:
+        condition: service_healthy
     environment:
       - MONGODB_URL=mongodb://mongodb:27017
       - MONGODB_DB_NAME=citywalk
+      - POSTGRES_DSN=postgresql://citywalk:citywalk@postgres:5432/citywalk
+      - GEO_AUTO_MIGRATE=true
+      - GEO_SEED_DEMO_PLACES=${GEO_SEED_DEMO_PLACES:-true}
+      - ROUTING_PROVIDER=${ROUTING_PROVIDER:-deterministic}
       - FALKORDB_HOST=falkordb
       - FALKORDB_PORT=6379
       - LLM_PROVIDER=${LLM_PROVIDER:-openai}
       - LLM_API_KEY=${LLM_API_KEY:-}
       - LLM_MODEL=${LLM_MODEL:-gpt-4o-mini}
       - LLM_BASE_URL=${LLM_BASE_URL:-https://api.openai.com/v1}
+      - RECOMMENDATION_AGENT_ENABLED=${RECOMMENDATION_AGENT_ENABLED:-true}
+      - RECOMMENDATION_AGENT_MAX_ITERATIONS=${RECOMMENDATION_AGENT_MAX_ITERATIONS:-4}
+      - RECOMMENDATION_AGENT_MAX_SEARCHES=${RECOMMENDATION_AGENT_MAX_SEARCHES:-3}
+      - RECOMMENDATION_AGENT_TIMEOUT_SECONDS=${RECOMMENDATION_AGENT_TIMEOUT_SECONDS:-20}
       - AMAP_API_KEY_BACKEND=${AMAP_API_KEY_BACKEND:-}
       - AMAP_API_KEY=${AMAP_API_KEY:-}
       - AMAP_SECURITY_KEY=${AMAP_SECURITY_KEY:-}
       - DEBUG=false
-    env_file:
-      - .env
 
 volumes:
   mongodb_data:
   falkordb_data:
+  postgres_data:
