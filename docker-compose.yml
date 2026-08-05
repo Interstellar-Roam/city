@@ -69,6 +69,7 @@ services:
       - GEO_AUTO_MIGRATE=true
       - GEO_SEED_DEMO_PLACES=${GEO_SEED_DEMO_PLACES:-true}
       - ROUTING_PROVIDER=${ROUTING_PROVIDER:-deterministic}
+      - VALHALLA_BASE_URL=${VALHALLA_BASE_URL:-https://valhalla1.openstreetmap.de/route}
       - FALKORDB_HOST=falkordb
       - FALKORDB_PORT=6379
       - LLM_PROVIDER=${LLM_PROVIDER:-openai}

@@ -73,9 +73,7 @@ def _tool_call(name: str, arguments: dict[str, object], call_id: str) -> SimpleN
 def _response(*tool_calls: SimpleNamespace) -> SimpleNamespace:
     return SimpleNamespace(
         choices=[
-            SimpleNamespace(
-                message=SimpleNamespace(content=None, tool_calls=list(tool_calls))
-            )
+            SimpleNamespace(message=SimpleNamespace(content=None, tool_calls=list(tool_calls)))
         ]
     )
 
@@ -187,6 +185,107 @@ async def test_agent_rejects_invented_place_id_and_falls_back() -> None:
     assert result.id == fallback.id
     planner.create_agent_plan.assert_not_awaited()
     planner.create_recommendation.assert_awaited_once()
+
+
+@pytest.mark.asyncio
+async def test_agent_enforces_exact_stop_count_from_query() -> None:
+    first = _place("地点A", 121.45)
+    second = _place("地点B", 121.46)
+    third = _place("地点C", 121.47)
+    places = SimpleNamespace(search_places=AsyncMock(return_value=[first, second, third]))
+    expected = _plan("user-1", "安排3个点")
+    planner = SimpleNamespace(
+        create_agent_plan=AsyncMock(return_value=expected),
+        create_recommendation=AsyncMock(),
+        resolve_recommendation_budgets=RoutePlanningService.resolve_recommendation_budgets,
+    )
+    client = _client(
+        _response(_tool_call("search_public_places", {"limit": 5}, "search-1")),
+        _response(
+            _tool_call(
+                "build_route_plan",
+                {"place_ids": [str(first.id), str(second.id)]},
+                "build-too-few",
+            )
+        ),
+        _response(
+            _tool_call(
+                "build_route_plan",
+                {"place_ids": [str(first.id), str(second.id), str(third.id)]},
+                "build-exact",
+            )
+        ),
+    )
+    agent = RouteRecommendationAgent(places, planner, client=client, enabled=True)
+    request = RouteRecommendationRequest(
+        query="安排3个点",
+        origin=GeoPoint(longitude=121.44, latitude=31.20),
+        max_stops=4,
+    )
+
+    result = await agent.recommend(request, "user-1")
+
+    assert result.id == expected.id
+    assert client.chat.completions.create.await_count == 3
+    planner.create_agent_plan.assert_awaited_once()
+    call = planner.create_agent_plan.await_args
+    assert call.args[2] == [first.id, second.id, third.id]
+    assert call.kwargs["agent_metadata"]["target_stops"] == 3
+    planner.create_recommendation.assert_not_awaited()
+
+
+@pytest.mark.asyncio
+async def test_agent_relaxes_overly_narrow_text_search_for_requested_stops() -> None:
+    first = _place("展览馆A", 121.45)
+    second = _place("艺术中心B", 121.46)
+    third = _place("博物馆C", 121.47)
+    places = SimpleNamespace(search_places=AsyncMock(side_effect=[[first], [first, second, third]]))
+    expected = _plan("user-1", "想看展，安排三个点")
+    planner = SimpleNamespace(
+        create_agent_plan=AsyncMock(return_value=expected),
+        create_recommendation=AsyncMock(),
+        resolve_recommendation_budgets=RoutePlanningService.resolve_recommendation_budgets,
+    )
+    client = _client(
+        _response(
+            _tool_call(
+                "search_public_places",
+                {"query": "展览", "categories": ["文化"], "limit": 6},
+                "search-1",
+            )
+        ),
+        _response(
+            _tool_call(
+                "build_route_plan",
+                {"place_ids": [str(first.id), str(second.id), str(third.id)]},
+                "build-1",
+            )
+        ),
+    )
+    agent = RouteRecommendationAgent(places, planner, client=client, enabled=True)
+    request = RouteRecommendationRequest(
+        query="想看展，安排三个点",
+        origin=GeoPoint(longitude=121.44, latitude=31.20),
+        max_stops=4,
+    )
+
+    result = await agent.recommend(request, "user-1")
+
+    assert result.id == expected.id
+    assert places.search_places.await_count == 2
+    strict_call, relaxed_call = places.search_places.await_args_list
+    assert strict_call.kwargs["query"] == "展览"
+    assert "query" not in relaxed_call.kwargs
+    metadata = planner.create_agent_plan.await_args.kwargs["agent_metadata"]
+    assert metadata["target_stops"] == 3
+    assert metadata["search_trace"][0]["attempts"][1]["mode"] == ("without_text_query")
+
+
+def test_stop_count_parser_does_not_treat_upper_bound_as_exact() -> None:
+    assert RouteRecommendationAgent._requested_stop_count("安排3个点", 4) == 3
+    assert RouteRecommendationAgent._requested_stop_count("安排三个点", 4) == 3
+    assert RouteRecommendationAgent._requested_stop_count("不超过4个点", 4) is None
+    assert RouteRecommendationAgent._requested_stop_count("最多四个地点", 4) is None
 
 
 @pytest.mark.asyncio

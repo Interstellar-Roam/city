@@ -139,6 +139,10 @@ POSTGRES_DSN=postgresql://citywalk:password@postgres:5432/citywalk
 ROUTING_PROVIDER=amap
 AMAP_API_KEY_BACKEND=your-web-service-key
 
+# 或使用基于 OpenStreetMap 的 Valhalla 步行路网
+# ROUTING_PROVIDER=valhalla
+# VALHALLA_BASE_URL=https://your-valhalla.example.com/route
+
 # 可选的 OpenAI 兼容路线推荐 Agent；密钥只放环境变量
 RECOMMENDATION_AGENT_ENABLED=true
 RECOMMENDATION_AGENT_MAX_ITERATIONS=4
@@ -146,11 +150,22 @@ RECOMMENDATION_AGENT_MAX_SEARCHES=3
 RECOMMENDATION_AGENT_TIMEOUT_SECONDS=20
 LLM_PROVIDER=deepseek
 LLM_BASE_URL=https://api.deepseek.com
-LLM_MODEL=deepseek-chat
+LLM_MODEL=deepseek-v4-flash
 LLM_API_KEY=your-key
 
 # 仅控制确定性回退路径中的旧版 LLM 意图解析，通常保持关闭以避免重复调用
 RECOMMENDATION_USE_LLM=false
+```
+
+`amap` 与 `valhalla` 返回真实步行路网，响应中的 `is_simulated=false`；
+`deterministic` 只用于本地单测和离线 E2E，会明确返回 `is_simulated=true`。
+生产环境建议自建 Valhalla，公共 demo 端点只适合开发联调。
+
+南山区小红书地点数据集通过 OSM 坐标快照生成并幂等导入：
+
+```bash
+python scripts/build_nanshan_xhs_dataset.py --overpass /path/to/nanshan-overpass.json
+python scripts/import_nanshan_xhs_places.py
 ```
 
 本地完整 E2E 会由一个用户贡献四个地点，再由另一个用户搜索并规划路线，

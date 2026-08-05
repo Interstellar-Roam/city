@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import re
 from typing import Any
 from uuid import UUID
 
@@ -80,15 +81,32 @@ BUILD_ROUTE_PLAN_TOOL = {
 class RouteRecommendationAgent:
     """Bounded agent whose only side effect is a validated final route plan."""
 
+    _STOP_COUNT_PATTERN = re.compile(
+        r"(?P<count>\d+|[二两三四五六七八])\s*(?:个\s*)?(?:地点|站点|点|站)"
+    )
+    _CHINESE_STOP_COUNTS = {
+        "二": 2,
+        "两": 2,
+        "三": 3,
+        "四": 4,
+        "五": 5,
+        "六": 6,
+        "七": 7,
+        "八": 8,
+    }
+
     SYSTEM_PROMPT = """You are a CityWalk route-selection agent.
 
 You must use tools and follow this sequence:
 1. Search public places. You may refine the search when results are insufficient.
-2. Select 2 to max_stops place IDs only from tool results.
+2. Select place IDs only from tool results. If target_stops is present, select exactly that many;
+   otherwise select 2 to max_stops.
 3. Call build_route_plan. If road validation rejects a combination, adjust once using observed data.
 
 Rules:
 - The current query outranks historical preferences.
+- The search query is literal public-place text. Prefer categories and tags for broad intent;
+  the server may relax an overly narrow text search while retaining geographic constraints.
 - Never invent place IDs, coordinates, road distances, durations, or reachability.
 - Do not request or infer a user ID or exact origin; the server applies private data.
 - Keep selection_reason short and factual. Do not output chain-of-thought.
@@ -106,9 +124,7 @@ Rules:
         self.settings = get_settings()
         self.places = places
         self.planner = planner
-        self.enabled = (
-            self.settings.recommendation_agent_enabled if enabled is None else enabled
-        )
+        self.enabled = self.settings.recommendation_agent_enabled if enabled is None else enabled
         if client is not None:
             self.client = client
         elif self.enabled and self.settings.llm_api_key:
@@ -129,9 +145,7 @@ Rules:
             return await self._fallback(request, user_id, preferences)
 
         try:
-            async with asyncio.timeout(
-                self.settings.recommendation_agent_timeout_seconds
-            ):
+            async with asyncio.timeout(self.settings.recommendation_agent_timeout_seconds):
                 plan = await self._run_agent(request, user_id, preferences or {})
             if plan is not None:
                 return plan
@@ -146,6 +160,7 @@ Rules:
         preferences: dict[str, Any],
     ) -> RoutePlanResponse | None:
         request = self._apply_query_budgets(request)
+        target_stops = self._requested_stop_count(request.query, request.max_stops)
         messages: list[dict[str, Any]] = [
             {"role": "system", "content": self.SYSTEM_PROMPT},
             {
@@ -155,6 +170,7 @@ Rules:
                         "query": request.query,
                         "radius_m": request.radius_m,
                         "max_stops": request.max_stops,
+                        "target_stops": target_stops,
                         "required_categories": request.categories,
                         "required_tags": request.tags,
                         "return_to_origin": request.return_to_origin,
@@ -170,6 +186,7 @@ Rules:
         requested_categories = self._string_list(request.categories, 20)
         requested_tags = self._string_list(request.tags, 30)
         search_count = 0
+        search_trace: list[dict[str, Any]] = []
 
         for iteration in range(1, self.settings.recommendation_agent_max_iterations + 1):
             response = await self.client.chat.completions.create(
@@ -225,21 +242,86 @@ Rules:
                         )
                         requested_categories = self._merge(requested_categories, categories)
                         requested_tags = self._merge(requested_tags, tags)
+                        query = self._short_text(arguments.get("query"), 100)
+                        city = self._short_text(arguments.get("city"), 80)
+                        minimum_results = target_stops or 2
+                        limit = max(
+                            minimum_results,
+                            self._bounded_int(arguments.get("limit"), 2, 20, 12),
+                        )
+                        attempts: list[dict[str, Any]] = []
                         candidates = await self.places.search_places(
                             longitude=request.origin.longitude,
                             latitude=request.origin.latitude,
                             radius_m=request.radius_m,
-                            query=self._short_text(arguments.get("query"), 100),
+                            query=query,
                             categories=categories or None,
                             tags=tags or None,
-                            city=self._short_text(arguments.get("city"), 80),
-                            limit=self._bounded_int(arguments.get("limit"), 2, 20, 12),
+                            city=city,
+                            limit=limit,
                         )
+                        attempts.append(
+                            {
+                                "mode": "strict",
+                                "query": query,
+                                "categories": categories,
+                                "tags": tags,
+                                "count": len(candidates),
+                            }
+                        )
+                        merged_candidates = {place.id: place for place in candidates}
+
+                        if len(merged_candidates) < minimum_results and query:
+                            relaxed = await self.places.search_places(
+                                longitude=request.origin.longitude,
+                                latitude=request.origin.latitude,
+                                radius_m=request.radius_m,
+                                categories=categories or None,
+                                tags=tags or None,
+                                city=city,
+                                limit=limit,
+                            )
+                            attempts.append(
+                                {
+                                    "mode": "without_text_query",
+                                    "categories": categories,
+                                    "tags": tags,
+                                    "count": len(relaxed),
+                                }
+                            )
+                            merged_candidates.update((place.id, place) for place in relaxed)
+
+                        if len(merged_candidates) < minimum_results and (categories or tags):
+                            nearby = await self.places.search_places(
+                                longitude=request.origin.longitude,
+                                latitude=request.origin.latitude,
+                                radius_m=request.radius_m,
+                                city=city,
+                                limit=limit,
+                            )
+                            attempts.append(
+                                {
+                                    "mode": "nearby_public_places",
+                                    "count": len(nearby),
+                                }
+                            )
+                            merged_candidates.update((place.id, place) for place in nearby)
+
+                        candidates = list(merged_candidates.values())[:limit]
                         for place in candidates:
                             discovered[place.id] = place
+                        search_trace.append(
+                            {
+                                "tool_search": search_count,
+                                "attempts": attempts,
+                                "total": len(candidates),
+                                "result_names": [place.name for place in candidates],
+                            }
+                        )
                         result = {
                             "success": True,
                             "total": len(candidates),
+                            "relaxed": len(attempts) > 1,
                             "results": [
                                 {
                                     "id": str(place.id),
@@ -259,6 +341,7 @@ Rules:
                         arguments.get("place_ids"),
                         discovered,
                         request.max_stops,
+                        target_stops,
                     )
                     if error:
                         result = {"success": False, "error": error}
@@ -280,6 +363,8 @@ Rules:
                                 agent_metadata={
                                     "iterations": iteration,
                                     "searches": search_count,
+                                    "target_stops": target_stops,
+                                    "search_trace": search_trace,
                                     "selection_reason": selection_reason,
                                 },
                             )
@@ -355,6 +440,7 @@ Rules:
         values: Any,
         discovered: dict[UUID, Any],
         max_stops: int,
+        target_stops: int | None = None,
     ) -> tuple[list[UUID], str | None]:
         if not isinstance(values, list):
             return [], "place_ids must be an array"
@@ -363,23 +449,37 @@ Rules:
         except (TypeError, ValueError, AttributeError):
             return [], "place_ids contains an invalid UUID"
         place_ids = list(dict.fromkeys(place_ids))
-        if not 2 <= len(place_ids) <= max_stops:
+        if target_stops is not None and len(place_ids) != target_stops:
+            return [], f"select exactly {target_stops} unique places"
+        if target_stops is None and not 2 <= len(place_ids) <= max_stops:
             return [], f"select between 2 and {max_stops} unique places"
         unknown = [str(place_id) for place_id in place_ids if place_id not in discovered]
         if unknown:
             return [], f"place IDs were not returned by search: {', '.join(unknown)}"
         return place_ids, None
 
+    @classmethod
+    def _requested_stop_count(cls, query: str, max_stops: int) -> int | None:
+        """Extract an exact stop count without treating upper bounds as exact counts."""
+
+        for match in cls._STOP_COUNT_PATTERN.finditer(query):
+            prefix = query[max(0, match.start() - 5) : match.start()]
+            if any(marker in prefix for marker in ("不超过", "最多", "至多", "以内")):
+                continue
+            raw_count = match.group("count")
+            count = cls._CHINESE_STOP_COUNTS.get(raw_count)
+            if count is None:
+                count = int(raw_count)
+            if count >= 2:
+                return min(count, max_stops)
+        return None
+
     @staticmethod
     def _string_list(value: Any, limit: int) -> list[str]:
         if not isinstance(value, (list, tuple)):
             return []
         return list(
-            dict.fromkeys(
-                text
-                for item in value[:limit]
-                if (text := str(item).strip()[:80])
-            )
+            dict.fromkeys(text for item in value[:limit] if (text := str(item).strip()[:80]))
         )
 
     @staticmethod

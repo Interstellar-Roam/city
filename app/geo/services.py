@@ -108,7 +108,9 @@ class RoutePlanningService:
         places = await self.places.get_places(request.place_ids)
         missing = set(request.place_ids) - {place.id for place in places}
         if missing:
-            raise PlaceNotFoundError(f"地点不存在: {', '.join(str(value) for value in sorted(missing, key=str))}")
+            raise PlaceNotFoundError(
+                f"地点不存在: {', '.join(str(value) for value in sorted(missing, key=str))}"
+            )
 
         ordered = self._order_places(places, request.origin, request.optimize_order)
         plan = await self._assemble_plan(
@@ -258,7 +260,7 @@ class RoutePlanningService:
                 "preferred_tags": preferred_tags,
                 "agent": agent_metadata,
             },
-            skip_unreachable=True,
+            skip_unreachable=False,
         )
         stored = await self.plans.save_plan(plan)
         return RoutePlanResponse(**stored)
@@ -345,9 +347,11 @@ class RoutePlanningService:
                 raise
 
             projected_distance = total_distance + leg.distance_m
-            projected_duration = walking_duration + leg.duration_s + (
-                len(accepted_places) + 1
-            ) * planned_stay_seconds
+            projected_duration = (
+                walking_duration
+                + leg.duration_s
+                + (len(accepted_places) + 1) * planned_stay_seconds
+            )
             if max_distance_m is not None and projected_distance > max_distance_m:
                 if skip_unreachable:
                     continue

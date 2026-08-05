@@ -1,0 +1,3007 @@
+{
+  "dataset": "xiaohongshu:nanshan:2026-08-05",
+  "generated_from": {
+    "place_source": "Xiaohongshu public note pages",
+    "coordinate_source": "OpenStreetMap Overpass",
+    "coordinate_licence": "ODbL 1.0",
+    "nanshan_osm_relation": 5664195
+  },
+  "places": [
+    {
+      "dataset_key": "osm:way:236402460",
+      "name": "世界之窗",
+      "description": "小红书南山地点清单收录的景点，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9680001,
+        "latitude": 22.5375386
+      },
+      "categories": [
+        "景点"
+      ],
+      "tags": [
+        "主题乐园",
+        "亲子"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 236402460,
+        "osm_name": "世界之窗"
+      }
+    },
+    {
+      "dataset_key": "osm:way:181234737",
+      "name": "欢乐谷",
+      "description": "小红书南山地点清单收录的景点，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9758216,
+        "latitude": 22.5445645
+      },
+      "categories": [
+        "景点"
+      ],
+      "tags": [
+        "主题乐园",
+        "亲子"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 181234737,
+        "osm_name": "欢乐谷"
+      }
+    },
+    {
+      "dataset_key": "osm:way:236402467",
+      "name": "锦绣中华民俗村",
+      "description": "小红书南山地点清单收录的景点，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9835887,
+        "latitude": 22.5333472
+      },
+      "categories": [
+        "景点"
+      ],
+      "tags": [
+        "文化",
+        "亲子"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 236402467,
+        "osm_name": "锦绣中华民俗村"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:8133384",
+      "name": "深圳湾公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9537956,
+        "latitude": 22.5007317
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "海边",
+        "骑行",
+        "日落"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "relation",
+        "osm_id": 8133384,
+        "osm_name": "深圳湾公园"
+      }
+    },
+    {
+      "dataset_key": "osm:node:5250978836",
+      "name": "海上世界",
+      "description": "小红书南山地点清单收录的街区，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9106968,
+        "latitude": 22.4870144
+      },
+      "categories": [
+        "街区"
+      ],
+      "tags": [
+        "海边",
+        "夜景",
+        "餐饮"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "node",
+        "osm_id": 5250978836,
+        "osm_name": "海上世界中心广场"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:15626532",
+      "name": "大沙河生态长廊",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9681621,
+        "latitude": 22.5597884
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "绿道",
+        "骑行",
+        "亲子"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "relation",
+        "osm_id": 15626532,
+        "osm_name": "大沙河生态长廊"
+      }
+    },
+    {
+      "dataset_key": "osm:way:330499627",
+      "name": "南山博物馆",
+      "description": "小红书南山地点清单收录的文化，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9189803,
+        "latitude": 22.5380438
+      },
+      "categories": [
+        "文化"
+      ],
+      "tags": [
+        "博物馆",
+        "历史",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 330499627,
+        "osm_name": "南山博物馆"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:17068951",
+      "name": "何香凝美术馆",
+      "description": "小红书南山地点清单收录的文化，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9767425,
+        "latitude": 22.5359828
+      },
+      "categories": [
+        "文化"
+      ],
+      "tags": [
+        "美术馆",
+        "看展",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "relation",
+        "osm_id": 17068951,
+        "osm_name": "何香凝美术馆"
+      }
+    },
+    {
+      "dataset_key": "osm:way:690827081",
+      "name": "华侨城湿地公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9780178,
+        "latitude": 22.531752
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "湿地",
+        "观鸟",
+        "自然"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 690827081,
+        "osm_name": "华侨城湿地公园"
+      }
+    },
+    {
+      "dataset_key": "osm:way:219961346",
+      "name": "南头古城",
+      "description": "小红书南山地点清单收录的历史，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9160083,
+        "latitude": 22.5462554
+      },
+      "categories": [
+        "历史"
+      ],
+      "tags": [
+        "古城",
+        "街区",
+        "拍照"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 219961346,
+        "osm_name": "南头古城"
+      }
+    },
+    {
+      "dataset_key": "osm:way:542328084",
+      "name": "前海石公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.8844333,
+        "latitude": 22.5290611
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "海边",
+        "日落",
+        "亲子"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 542328084,
+        "osm_name": "前海石公园"
+      }
+    },
+    {
+      "dataset_key": "osm:way:933959930",
+      "name": "桂湾公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.8930335,
+        "latitude": 22.5281106
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "绿道",
+        "花卉",
+        "散步"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 933959930,
+        "osm_name": "桂湾公园"
+      }
+    },
+    {
+      "dataset_key": "osm:way:440551685",
+      "name": "四海公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9224263,
+        "latitude": 22.4989623
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "园林",
+        "亲子",
+        "散步"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 440551685,
+        "osm_name": "四海公园"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:18459537",
+      "name": "深圳人才公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9435638,
+        "latitude": 22.5136792
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "夜景",
+        "海边",
+        "亲子"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "relation",
+        "osm_id": 18459537,
+        "osm_name": "深圳人才公园"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:10150663",
+      "name": "南山公园",
+      "description": "小红书南山地点清单收录的徒步，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9009745,
+        "latitude": 22.4959852
+      },
+      "categories": [
+        "徒步"
+      ],
+      "tags": [
+        "登山",
+        "观景",
+        "日落"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "relation",
+        "osm_id": 10150663,
+        "osm_name": "南山公园"
+      }
+    },
+    {
+      "dataset_key": "osm:way:733499600",
+      "name": "女娲滨海公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9144543,
+        "latitude": 22.4832553
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "海边",
+        "雕塑",
+        "散步"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 733499600,
+        "osm_name": "女娲滨海公园"
+      }
+    },
+    {
+      "dataset_key": "osm:way:249696516",
+      "name": "深圳野生动物园",
+      "description": "小红书南山地点清单收录的景点，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.965818,
+        "latitude": 22.599871
+      },
+      "categories": [
+        "景点"
+      ],
+      "tags": [
+        "动物园",
+        "亲子"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 249696516,
+        "osm_name": "深圳野生动物园"
+      }
+    },
+    {
+      "dataset_key": "osm:way:549180086",
+      "name": "欢乐海岸购物中心",
+      "description": "小红书南山地点清单收录的商场，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9843787,
+        "latitude": 22.5284817
+      },
+      "categories": [
+        "商场"
+      ],
+      "tags": [
+        "购物",
+        "餐饮",
+        "夜景"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 549180086,
+        "osm_name": "欢乐海岸购物中心"
+      }
+    },
+    {
+      "dataset_key": "osm:way:379914112",
+      "name": "青青世界",
+      "description": "小红书南山地点清单收录的景点，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.8954585,
+        "latitude": 22.5043911
+      },
+      "categories": [
+        "景点"
+      ],
+      "tags": [
+        "自然",
+        "亲子",
+        "度假"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 379914112,
+        "osm_name": "青青世界"
+      }
+    },
+    {
+      "dataset_key": "osm:way:529070102",
+      "name": "西丽生态公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9278171,
+        "latitude": 22.5754913
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "徒步",
+        "观景",
+        "露营"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 529070102,
+        "osm_name": "西丽生态公园"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:10490253",
+      "name": "蛇口邮轮中心",
+      "description": "小红书南山地点清单收录的交通地标，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.908048,
+        "latitude": 22.4719024
+      },
+      "categories": [
+        "交通地标"
+      ],
+      "tags": [
+        "港口",
+        "海景",
+        "建筑"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "relation",
+        "osm_id": 10490253,
+        "osm_name": "蛇口邮轮中心"
+      }
+    },
+    {
+      "dataset_key": "osm:way:1394083777",
+      "name": "太子湾滨海岸线公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.910804,
+        "latitude": 22.4759601
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "海边",
+        "散步",
+        "日落"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 1394083777,
+        "osm_name": "太子湾滨海岸线公园"
+      }
+    },
+    {
+      "dataset_key": "osm:way:542438542",
+      "name": "招商局历史博物馆",
+      "description": "小红书南山地点清单收录的文化，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9089413,
+        "latitude": 22.4807937
+      },
+      "categories": [
+        "文化"
+      ],
+      "tags": [
+        "博物馆",
+        "历史",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 542438542,
+        "osm_name": "招商局历史博物馆"
+      }
+    },
+    {
+      "dataset_key": "osm:way:101317786",
+      "name": "小南山公园",
+      "description": "小红书南山地点清单收录的徒步，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.8806583,
+        "latitude": 22.4878813
+      },
+      "categories": [
+        "徒步"
+      ],
+      "tags": [
+        "登山",
+        "海景",
+        "日落"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 101317786,
+        "osm_name": "小南山公园"
+      }
+    },
+    {
+      "dataset_key": "osm:way:1348464040",
+      "name": "灯塔纪念台地",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9280957,
+        "latitude": 22.4806492
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "灯塔",
+        "海边",
+        "拍照"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 1348464040,
+        "osm_name": "灯塔纪念台地"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:19692109",
+      "name": "深圳湾万象城",
+      "description": "小红书南山地点清单收录的商场，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9391053,
+        "latitude": 22.519029
+      },
+      "categories": [
+        "商场"
+      ],
+      "tags": [
+        "购物",
+        "餐饮",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69b801f2000000001d01cf6f",
+        "xiaohongshu_note_title": "深圳南山商场地图丨20个值得逛的大型商场",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69b801f2000000001d01cf6f",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "relation",
+        "osm_id": 19692109,
+        "osm_name": "深圳湾万象城"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:8841461",
+      "name": "海岸城购物中心",
+      "description": "小红书南山地点清单收录的商场，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9308593,
+        "latitude": 22.5202524
+      },
+      "categories": [
+        "商场"
+      ],
+      "tags": [
+        "购物",
+        "餐饮",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69b801f2000000001d01cf6f",
+        "xiaohongshu_note_title": "深圳南山商场地图丨20个值得逛的大型商场",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69b801f2000000001d01cf6f",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "relation",
+        "osm_id": 8841461,
+        "osm_name": "海岸城购物中心"
+      }
+    },
+    {
+      "dataset_key": "osm:way:181234749",
+      "name": "益田假日广场",
+      "description": "小红书南山地点清单收录的商场，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9701271,
+        "latitude": 22.5405338
+      },
+      "categories": [
+        "商场"
+      ],
+      "tags": [
+        "购物",
+        "餐饮",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69b801f2000000001d01cf6f",
+        "xiaohongshu_note_title": "深圳南山商场地图丨20个值得逛的大型商场",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69b801f2000000001d01cf6f",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 181234749,
+        "osm_name": "益田假日广场"
+      }
+    },
+    {
+      "dataset_key": "osm:way:1009536338",
+      "name": "万象前海",
+      "description": "小红书南山地点清单收录的商场，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.8944993,
+        "latitude": 22.5343277
+      },
+      "categories": [
+        "商场"
+      ],
+      "tags": [
+        "购物",
+        "餐饮",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69b801f2000000001d01cf6f",
+        "xiaohongshu_note_title": "深圳南山商场地图丨20个值得逛的大型商场",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69b801f2000000001d01cf6f",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 1009536338,
+        "osm_name": "万象前海"
+      }
+    },
+    {
+      "dataset_key": "osm:way:565467994",
+      "name": "深圳来福士广场",
+      "description": "小红书南山地点清单收录的商场，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9207943,
+        "latitude": 22.5147891
+      },
+      "categories": [
+        "商场"
+      ],
+      "tags": [
+        "购物",
+        "餐饮",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69b801f2000000001d01cf6f",
+        "xiaohongshu_note_title": "深圳南山商场地图丨20个值得逛的大型商场",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69b801f2000000001d01cf6f",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 565467994,
+        "osm_name": "来福士"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:12463913",
+      "name": "宝能环球汇",
+      "description": "小红书南山地点清单收录的商场，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9932912,
+        "latitude": 22.5935435
+      },
+      "categories": [
+        "商场"
+      ],
+      "tags": [
+        "购物",
+        "餐饮",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69b801f2000000001d01cf6f",
+        "xiaohongshu_note_title": "深圳南山商场地图丨20个值得逛的大型商场",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69b801f2000000001d01cf6f",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "relation",
+        "osm_id": 12463913,
+        "osm_name": "宝能环球汇"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:19117508",
+      "name": "前海壹方汇",
+      "description": "小红书南山地点清单收录的商场，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.891836,
+        "latitude": 22.5321019
+      },
+      "categories": [
+        "商场"
+      ],
+      "tags": [
+        "购物",
+        "餐饮",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69b801f2000000001d01cf6f",
+        "xiaohongshu_note_title": "深圳南山商场地图丨20个值得逛的大型商场",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69b801f2000000001d01cf6f",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "relation",
+        "osm_id": 19117508,
+        "osm_name": "前海壹方汇 Uniway"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:17581795",
+      "name": "宝能·all city",
+      "description": "小红书南山地点清单收录的商场，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9342775,
+        "latitude": 22.5031123
+      },
+      "categories": [
+        "商场"
+      ],
+      "tags": [
+        "购物",
+        "餐饮",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69b801f2000000001d01cf6f",
+        "xiaohongshu_note_title": "深圳南山商场地图丨20个值得逛的大型商场",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69b801f2000000001d01cf6f",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "relation",
+        "osm_id": 17581795,
+        "osm_name": "宝能 All City"
+      }
+    },
+    {
+      "dataset_key": "osm:way:1169311429",
+      "name": "深圳湾睿印",
+      "description": "小红书南山地点清单收录的商场，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.965025,
+        "latitude": 22.5270474
+      },
+      "categories": [
+        "商场"
+      ],
+      "tags": [
+        "购物",
+        "餐饮",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69b801f2000000001d01cf6f",
+        "xiaohongshu_note_title": "深圳南山商场地图丨20个值得逛的大型商场",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69b801f2000000001d01cf6f",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 1169311429,
+        "osm_name": "深圳湾睿印RAIL IN"
+      }
+    },
+    {
+      "dataset_key": "osm:way:420050964",
+      "name": "南山欢乐颂",
+      "description": "小红书南山地点清单收录的商场，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9152096,
+        "latitude": 22.5381393
+      },
+      "categories": [
+        "商场"
+      ],
+      "tags": [
+        "购物",
+        "餐饮",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69b801f2000000001d01cf6f",
+        "xiaohongshu_note_title": "深圳南山商场地图丨20个值得逛的大型商场",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69b801f2000000001d01cf6f",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 420050964,
+        "osm_name": "欢乐颂购物中心"
+      }
+    },
+    {
+      "dataset_key": "osm:node:9383208755",
+      "name": "前海卓悦INTOWN",
+      "description": "小红书南山地点清单收录的商场，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.8940139,
+        "latitude": 22.5323171
+      },
+      "categories": [
+        "商场"
+      ],
+      "tags": [
+        "购物",
+        "餐饮",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69b801f2000000001d01cf6f",
+        "xiaohongshu_note_title": "深圳南山商场地图丨20个值得逛的大型商场",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69b801f2000000001d01cf6f",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "node",
+        "osm_id": 9383208755,
+        "osm_name": "前海卓悦INTOWN"
+      }
+    },
+    {
+      "dataset_key": "osm:way:1110477836",
+      "name": "云城万科里",
+      "description": "小红书南山地点清单收录的商场，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9385477,
+        "latitude": 22.5774721
+      },
+      "categories": [
+        "商场"
+      ],
+      "tags": [
+        "购物",
+        "餐饮",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69b801f2000000001d01cf6f",
+        "xiaohongshu_note_title": "深圳南山商场地图丨20个值得逛的大型商场",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69b801f2000000001d01cf6f",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 1110477836,
+        "osm_name": "云城万科里"
+      }
+    },
+    {
+      "dataset_key": "osm:way:1190750254",
+      "name": "深圳湾后海汇",
+      "description": "小红书南山地点清单收录的商场，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9360608,
+        "latitude": 22.5193449
+      },
+      "categories": [
+        "商场"
+      ],
+      "tags": [
+        "购物",
+        "餐饮",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69b801f2000000001d01cf6f",
+        "xiaohongshu_note_title": "深圳南山商场地图丨20个值得逛的大型商场",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69b801f2000000001d01cf6f",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 1190750254,
+        "osm_name": "后海汇"
+      }
+    },
+    {
+      "dataset_key": "osm:way:261484104",
+      "name": "西丽天虹",
+      "description": "小红书南山地点清单收录的商场，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9503906,
+        "latitude": 22.5843268
+      },
+      "categories": [
+        "商场"
+      ],
+      "tags": [
+        "购物",
+        "餐饮",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69b801f2000000001d01cf6f",
+        "xiaohongshu_note_title": "深圳南山商场地图丨20个值得逛的大型商场",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69b801f2000000001d01cf6f",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 261484104,
+        "osm_name": "西丽天虹商场"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:18521117",
+      "name": "方大城",
+      "description": "小红书南山地点清单收录的商场，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9681535,
+        "latitude": 22.5591723
+      },
+      "categories": [
+        "商场"
+      ],
+      "tags": [
+        "购物",
+        "餐饮",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69b801f2000000001d01cf6f",
+        "xiaohongshu_note_title": "深圳南山商场地图丨20个值得逛的大型商场",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69b801f2000000001d01cf6f",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "relation",
+        "osm_id": 18521117,
+        "osm_name": "方大城购物中心"
+      }
+    },
+    {
+      "dataset_key": "osm:way:215912569",
+      "name": "荔香公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9245959,
+        "latitude": 22.5397398
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "散步",
+        "亲子",
+        "花卉"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "6a6c6662000000002201714f",
+        "xiaohongshu_note_title": "深圳南山6大免费公园！地铁直达、周末出游",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/6a6c6662000000002201714f",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 215912569,
+        "osm_name": "荔香公园"
+      }
+    },
+    {
+      "dataset_key": "osm:way:203270341",
+      "name": "中山公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9138732,
+        "latitude": 22.5510196
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "历史",
+        "亲子",
+        "散步"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "6a6c6662000000002201714f",
+        "xiaohongshu_note_title": "深圳南山6大免费公园！地铁直达、周末出游",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/6a6c6662000000002201714f",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 203270341,
+        "osm_name": "中山公园"
+      }
+    },
+    {
+      "dataset_key": "osm:way:256934717",
+      "name": "蛇口荔枝公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.911473,
+        "latitude": 22.491845
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "散步",
+        "社区",
+        "安静"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69ea04e8000000001e00ee63",
+        "xiaohongshu_note_title": "被低估的蛇口📍这条漫步路线🍃磁场好舒服啊",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69ea04e8000000001e00ee63",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 256934717,
+        "osm_name": "荔枝公园"
+      }
+    },
+    {
+      "dataset_key": "osm:node:2672895497",
+      "name": "微波山",
+      "description": "小红书南山地点清单收录的徒步，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9085926,
+        "latitude": 22.4810158
+      },
+      "categories": [
+        "徒步"
+      ],
+      "tags": [
+        "登山",
+        "观景",
+        "小众"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69ea04e8000000001e00ee63",
+        "xiaohongshu_note_title": "被低估的蛇口📍这条漫步路线🍃磁场好舒服啊",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69ea04e8000000001e00ee63",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "node",
+        "osm_id": 2672895497,
+        "osm_name": "微波山"
+      }
+    },
+    {
+      "dataset_key": "osm:way:105683429",
+      "name": "明华轮",
+      "description": "小红书南山地点清单收录的地标，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9119295,
+        "latitude": 22.4863425
+      },
+      "categories": [
+        "地标"
+      ],
+      "tags": [
+        "邮轮",
+        "夜景",
+        "拍照"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69ea04e8000000001e00ee63",
+        "xiaohongshu_note_title": "被低估的蛇口📍这条漫步路线🍃磁场好舒服啊",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69ea04e8000000001e00ee63",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 105683429,
+        "osm_name": "明华轮"
+      }
+    },
+    {
+      "dataset_key": "osm:way:740022007",
+      "name": "海上世界文化艺术中心",
+      "description": "小红书南山地点清单收录的文化，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9120483,
+        "latitude": 22.4833124
+      },
+      "categories": [
+        "文化"
+      ],
+      "tags": [
+        "看展",
+        "海景",
+        "建筑"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69ea04e8000000001e00ee63",
+        "xiaohongshu_note_title": "被低估的蛇口📍这条漫步路线🍃磁场好舒服啊",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69ea04e8000000001e00ee63",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 740022007,
+        "osm_name": "海上世界文化艺术中心"
+      }
+    },
+    {
+      "dataset_key": "osm:way:1348464045",
+      "name": "防波堤公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.918373,
+        "latitude": 22.4833022
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "海边",
+        "日落",
+        "散步"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "6a6c525f0000000025009d83",
+        "xiaohongshu_note_title": "从旧厂房走到海边，蛇口这条线很舒服",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/6a6c525f0000000025009d83",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 1348464045,
+        "osm_name": "防波堤公园"
+      }
+    },
+    {
+      "dataset_key": "osm:way:775817968",
+      "name": "前海紫荆园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.8978369,
+        "latitude": 22.5228424
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "花卉",
+        "散步",
+        "拍照"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 775817968,
+        "osm_name": "紫荆园"
+      }
+    },
+    {
+      "dataset_key": "osm:node:5212858640",
+      "name": "前海石",
+      "description": "小红书南山地点清单收录的地标，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.885489,
+        "latitude": 22.5308326
+      },
+      "categories": [
+        "地标"
+      ],
+      "tags": [
+        "雕塑",
+        "海边",
+        "拍照"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69847add000000000c037494",
+        "xiaohongshu_note_title": "深圳南山打卡清单丨30个值得纳入行程的景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69847add000000000c037494",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "node",
+        "osm_id": 5212858640,
+        "osm_name": "前海石"
+      }
+    },
+    {
+      "dataset_key": "osm:way:571629065",
+      "name": "日出剧场",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9481349,
+        "latitude": 22.5023489
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "草坪",
+        "日落",
+        "露营"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "6a543b5300000000170096b3",
+        "xiaohongshu_note_title": "深圳湾公园怎么打卡❓附详细攻略🗺️",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/6a543b5300000000170096b3",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 571629065,
+        "osm_name": "日出剧场"
+      }
+    },
+    {
+      "dataset_key": "osm:way:259033261",
+      "name": "海风运动公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9425273,
+        "latitude": 22.4890702
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "赶海",
+        "亲子",
+        "运动"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "6a543b5300000000170096b3",
+        "xiaohongshu_note_title": "深圳湾公园怎么打卡❓附详细攻略🗺️",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/6a543b5300000000170096b3",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 259033261,
+        "osm_name": "海风运动广场"
+      }
+    },
+    {
+      "dataset_key": "osm:way:571629062",
+      "name": "观桥公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9469002,
+        "latitude": 22.491227
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "海边",
+        "骑行",
+        "观景"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "6a543b5300000000170096b3",
+        "xiaohongshu_note_title": "深圳湾公园怎么打卡❓附详细攻略🗺️",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/6a543b5300000000170096b3",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 571629062,
+        "osm_name": "观桥公园"
+      }
+    },
+    {
+      "dataset_key": "osm:way:259033259",
+      "name": "弯月山谷",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9488106,
+        "latitude": 22.5087944
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "骑行",
+        "海边",
+        "日落"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "6a543b5300000000170096b3",
+        "xiaohongshu_note_title": "深圳湾公园怎么打卡❓附详细攻略🗺️",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/6a543b5300000000170096b3",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 259033259,
+        "osm_name": "弯月山谷"
+      }
+    },
+    {
+      "dataset_key": "osm:way:571629092",
+      "name": "白鹭坡",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9671618,
+        "latitude": 22.5218013
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "海边",
+        "拍照",
+        "观景"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "6a543b5300000000170096b3",
+        "xiaohongshu_note_title": "深圳湾公园怎么打卡❓附详细攻略🗺️",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/6a543b5300000000170096b3",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 571629092,
+        "osm_name": "白鹭坡"
+      }
+    },
+    {
+      "dataset_key": "osm:way:571629071",
+      "name": "大运火炬塔纪念广场",
+      "description": "小红书南山地点清单收录的地标，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9498244,
+        "latitude": 22.5200049
+      },
+      "categories": [
+        "地标"
+      ],
+      "tags": [
+        "火炬塔",
+        "海边",
+        "拍照"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "6a543b5300000000170096b3",
+        "xiaohongshu_note_title": "深圳湾公园怎么打卡❓附详细攻略🗺️",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/6a543b5300000000170096b3",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 571629071,
+        "osm_name": "大运火炬塔纪念广场"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:15626539",
+      "name": "九祥岭湿地公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9546529,
+        "latitude": 22.5866448
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "湿地",
+        "亲子",
+        "自然"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "6a64342a000000001101e34b",
+        "xiaohongshu_note_title": "7.23深圳九祥岭湿地公园",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/6a64342a000000001101e34b",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "relation",
+        "osm_id": 15626539,
+        "osm_name": "九祥岭湿地公园"
+      }
+    },
+    {
+      "dataset_key": "osm:way:533912107",
+      "name": "松坪山公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9426328,
+        "latitude": 22.5614514
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "社区",
+        "散步",
+        "绿荫"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "6a6ea9e30000000028001024",
+        "xiaohongshu_note_title": "欣赏：松坪山公园，被绿植包围的公园🍃",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/6a6ea9e30000000028001024",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 533912107,
+        "osm_name": "松坪山公园"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:15626540",
+      "name": "大沙河公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.956579,
+        "latitude": 22.5599016
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "草坪",
+        "亲子",
+        "散步"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "6a0b10a30000000007011bc5",
+        "xiaohongshu_note_title": "南山区大沙河公园 | 人少草坪大！",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/6a0b10a30000000007011bc5",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "relation",
+        "osm_id": 15626540,
+        "osm_name": "大沙河公园‎"
+      }
+    },
+    {
+      "dataset_key": "osm:way:533912156",
+      "name": "科苑公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9445764,
+        "latitude": 22.5520136
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "社区",
+        "散步",
+        "运动"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "697b79ed0000000022008024",
+        "xiaohongshu_note_title": "溜遍深圳公园｜第45个，南山科苑公园。",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/697b79ed0000000022008024",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 533912156,
+        "osm_name": "科苑公园"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:3290940",
+      "name": "西丽湖",
+      "description": "小红书南山地点清单收录的自然，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9487313,
+        "latitude": 22.6069591
+      },
+      "categories": [
+        "自然"
+      ],
+      "tags": [
+        "湖泊",
+        "骑行",
+        "绿道"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "6a1e7630000000003503ab01",
+        "xiaohongshu_note_title": "懒人友好｜南山8处轻徒步",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/6a1e7630000000003503ab01",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "relation",
+        "osm_id": 3290940,
+        "osm_name": "西丽湖"
+      }
+    },
+    {
+      "dataset_key": "osm:way:586623958",
+      "name": "中国钢结构博物馆",
+      "description": "小红书南山地点清单收录的文化，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9349694,
+        "latitude": 22.5120939
+      },
+      "categories": [
+        "文化"
+      ],
+      "tags": [
+        "博物馆",
+        "建筑",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "63f81fdd00000000110113da",
+        "xiaohongshu_note_title": "南山必去的7个艺术馆",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/63f81fdd00000000110113da",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 586623958,
+        "osm_name": "中国钢结构博物馆"
+      }
+    },
+    {
+      "dataset_key": "osm:node:5169911910",
+      "name": "OCT当代艺术中心",
+      "description": "小红书南山地点清单收录的文化，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9886968,
+        "latitude": 22.5398276
+      },
+      "categories": [
+        "文化"
+      ],
+      "tags": [
+        "艺术",
+        "看展",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "63f81fdd00000000110113da",
+        "xiaohongshu_note_title": "南山必去的7个艺术馆",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/63f81fdd00000000110113da",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "node",
+        "osm_id": 5169911910,
+        "osm_name": "OCT当代艺术中心"
+      }
+    },
+    {
+      "dataset_key": "osm:way:96293662",
+      "name": "华·美术馆",
+      "description": "小红书南山地点清单收录的文化，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9780516,
+        "latitude": 22.535924
+      },
+      "categories": [
+        "文化"
+      ],
+      "tags": [
+        "设计",
+        "看展",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "63f81fdd00000000110113da",
+        "xiaohongshu_note_title": "南山必去的7个艺术馆",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/63f81fdd00000000110113da",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 96293662,
+        "osm_name": "华·美术馆"
+      }
+    },
+    {
+      "dataset_key": "osm:node:5169911970",
+      "name": "旧天堂书店",
+      "description": "小红书南山地点清单收录的阅读，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9879404,
+        "latitude": 22.5425364
+      },
+      "categories": [
+        "阅读"
+      ],
+      "tags": [
+        "书店",
+        "文艺",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "6a574cae000000000702cb77",
+        "xiaohongshu_note_title": "深圳一日游路线推荐🎈南山City Walk路线！",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/6a574cae000000000702cb77",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "node",
+        "osm_id": 5169911970,
+        "osm_name": "旧天堂书店"
+      }
+    },
+    {
+      "dataset_key": "osm:way:325009438",
+      "name": "深圳湾文化广场",
+      "description": "小红书南山地点清单收录的文化，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9403408,
+        "latitude": 22.514969
+      },
+      "categories": [
+        "文化"
+      ],
+      "tags": [
+        "建筑",
+        "看展",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "6a2a24d10000000008024355",
+        "xiaohongshu_note_title": "深圳5个🆓室内场馆✨地铁直达待一整天",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/6a2a24d10000000008024355",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 325009438,
+        "osm_name": "深圳湾文化广场"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:7667984",
+      "name": "南山图书馆",
+      "description": "小红书南山地点清单收录的阅读，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9173492,
+        "latitude": 22.5380134
+      },
+      "categories": [
+        "阅读"
+      ],
+      "tags": [
+        "图书馆",
+        "学习",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "6a2fd23f000000002101a8aa",
+        "xiaohongshu_note_title": "高温暴雨遛娃救星！深圳72家图书馆汇总",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/6a2fd23f000000002101a8aa",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "relation",
+        "osm_id": 7667984,
+        "osm_name": "南山图书馆"
+      }
+    },
+    {
+      "dataset_key": "osm:way:1425706592",
+      "name": "南山图书馆(桃源分馆)",
+      "description": "小红书南山地点清单收录的阅读，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9554482,
+        "latitude": 22.5855413
+      },
+      "categories": [
+        "阅读"
+      ],
+      "tags": [
+        "图书馆",
+        "社区",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "6a2fd23f000000002101a8aa",
+        "xiaohongshu_note_title": "高温暴雨遛娃救星！深圳72家图书馆汇总",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/6a2fd23f000000002101a8aa",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 1425706592,
+        "osm_name": "南山图书馆(桃源分馆)"
+      }
+    },
+    {
+      "dataset_key": "osm:node:4472155889",
+      "name": "南山图书馆华侨城分馆",
+      "description": "小红书南山地点清单收录的阅读，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9775622,
+        "latitude": 22.5432733
+      },
+      "categories": [
+        "阅读"
+      ],
+      "tags": [
+        "图书馆",
+        "社区",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "6a2fd23f000000002101a8aa",
+        "xiaohongshu_note_title": "高温暴雨遛娃救星！深圳72家图书馆汇总",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/6a2fd23f000000002101a8aa",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "node",
+        "osm_id": 4472155889,
+        "osm_name": "南山图书馆华侨城分馆"
+      }
+    },
+    {
+      "dataset_key": "osm:way:1118551545",
+      "name": "西丽湖园区图书馆",
+      "description": "小红书南山地点清单收录的阅读，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9478692,
+        "latitude": 22.5886808
+      },
+      "categories": [
+        "阅读"
+      ],
+      "tags": [
+        "图书馆",
+        "学习",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "6a2fd23f000000002101a8aa",
+        "xiaohongshu_note_title": "高温暴雨遛娃救星！深圳72家图书馆汇总",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/6a2fd23f000000002101a8aa",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 1118551545,
+        "osm_name": "西丽湖园区图书馆"
+      }
+    },
+    {
+      "dataset_key": "osm:way:533923392",
+      "name": "南头古城博物馆",
+      "description": "小红书南山地点清单收录的文化，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9150583,
+        "latitude": 22.5439096
+      },
+      "categories": [
+        "文化"
+      ],
+      "tags": [
+        "博物馆",
+        "历史",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "68c4e4be000000001d007ac7",
+        "xiaohongshu_note_title": "🌅南山真的没什么可玩的…除了这30+个景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/68c4e4be000000001d007ac7",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 533923392,
+        "osm_name": "南头古城博物馆"
+      }
+    },
+    {
+      "dataset_key": "osm:way:249508399",
+      "name": "孙中山纪念馆",
+      "description": "小红书南山地点清单收录的文化，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9161692,
+        "latitude": 22.551198
+      },
+      "categories": [
+        "文化"
+      ],
+      "tags": [
+        "纪念馆",
+        "历史",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "68c4e4be000000001d007ac7",
+        "xiaohongshu_note_title": "🌅南山真的没什么可玩的…除了这30+个景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/68c4e4be000000001d007ac7",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 249508399,
+        "osm_name": "孙中山纪念馆"
+      }
+    },
+    {
+      "dataset_key": "osm:way:1050291609",
+      "name": "南山区文化馆",
+      "description": "小红书南山地点清单收录的文化，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9229001,
+        "latitude": 22.5449359
+      },
+      "categories": [
+        "文化"
+      ],
+      "tags": [
+        "文化馆",
+        "活动",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "68c4e4be000000001d007ac7",
+        "xiaohongshu_note_title": "🌅南山真的没什么可玩的…除了这30+个景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/68c4e4be000000001d007ac7",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 1050291609,
+        "osm_name": "南山区文化馆"
+      }
+    },
+    {
+      "dataset_key": "osm:way:835229208",
+      "name": "华侨城湿地生态展厅",
+      "description": "小红书南山地点清单收录的文化，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9684371,
+        "latitude": 22.5330222
+      },
+      "categories": [
+        "文化"
+      ],
+      "tags": [
+        "湿地",
+        "科普",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "68c4e4be000000001d007ac7",
+        "xiaohongshu_note_title": "🌅南山真的没什么可玩的…除了这30+个景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/68c4e4be000000001d007ac7",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 835229208,
+        "osm_name": "华侨城湿地生态展厅"
+      }
+    },
+    {
+      "dataset_key": "osm:way:610763002",
+      "name": "华夏艺术中心",
+      "description": "小红书南山地点清单收录的文化，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.980474,
+        "latitude": 22.5374489
+      },
+      "categories": [
+        "文化"
+      ],
+      "tags": [
+        "艺术",
+        "演出",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "68c4e4be000000001d007ac7",
+        "xiaohongshu_note_title": "🌅南山真的没什么可玩的…除了这30+个景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/68c4e4be000000001d007ac7",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 610763002,
+        "osm_name": "华夏艺术中心"
+      }
+    },
+    {
+      "dataset_key": "osm:way:1273285320",
+      "name": "华侨城OPower文化艺术中心",
+      "description": "小红书南山地点清单收录的文化，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9812499,
+        "latitude": 22.5481093
+      },
+      "categories": [
+        "文化"
+      ],
+      "tags": [
+        "艺术",
+        "看展",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "68c4e4be000000001d007ac7",
+        "xiaohongshu_note_title": "🌅南山真的没什么可玩的…除了这30+个景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/68c4e4be000000001d007ac7",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 1273285320,
+        "osm_name": "华侨城OPower文化艺术中心"
+      }
+    },
+    {
+      "dataset_key": "osm:way:96293667",
+      "name": "EPC艺术中心",
+      "description": "小红书南山地点清单收录的文化，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9812319,
+        "latitude": 22.5354181
+      },
+      "categories": [
+        "文化"
+      ],
+      "tags": [
+        "艺术",
+        "看展",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "68c4e4be000000001d007ac7",
+        "xiaohongshu_note_title": "🌅南山真的没什么可玩的…除了这30+个景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/68c4e4be000000001d007ac7",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 96293667,
+        "osm_name": "EPC艺术中心"
+      }
+    },
+    {
+      "dataset_key": "osm:way:556687137",
+      "name": "前海展示厅",
+      "description": "小红书南山地点清单收录的文化，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.8991384,
+        "latitude": 22.5189031
+      },
+      "categories": [
+        "文化"
+      ],
+      "tags": [
+        "展览",
+        "城市规划",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "68c4e4be000000001d007ac7",
+        "xiaohongshu_note_title": "🌅南山真的没什么可玩的…除了这30+个景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/68c4e4be000000001d007ac7",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 556687137,
+        "osm_name": "前海展示厅"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:18564923",
+      "name": "深圳湾超级总部基地规划展览馆",
+      "description": "小红书南山地点清单收录的文化，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9626786,
+        "latitude": 22.5294739
+      },
+      "categories": [
+        "文化"
+      ],
+      "tags": [
+        "展览",
+        "城市规划",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "68c4e4be000000001d007ac7",
+        "xiaohongshu_note_title": "🌅南山真的没什么可玩的…除了这30+个景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/68c4e4be000000001d007ac7",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "relation",
+        "osm_id": 18564923,
+        "osm_name": "深圳湾超级总部基地规划展览馆"
+      }
+    },
+    {
+      "dataset_key": "osm:way:235152145",
+      "name": "深圳书城·南山城",
+      "description": "小红书南山地点清单收录的阅读，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9248437,
+        "latitude": 22.522816
+      },
+      "categories": [
+        "阅读"
+      ],
+      "tags": [
+        "书店",
+        "阅读",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "6a2fd23f000000002101a8aa",
+        "xiaohongshu_note_title": "高温暴雨遛娃救星！深圳72家图书馆汇总",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/6a2fd23f000000002101a8aa",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 235152145,
+        "osm_name": "深圳书城·南山城"
+      }
+    },
+    {
+      "dataset_key": "osm:way:235150407",
+      "name": "深圳保利剧院",
+      "description": "小红书南山地点清单收录的文化，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9339638,
+        "latitude": 22.5194078
+      },
+      "categories": [
+        "文化"
+      ],
+      "tags": [
+        "剧院",
+        "演出",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69e5cd10000000001f002085",
+        "xiaohongshu_note_title": "深圳南山区89所运动场馆免费预约🏃‍♀️",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69e5cd10000000001f002085",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 235150407,
+        "osm_name": "深圳保利剧院"
+      }
+    },
+    {
+      "dataset_key": "osm:way:969970551",
+      "name": "南山文体中心",
+      "description": "小红书南山地点清单收录的体育，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9180612,
+        "latitude": 22.5396929
+      },
+      "categories": [
+        "体育"
+      ],
+      "tags": [
+        "运动",
+        "公共场馆",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69e5cd10000000001f002085",
+        "xiaohongshu_note_title": "深圳南山区89所运动场馆免费预约🏃‍♀️",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69e5cd10000000001f002085",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 969970551,
+        "osm_name": "南山文体中心"
+      }
+    },
+    {
+      "dataset_key": "osm:node:8976026777",
+      "name": "南山文体中心体育馆",
+      "description": "小红书南山地点清单收录的体育，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9176982,
+        "latitude": 22.5400457
+      },
+      "categories": [
+        "体育"
+      ],
+      "tags": [
+        "体育馆",
+        "运动",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69e5cd10000000001f002085",
+        "xiaohongshu_note_title": "深圳南山区89所运动场馆免费预约🏃‍♀️",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69e5cd10000000001f002085",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "node",
+        "osm_id": 8976026777,
+        "osm_name": "南山文体中心体育馆"
+      }
+    },
+    {
+      "dataset_key": "osm:node:8976026768",
+      "name": "南山文体中心剧院",
+      "description": "小红书南山地点清单收录的文化，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9175264,
+        "latitude": 22.53924
+      },
+      "categories": [
+        "文化"
+      ],
+      "tags": [
+        "剧院",
+        "演出",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69e5cd10000000001f002085",
+        "xiaohongshu_note_title": "深圳南山区89所运动场馆免费预约🏃‍♀️",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69e5cd10000000001f002085",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "node",
+        "osm_id": 8976026768,
+        "osm_name": "南山文体中心剧院"
+      }
+    },
+    {
+      "dataset_key": "osm:way:542049855",
+      "name": "深圳湾体育中心",
+      "description": "小红书南山地点清单收录的体育，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9447682,
+        "latitude": 22.5213183
+      },
+      "categories": [
+        "体育"
+      ],
+      "tags": [
+        "运动",
+        "公共场馆",
+        "地标"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69e5cd10000000001f002085",
+        "xiaohongshu_note_title": "深圳南山区89所运动场馆免费预约🏃‍♀️",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69e5cd10000000001f002085",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 542049855,
+        "osm_name": "深圳湾体育中心"
+      }
+    },
+    {
+      "dataset_key": "osm:way:665408867",
+      "name": "深圳湾体育场",
+      "description": "小红书南山地点清单收录的体育，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9463076,
+        "latitude": 22.5206029
+      },
+      "categories": [
+        "体育"
+      ],
+      "tags": [
+        "体育场",
+        "运动",
+        "演出"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69e5cd10000000001f002085",
+        "xiaohongshu_note_title": "深圳南山区89所运动场馆免费预约🏃‍♀️",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69e5cd10000000001f002085",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 665408867,
+        "osm_name": "深圳湾体育场"
+      }
+    },
+    {
+      "dataset_key": "osm:way:665408865",
+      "name": "深圳湾体育馆",
+      "description": "小红书南山地点清单收录的体育，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9441016,
+        "latitude": 22.520843
+      },
+      "categories": [
+        "体育"
+      ],
+      "tags": [
+        "体育馆",
+        "运动",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69e5cd10000000001f002085",
+        "xiaohongshu_note_title": "深圳南山区89所运动场馆免费预约🏃‍♀️",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69e5cd10000000001f002085",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 665408865,
+        "osm_name": "深圳湾体育馆"
+      }
+    },
+    {
+      "dataset_key": "osm:way:665408866",
+      "name": "深圳湾游泳馆",
+      "description": "小红书南山地点清单收录的体育，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.942989,
+        "latitude": 22.5209867
+      },
+      "categories": [
+        "体育"
+      ],
+      "tags": [
+        "游泳",
+        "运动",
+        "室内"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69e5cd10000000001f002085",
+        "xiaohongshu_note_title": "深圳南山区89所运动场馆免费预约🏃‍♀️",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69e5cd10000000001f002085",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 665408866,
+        "osm_name": "深圳湾游泳馆"
+      }
+    },
+    {
+      "dataset_key": "osm:way:542049856",
+      "name": "蛇口体育中心",
+      "description": "小红书南山地点清单收录的体育，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.918499,
+        "latitude": 22.4981593
+      },
+      "categories": [
+        "体育"
+      ],
+      "tags": [
+        "运动",
+        "公共场馆",
+        "亲子"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69e5cd10000000001f002085",
+        "xiaohongshu_note_title": "深圳南山区89所运动场馆免费预约🏃‍♀️",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69e5cd10000000001f002085",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 542049856,
+        "osm_name": "蛇口体育中心"
+      }
+    },
+    {
+      "dataset_key": "osm:way:542049857",
+      "name": "深圳大学城体育中心",
+      "description": "小红书南山地点清单收录的体育，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.975381,
+        "latitude": 22.590336
+      },
+      "categories": [
+        "体育"
+      ],
+      "tags": [
+        "运动",
+        "公共场馆",
+        "大学城"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69e5cd10000000001f002085",
+        "xiaohongshu_note_title": "深圳南山区89所运动场馆免费预约🏃‍♀️",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69e5cd10000000001f002085",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 542049857,
+        "osm_name": "深圳大学城体育中心"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:7664887",
+      "name": "大学城体育中心体育场",
+      "description": "小红书南山地点清单收录的体育，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.975214,
+        "latitude": 22.5903924
+      },
+      "categories": [
+        "体育"
+      ],
+      "tags": [
+        "体育场",
+        "运动",
+        "大学城"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "69e5cd10000000001f002085",
+        "xiaohongshu_note_title": "深圳南山区89所运动场馆免费预约🏃‍♀️",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/69e5cd10000000001f002085",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "relation",
+        "osm_id": 7664887,
+        "osm_name": "大学城体育中心体育场"
+      }
+    },
+    {
+      "dataset_key": "osm:way:533916249",
+      "name": "大学城生态公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9713472,
+        "latitude": 22.5905408
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "大学城",
+        "散步",
+        "自然"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "68c4e4be000000001d007ac7",
+        "xiaohongshu_note_title": "🌅南山真的没什么可玩的…除了这30+个景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/68c4e4be000000001d007ac7",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 533916249,
+        "osm_name": "大学城生态公园"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:15626541",
+      "name": "大冲公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9545902,
+        "latitude": 22.550787
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "社区",
+        "散步",
+        "亲子"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "68c4e4be000000001d007ac7",
+        "xiaohongshu_note_title": "🌅南山真的没什么可玩的…除了这30+个景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/68c4e4be000000001d007ac7",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "relation",
+        "osm_id": 15626541,
+        "osm_name": "大冲公园"
+      }
+    },
+    {
+      "dataset_key": "osm:way:571629068",
+      "name": "流花山公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9491764,
+        "latitude": 22.5152575
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "花卉",
+        "海边",
+        "拍照"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "6a543b5300000000170096b3",
+        "xiaohongshu_note_title": "深圳湾公园怎么打卡❓附详细攻略🗺️",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/6a543b5300000000170096b3",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 571629068,
+        "osm_name": "流花山"
+      }
+    },
+    {
+      "dataset_key": "osm:way:583525757",
+      "name": "留仙公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.925957,
+        "latitude": 22.5835246
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "社区",
+        "散步",
+        "绿荫"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "68c4e4be000000001d007ac7",
+        "xiaohongshu_note_title": "🌅南山真的没什么可玩的…除了这30+个景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/68c4e4be000000001d007ac7",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 583525757,
+        "osm_name": "留仙公园"
+      }
+    },
+    {
+      "dataset_key": "osm:way:415703359",
+      "name": "石鼓山公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9460913,
+        "latitude": 22.581303
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "社区",
+        "散步",
+        "亲子"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "68c4e4be000000001d007ac7",
+        "xiaohongshu_note_title": "🌅南山真的没什么可玩的…除了这30+个景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/68c4e4be000000001d007ac7",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 415703359,
+        "osm_name": "石鼓山公园"
+      }
+    },
+    {
+      "dataset_key": "osm:way:439875436",
+      "name": "月亮湾公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.8936659,
+        "latitude": 22.5044028
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "海边",
+        "散步",
+        "亲子"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "68c4e4be000000001d007ac7",
+        "xiaohongshu_note_title": "🌅南山真的没什么可玩的…除了这30+个景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/68c4e4be000000001d007ac7",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 439875436,
+        "osm_name": "月亮湾公园"
+      }
+    },
+    {
+      "dataset_key": "osm:way:376363162",
+      "name": "蛇口文体公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9323134,
+        "latitude": 22.4967501
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "运动",
+        "社区",
+        "亲子"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "68c4e4be000000001d007ac7",
+        "xiaohongshu_note_title": "🌅南山真的没什么可玩的…除了这30+个景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/68c4e4be000000001d007ac7",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 376363162,
+        "osm_name": "蛇口文体公园"
+      }
+    },
+    {
+      "dataset_key": "osm:way:1338309028",
+      "name": "中心河公园",
+      "description": "小红书南山地点清单收录的公园，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9370729,
+        "latitude": 22.4984404
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "绿道",
+        "跑步",
+        "散步"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "68c4e4be000000001d007ac7",
+        "xiaohongshu_note_title": "🌅南山真的没什么可玩的…除了这30+个景点",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/68c4e4be000000001d007ac7",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 1338309028,
+        "osm_name": "中心河公园"
+      }
+    },
+    {
+      "dataset_key": "osm:way:736632011",
+      "name": "人才星光桥",
+      "description": "小红书南山地点清单收录的地标，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.946443,
+        "latitude": 22.5132924
+      },
+      "categories": [
+        "地标"
+      ],
+      "tags": [
+        "桥梁",
+        "夜景",
+        "拍照"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "6a543b5300000000170096b3",
+        "xiaohongshu_note_title": "深圳湾公园怎么打卡❓附详细攻略🗺️",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/6a543b5300000000170096b3",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "way",
+        "osm_id": 736632011,
+        "osm_name": "人才星光桥"
+      }
+    },
+    {
+      "dataset_key": "osm:node:5250978477",
+      "name": "女娲补天像",
+      "description": "小红书南山地点清单收录的地标，坐标已使用 OpenStreetMap 南山区数据核验。",
+      "address": null,
+      "location": {
+        "longitude": 113.9126216,
+        "latitude": 22.4840439
+      },
+      "categories": [
+        "地标"
+      ],
+      "tags": [
+        "雕塑",
+        "海边",
+        "拍照"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "xiaohongshu_note_id": "6a6c525f0000000025009d83",
+        "xiaohongshu_note_title": "从旧厂房走到海边，蛇口这条线很舒服",
+        "xiaohongshu_url": "https://www.xiaohongshu.com/explore/6a6c525f0000000025009d83",
+        "coordinate_source": "OpenStreetMap",
+        "osm_type": "node",
+        "osm_id": 5250978477,
+        "osm_name": "女娲补天像"
+      }
+    }
+  ]
+}

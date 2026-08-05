@@ -28,8 +28,9 @@ class Settings(BaseSettings):
     geo_seed_demo_places: bool = False
 
     # 地点与路线规划
-    routing_provider: Literal["amap", "deterministic"] = "amap"
+    routing_provider: Literal["amap", "valhalla", "deterministic"] = "amap"
     routing_request_timeout_seconds: float = 10.0
+    valhalla_base_url: str = "https://valhalla1.openstreetmap.de/route"
     recommendation_use_llm: bool = False
     recommendation_agent_enabled: bool = True
     recommendation_agent_max_iterations: int = 4
