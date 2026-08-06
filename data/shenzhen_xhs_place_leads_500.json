@@ -1,0 +1,4520 @@
+{
+  "dataset": "xiaohongshu:shenzhen:place-leads:2026-08-07",
+  "schema_version": 1,
+  "captured_at": "2026-08-07",
+  "platform": "xiaohongshu",
+  "status": "candidate_leads",
+  "notes": [
+    "公开搜索结果中的候选笔记线索，不等同于已验证地点。",
+    "district_hint 来源于搜索词；进入公开地点库前必须解析地点名并用地图数据核验行政区与坐标。",
+    "canonical_url 不含登录态或 xsec_token。"
+  ],
+  "allocation": {
+    "total": 500,
+    "宝安区": 125,
+    "福田区": 125,
+    "深圳其他区域": 250
+  },
+  "leads": [
+    {
+      "lead_id": "xhs:69bf848c0000000022026c56",
+      "note_id": "69bf848c0000000022026c56",
+      "title": "宝安最舒服的公园之一！月季花海+水库碧道",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69bf848c0000000022026c56",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a20ed1e00000000210206dc",
+      "note_id": "6a20ed1e00000000210206dc",
+      "title": "壹方城和南头古城逛烂了怎么办",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a20ed1e00000000210206dc",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6902c14c000000000503034d",
+      "note_id": "6902c14c000000000503034d",
+      "title": "宝安徒步加了女生微信，后来我人麻了...",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6902c14c000000000503034d",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69ce0226000000001b0212ed",
+      "note_id": "69ce0226000000001b0212ed",
+      "title": "深圳宝安区下午茶，拍照打卡，时光超全合集",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69ce0226000000001b0212ed",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a1eddfe000000000702ad88",
+      "note_id": "6a1eddfe000000000702ad88",
+      "title": "宝安公园是假公园！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a1eddfe000000000702ad88",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a0414eb0000000006036349",
+      "note_id": "6a0414eb0000000006036349",
+      "title": "✨不要白白浪费大城市的资源！深圳篇（四）",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a0414eb0000000006036349",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a196bc10000000038036e4b",
+      "note_id": "6a196bc10000000038036e4b",
+      "title": "深圳太热不想暴晒！夏天约会地点推荐✌️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a196bc10000000038036e4b",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a3f8dcf0000000006020686",
+      "note_id": "6a3f8dcf0000000006020686",
+      "title": "深圳宝安区有什么好玩的吗？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a3f8dcf0000000006020686",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:699576dd000000002801c3cf",
+      "note_id": "699576dd000000002801c3cf",
+      "title": "深圳周末可以做的100件小事",
+      "canonical_url": "https://www.xiaohongshu.com/explore/699576dd000000002801c3cf",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:698808ec000000001d027b90",
+      "note_id": "698808ec000000001d027b90",
+      "title": "设计这个公园的人真的是天才",
+      "canonical_url": "https://www.xiaohongshu.com/explore/698808ec000000001d027b90",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:690afdee000000000300d7d5",
+      "note_id": "690afdee000000000300d7d5",
+      "title": "宝安中心真的太好逛了",
+      "canonical_url": "https://www.xiaohongshu.com/explore/690afdee000000000300d7d5",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6970b4000000001c01154a",
+      "note_id": "6a6970b4000000001c01154a",
+      "title": "深圳",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6970b4000000001c01154a",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69843a97000000000e00ec57",
+      "note_id": "69843a97000000000e00ec57",
+      "title": "一个深圳小孩轻轻地力竭了...",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69843a97000000000e00ec57",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69115d72000000000301baad",
+      "note_id": "69115d72000000000301baad",
+      "title": "深圳宝安｜小众爬山路线，有被惊艳到🌿",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69115d72000000000301baad",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6979f62f0000000028009ced",
+      "note_id": "6979f62f0000000028009ced",
+      "title": "小小宝安凤凰山",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6979f62f0000000028009ced",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69c8a7ad000000002800abd8",
+      "note_id": "69c8a7ad000000002800abd8",
+      "title": "不在江南在深圳！宝安超美打卡露营地🏕️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69c8a7ad000000002800abd8",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6895bf960000000023029a01",
+      "note_id": "6895bf960000000023029a01",
+      "title": "深圳适合女生逛一下午的8⃣️个地方🎈",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6895bf960000000023029a01",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6f27e6000000003202073b",
+      "note_id": "6a6f27e6000000003202073b",
+      "title": "深圳｜痴迷于一半霓虹一半海风的黄昏",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6f27e6000000003202073b",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68cf9645000000001301d5dc",
+      "note_id": "68cf9645000000001301d5dc",
+      "title": "宝安机场的超低空飞机",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68cf9645000000001301d5dc",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:67b40aae0000000007036491",
+      "note_id": "67b40aae0000000007036491",
+      "title": "宝安我最喜欢的一块区域",
+      "canonical_url": "https://www.xiaohongshu.com/explore/67b40aae0000000007036491",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:67e8ae51000000001e002240",
+      "note_id": "67e8ae51000000001e002240",
+      "title": "欢乐港湾怎么了？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/67e8ae51000000001e002240",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68d92fa4000000001101750c",
+      "note_id": "68d92fa4000000001101750c",
+      "title": "这算不算深圳小「阿勒泰」",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68d92fa4000000001101750c",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68b23eb8000000001d02e83b",
+      "note_id": "68b23eb8000000001d02e83b",
+      "title": "没人觉得住宝安区最舒服吗？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68b23eb8000000001d02e83b",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6860ac67000000001202e4dd",
+      "note_id": "6860ac67000000001202e4dd",
+      "title": "去没去过的地方",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6860ac67000000001202e4dd",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68b1db24000000001d002e8b",
+      "note_id": "68b1db24000000001d002e8b",
+      "title": "心血来潮的免费拥抱活动结束！自己抱自己啦～",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68b1db24000000001d002e8b",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68ece7100000000007016311",
+      "note_id": "68ece7100000000007016311",
+      "title": "上川真的给我感觉不像在深圳…",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68ece7100000000007016311",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69ce89ec000000002202831d",
+      "note_id": "69ce89ec000000002202831d",
+      "title": "壹方城又换新皮肤了😭绿野仙踪本野！！！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69ce89ec000000002202831d",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69ded3f8000000002102ea42",
+      "note_id": "69ded3f8000000002102ea42",
+      "title": "什么！！上班也能偶遇素龙",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69ded3f8000000002102ea42",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69113fb30000000005013fd4",
+      "note_id": "69113fb30000000005013fd4",
+      "title": "当大家都在挤万象城二期……",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69113fb30000000005013fd4",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a51e6e10000000011004643",
+      "note_id": "6a51e6e10000000011004643",
+      "title": "海雅缤纷城扇🐷争霸赛",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a51e6e10000000011004643",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6980b0c6000000001a024bc0",
+      "note_id": "6980b0c6000000001a024bc0",
+      "title": "深圳放假可以做的137件小事",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6980b0c6000000001a024bc0",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69f2cd98000000001a02fc66",
+      "note_id": "69f2cd98000000001a02fc66",
+      "title": "不要白白浪费大城市的资源（深圳篇）",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69f2cd98000000001a02fc66",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69119e410000000004006830",
+      "note_id": "69119e410000000004006830",
+      "title": "深圳青青世界实测",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69119e410000000004006830",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6968d556000000001a02d8fb",
+      "note_id": "6968d556000000001a02d8fb",
+      "title": "深圳的室内乐园已经这么卷了嘛⁉️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6968d556000000001a02d8fb",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a607c750000000001030896",
+      "note_id": "6a607c750000000001030896",
+      "title": "在深圳，第一次参加陌生人Deeptalk局…",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a607c750000000001030896",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69d8aea1000000001a0299d6",
+      "note_id": "69d8aea1000000001a0299d6",
+      "title": "深圳适合带仇人去做的18件小事",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69d8aea1000000001a0299d6",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a632572000000000a038a01",
+      "note_id": "6a632572000000000a038a01",
+      "title": "深二在深圳date多了，约会流程快成流水线",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a632572000000000a038a01",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a1992c60000000007021c83",
+      "note_id": "6a1992c60000000007021c83",
+      "title": "全网捞女生",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a1992c60000000007021c83",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:684e876d000000000f030cd9",
+      "note_id": "684e876d000000000f030cd9",
+      "title": "深圳本地人请进",
+      "canonical_url": "https://www.xiaohongshu.com/explore/684e876d000000000f030cd9",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6fe2f3000000003302ed23",
+      "note_id": "6a6fe2f3000000003302ed23",
+      "title": "深圳宝安：电动车违法，直接上征信",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6fe2f3000000003302ed23",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6870a6b0000000002001a3eb",
+      "note_id": "6870a6b0000000002001a3eb",
+      "title": "深圳不上班，能做什么事情！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6870a6b0000000002001a3eb",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69170931000000001b033902",
+      "note_id": "69170931000000001b033902",
+      "title": "为了这15张图片，我特意飞了一趟深圳✈️❗️❗️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69170931000000001b033902",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a633f91000000000f03c2c2",
+      "note_id": "6a633f91000000000f03c2c2",
+      "title": "深圳灣 好漂亮",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a633f91000000000f03c2c2",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a28b9750000000021009016",
+      "note_id": "6a28b9750000000021009016",
+      "title": "在深圳一个人很无聊，能去哪里玩？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a28b9750000000021009016",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68562f5c000000000d025118",
+      "note_id": "68562f5c000000000d025118",
+      "title": "关系很好亲戚来深圳带他们去哪里玩啊",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68562f5c000000000d025118",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a5305cb0000000015027c90",
+      "note_id": "6a5305cb0000000015027c90",
+      "title": "深圳招聘｜总经理机动助理兼司机长期稳定",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a5305cb0000000015027c90",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69cef2b1000000002102e03d",
+      "note_id": "69cef2b1000000002102e03d",
+      "title": "深圳的这个地方怎么奇奇怪怪的🧐",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69cef2b1000000002102e03d",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:687b5f59000000002203d6f7",
+      "note_id": "687b5f59000000002203d6f7",
+      "title": "在深圳，一些我会反复去的地方2️⃣",
+      "canonical_url": "https://www.xiaohongshu.com/explore/687b5f59000000002203d6f7",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a50f3d8000000000803170c",
+      "note_id": "6a50f3d8000000000803170c",
+      "title": "去深圳旅游！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a50f3d8000000000803170c",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a5cfd81000000000f008256",
+      "note_id": "6a5cfd81000000000f008256",
+      "title": "迄今来深圳最喜欢的一个的地方",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a5cfd81000000000f008256",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a5cb941000000000f03f2db",
+      "note_id": "6a5cb941000000000f03f2db",
+      "title": "中大深附近有没有什么玩的地方哇",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a5cb941000000000f03f2db",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69e0473f0000000023006345",
+      "note_id": "69e0473f0000000023006345",
+      "title": "已经招到人啦",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69e0473f0000000023006345",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:696dc2d7000000002103f72d",
+      "note_id": "696dc2d7000000002103f72d",
+      "title": "新开！！深圳的公园还是太超前！美晕！🌊",
+      "canonical_url": "https://www.xiaohongshu.com/explore/696dc2d7000000002103f72d",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a746575000000003300d6e6",
+      "note_id": "6a746575000000003300d6e6",
+      "title": "深圳宝安找一位合租女室友！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a746575000000003300d6e6",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69bf8c9e0000000022001ba1",
+      "note_id": "69bf8c9e0000000022001ba1",
+      "title": "想出门了",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69bf8c9e0000000022001ba1",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68e27bb30000000004012cfd",
+      "note_id": "68e27bb30000000004012cfd",
+      "title": "深圳真的很无聊",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68e27bb30000000004012cfd",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69f841a4000000003700c6ac",
+      "note_id": "69f841a4000000003700c6ac",
+      "title": "南山后海｜周末不去喝咖啡了，去玩浆板🏄",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69f841a4000000003700c6ac",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69116df3000000000302c7c6",
+      "note_id": "69116df3000000000302c7c6",
+      "title": "无聊，只有一下午可以去哪玩",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69116df3000000000302c7c6",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a74968a0000000005030493",
+      "note_id": "6a74968a0000000005030493",
+      "title": "深圳宝安的",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a74968a0000000005030493",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a1ba1c500000000080278ec",
+      "note_id": "6a1ba1c500000000080278ec",
+      "title": "避雷深圳宝安某科技公司｜入职一天跑路",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a1ba1c500000000080278ec",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a7469b10000000024024d3a",
+      "note_id": "6a7469b10000000024024d3a",
+      "title": "深圳宝安机场一定要提前2小时到！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a7469b10000000024024d3a",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69450515000000000d0357e5",
+      "note_id": "69450515000000000d0357e5",
+      "title": "不愧是大城市！！深圳你真的太会了！！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69450515000000000d0357e5",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a06d39900000000350224a1",
+      "note_id": "6a06d39900000000350224a1",
+      "title": "坪山还有什么好玩的，真的是无聊至极",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a06d39900000000350224a1",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69981637000000001600a303",
+      "note_id": "69981637000000001600a303",
+      "title": "惊喜偶遇！五月天海上世界？！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69981637000000001600a303",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68b5394a000000001d019073",
+      "note_id": "68b5394a000000001d019073",
+      "title": "深大必修课｜平时没课去哪玩？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68b5394a000000001d019073",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a43cb1b0000000007013c3b",
+      "note_id": "6a43cb1b0000000007013c3b",
+      "title": "深圳人有自己的加州棕榈大道🌴太出片了",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a43cb1b0000000007013c3b",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6989ef1e0000000015038358",
+      "note_id": "6989ef1e0000000015038358",
+      "title": "深圳宝安的水真的很干净",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6989ef1e0000000015038358",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69731df7000000001a02ac0d",
+      "note_id": "69731df7000000001a02ac0d",
+      "title": "在蛇口！深圳也可以美美度假躺平⛱️🥹",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69731df7000000001a02ac0d",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a749fdf00000000240262c0",
+      "note_id": "6a749fdf00000000240262c0",
+      "title": "深圳娱乐主播招募（接受无经验）｜晴迁文化",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a749fdf00000000240262c0",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:691ee6c8000000001e0143d4",
+      "note_id": "691ee6c8000000001e0143d4",
+      "title": "果然深圳最好的地方都是免费的！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/691ee6c8000000001e0143d4",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a742fe70000000006007329",
+      "note_id": "6a742fe70000000006007329",
+      "title": "深圳宝安青少年管弦乐团招募乐手",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a742fe70000000006007329",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:692b096f000000001b030edd",
+      "note_id": "692b096f000000001b030edd",
+      "title": "在深圳的菜市场里看了一出戏",
+      "canonical_url": "https://www.xiaohongshu.com/explore/692b096f000000001b030edd",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6905d62600000000070148b7",
+      "note_id": "6905d62600000000070148b7",
+      "title": "🎃深圳人你的精神世界真的很超前…",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6905d62600000000070148b7",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6947a821000000001b0232d1",
+      "note_id": "6947a821000000001b0232d1",
+      "title": "不记得这是第几次在万象城遇到明星了",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6947a821000000001b0232d1",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a1a600700000000360001ca",
+      "note_id": "6a1a600700000000360001ca",
+      "title": "深圳露营🏕️｜我太会选地方了！玩疯了",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a1a600700000000360001ca",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69db609e000000002301d3a7",
+      "note_id": "69db609e000000002301d3a7",
+      "title": "深圳💐超适合春日的一日colorwalk路线",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69db609e000000002301d3a7",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a72b8c0000000002500cdd2",
+      "note_id": "6a72b8c0000000002500cdd2",
+      "title": "深圳宝安招人｜日式美甲美睫美容师速来✨",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a72b8c0000000002500cdd2",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69b516c1000000001e00c530",
+      "note_id": "69b516c1000000001e00c530",
+      "title": "壹方城这素在？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69b516c1000000001e00c530",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68f60a310000000005010eb9",
+      "note_id": "68f60a310000000005010eb9",
+      "title": "注意注意！11月市集地点有调整",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68f60a310000000005010eb9",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a72a26d0000000033011369",
+      "note_id": "6a72a26d0000000033011369",
+      "title": "深圳宝安区也好多人报啊",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a72a26d0000000033011369",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68305ba60000000022026608",
+      "note_id": "68305ba60000000022026608",
+      "title": "刚来深圳光明一个好无聊",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68305ba60000000022026608",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68c15a1a000000001b0330c7",
+      "note_id": "68c15a1a000000001b0330c7",
+      "title": "宝安大仟里真的没人管管吗！？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68c15a1a000000001b0330c7",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69e304bb00000000230042ee",
+      "note_id": "69e304bb00000000230042ee",
+      "title": "深圳梧桐村超好逛的市集❗️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69e304bb00000000230042ee",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a72b9280000000033035540",
+      "note_id": "6a72b9280000000033035540",
+      "title": "深圳宝安，救助小狗跑丢急寻",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a72b9280000000033035540",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a13187c0000000035038f95",
+      "note_id": "6a13187c0000000035038f95",
+      "title": "📮｜来，加入我们｜实习设计师",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a13187c0000000035038f95",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6910921a0000000003020605",
+      "note_id": "6910921a0000000003020605",
+      "title": "发现一个人少又超出片的公园(内附攻略）！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6910921a0000000003020605",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a58ff27000000001d00d2b3",
+      "note_id": "6a58ff27000000001d00d2b3",
+      "title": "预计周末有1w人来这里🍟深圳海边薯条乐园",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a58ff27000000001d00d2b3",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a74093900000000220331a2",
+      "note_id": "6a74093900000000220331a2",
+      "title": "月租860，深圳宝安塘尾25区，安居乐寓转租",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a74093900000000220331a2",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a74260d0000000025010c3f",
+      "note_id": "6a74260d0000000025010c3f",
+      "title": "深圳宝安大悦城开通香港专线啦！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a74260d0000000025010c3f",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a74833e0000000033032165",
+      "note_id": "6a74833e0000000033032165",
+      "title": "深圳宝安出闲置",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a74833e0000000033032165",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a7466f10000000026037131",
+      "note_id": "6a7466f10000000026037131",
+      "title": "深圳宝安西乡｜大单间个人转租✨",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a7466f10000000026037131",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68a6f1c7000000001b01e9c7",
+      "note_id": "68a6f1c7000000001b01e9c7",
+      "title": "深圳📍被问爆的拍照机位🗺️附攻略❗️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68a6f1c7000000001b01e9c7",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a7447190000000025015162",
+      "note_id": "6a7447190000000025015162",
+      "title": "深圳宝安 碧海湾 原木风 三房一卫 出租",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a7447190000000025015162",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a747e47000000002202c4f7",
+      "note_id": "6a747e47000000002202c4f7",
+      "title": "深圳宝安固戍 单间1280🉑养宠物位置：固",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a747e47000000002202c4f7",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a37a52300000000210234e1",
+      "note_id": "6a37a52300000000210234e1",
+      "title": "快来！限时最后一天的宝藏市集🗺️！！！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a37a52300000000210234e1",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6c96c0000000002c005d64",
+      "note_id": "6a6c96c0000000002c005d64",
+      "title": "这周G&G，再见面🤙",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6c96c0000000002c005d64",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6430a400000000220195e8",
+      "note_id": "6a6430a400000000220195e8",
+      "title": "深圳宝安区闲置群",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6430a400000000220195e8",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a740ab7000000003300c746",
+      "note_id": "6a740ab7000000003300c746",
+      "title": "深圳宝安沙井珈誉府2区85m²轻奢&法式混搭风",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a740ab7000000003300c746",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a72eb7500000000240249e9",
+      "note_id": "6a72eb7500000000240249e9",
+      "title": "深圳宝安靠谱买宠指南🔥热门品种全覆盖",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a72eb7500000000240249e9",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a33d6a500000000060202f9",
+      "note_id": "6a33d6a500000000060202f9",
+      "title": "🎉MilkHome狗狗幼稚园1周年啦！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a33d6a500000000060202f9",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6606bd000000000101e040",
+      "note_id": "6a6606bd000000000101e040",
+      "title": "大胆笑、肆意玩｜千禧复古敞开玩😆",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6606bd000000000101e040",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a746c2a0000000033030ff3",
+      "note_id": "6a746c2a0000000033030ff3",
+      "title": "深圳宝安区石岩花店、",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a746c2a0000000033030ff3",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:693458dd000000001b0258b3",
+      "note_id": "693458dd000000001b0258b3",
+      "title": "深圳山海连城是哪个高人想出来的",
+      "canonical_url": "https://www.xiaohongshu.com/explore/693458dd000000001b0258b3",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6960d31f000000000e03e4bb",
+      "note_id": "6960d31f000000000e03e4bb",
+      "title": "深圳宝安会反复去的3个地方🌿",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6960d31f000000000e03e4bb",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69ae0930000000001a0285a4",
+      "note_id": "69ae0930000000001a0285a4",
+      "title": "湾区之眼书城凉了么？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69ae0930000000001a0285a4",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6921accd000000001e00d9a5",
+      "note_id": "6921accd000000001e00d9a5",
+      "title": "这里，请假也要来！！！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6921accd000000001e00d9a5",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:665bee58000000000c019248",
+      "note_id": "665bee58000000000c019248",
+      "title": "深圳周末去哪儿玩？随机转盘拯救纠结！！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/665bee58000000000c019248",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:67c31a16000000001201dec2",
+      "note_id": "67c31a16000000001201dec2",
+      "title": "宝安必去的20个神仙打卡地！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/67c31a16000000001201dec2",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:693a91ac000000001e01696e",
+      "note_id": "693a91ac000000001e01696e",
+      "title": "深圳宝中citywalk，请直接复制这条路线‼️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/693a91ac000000001e01696e",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:678dc653000000001b008687",
+      "note_id": "678dc653000000001b008687",
+      "title": "深圳新开的水库公园！你敢信这是深圳吗🌲",
+      "canonical_url": "https://www.xiaohongshu.com/explore/678dc653000000001b008687",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6969fc1d000000002200a384",
+      "note_id": "6969fc1d000000002200a384",
+      "title": "深圳新开！可以呆一下午的好地方（合集附📍）",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6969fc1d000000002200a384",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:670a0d1400000000210029c1",
+      "note_id": "670a0d1400000000210029c1",
+      "title": "朋友跟我说深圳没啥好玩的，直到我来了之后…",
+      "canonical_url": "https://www.xiaohongshu.com/explore/670a0d1400000000210029c1",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a03066a00000000380237ca",
+      "note_id": "6a03066a00000000380237ca",
+      "title": "深圳骑行｜山海连城–前海湾段骑行攻略",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a03066a00000000380237ca",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a59ff1c000000001c013118",
+      "note_id": "6a59ff1c000000001c013118",
+      "title": "感觉深圳，是国内旅游性价比第二高的城市。",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a59ff1c000000001c013118",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:692018be000000001f0064f2",
+      "note_id": "692018be000000001f0064f2",
+      "title": "在宝安！！！这条city walk路线封神了",
+      "canonical_url": "https://www.xiaohongshu.com/explore/692018be000000001f0064f2",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68fcc10f0000000003023365",
+      "note_id": "68fcc10f0000000003023365",
+      "title": "深圳小京都！现实版绿野仙踪攻略🌲🌲🌲",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68fcc10f0000000003023365",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a19abbd0000000006033542",
+      "note_id": "6a19abbd0000000006033542",
+      "title": "发现宝安好去处",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a19abbd0000000006033542",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68d68247000000000b03ef59",
+      "note_id": "68d68247000000000b03ef59",
+      "title": "湾区之丢人现眼",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68d68247000000000b03ef59",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:699870cc000000001a01e512",
+      "note_id": "699870cc000000001a01e512",
+      "title": "两个人都想不到要去干什么了……",
+      "canonical_url": "https://www.xiaohongshu.com/explore/699870cc000000001a01e512",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a1b91d700000000360019c4",
+      "note_id": "6a1b91d700000000360019c4",
+      "title": "爱或恨一个人，都送TA去企鹅岛",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a1b91d700000000360019c4",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a376c38000000001503f1cf",
+      "note_id": "6a376c38000000001503f1cf",
+      "title": "注意远离：宝安西湾红树林公园的陌生男性",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a376c38000000001503f1cf",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:689011ea000000002302d281",
+      "note_id": "689011ea000000002302d281",
+      "title": "深圳宝安区新晋打卡地📸必去8⃣️个地方",
+      "canonical_url": "https://www.xiaohongshu.com/explore/689011ea000000002302d281",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a3cf26b000000002003accd",
+      "note_id": "6a3cf26b000000002003accd",
+      "title": "深圳适合一个人去的地方（50/100）",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a3cf26b000000002003accd",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:673db4da0000000008006c68",
+      "note_id": "673db4da0000000008006c68",
+      "title": "深圳六大地铁可以直达的夜市🔥",
+      "canonical_url": "https://www.xiaohongshu.com/explore/673db4da0000000008006c68",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68c2af2b000000001c03f348",
+      "note_id": "68c2af2b000000001c03f348",
+      "title": "姐妹信我！有车后的快乐真的刹不住车～",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68c2af2b000000001c03f348",
+      "district_hint": "宝安区",
+      "search_query": "深圳宝安好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6dd28c000000002403c941",
+      "note_id": "6a6dd28c000000002403c941",
+      "title": "福田城中村美女多",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6dd28c000000002403c941",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6943c9cc000000001f00b3f8",
+      "note_id": "6943c9cc000000001f00b3f8",
+      "title": "在深圳玩，福田篇❗",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6943c9cc000000001f00b3f8",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a366d1a000000002200aa63",
+      "note_id": "6a366d1a000000002200aa63",
+      "title": "低精力深圳情侣怎么过周末2/100（香蜜湖篇）",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a366d1a000000002200aa63",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a5e209100000000010035d8",
+      "note_id": "6a5e209100000000010035d8",
+      "title": "深圳市中心一日游就这么玩",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a5e209100000000010035d8",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69619e830000000009038541",
+      "note_id": "69619e830000000009038541",
+      "title": "耗资2亿的深圳\"迪士尼\"被拆除！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69619e830000000009038541",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a3945ba000000001101369d",
+      "note_id": "6a3945ba000000001101369d",
+      "title": "walk walk 日常羡慕景田居民",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a3945ba000000001101369d",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:697f253a000000002102b39c",
+      "note_id": "697f253a000000002102b39c",
+      "title": "园岭新村有感",
+      "canonical_url": "https://www.xiaohongshu.com/explore/697f253a000000002102b39c",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a546b55000000001003f231",
+      "note_id": "6a546b55000000001003f231",
+      "title": "深圳福田必去地点有无推荐",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a546b55000000001003f231",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a5e06bf000000000301df69",
+      "note_id": "6a5e06bf000000000301df69",
+      "title": "一个人如何更好地使用深圳(实操分享",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a5e06bf000000000301df69",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69d73d3c000000001a02816a",
+      "note_id": "69d73d3c000000001a02816a",
+      "title": "当你谈论深圳，真得看你住在哪里",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69d73d3c000000001a02816a",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6904bf3b0000000007003b39",
+      "note_id": "6904bf3b0000000007003b39",
+      "title": "深圳福田村…第一次来的人都会感到震撼…",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6904bf3b0000000007003b39",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a1d41be00000000080018a8",
+      "note_id": "6a1d41be00000000080018a8",
+      "title": "在深圳可以和crush做的100件浪漫事",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a1d41be00000000080018a8",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6b201a0000000025004634",
+      "note_id": "6a6b201a0000000025004634",
+      "title": "台风过后，深圳中心公园开成粉色了、开爆了🌸",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6b201a0000000025004634",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68ee202800000000070315cd",
+      "note_id": "68ee202800000000070315cd",
+      "title": "深圳最好的地方都是免费的。。。（附地址",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68ee202800000000070315cd",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68aa9cba000000001c0053fd",
+      "note_id": "68aa9cba000000001c0053fd",
+      "title": "搜索深圳市直到变得不好看-福田区篇",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68aa9cba000000001c0053fd",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a735c3b000000003302df9c",
+      "note_id": "6a735c3b000000003302df9c",
+      "title": "深圳福田女工很爱的drink-dining（酒蒙子版（",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a735c3b000000003302df9c",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:683a80ed000000002102cb20",
+      "note_id": "683a80ed000000002102cb20",
+      "title": "深业上城 | 在深圳，靠逆风翻盘的商场💪",
+      "canonical_url": "https://www.xiaohongshu.com/explore/683a80ed000000002102cb20",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69f431bc0000000023005fef",
+      "note_id": "69f431bc0000000023005fef",
+      "title": "深圳新展🔴老少皆宜 地铁直达",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69f431bc0000000023005fef",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6944fade000000001e015b4d",
+      "note_id": "6944fade000000001e015b4d",
+      "title": "深圳卓悦中心！好多人啊！！！！！！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6944fade000000001e015b4d",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:67cfc65a0000000029039d6c",
+      "note_id": "67cfc65a0000000029039d6c",
+      "title": "福田越来越洋气啦",
+      "canonical_url": "https://www.xiaohongshu.com/explore/67cfc65a0000000029039d6c",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68bc0054000000001c004dfc",
+      "note_id": "68bc0054000000001c004dfc",
+      "title": "闯深圳会展，4小时暴走4个厅😰",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68bc0054000000001c004dfc",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68a0917c000000001d004cd6",
+      "note_id": "68a0917c000000001d004cd6",
+      "title": "解锁深圳福田人少遛娃新地点",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68a0917c000000001d004cd6",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:67ebe996000000001d003767",
+      "note_id": "67ebe996000000001d003767",
+      "title": "到底是谁发明了这么好玩的活动｜深圳",
+      "canonical_url": "https://www.xiaohongshu.com/explore/67ebe996000000001d003767",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a184e100000000008000eb2",
+      "note_id": "6a184e100000000008000eb2",
+      "title": "深圳一上午值得去的地方",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a184e100000000008000eb2",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a29374e000000000702550f",
+      "note_id": "6a29374e000000000702550f",
+      "title": "福田周末娱乐方式+++1",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a29374e000000000702550f",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68eb850b00000000070373b9",
+      "note_id": "68eb850b00000000070373b9",
+      "title": "福田世界级的布局",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68eb850b00000000070373b9",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68e12fc20000000003011356",
+      "note_id": "68e12fc20000000003011356",
+      "title": "深圳一日游最后一站",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68e12fc20000000003011356",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68495ade0000000021018ff4",
+      "note_id": "68495ade0000000021018ff4",
+      "title": "在深圳六点后能干嘛？打工人的夜生活攻略",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68495ade0000000021018ff4",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:67e547ff000000001c01391f",
+      "note_id": "67e547ff000000001c01391f",
+      "title": "深圳相亲约会必去地点（二）",
+      "canonical_url": "https://www.xiaohongshu.com/explore/67e547ff000000001c01391f",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6874d00d0000000011002bc3",
+      "note_id": "6874d00d0000000011002bc3",
+      "title": "被Labubu承包的shisha局！你要怎么抵抗？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6874d00d0000000011002bc3",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a2bb3de000000003502dd6e",
+      "note_id": "6a2bb3de000000003502dd6e",
+      "title": "深圳新的！中式按摩已经next level…",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a2bb3de000000003502dd6e",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a701124000000002701fff9",
+      "note_id": "6a701124000000002701fff9",
+      "title": "全城逃脱-心域迷城",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a701124000000002701fff9",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:692fdde3000000001e038bd8",
+      "note_id": "692fdde3000000001e038bd8",
+      "title": "福田CBD-愿意为空间买单的咖啡店",
+      "canonical_url": "https://www.xiaohongshu.com/explore/692fdde3000000001e038bd8",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a51bb2b0000000022019cda",
+      "note_id": "6a51bb2b0000000022019cda",
+      "title": "人在福田，想听听本地怪谈",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a51bb2b0000000022019cda",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6a08f1000000001302fa40",
+      "note_id": "6a6a08f1000000001302fa40",
+      "title": "深圳唯一空荡的地铁站",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6a08f1000000001302fa40",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69beaded0000000022028ddb",
+      "note_id": "69beaded0000000022028ddb",
+      "title": "深圳玩五天，10万够用吗",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69beaded0000000022028ddb",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69a3551900000000230383b5",
+      "note_id": "69a3551900000000230383b5",
+      "title": "大家觉得深圳哪里的磁场很好呀",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69a3551900000000230383b5",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6c15cb000000003300d0e5",
+      "note_id": "6a6c15cb000000003300d0e5",
+      "title": "没经验去峰会，8.4-5深圳福田会尬吗？ 对行",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6c15cb000000003300d0e5",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a2811f6000000003502ba41",
+      "note_id": "6a2811f6000000003502ba41",
+      "title": "从上海到深圳半年｜两座城的真实反差感受",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a2811f6000000003502ba41",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69e76c16000000002301ef58",
+      "note_id": "69e76c16000000002301ef58",
+      "title": "救命：深圳各区，你是哪种牛马？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69e76c16000000002301ef58",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:694be0fa000000001e00d8fa",
+      "note_id": "694be0fa000000001e00d8fa",
+      "title": "马上有钱花！双旦不要错过 深圳这6️⃣个活动",
+      "canonical_url": "https://www.xiaohongshu.com/explore/694be0fa000000001e00d8fa",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a16dd09000000000603068a",
+      "note_id": "6a16dd09000000000603068a",
+      "title": "深圳浅深水疗会所避雷 半夜捉奸现场",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a16dd09000000000603068a",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68aadd65000000001d015e30",
+      "note_id": "68aadd65000000001d015e30",
+      "title": "深圳根本就没有可以捡石头的地方…",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68aadd65000000001d015e30",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a706d4900000000320325f6",
+      "note_id": "6a706d4900000000320325f6",
+      "title": "你愿意花2小时，和陌生人交换温柔人生吗",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a706d4900000000320325f6",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68b6443f000000001d0363a6",
+      "note_id": "68b6443f000000001d0363a6",
+      "title": "为什么来了深圳以后没有感觉那么繁华",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68b6443f000000001d0363a6",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68d53cda000000001301ef4b",
+      "note_id": "68d53cda000000001301ef4b",
+      "title": "在深圳活了二十几年了，后悔没早来这里！！！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68d53cda000000001301ef4b",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a1956f60000000036032e51",
+      "note_id": "6a1956f60000000036032e51",
+      "title": "住福田这里的都是做什么工作的",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a1956f60000000036032e51",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6c9f2b00000000280052f7",
+      "note_id": "6a6c9f2b00000000280052f7",
+      "title": "各位姐妹们，第一次去深圳",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6c9f2b00000000280052f7",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69d25fb3000000002301046c",
+      "note_id": "69d25fb3000000002301046c",
+      "title": "深圳唯一！我最爱的公园🟢…",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69d25fb3000000002301046c",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a7436510000000028001702",
+      "note_id": "6a7436510000000028001702",
+      "title": "【红榜】见200个弟弟（39）超长探店版1️⃣",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a7436510000000028001702",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:698883c0000000001a01d9d4",
+      "note_id": "698883c0000000001a01d9d4",
+      "title": "在深圳，不谈恋爱一个人休息日能干什么",
+      "canonical_url": "https://www.xiaohongshu.com/explore/698883c0000000001a01d9d4",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:67f08bfa000000001c033fb6",
+      "note_id": "67f08bfa000000001c033fb6",
+      "title": "20元的快乐——买一个宁静的下午",
+      "canonical_url": "https://www.xiaohongshu.com/explore/67f08bfa000000001c033fb6",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69f85d61000000003601f6cd",
+      "note_id": "69f85d61000000003601f6cd",
+      "title": "朋友说这是贵族运动🤑🤑哈哈",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69f85d61000000003601f6cd",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a73ff97000000002201499c",
+      "note_id": "6a73ff97000000002201499c",
+      "title": "深圳福田地铁站旁单间个人转租",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a73ff97000000002201499c",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6eaab10000000027022a8e",
+      "note_id": "6a6eaab10000000027022a8e",
+      "title": "以为来到了星际穿越，其实是在深圳…",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6eaab10000000027022a8e",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a71e8690000000006006183",
+      "note_id": "6a71e8690000000006006183",
+      "title": "深圳福田附近寻找5只愿意被我观察的小狗",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a71e8690000000006006183",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69d4bc43000000001d01a7a5",
+      "note_id": "69d4bc43000000001d01a7a5",
+      "title": "至今没有找到住在福田的缺点",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69d4bc43000000001d01a7a5",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a68a7f4000000000f01fffd",
+      "note_id": "6a68a7f4000000000f01fffd",
+      "title": "我宣布‼️深圳唯一不挑天气的公园，好出片",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a68a7f4000000000f01fffd",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a72a86800000000250074da",
+      "note_id": "6a72a86800000000250074da",
+      "title": "招聘财务助理(深圳福田)",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a72a86800000000250074da",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6768e3000000000f0102f8",
+      "note_id": "6a6768e3000000000f0102f8",
+      "title": "原来深圳福田口岸，不能办理香港签注",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6768e3000000000f0102f8",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a747d05000000002403c103",
+      "note_id": "6a747d05000000002403c103",
+      "title": "小镇普拉提女孩在深圳福田华强北的探店日记",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a747d05000000002403c103",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:67dfcc5e000000001e00abc1",
+      "note_id": "67dfcc5e000000001e00abc1",
+      "title": "🎡 成都→深圳→香港→珠海→澳门，5天4夜大湾区",
+      "canonical_url": "https://www.xiaohongshu.com/explore/67dfcc5e000000001e00abc1",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68064481000000001d03889c",
+      "note_id": "68064481000000001d03889c",
+      "title": "深圳竟然有这么神仙的地方啊😯",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68064481000000001d03889c",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a74a3b00000000026035f82",
+      "note_id": "6a74a3b00000000026035f82",
+      "title": "深圳福田岗厦北有推荐的健身教练吗",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a74a3b00000000026035f82",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:685e4c15000000001c034435",
+      "note_id": "685e4c15000000001c034435",
+      "title": "怎么样在关山月美术馆做志愿者？你们知道吗？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/685e4c15000000001c034435",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6934512e000000000d00da56",
+      "note_id": "6934512e000000000d00da56",
+      "title": "深圳学生为啥爱来这个商场😧",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6934512e000000000d00da56",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a4b5cd30000000011010a9f",
+      "note_id": "6a4b5cd30000000011010a9f",
+      "title": "爱昆虫的快来！深圳福田即将有个昆虫博物展",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a4b5cd30000000011010a9f",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6a2cc7000000000301fa97",
+      "note_id": "6a6a2cc7000000000301fa97",
+      "title": "招兼职 短期 長期都行",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6a2cc7000000000301fa97",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a72d2bb0000000025001136",
+      "note_id": "6a72d2bb0000000025001136",
+      "title": "深圳福田沙尾乖狗十万火急找领养人",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a72d2bb0000000025001136",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a7460fb0000000028005390",
+      "note_id": "6a7460fb0000000028005390",
+      "title": "在深圳福田这家拍立得巨巨巨好拍",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a7460fb0000000028005390",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68c8cf0b000000001d009978",
+      "note_id": "68c8cf0b000000001d009978",
+      "title": "💍深圳婚博会下届预告，备婚人速存❗️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68c8cf0b000000001d009978",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69e39353000000002102ffc8",
+      "note_id": "69e39353000000002102ffc8",
+      "title": "朋友跟我说深圳没啥好玩的，直到我来了之后…",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69e39353000000002102ffc8",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a74784b0000000005021ef5",
+      "note_id": "6a74784b0000000005021ef5",
+      "title": "深圳转租🤦🏻‍♂️福田 7️⃣ 号线",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a74784b0000000005021ef5",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a72da50000000002701d71c",
+      "note_id": "6a72da50000000002701d71c",
+      "title": "深圳福田转租｜梅林孖岭地铁口一房一厅",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a72da50000000002701d71c",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:692ebee2000000001e006598",
+      "note_id": "692ebee2000000001e006598",
+      "title": "在深圳😍居然藏着这么好玩的露营农庄",
+      "canonical_url": "https://www.xiaohongshu.com/explore/692ebee2000000001e006598",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a20365e000000000803356e",
+      "note_id": "6a20365e000000000803356e",
+      "title": "深圳coffee chat，邀请6位陌生人deeptalk",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a20365e000000000803356e",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a738518000000003301852f",
+      "note_id": "6a738518000000003301852f",
+      "title": "蕉下深圳福田星河Coco park内购会",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a738518000000003301852f",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a74a4f70000000033034902",
+      "note_id": "6a74a4f70000000033034902",
+      "title": "深圳福田全新装修两房一厅、免中介费",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a74a4f70000000033034902",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a749dff0000000024025c09",
+      "note_id": "6a749dff0000000024025c09",
+      "title": "今晚深圳福田有人一起喝酒么～",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a749dff0000000024025c09",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a72fd4e0000000025017086",
+      "note_id": "6a72fd4e0000000025017086",
+      "title": "深圳福田地铁上盖旺铺招商，抢先了解✨",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a72fd4e0000000025017086",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a7491db0000000022012dc3",
+      "note_id": "6a7491db0000000022012dc3",
+      "title": "深圳福田区域学中国舞，认准这家22年的老牌",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a7491db0000000022012dc3",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a729fc20000000005031cfa",
+      "note_id": "6a729fc20000000005031cfa",
+      "title": "深圳市福田区闲置群",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a729fc20000000005031cfa",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a7367ba000000000502292f",
+      "note_id": "6a7367ba000000000502292f",
+      "title": "深圳福田！挖到一家香港人私藏的配镜宝藏店",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a7367ba000000000502292f",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:67c1b27a000000000903b1d5",
+      "note_id": "67c1b27a000000000903b1d5",
+      "title": "福田必去的20个地方",
+      "canonical_url": "https://www.xiaohongshu.com/explore/67c1b27a000000000903b1d5",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a1ac9fd0000000006022e29",
+      "note_id": "6a1ac9fd0000000006022e29",
+      "title": "一人漫游福田 | 园林祠堂与骑楼⛩️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a1ac9fd0000000006022e29",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:675f80e3000000000103d2d5",
+      "note_id": "675f80e3000000000103d2d5",
+      "title": "俯瞰整个福田区的人生照片，我也拍到啦！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/675f80e3000000000103d2d5",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a2911010000000021017f01",
+      "note_id": "6a2911010000000021017f01",
+      "title": "标题深圳懒人攻略🔥分区域打卡一目了然",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a2911010000000021017f01",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6833e20c0000000021002ec9",
+      "note_id": "6833e20c0000000021002ec9",
+      "title": "如题",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6833e20c0000000021002ec9",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69cbb8590000000023013dd2",
+      "note_id": "69cbb8590000000023013dd2",
+      "title": "深圳版“爱乐之城”🚇地铁直达（攻略版）",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69cbb8590000000023013dd2",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68476ed9000000000c03b0d4",
+      "note_id": "68476ed9000000000c03b0d4",
+      "title": "深圳散步线路2⃣️小时游绿荫大道+烟火气社区",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68476ed9000000000c03b0d4",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a1e398c0000000038022cbc",
+      "note_id": "6a1e398c0000000038022cbc",
+      "title": "深圳最魔幻的裂缝，藏在 CBD 脚下",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a1e398c0000000038022cbc",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:66d3288a000000001d016f20",
+      "note_id": "66d3288a000000001d016f20",
+      "title": "仙湖植物园！！！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/66d3288a000000001d016f20",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68806bcc000000001c033cd5",
+      "note_id": "68806bcc000000001c033cd5",
+      "title": "☯️深圳现存唯一的车公庙，藏在一个足球场里",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68806bcc000000001c033cd5",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69df440a000000001a025456",
+      "note_id": "69df440a000000001a025456",
+      "title": "福田怎么玩？花一天时间就足够了！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69df440a000000001a025456",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6717818c0000000016023b19",
+      "note_id": "6717818c0000000016023b19",
+      "title": "太卷了！深圳一个小小的公园居然都这么美！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6717818c0000000016023b19",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:66c7eb3a000000001d01782c",
+      "note_id": "66c7eb3a000000001d01782c",
+      "title": "只好做个既爱梅林又爱景田的渣女了",
+      "canonical_url": "https://www.xiaohongshu.com/explore/66c7eb3a000000001d01782c",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a562bff0000000011017dc3",
+      "note_id": "6a562bff0000000011017dc3",
+      "title": "深圳Dating上百次，细数约会好去处",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a562bff0000000011017dc3",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6f64ea0000000028004216",
+      "note_id": "6a6f64ea0000000028004216",
+      "title": "👽深圳不正经博物馆，我的精神病治不好了",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6f64ea0000000028004216",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a5c4acc000000001b01e7e6",
+      "note_id": "6a5c4acc000000001b01e7e6",
+      "title": "市民中心站B口，打卡深圳3大馆，免费免预约",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a5c4acc000000001b01e7e6",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a224bd900000000210145c8",
+      "note_id": "6a224bd900000000210145c8",
+      "title": "深圳展馆一日游地铁一条龙攻略｜福田篇✨",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a224bd900000000210145c8",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6935714b000000001b025de9",
+      "note_id": "6935714b000000001b025de9",
+      "title": "来深圳总要去趟园博园吧✨超全懒人攻略",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6935714b000000001b025de9",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68cd3319000000000b0124f7",
+      "note_id": "68cd3319000000000b0124f7",
+      "title": "深圳福田会反复逛的6个地方",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68cd3319000000000b0124f7",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a11c74b0000000035032c90",
+      "note_id": "6a11c74b0000000035032c90",
+      "title": "深圳新开的公园！震撼到我了…",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a11c74b0000000035032c90",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a46918d000000001603dfb9",
+      "note_id": "6a46918d000000001603dfb9",
+      "title": "深圳哪个公园 你去了无数次",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a46918d000000001603dfb9",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6ac5360000000022019673",
+      "note_id": "6a6ac5360000000022019673",
+      "title": "接下来的深圳是看展天花板!7-10月共计30个",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6ac5360000000022019673",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a62015a0000000010027799",
+      "note_id": "6a62015a0000000010027799",
+      "title": "来深圳旅行一定要留天时间给这里！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a62015a0000000010027799",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a608deb00000000110045bc",
+      "note_id": "6a608deb00000000110045bc",
+      "title": "深圳是真没钱了！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a608deb00000000110045bc",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a71b0ca0000000033008531",
+      "note_id": "6a71b0ca0000000033008531",
+      "title": "深圳两天一晚保姆级旅游攻略",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a71b0ca0000000033008531",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69015e4d000000000501375a",
+      "note_id": "69015e4d000000000501375a",
+      "title": "深圳！藏在市区的免费自然乐园！太治愈啦",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69015e4d000000000501375a",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69c620cc000000001a023738",
+      "note_id": "69c620cc000000001a023738",
+      "title": "我找到了藏在笔架山的秘境书吧！超治愈🌿",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69c620cc000000001a023738",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:692dbbdd000000001b027e3c",
+      "note_id": "692dbbdd000000001b027e3c",
+      "title": "深圳湾文化广场｜透露着深圳的尴尬",
+      "canonical_url": "https://www.xiaohongshu.com/explore/692dbbdd000000001b027e3c",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a4b7945000000000f033477",
+      "note_id": "6a4b7945000000000f033477",
+      "title": "深圳｜公园里的治愈植物展，感受自然美🌱",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a4b7945000000000f033477",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a16d25b000000003703553b",
+      "note_id": "6a16d25b000000003703553b",
+      "title": "🌿深圳中心公园｜市区里的治愈躺平宝地✨",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a16d25b000000003703553b",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a49f4a9000000001603e696",
+      "note_id": "6a49f4a9000000001603e696",
+      "title": "深圳博物馆古代艺术馆 静谧之地",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a49f4a9000000001603e696",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a0300eb0000000035020adb",
+      "note_id": "6a0300eb0000000035020adb",
+      "title": "深圳📍近期新开四个漂亮花园，好逛又好拍",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a0300eb0000000035020adb",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a674d7c000000000402b64c",
+      "note_id": "6a674d7c000000000402b64c",
+      "title": "深圳军事科博会",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a674d7c000000000402b64c",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a1291830000000006022fcf",
+      "note_id": "6a1291830000000006022fcf",
+      "title": "深圳好玩的公园在哪里",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a1291830000000006022fcf",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a01f99f000000003502a43f",
+      "note_id": "6a01f99f000000003502a43f",
+      "title": "在寸土寸金的福田有这么一个公园",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a01f99f000000003502a43f",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a3f2e5e0000000020039a95",
+      "note_id": "6a3f2e5e0000000020039a95",
+      "title": "在深圳🌳是我愿意去一万次的生命力公园!",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a3f2e5e0000000020039a95",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a0e783a0000000007012314",
+      "note_id": "6a0e783a0000000007012314",
+      "title": "市中心隐藏了20年的公园终于要火了？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a0e783a0000000007012314",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a4ce33b00000000060339f5",
+      "note_id": "6a4ce33b00000000060339f5",
+      "title": "阴雨天荔枝公园🌧️寻找树的形状",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a4ce33b00000000060339f5",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a734aeb0000000035015e97",
+      "note_id": "6a734aeb0000000035015e97",
+      "title": "不要白白浪费城市资源｜学会在公园里躺平",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a734aeb0000000035015e97",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a488f16000000001100431a",
+      "note_id": "6a488f16000000001100431a",
+      "title": "周六 深圳有什么展值得一看吗？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a488f16000000001100431a",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a087bd8000000000603125b",
+      "note_id": "6a087bd8000000000603125b",
+      "title": "深圳CBD下的绿野仙踪公园，99%人不知道❗️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a087bd8000000000603125b",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a49bda20000000017028258",
+      "note_id": "6a49bda20000000017028258",
+      "title": "新展！遛娃好地方！闯入毛茸茸治愈世界～🐱",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a49bda20000000017028258",
+      "district_hint": "福田区",
+      "search_query": "深圳福田好玩地点 / 深圳福田公园展馆打卡",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69b6130b000000002103a889",
+      "note_id": "69b6130b000000002103a889",
+      "title": "🌱 不负春日时光｜一起去山里吸氧吧 ⛰️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69b6130b000000002103a889",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69e302e1000000001a02af7a",
+      "note_id": "69e302e1000000001a02af7a",
+      "title": "深圳周末最美海边路线-地铁直达山海连廊！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69e302e1000000001a02af7a",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69efa535000000002301e16b",
+      "note_id": "69efa535000000002301e16b",
+      "title": "深圳约会date快成流水线的城中村版",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69efa535000000002301e16b",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a4df52c0000000015026be6",
+      "note_id": "6a4df52c0000000015026be6",
+      "title": "深圳40℃的时候，我躲进了山里-两天一夜",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a4df52c0000000015026be6",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a7399c8000000000f039c01",
+      "note_id": "6a7399c8000000000f039c01",
+      "title": "深圳湾万象城+人才公园，周末逛吃一站式攻略！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a7399c8000000000f039c01",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69ea1d93000000002301c176",
+      "note_id": "69ea1d93000000002301c176",
+      "title": "生活可以妥协，爬山绝不认输",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69ea1d93000000002301c176",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69ecbe930000000023007622",
+      "note_id": "69ecbe930000000023007622",
+      "title": "谁说深圳周末只能逛商场的，溯溪去！🌊",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69ecbe930000000023007622",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a74ab8f0000000028031e69",
+      "note_id": "6a74ab8f0000000028031e69",
+      "title": "深圳周末活动汇总（8月8日至9日）",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a74ab8f0000000028031e69",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6833f312000000000c038d04",
+      "note_id": "6833f312000000000c038d04",
+      "title": "还会去无数次的深圳北站中心公园🌿",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6833f312000000000c038d04",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69d90a0b0000000022002253",
+      "note_id": "69d90a0b0000000022002253",
+      "title": "深圳小南山｜半小时登顶看海的快乐谁懂啊！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69d90a0b0000000022002253",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6899a720000000002502020e",
+      "note_id": "6899a720000000002502020e",
+      "title": "深圳周边30分钟直达的“阿勒泰”放飞自我。。",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6899a720000000002502020e",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a334966000000000803f20a",
+      "note_id": "6a334966000000000803f20a",
+      "title": "逛公园-竹叶青破纪录6.17",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a334966000000000803f20a",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:685bc1b200000000230068e0",
+      "note_id": "685bc1b200000000230068e0",
+      "title": "✈️.深圳飞机合影来啦，人少超出片！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/685bc1b200000000230068e0",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:686be820000000000d024082",
+      "note_id": "686be820000000000d024082",
+      "title": "深圳是修了个地下宫殿吗🥹一定要去看好吗？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/686be820000000000d024082",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a2fd436000000001700a8bf",
+      "note_id": "6a2fd436000000001700a8bf",
+      "title": "下大雨我又来深圳跑步圣地遮风挡雨啦",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a2fd436000000001700a8bf",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6921450d000000000d03ff46",
+      "note_id": "6921450d000000000d03ff46",
+      "title": "深圳竟有如此松弛的地方",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6921450d000000000d03ff46",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a4725be00000000210167ac",
+      "note_id": "6a4725be00000000210167ac",
+      "title": "爬上帝国大厦的俄罗斯情侣在深圳",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a4725be00000000210167ac",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69d8c99c000000001b002098",
+      "note_id": "69d8c99c000000001b002098",
+      "title": "深圳周末除了逛商场，还能干啥",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69d8c99c000000001b002098",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:67ce5d3800000000060284c4",
+      "note_id": "67ce5d3800000000060284c4",
+      "title": "绝了深圳这两条徒步路线，去100次都不觉得腻",
+      "canonical_url": "https://www.xiaohongshu.com/explore/67ce5d3800000000060284c4",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69cb011b000000001a025ebd",
+      "note_id": "69cb011b000000001a025ebd",
+      "title": "深圳周末不无聊！100件小事清单✨",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69cb011b000000001a025ebd",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a06f944000000003701e1e2",
+      "note_id": "6a06f944000000003701e1e2",
+      "title": "深圳双休都去哪玩",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a06f944000000003701e1e2",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69df4f20000000002103b155",
+      "note_id": "69df4f20000000002103b155",
+      "title": "深圳湾公园",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69df4f20000000002103b155",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68ff5a550000000005001780",
+      "note_id": "68ff5a550000000005001780",
+      "title": "老婆女儿又双叒来找我们玩了",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68ff5a550000000005001780",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a7457b30000000024027db0",
+      "note_id": "6a7457b30000000024027db0",
+      "title": "燕晗山郊野公园🌳| 深圳有自己的绿野仙踪",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a7457b30000000024027db0",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a22219d000000003700f2ac",
+      "note_id": "6a22219d000000003700f2ac",
+      "title": "大家周末都去哪里玩？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a22219d000000003700f2ac",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69e4bf0c000000001f001b87",
+      "note_id": "69e4bf0c000000001f001b87",
+      "title": "粤B教师🆚华为工程师｜深圳小夫妻周末能去哪",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69e4bf0c000000001f001b87",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69f48067000000003601c40d",
+      "note_id": "69f48067000000003601c40d",
+      "title": "无人之境户外：沉船-巨型水库",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69f48067000000003601c40d",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a33fa8d0000000021009421",
+      "note_id": "6a33fa8d0000000021009421",
+      "title": "深圳有什么好玩的地方吗？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a33fa8d0000000021009421",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69a59566000000002802246d",
+      "note_id": "69a59566000000002802246d",
+      "title": "🏔️🍃",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69a59566000000002802246d",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a4cf872000000001102df4f",
+      "note_id": "6a4cf872000000001102df4f",
+      "title": "深圳大学城",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a4cf872000000001102df4f",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68ae8b59000000001d00e5b6",
+      "note_id": "68ae8b59000000001d00e5b6",
+      "title": "第一次穿比基尼 男朋友叫我自信一点🥺",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68ae8b59000000001d00e5b6",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68932f910000000023022d99",
+      "note_id": "68932f910000000023022d99",
+      "title": "公司的攀岩终于开了",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68932f910000000023022d99",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69ee376a000000003501ef72",
+      "note_id": "69ee376a000000003501ef72",
+      "title": "坪山太偏了，没有什么好玩的",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69ee376a000000003501ef72",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68777995000000001202f9cd",
+      "note_id": "68777995000000001202f9cd",
+      "title": "硬核家庭日｜带1岁娃徒步深圳七娘山",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68777995000000001202f9cd",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69ad2ccd000000002203a30e",
+      "note_id": "69ad2ccd000000002203a30e",
+      "title": "山上搭树屋，好玩！这个公园还没开放已经火",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69ad2ccd000000002203a30e",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6893f7330000000002003a21",
+      "note_id": "6893f7330000000002003a21",
+      "title": "适合下雨天去的地方！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6893f7330000000002003a21",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:693641ad000000000d00f1c1",
+      "note_id": "693641ad000000000d00f1c1",
+      "title": "我的徒步日记🧗🏻‍♀️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/693641ad000000000d00f1c1",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a451f8c000000002101bcfb",
+      "note_id": "6a451f8c000000002101bcfb",
+      "title": "32岁深圳女生dating半年去水会76次",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a451f8c000000002101bcfb",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a7492da0000000033034c31",
+      "note_id": "6a7492da0000000033034c31",
+      "title": "深圳周末去哪里",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a7492da0000000033034c31",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69ff36380000000035030622",
+      "note_id": "69ff36380000000035030622",
+      "title": "谁懂啊！！在深圳市区海边面朝大海发呆的快乐",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69ff36380000000035030622",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a15a8d2000000003701c7a8",
+      "note_id": "6a15a8d2000000003701c7a8",
+      "title": "深圳布吉万象汇，窝在百鸽笼的隐形赚钱高",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a15a8d2000000003701c7a8",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:688f24750000000025012863",
+      "note_id": "688f24750000000025012863",
+      "title": "比亚迪人|周末能干点儿啥？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/688f24750000000025012863",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68b40bbc000000001d0142c5",
+      "note_id": "68b40bbc000000001d0142c5",
+      "title": "在深圳，一个人的周末日常安排🤯",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68b40bbc000000001d0142c5",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6d86d2000000002402f085",
+      "note_id": "6a6d86d2000000002402f085",
+      "title": "在家快要发霉了",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6d86d2000000002402f085",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:67c2704a0000000029009e5e",
+      "note_id": "67c2704a0000000029009e5e",
+      "title": "深圳版去有风的地方🎐阴天和富士好搭！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/67c2704a0000000029009e5e",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68c4f8ed000000001d00d12f",
+      "note_id": "68c4f8ed000000001d00d12f",
+      "title": "谈恋爱不想破产？我们的低成本约会清单来了",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68c4f8ed000000001d00d12f",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68bae2fa000000001c03142c",
+      "note_id": "68bae2fa000000001c03142c",
+      "title": "深圳男友带我见了世面。。。。🥲🥲🥲",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68bae2fa000000001c03142c",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a631f7d0000000009036f8f",
+      "note_id": "6a631f7d0000000009036f8f",
+      "title": "📍桔钓沙！暑假期间出行看好这篇攻略再出发",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a631f7d0000000009036f8f",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a5a44f3000000000c0167df",
+      "note_id": "6a5a44f3000000000c0167df",
+      "title": "深圳真的毫无生活气息",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a5a44f3000000000c0167df",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6932e9aa000000001f00814d",
+      "note_id": "6932e9aa000000001f00814d",
+      "title": "let‘s 跳海",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6932e9aa000000001f00814d",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6985ffdd000000000d00b611",
+      "note_id": "6985ffdd000000000d00b611",
+      "title": "开车直达‼️我愿称之为🏕️广东露营天花板‼️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6985ffdd000000000d00b611",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:690f01d900000000040162ce",
+      "note_id": "690f01d900000000040162ce",
+      "title": "劝退！没来的别来了！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/690f01d900000000040162ce",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69315ad0000000001e0252db",
+      "note_id": "69315ad0000000001e0252db",
+      "title": "爬完气运都变好！！——深圳大南山（收藏版",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69315ad0000000001e0252db",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a13cc1d000000000702a092",
+      "note_id": "6a13cc1d000000000702a092",
+      "title": "深圳几乎每个商场都有在商场蹭空调的宝妈",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a13cc1d000000000702a092",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a65a369000000000f01140b",
+      "note_id": "6a65a369000000000f01140b",
+      "title": "深圳综艺录制线下体验｜近距离感受节目现场",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a65a369000000000f01140b",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6f1dfc000000003400d57f",
+      "note_id": "6a6f1dfc000000003400d57f",
+      "title": "深圳 ）周末这样过真的很有意思！！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6f1dfc000000003400d57f",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a61ef5e000000000f017225",
+      "note_id": "6a61ef5e000000000f017225",
+      "title": "不在国外！在深圳！！新开的….美到离谱⛲️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a61ef5e000000000f017225",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a259017000000002201b527",
+      "note_id": "6a259017000000002201b527",
+      "title": "深圳东门进化成这样了啊！震撼到我了！！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a259017000000002201b527",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:686b7b45000000002001b6ce",
+      "note_id": "686b7b45000000002001b6ce",
+      "title": "情侣约会首选！电竞+按摩的神仙组合",
+      "canonical_url": "https://www.xiaohongshu.com/explore/686b7b45000000002001b6ce",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:694aba57000000001e004317",
+      "note_id": "694aba57000000001e004317",
+      "title": "深圳这里！美哭了！快去打卡！！(附机位📷live",
+      "canonical_url": "https://www.xiaohongshu.com/explore/694aba57000000001e004317",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a1d8b0c000000003601f88c",
+      "note_id": "6a1d8b0c000000003601f88c",
+      "title": "深圳现在这么热周末能去哪？？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a1d8b0c000000003601f88c",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68897d5e0000000025023250",
+      "note_id": "68897d5e0000000025023250",
+      "title": "深圳周末去哪里？光明虹桥免费看蝴蝶艺术展",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68897d5e0000000025023250",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a17b92a000000000803c7ff",
+      "note_id": "6a17b92a000000000803c7ff",
+      "title": "第一次看深圳湾的日落🌄",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a17b92a000000000803c7ff",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69e0bc68000000002200cdac",
+      "note_id": "69e0bc68000000002200cdac",
+      "title": "深圳黑科技遛娃一日游‼好玩又出片",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69e0bc68000000002200cdac",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a72eeb000000000280088e8",
+      "note_id": "6a72eeb000000000280088e8",
+      "title": "深圳宝安露营地🏕",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a72eeb000000000280088e8",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69ce398a000000001d01f163",
+      "note_id": "69ce398a000000001d01f163",
+      "title": "深圳1h直达的氧气感滨海小镇🌿",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69ce398a000000001d01f163",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69c247d8000000001a035165",
+      "note_id": "69c247d8000000001a035165",
+      "title": "深圳海洋大学",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69c247d8000000001a035165",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:687dd23f000000002400ab62",
+      "note_id": "687dd23f000000002400ab62",
+      "title": "深圳周末｜大草坪公园🌿闯入宫崎骏的夏天⛅️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/687dd23f000000002400ab62",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a1326b60000000007024b63",
+      "note_id": "6a1326b60000000007024b63",
+      "title": "周末不找工作",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a1326b60000000007024b63",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68d79cdc0000000012022c7f",
+      "note_id": "68d79cdc0000000012022c7f",
+      "title": "本人最特别的一次约会",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68d79cdc0000000012022c7f",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a72ad3000000000330139af",
+      "note_id": "6a72ad3000000000330139af",
+      "title": "周末深圳游，有好推荐的吗？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a72ad3000000000330139af",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a74aeb00000000021020768",
+      "note_id": "6a74aeb00000000021020768",
+      "title": "深圳小巴厘岛既视感 ｜周末好去处",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a74aeb00000000021020768",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6989d3000000000402af85",
+      "note_id": "6a6989d3000000000402af85",
+      "title": "深圳湾公园地铁直达大海！D2口封神",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6989d3000000000402af85",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6895ed140000000003024658",
+      "note_id": "6895ed140000000003024658",
+      "title": "深圳20楼高空泳池！！还以为来到了海底世界！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6895ed140000000003024658",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68a98984000000001d039546",
+      "note_id": "68a98984000000001d039546",
+      "title": "论打卡📷还是美女会找地方😆",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68a98984000000001d039546",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69e0a930000000002102d40a",
+      "note_id": "69e0a930000000002102d40a",
+      "title": "毕业四年存款148w🤪周三GapDay太爽了！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69e0a930000000002102d40a",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:67d3a8f1000000001c00e0ad",
+      "note_id": "67d3a8f1000000001c00e0ad",
+      "title": "深圳无人区教堂",
+      "canonical_url": "https://www.xiaohongshu.com/explore/67d3a8f1000000001c00e0ad",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a14162c0000000038037003",
+      "note_id": "6a14162c0000000038037003",
+      "title": "i人营业",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a14162c0000000038037003",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:690628840000000004015ced",
+      "note_id": "690628840000000004015ced",
+      "title": "凑热闹-万圣节🎃",
+      "canonical_url": "https://www.xiaohongshu.com/explore/690628840000000004015ced",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69e30ec9000000002200c775",
+      "note_id": "69e30ec9000000002200c775",
+      "title": "来南头古城偶遇明星啦",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69e30ec9000000002200c775",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a3a70c600000000150274b5",
+      "note_id": "6a3a70c600000000150274b5",
+      "title": "啊啊啊啊啊遇到著名的漂亮宝贝！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a3a70c600000000150274b5",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a748dc6000000002500f1c2",
+      "note_id": "6a748dc6000000002500f1c2",
+      "title": "深圳不无聊指南丨还有这么好玩的市集！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a748dc6000000002500f1c2",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a3548cb000000000f01c296",
+      "note_id": "6a3548cb000000000f01c296",
+      "title": "深圳周末plog01｜不自然博物馆",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a3548cb000000000f01c296",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68a6eee6000000001c00ab1d",
+      "note_id": "68a6eee6000000001c00ab1d",
+      "title": "当我发现整个商场都是自己😱",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68a6eee6000000001c00ab1d",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a59f10e0000000022018a5f",
+      "note_id": "6a59f10e0000000022018a5f",
+      "title": "weeklygap |周末可以去深大遛弯",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a59f10e0000000022018a5f",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a7454f0000000002800a206",
+      "note_id": "6a7454f0000000002800a206",
+      "title": "深圳成了我的周末灵感库",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a7454f0000000002800a206",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a05a0c60000000036031e3a",
+      "note_id": "6a05a0c60000000036031e3a",
+      "title": "强烈建议都去深圳湾万象城看一看",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a05a0c60000000036031e3a",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a747e97000000002403cb99",
+      "note_id": "6a747e97000000002403cb99",
+      "title": "深圳新开喷泉花园⛲️｜法式复古面包屋🥐",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a747e97000000002403cb99",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:698dad65000000000a03f2ad",
+      "note_id": "698dad65000000000a03f2ad",
+      "title": "深圳过年怎么安排啊",
+      "canonical_url": "https://www.xiaohongshu.com/explore/698dad65000000000a03f2ad",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a5b39b4000000001002bb97",
+      "note_id": "6a5b39b4000000001002bb97",
+      "title": "在深圳双休的代价就是…周末真的太闲了",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a5b39b4000000001002bb97",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a5267be0000000015025fcd",
+      "note_id": "6a5267be0000000015025fcd",
+      "title": "深圳是个无聊的城市",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a5267be0000000015025fcd",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69ea24bc000000001f004a5f",
+      "note_id": "69ea24bc000000001f004a5f",
+      "title": "从深圳dating经历中发现：能见面就先见面吧",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69ea24bc000000001f004a5f",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6828646a000000000303aa56",
+      "note_id": "6828646a000000000303aa56",
+      "title": "家人们谁懂啊！就在刚刚！我跟孙燕姿合照了！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6828646a000000000303aa56",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a4b4ca0000000002201b624",
+      "note_id": "6a4b4ca0000000002201b624",
+      "title": "深圳公司团建都去哪儿玩？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a4b4ca0000000002201b624",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a71e34500000000250007e8",
+      "note_id": "6a71e34500000000250007e8",
+      "title": "深圳长期周末超市促销兼职的",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a71e34500000000250007e8",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a72f7ef0000000028033cca",
+      "note_id": "6a72f7ef0000000028033cca",
+      "title": "坐标深圳，1-5上班周末窝在家里度假",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a72f7ef0000000028033cca",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6913c1a4000000000700d250",
+      "note_id": "6913c1a4000000000700d250",
+      "title": "深圳人为啥不逛缤果空间？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6913c1a4000000000700d250",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a746c450000000028007bd0",
+      "note_id": "6a746c450000000028007bd0",
+      "title": "深圳招聘 周末双休",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a746c450000000028007bd0",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a74ab3d0000000035014c10",
+      "note_id": "6a74ab3d0000000035014c10",
+      "title": "深圳周末！超大综合潮玩馆玩一整天✨",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a74ab3d0000000035014c10",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a7489ce00000000280330ac",
+      "note_id": "6a7489ce00000000280330ac",
+      "title": "深圳香港周末去哪学习充电🙌🏻社群活动更新",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a7489ce00000000280330ac",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a5d8053000000001003e90d",
+      "note_id": "6a5d8053000000001003e90d",
+      "title": "摸鱼时间到⏰ 来这里发疯🌬️吧",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a5d8053000000001003e90d",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:67cd5d550000000028036ba0",
+      "note_id": "67cd5d550000000028036ba0",
+      "title": "重生之我在南头古城当法医👩🏻‍⚕️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/67cd5d550000000028036ba0",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a687fd6000000000f005ea9",
+      "note_id": "6a687fd6000000000f005ea9",
+      "title": "深圳八月开放的古着天堂！蛇口免费入场🆓",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a687fd6000000000f005ea9",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6866939c000000002201e765",
+      "note_id": "6866939c000000002201e765",
+      "title": "古村走走",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6866939c000000002201e765",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a04a5750000000007020ae7",
+      "note_id": "6a04a5750000000007020ae7",
+      "title": "到底谁还不知道莲花山公园外教一对一练口语",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a04a5750000000007020ae7",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68749c7f000000002203cc09",
+      "note_id": "68749c7f000000002203cc09",
+      "title": "深圳周边🚗迄今为止我最爱的夏日水乐园💦",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68749c7f000000002203cc09",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68946bf1000000002303a12a",
+      "note_id": "68946bf1000000002303a12a",
+      "title": "深圳新晋❗1.8万平室内运动乐园-公交直达",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68946bf1000000002303a12a",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a565abb0000000022008e29",
+      "note_id": "6a565abb0000000022008e29",
+      "title": "星河COCOPark闯关太好玩啦🥳",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a565abb0000000022008e29",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a74a17c0000000021021d8e",
+      "note_id": "6a74a17c0000000021021d8e",
+      "title": "深圳周末短途游｜吃住一站式挖到宝藏民宿✨",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a74a17c0000000021021d8e",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6e1da800000000280011f3",
+      "note_id": "6a6e1da800000000280011f3",
+      "title": "深圳晚间兼职｜沉浸式脱口秀观众招募😍",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6e1da800000000280011f3",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6ab92f000000000101fe84",
+      "note_id": "6a6ab92f000000000101fe84",
+      "title": "深圳小学生太超前了7岁成服装设计师",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6ab92f000000000101fe84",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a730893000000002701cf18",
+      "note_id": "6a730893000000002701cf18",
+      "title": "小小服装设计师在深圳只要100多",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a730893000000002701cf18",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6c9fd1000000002800555f",
+      "note_id": "6a6c9fd1000000002800555f",
+      "title": "深圳｜1️⃣0️⃣适合阴雨天吸氧的能量场🫧免费！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6c9fd1000000002800555f",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6192e9000000000100f8ab",
+      "note_id": "6a6192e9000000000100f8ab",
+      "title": "本J人花24h做的深圳攻略已经nextlevel了",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6192e9000000000100f8ab",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a09a78f000000003700dd6f",
+      "note_id": "6a09a78f000000003700dd6f",
+      "title": "现在的水会都这么明目张胆了吗？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a09a78f000000003700dd6f",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a5c9246000000001102f9ce",
+      "note_id": "6a5c9246000000001102f9ce",
+      "title": "人生体验+1+1+1",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a5c9246000000001102f9ce",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a5d9532000000000f02b4bb",
+      "note_id": "6a5d9532000000000f02b4bb",
+      "title": "深圳居然有这么美的观景台❗️❗️免门票🎫",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a5d9532000000000f02b4bb",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69e0a6e3000000001d01ac76",
+      "note_id": "69e0a6e3000000001d01ac76",
+      "title": "我发现，深圳本地人不会玩深圳啊哈哈哈哈",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69e0a6e3000000001d01ac76",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a479361000000000803294c",
+      "note_id": "6a479361000000000803294c",
+      "title": "我宣布马峦山瀑布是深圳最凉快的地方",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a479361000000000803294c",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a380cfb000000002100ab03",
+      "note_id": "6a380cfb000000002100ab03",
+      "title": "现在人在南山的bar里面",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a380cfb000000002100ab03",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a23a1d7000000001603cdf5",
+      "note_id": "6a23a1d7000000001603cdf5",
+      "title": "深圳周末去哪｜8个能玩一整天的宝藏地点",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a23a1d7000000001603cdf5",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a51d7ea000000001700a96c",
+      "note_id": "6a51d7ea000000001700a96c",
+      "title": "真的是今年走过最舒服的城市徒步线路了！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a51d7ea000000001700a96c",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68a33058000000001c03ec36",
+      "note_id": "68a33058000000001c03ec36",
+      "title": "如果觉得没事做，可以试试这些体验项目",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68a33058000000001c03ec36",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:689b6048000000001d0023f6",
+      "note_id": "689b6048000000001d0023f6",
+      "title": "被严重低估了！深圳1h直达绿野仙踪",
+      "canonical_url": "https://www.xiaohongshu.com/explore/689b6048000000001d0023f6",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:689e916a000000001d0161b4",
+      "note_id": "689e916a000000001d0161b4",
+      "title": "深圳出发🚗1.5h抵达|避世古村落一日游",
+      "canonical_url": "https://www.xiaohongshu.com/explore/689e916a000000001d0161b4",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69906286000000000a0339f1",
+      "note_id": "69906286000000000a0339f1",
+      "title": "为了这12张图，特意飞了一趟深圳！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69906286000000000a0339f1",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a281d1c000000003502c967",
+      "note_id": "6a281d1c000000003502c967",
+      "title": "单身女生如何过周末",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a281d1c000000003502c967",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6828ad250000000020029596",
+      "note_id": "6828ad250000000020029596",
+      "title": "世界之窗还可以呀",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6828ad250000000020029596",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6954dc81000000001e016baf",
+      "note_id": "6954dc81000000001e016baf",
+      "title": "深圳·建议低能量的人都来这条私藏路线🍃",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6954dc81000000001e016baf",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a5d91c4000000000301daf5",
+      "note_id": "6a5d91c4000000000301daf5",
+      "title": "来深圳，打卡9️⃣个经典景点 | 暑假🐴住",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a5d91c4000000000301daf5",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69d7ab1c000000001a020f46",
+      "note_id": "69d7ab1c000000001a020f46",
+      "title": "在深圳|超适合孕妈散步的免费公园（附定位）",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69d7ab1c000000001a020f46",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a313a5f000000000f031568",
+      "note_id": "6a313a5f000000000f031568",
+      "title": "深圳周边三小时❗被严重低估的避世古镇",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a313a5f000000000f031568",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6957ba1b000000002103d2de",
+      "note_id": "6957ba1b000000002103d2de",
+      "title": "扎哈在深圳的首个作品，运营的让人心疼",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6957ba1b000000002103d2de",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a2b9a06000000002202ac98",
+      "note_id": "6a2b9a06000000002202ac98",
+      "title": "深圳我最喜欢逛的公园之一，很大很舒服",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a2b9a06000000002202ac98",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6c11ce000000002403e956",
+      "note_id": "6a6c11ce000000002403e956",
+      "title": "深圳萤火虫爆发，就在福田！4000㎡看萤攻略",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6c11ce000000002403e956",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69197c8f0000000005039193",
+      "note_id": "69197c8f0000000005039193",
+      "title": "港漂近两年认为在深圳最值得去的4个地方",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69197c8f0000000005039193",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6833390c000000000f038946",
+      "note_id": "6833390c000000000f038946",
+      "title": "这么美的公园为啥外号叫“基佬公园”",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6833390c000000000f038946",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6919b184000000000402b667",
+      "note_id": "6919b184000000000402b667",
+      "title": "深圳出发1h直达，这个湖堪比赛里木湖的蓝💙",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6919b184000000000402b667",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6ecca7000000002403ef47",
+      "note_id": "6a6ecca7000000002403ef47",
+      "title": "终于有人说深圳散步体验这回事了",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6ecca7000000002403ef47",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:690b22c5000000000400147e",
+      "note_id": "690b22c5000000000400147e",
+      "title": "深圳小众人少的8⃣️个好去处 快来看看吧❗",
+      "canonical_url": "https://www.xiaohongshu.com/explore/690b22c5000000000400147e",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a3e60fe0000000022017705",
+      "note_id": "6a3e60fe0000000022017705",
+      "title": "这是深圳湖景的天花板了吧？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a3e60fe0000000022017705",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68426fda0000000021006a47",
+      "note_id": "68426fda0000000021006a47",
+      "title": "深圳周末人少公园推荐（周六实拍）",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68426fda0000000021006a47",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6844066a0000000023001c79",
+      "note_id": "6844066a0000000023001c79",
+      "title": "深圳一个人不走路不开车的周末躺平地",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6844066a0000000023001c79",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6e16e7000000003400d43a",
+      "note_id": "6a6e16e7000000003400d43a",
+      "title": "深圳周末夜钓鱿鱼",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6e16e7000000003400d43a",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:681ca161000000002102e66e",
+      "note_id": "681ca161000000002102e66e",
+      "title": "听说深圳的公园也有排行榜？这你同意吗？！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/681ca161000000002102e66e",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a439f2e000000001c026489",
+      "note_id": "6a439f2e000000001c026489",
+      "title": "深圳淘金山绿道🍃",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a439f2e000000001c026489",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a3045db000000001003f6f0",
+      "note_id": "6a3045db000000001003f6f0",
+      "title": "石板小径 #天体",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a3045db000000001003f6f0",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a1d45680000000038035e12",
+      "note_id": "6a1d45680000000038035e12",
+      "title": "深圳看展 亲眼见兽首真品 才懂百年归来震撼",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a1d45680000000038035e12",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69bcf0a1000000002301c24f",
+      "note_id": "69bcf0a1000000002301c24f",
+      "title": "深圳巨人展太好拍了！谁懂啊✨",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69bcf0a1000000002301c24f",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a180ddc000000000702198f",
+      "note_id": "6a180ddc000000000702198f",
+      "title": "地铁直达！！深圳免费看梅花鹿",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a180ddc000000000702198f",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a182492000000003501c074",
+      "note_id": "6a182492000000003501c074",
+      "title": "深圳不花钱可以待一整天的精神避难所🌳",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a182492000000003501c074",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6933daf5000000001e021f52",
+      "note_id": "6933daf5000000001e021f52",
+      "title": "刚开放就火爆全网的湾区新地标",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6933daf5000000001e021f52",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a73329d000000003301226e",
+      "note_id": "6a73329d000000003301226e",
+      "title": "深圳最美公园-中山公园",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a73329d000000003301226e",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:67fb5250000000001c03ffbc",
+      "note_id": "67fb5250000000001c03ffbc",
+      "title": "超出片的打卡地～🌃",
+      "canonical_url": "https://www.xiaohongshu.com/explore/67fb5250000000001c03ffbc",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a40deea0000000015027464",
+      "note_id": "6a40deea0000000015027464",
+      "title": "深圳新开的公园！震撼到我了…",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a40deea0000000015027464",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a4f4c480000000015024307",
+      "note_id": "6a4f4c480000000015024307",
+      "title": "深圳有什么好玩的呀",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a4f4c480000000015024307",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a3249c10000000011006c78",
+      "note_id": "6a3249c10000000011006c78",
+      "title": "深圳下雨天可以去的36个地方！待一天免费！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a3249c10000000011006c78",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a12badd000000000702cf81",
+      "note_id": "6a12badd000000000702cf81",
+      "title": "我大概是发现了深圳的“世外桃源”",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a12badd000000000702cf81",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a7337e90000000027022fb5",
+      "note_id": "6a7337e90000000027022fb5",
+      "title": "深圳前海石公园晚霞也太好拍了",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a7337e90000000027022fb5",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69d293c900000000200382a6",
+      "note_id": "69d293c900000000200382a6",
+      "title": "深圳下雨天可以逛的6大室内场馆",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69d293c900000000200382a6",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6932ecbb000000001e029a62",
+      "note_id": "6932ecbb000000001e029a62",
+      "title": "在深圳一定要多出门，真的能改命！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6932ecbb000000001e029a62",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69df3c3d000000001d01ac47",
+      "note_id": "69df3c3d000000001d01ac47",
+      "title": "深圳1h直达｜不在澳大利亚在塔门岛🏝️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69df3c3d000000001d01ac47",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a73068b0000000022033645",
+      "note_id": "6a73068b0000000022033645",
+      "title": "深圳这片粉色花海，我已经拍疯了🌸",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a73068b0000000022033645",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68c6da35000000001d01089b",
+      "note_id": "68c6da35000000001d01089b",
+      "title": "深圳的红树林你从未真正见过！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68c6da35000000001d01089b",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a52309c00000000220148ae",
+      "note_id": "6a52309c00000000220148ae",
+      "title": "🥵深圳有带空调的绿道了！夏日散步天花板",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a52309c00000000220148ae",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a058a8d0000000006036e25",
+      "note_id": "6a058a8d0000000006036e25",
+      "title": "环西丽湖这片免费花海，太美吧！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a058a8d0000000006036e25",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:696514e1000000000e00ffbf",
+      "note_id": "696514e1000000000e00ffbf",
+      "title": "深圳两小时直达塞尔达旷野之息",
+      "canonical_url": "https://www.xiaohongshu.com/explore/696514e1000000000e00ffbf",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a257fcb000000002103cab0",
+      "note_id": "6a257fcb000000002103cab0",
+      "title": "终于找到一个公园停车🅿️方便的✌️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a257fcb000000002103cab0",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68fe26e0000000000301d87c",
+      "note_id": "68fe26e0000000000301d87c",
+      "title": "湾区之眼是近几年深圳公共建筑的最大败笔",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68fe26e0000000000301d87c",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68dfe5730000000007039224",
+      "note_id": "68dfe5730000000007039224",
+      "title": "碎碎念，广州不真比深圳好玩多了",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68dfe5730000000007039224",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6991a3c700000000280087d6",
+      "note_id": "6991a3c700000000280087d6",
+      "title": "在宝安偶遇影石大楼，刚看完年会新闻更酸了",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6991a3c700000000280087d6",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:67d04509000000000b0167a7",
+      "note_id": "67d04509000000000b0167a7",
+      "title": "当我问deepseek女生在深圳周末去哪玩？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/67d04509000000000b0167a7",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a118a7b000000003701f0c9",
+      "note_id": "6a118a7b000000003701f0c9",
+      "title": "周末逃离深圳",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a118a7b000000003701f0c9",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69b6ccce00000000210106a8",
+      "note_id": "69b6ccce00000000210106a8",
+      "title": "深圳猫猫公园🐱感受福田基米湖的春天🌿",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69b6ccce00000000210106a8",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69edbaf3000000002301f729",
+      "note_id": "69edbaf3000000002301f729",
+      "title": "龙光玖钻",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69edbaf3000000002301f729",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68060fae000000001c0041af",
+      "note_id": "68060fae000000001c0041af",
+      "title": "深圳dating我有五不去",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68060fae000000001c0041af",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68f60a430000000007039597",
+      "note_id": "68f60a430000000007039597",
+      "title": "咦？深圳的霍格沃兹学院🔮🪨还有谁不知道吗？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68f60a430000000007039597",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68a4947e000000001c03eab0",
+      "note_id": "68a4947e000000001c03eab0",
+      "title": "和闺蜜一起划桨板🏄🏻‍♀️深圳周边露营🏕️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68a4947e000000001c03eab0",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6c151c0000000022030245",
+      "note_id": "6a6c151c0000000022030245",
+      "title": "深圳你以为很贵，实际都是免费的8个地方",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6c151c0000000022030245",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a5766b000000000210210c1",
+      "note_id": "6a5766b000000000210210c1",
+      "title": "谁说深圳不好玩？慢逛几天真的太治愈了❗️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a5766b000000000210210c1",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6848516c0000000021008fc0",
+      "note_id": "6848516c0000000021008fc0",
+      "title": "深圳2h车程🚗超适合带娃的夏日玩水秘境",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6848516c0000000021008fc0",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:690a2671000000000301ba50",
+      "note_id": "690a2671000000000301ba50",
+      "title": "坪山大山陂公园🚴🏻‍♀️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/690a2671000000000301ba50",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:67b87809000000002a0031ce",
+      "note_id": "67b87809000000002a0031ce",
+      "title": "第七十八次出门扫街｜后海村",
+      "canonical_url": "https://www.xiaohongshu.com/explore/67b87809000000002a0031ce",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:692d440900000000190274d4",
+      "note_id": "692d440900000000190274d4",
+      "title": "深圳汤悦🌈 没有网上说的那么夸张",
+      "canonical_url": "https://www.xiaohongshu.com/explore/692d440900000000190274d4",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69b8cb9b000000001a02086c",
+      "note_id": "69b8cb9b000000001a02086c",
+      "title": "深圳旅游真话版汇报！！！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69b8cb9b000000001a02086c",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a55fb5900000000060206de",
+      "note_id": "6a55fb5900000000060206de",
+      "title": "对海上世界还是开发不足",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a55fb5900000000060206de",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a24430600000000220196c6",
+      "note_id": "6a24430600000000220196c6",
+      "title": "被自然和软乎乎小动物治愈的周末🌿",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a24430600000000220196c6",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a5b909f00000000010009d8",
+      "note_id": "6a5b909f00000000010009d8",
+      "title": "蛇口晚风",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a5b909f00000000010009d8",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a7327f600000000080132b5",
+      "note_id": "6a7327f600000000080132b5",
+      "title": "8.5实况播报🌸深圳中心公园风雨兰又开啦！！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a7327f600000000080132b5",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69784c2f0000000028020d56",
+      "note_id": "69784c2f0000000028020d56",
+      "title": "是深圳！假装来到了布达拉宫",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69784c2f0000000028020d56",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a2feb77000000001101c9c2",
+      "note_id": "6a2feb77000000001101c9c2",
+      "title": "深圳citywalk｜龙华也是慢慢好起来了‼️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a2feb77000000001101c9c2",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a32b42c0000000011007dd0",
+      "note_id": "6a32b42c0000000011007dd0",
+      "title": "🇮🇹朋友以为我出国了，其实在深圳",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a32b42c0000000011007dd0",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a1bab5c0000000007010251",
+      "note_id": "6a1bab5c0000000007010251",
+      "title": "深圳园博园拍照是真的好看呀☀️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a1bab5c0000000007010251",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:689da3a8000000001d01168d",
+      "note_id": "689da3a8000000001d01168d",
+      "title": "深圳3个绝美室内好去处",
+      "canonical_url": "https://www.xiaohongshu.com/explore/689da3a8000000001d01168d",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a4e40d8000000000f014c3d",
+      "note_id": "6a4e40d8000000000f014c3d",
+      "title": "雨后的莲花山公园，是个巨大的绿色能量场❗",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a4e40d8000000000f014c3d",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68abc43e000000001b01e5d0",
+      "note_id": "68abc43e000000001b01e5d0",
+      "title": "深圳绝了！🎨超治愈的油画村落，当文艺少女",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68abc43e000000001b01e5d0",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69ac193b0000000022022917",
+      "note_id": "69ac193b0000000022022917",
+      "title": "深圳教师周末plog",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69ac193b0000000022022917",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69e37ab2000000001d01c090",
+      "note_id": "69e37ab2000000001d01c090",
+      "title": "【憨憨包】人生体验加 1！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69e37ab2000000001d01c090",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a731fd700000000250066dc",
+      "note_id": "6a731fd700000000250066dc",
+      "title": "卧躺大草坪，解锁大运夏日浪漫",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a731fd700000000250066dc",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6b78ed0000000005030aa7",
+      "note_id": "6a6b78ed0000000005030aa7",
+      "title": "深圳会把所有的文艺逼打回原形",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6b78ed0000000005030aa7",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a5f0d8f000000001f01e03c",
+      "note_id": "6a5f0d8f000000001f01e03c",
+      "title": "深圳周末最适合亲子游的五个地方",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a5f0d8f000000001f01e03c",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a654182000000001102f700",
+      "note_id": "6a654182000000001102f700",
+      "title": "深圳新展🌏华南最大TOP级自然博物馆攻略",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a654182000000001102f700",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a2534360000000007026bc9",
+      "note_id": "6a2534360000000007026bc9",
+      "title": "操。这就是深圳。",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a2534360000000007026bc9",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:681607210000000022036b5d",
+      "note_id": "681607210000000022036b5d",
+      "title": "深圳巨人展拍照的正确打开方式",
+      "canonical_url": "https://www.xiaohongshu.com/explore/681607210000000022036b5d",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68adc633000000001d035f4d",
+      "note_id": "68adc633000000001d035f4d",
+      "title": "深圳怪好的，每周都有三次免费游泳",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68adc633000000001d035f4d",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a20346f000000002103e794",
+      "note_id": "6a20346f000000002103e794",
+      "title": "深圳湾真的有一种在悉尼的错觉",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a20346f000000002103e794",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a656d4c000000001b01fe87",
+      "note_id": "6a656d4c000000001b01fe87",
+      "title": "深圳免费地铁直达8个看海遛娃公园‼️纯干货",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a656d4c000000001b01fe87",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69da1934000000001a037490",
+      "note_id": "69da1934000000001a037490",
+      "title": "在深圳华侨城发现一个小欧洲",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69da1934000000001a037490",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68bf0378000000001d03ae2d",
+      "note_id": "68bf0378000000001d03ae2d",
+      "title": "深圳打工人的救赎｜隐藏的秘境避世泳池",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68bf0378000000001d03ae2d",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a4a4cd8000000001102f5d5",
+      "note_id": "6a4a4cd8000000001102f5d5",
+      "title": "深圳国际美术馆，糟糕到大为震惊",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a4a4cd8000000001102f5d5",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a4fba70000000000803c72f",
+      "note_id": "6a4fba70000000000803c72f",
+      "title": "海上世界这么冷清了吗",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a4fba70000000000803c72f",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68832b6100000000100115ea",
+      "note_id": "68832b6100000000100115ea",
+      "title": "厉害了！深圳爬山机器人可以免费预约体验了！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68832b6100000000100115ea",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a25788c00000000080014ec",
+      "note_id": "6a25788c00000000080014ec",
+      "title": "去年的照片现在发是不是有点过时⌛️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a25788c00000000080014ec",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68071811000000001c030ee8",
+      "note_id": "68071811000000001c030ee8",
+      "title": "这里是深圳？？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68071811000000001c030ee8",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6900f624000000000301b6c7",
+      "note_id": "6900f624000000000301b6c7",
+      "title": "西丽生态公园游玩攻略",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6900f624000000000301b6c7",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69579b98000000002203b57c",
+      "note_id": "69579b98000000002203b57c",
+      "title": "深圳这个地方为什么要弄一匹马？",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69579b98000000002203b57c",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68a8cb14000000001c00c324",
+      "note_id": "68a8cb14000000001c00c324",
+      "title": "去深圳，一定要留一天带娃去深圳机器人谷",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68a8cb14000000001c00c324",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:692d2e10000000000d00ddc3",
+      "note_id": "692d2e10000000000d00ddc3",
+      "title": "孕期吸氧日记｜怀孕千万别窝家里！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/692d2e10000000000d00ddc3",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69e66e47000000002102fa71",
+      "note_id": "69e66e47000000002102fa71",
+      "title": "night w my girls🙌",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69e66e47000000002102fa71",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6919f7b000000000070352e9",
+      "note_id": "6919f7b000000000070352e9",
+      "title": "不愧是深圳！最好的地方都是免费的",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6919f7b000000000070352e9",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:679cd623000000001800e85f",
+      "note_id": "679cd623000000001800e85f",
+      "title": "惠州高洋尾｜海边公路🌊阴天的电影感🎬",
+      "canonical_url": "https://www.xiaohongshu.com/explore/679cd623000000001800e85f",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69c643b60000000021007a75",
+      "note_id": "69c643b60000000021007a75",
+      "title": "深圳｜喷泉实况",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69c643b60000000021007a75",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:686f028a000000001202e87f",
+      "note_id": "686f028a000000001202e87f",
+      "title": "惠州惠阳金桔村，竟然有这么多的玩水点！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/686f028a000000001202e87f",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69fc9346000000001e00cac3",
+      "note_id": "69fc9346000000001e00cac3",
+      "title": "深圳免费封神水秀✨看完只想说：这钱省麻了",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69fc9346000000001e00cac3",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:699fba97000000001a0218bc",
+      "note_id": "699fba97000000001a0218bc",
+      "title": "深圳探店沒踩雷｜這鵝肝Taco跟我的臉一樣闊",
+      "canonical_url": "https://www.xiaohongshu.com/explore/699fba97000000001a0218bc",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:67a21f1300000000280361a7",
+      "note_id": "67a21f1300000000280361a7",
+      "title": "巨人展",
+      "canonical_url": "https://www.xiaohongshu.com/explore/67a21f1300000000280361a7",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a3e1d4d0000000020039e0a",
+      "note_id": "6a3e1d4d0000000020039e0a",
+      "title": "今天不攀岩 今天去划船！（附攻略）",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a3e1d4d0000000020039e0a",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a5d0003000000001303c6ea",
+      "note_id": "6a5d0003000000001303c6ea",
+      "title": "和兄弟爬梧桐山",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a5d0003000000001303c6ea",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68c04a09000000001d038b49",
+      "note_id": "68c04a09000000001d038b49",
+      "title": "不敢相信这是深圳出发700多往返能看到的海",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68c04a09000000001d038b49",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:687453bc000000001d00cc3b",
+      "note_id": "687453bc000000001d00cc3b",
+      "title": "深圳龙岗partyday测评",
+      "canonical_url": "https://www.xiaohongshu.com/explore/687453bc000000001d00cc3b",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6882380e000000002201e474",
+      "note_id": "6882380e000000002201e474",
+      "title": "摄影绝佳灵感宝库‼️深圳光明科学顶的桥❗️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6882380e000000002201e474",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68c3971e000000001d02e154",
+      "note_id": "68c3971e000000001d02e154",
+      "title": "深圳去哪扫街，推荐7个地铁直达的烟火角落",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68c3971e000000001d02e154",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:67cafa8000000000070378ac",
+      "note_id": "67cafa8000000000070378ac",
+      "title": "盐田千春",
+      "canonical_url": "https://www.xiaohongshu.com/explore/67cafa8000000000070378ac",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a2cada50000000035039253",
+      "note_id": "6a2cada50000000035039253",
+      "title": "深圳夜钓Plog🦑我抓到鱼啦！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a2cada50000000035039253",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a6fddb700000000050321dc",
+      "note_id": "6a6fddb700000000050321dc",
+      "title": "一个人逛深圳",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a6fddb700000000050321dc",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69fec47c0000000038020ab9",
+      "note_id": "69fec47c0000000038020ab9",
+      "title": "深圳的汤泉都这么光明正大了吗？！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69fec47c0000000038020ab9",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:67c31f84000000002a003deb",
+      "note_id": "67c31f84000000002a003deb",
+      "title": "深圳周末大家都去哪里玩啊⌓‿⌓",
+      "canonical_url": "https://www.xiaohongshu.com/explore/67c31f84000000002a003deb",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6908ac8c0000000005010ce4",
+      "note_id": "6908ac8c0000000005010ce4",
+      "title": "不在國外，姐在深圳的海邊🌊 ❤️",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6908ac8c0000000005010ce4",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:69c683db000000001a02be2d",
+      "note_id": "69c683db000000001a02be2d",
+      "title": "深圳值得！一个免费的公园竟然美成这样！",
+      "canonical_url": "https://www.xiaohongshu.com/explore/69c683db000000001a02be2d",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a7462ed000000002501444b",
+      "note_id": "6a7462ed000000002501444b",
+      "title": "深圳壹方城周末游！湖南人认证好吃的湘菜馆",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a7462ed000000002501444b",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:67ff3f72000000001e000f23",
+      "note_id": "67ff3f72000000001e000f23",
+      "title": "周末逃离城市计划 体验超大迷宫的乐趣🌳",
+      "canonical_url": "https://www.xiaohongshu.com/explore/67ff3f72000000001e000f23",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:6a74a401000000002403fa4e",
+      "note_id": "6a74a401000000002403fa4e",
+      "title": "深圳周末大鹏搭子有吗",
+      "canonical_url": "https://www.xiaohongshu.com/explore/6a74a401000000002403fa4e",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68872a7800000000230072e9",
+      "note_id": "68872a7800000000230072e9",
+      "title": "大悦城不愧是搞“基”据点",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68872a7800000000230072e9",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68838e29000000000d0241b3",
+      "note_id": "68838e29000000000d0241b3",
+      "title": "官湖沙滩",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68838e29000000000d0241b3",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:67e7e4dc000000000b01edc0",
+      "note_id": "67e7e4dc000000000b01edc0",
+      "title": "探险猪婆山",
+      "canonical_url": "https://www.xiaohongshu.com/explore/67e7e4dc000000000b01edc0",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:695352eb0000000021033992",
+      "note_id": "695352eb0000000021033992",
+      "title": "🌟 深圳地铁研学NOCC控制中心终于开放参",
+      "canonical_url": "https://www.xiaohongshu.com/explore/695352eb0000000021033992",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68d28e1c000000000b03d2ec",
+      "note_id": "68d28e1c000000000b03d2ec",
+      "title": "28元解锁麦当劳麦麦博物馆，好吃又好玩🍟",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68d28e1c000000000b03d2ec",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:68fc4f07000000000703aed1",
+      "note_id": "68fc4f07000000000703aed1",
+      "title": "深圳 想出门又不知道去哪里的无力感",
+      "canonical_url": "https://www.xiaohongshu.com/explore/68fc4f07000000000703aed1",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:689a02c80000000005004d61",
+      "note_id": "689a02c80000000005004d61",
+      "title": "📷｜𝐒𝐮𝐧𝐬𝐞𝐭 🌄🧡",
+      "canonical_url": "https://www.xiaohongshu.com/explore/689a02c80000000005004d61",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    },
+    {
+      "lead_id": "xhs:682319d1000000001101f73a",
+      "note_id": "682319d1000000001101f73a",
+      "title": "我怀疑香港人过关都来这里了。。。。",
+      "canonical_url": "https://www.xiaohongshu.com/explore/682319d1000000001101f73a",
+      "district_hint": "深圳其他区域",
+      "search_query": "深圳周末好玩地点",
+      "verification_status": "unverified"
+    }
+  ]
+}
