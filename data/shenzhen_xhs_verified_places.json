@@ -1,0 +1,3489 @@
+{
+  "dataset": "xiaohongshu:shenzhen:osm-verified:2026-08-07",
+  "generated_at": "2026-08-07",
+  "promotion_policy": "literal Xiaohongshu title/recommended-item mention + exact OSM name inside one Shenzhen district; ambiguous or missing matches stay pending",
+  "generated_from": {
+    "title_mentions": "shenzhen_xhs_title_mentions.json",
+    "body_mentions": "shenzhen_xhs_body_mentions.json",
+    "coordinate_source": "OpenStreetMap Nominatim",
+    "coordinate_licence": "ODbL 1.0"
+  },
+  "summary": {
+    "candidate_names": 136,
+    "verified_places": 48,
+    "pending_candidates": 88,
+    "verified_by_district": {
+      "宝安区": 10,
+      "福田区": 17,
+      "南山区": 13,
+      "罗湖区": 3,
+      "龙岗区": 2,
+      "龙华区": 1,
+      "坪山区": 1,
+      "光明区": 1
+    }
+  },
+  "places": [
+    {
+      "dataset_key": "osm:way:1176326935",
+      "name": "弘源寺",
+      "description": "小红书公开笔记明确提及的寺庙，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "弘源寺, 85, 红星社区, 玉塘街道, 光明区, 深圳市, 广东省, 518132, 中国",
+      "location": {
+        "longitude": 113.8967608,
+        "latitude": 22.7050957
+      },
+      "categories": [
+        "寺庙"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "光明区"
+      ],
+      "city": "深圳",
+      "district": "光明区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "67c31a16000000001201dec2",
+            "note_title": "宝安必去的20个神仙打卡地！",
+            "canonical_url": "https://www.xiaohongshu.com/explore/67c31a16000000001201dec2",
+            "evidence_scope": "body_recommended_item",
+            "district_hint": "宝安区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 1176326935,
+        "osm_name": "弘源寺",
+        "osm_category": "landuse",
+        "osm_type_name": "religious"
+      }
+    },
+    {
+      "dataset_key": "osm:way:236402460",
+      "name": "世界之窗",
+      "description": "小红书公开笔记明确提及的景点，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "世界之窗, 深南大道, 中新街社区, 沙河街道, 南山区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 113.9686115,
+        "latitude": 22.5375058
+      },
+      "categories": [
+        "景点"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "南山区"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "6828ad250000000020029596",
+            "note_title": "世界之窗还可以呀",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6828ad250000000020029596",
+            "evidence_scope": "title_literal",
+            "district_hint": "深圳其他区域"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 236402460,
+        "osm_name": "世界之窗",
+        "osm_category": "tourism",
+        "osm_type_name": "theme_park"
+      }
+    },
+    {
+      "dataset_key": "osm:way:203270341",
+      "name": "中山公园",
+      "description": "小红书公开笔记明确提及的公园，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "中山公园, 南头街道, 南山区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 113.9138268,
+        "latitude": 22.5511528
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "南山区"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "6a73329d000000003301226e",
+            "note_title": "深圳最美公园-中山公园",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6a73329d000000003301226e",
+            "evidence_scope": "title_literal",
+            "district_hint": "深圳其他区域"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 203270341,
+        "osm_name": "中山公园",
+        "osm_category": "leisure",
+        "osm_type_name": "park"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:17068951",
+      "name": "何香凝美术馆",
+      "description": "小红书公开笔记明确提及的展馆，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "何香凝美术馆, 9013, 深南大道, 东方社区, 沙河街道, 南山区, 深圳市, 广东省, 518053, 中国",
+      "location": {
+        "longitude": 113.9767673,
+        "latitude": 22.5359828
+      },
+      "categories": [
+        "展馆"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "南山区"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "67c1b27a000000000903b1d5",
+            "note_title": "福田必去的20个地方",
+            "canonical_url": "https://www.xiaohongshu.com/explore/67c1b27a000000000903b1d5",
+            "evidence_scope": "body_recommended_item",
+            "district_hint": "福田区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "relation",
+        "osm_id": 17068951,
+        "osm_name": "何香凝美术馆",
+        "osm_category": "tourism",
+        "osm_type_name": "gallery"
+      }
+    },
+    {
+      "dataset_key": "osm:way:542328084",
+      "name": "前海石公园",
+      "description": "小红书公开笔记明确提及的公园，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "前海石公园, 前海合作区, 南山街道, 南山区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 113.8847574,
+        "latitude": 22.5291392
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "南山区"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "6a7337e90000000027022fb5",
+            "note_title": "深圳前海石公园晚霞也太好拍了",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6a7337e90000000027022fb5",
+            "evidence_scope": "title_literal",
+            "district_hint": "深圳其他区域"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 542328084,
+        "osm_name": "前海石公园",
+        "osm_category": "leisure",
+        "osm_type_name": "park"
+      }
+    },
+    {
+      "dataset_key": "osm:node:7116275670",
+      "name": "华侨城",
+      "description": "小红书公开笔记明确提及的街区，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "华侨城, 沙河街道, 南山区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 113.9779003,
+        "latitude": 22.5369227
+      },
+      "categories": [
+        "街区"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "南山区"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "69da1934000000001a037490",
+            "note_title": "在深圳华侨城发现一个小欧洲",
+            "canonical_url": "https://www.xiaohongshu.com/explore/69da1934000000001a037490",
+            "evidence_scope": "title_literal",
+            "district_hint": "深圳其他区域"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "node",
+        "osm_id": 7116275670,
+        "osm_name": "华侨城",
+        "osm_category": "place",
+        "osm_type_name": "suburb"
+      }
+    },
+    {
+      "dataset_key": "osm:way:219961346",
+      "name": "南头古城",
+      "description": "小红书公开笔记明确提及的街区，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "南头古城, 南头街道, 南山区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 113.9158929,
+        "latitude": 22.5462391
+      },
+      "categories": [
+        "街区"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "南山区"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "6a20ed1e00000000210206dc",
+            "note_title": "壹方城和南头古城逛烂了怎么办",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6a20ed1e00000000210206dc",
+            "evidence_scope": "title_literal",
+            "district_hint": "宝安区"
+          },
+          {
+            "note_id": "69e30ec9000000002200c775",
+            "note_title": "来南头古城偶遇明星啦",
+            "canonical_url": "https://www.xiaohongshu.com/explore/69e30ec9000000002200c775",
+            "evidence_scope": "title_literal",
+            "district_hint": "深圳其他区域"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 219961346,
+        "osm_name": "南头古城",
+        "osm_category": "place",
+        "osm_type_name": "quarter"
+      }
+    },
+    {
+      "dataset_key": "osm:way:942307437",
+      "name": "后海村",
+      "description": "小红书公开笔记明确提及的街区，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "后海村, 后海社区, 粤海街道, 南山区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 113.9263888,
+        "latitude": 22.511762
+      },
+      "categories": [
+        "街区"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "南山区"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "67b87809000000002a0031ce",
+            "note_title": "第七十八次出门扫街｜后海村",
+            "canonical_url": "https://www.xiaohongshu.com/explore/67b87809000000002a0031ce",
+            "evidence_scope": "title_literal",
+            "district_hint": "深圳其他区域"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 942307437,
+        "osm_name": "后海村",
+        "osm_category": "landuse",
+        "osm_type_name": "residential"
+      }
+    },
+    {
+      "dataset_key": "osm:way:543176177",
+      "name": "海上世界",
+      "description": "小红书公开笔记明确提及的商场，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "海上世界, 招商街道, 南山区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 113.9118315,
+        "latitude": 22.4860651
+      },
+      "categories": [
+        "商场"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "南山区"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "69981637000000001600a303",
+            "note_title": "惊喜偶遇！五月天海上世界？！",
+            "canonical_url": "https://www.xiaohongshu.com/explore/69981637000000001600a303",
+            "evidence_scope": "title_literal",
+            "district_hint": "宝安区"
+          },
+          {
+            "note_id": "6a4fba70000000000803c72f",
+            "note_title": "海上世界这么冷清了吗",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6a4fba70000000000803c72f",
+            "evidence_scope": "title_literal",
+            "district_hint": "深圳其他区域"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 543176177,
+        "osm_name": "海上世界",
+        "osm_category": "landuse",
+        "osm_type_name": "retail"
+      }
+    },
+    {
+      "dataset_key": "osm:node:5178285426",
+      "name": "深圳大学城",
+      "description": "小红书公开笔记明确提及的街区，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "深圳大学城, 桃源街道, 南山区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 113.9794306,
+        "latitude": 22.5939729
+      },
+      "categories": [
+        "街区"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "南山区"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "6a4cf872000000001102df4f",
+            "note_title": "深圳大学城",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6a4cf872000000001102df4f",
+            "evidence_scope": "title_literal",
+            "district_hint": "深圳其他区域"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "node",
+        "osm_id": 5178285426,
+        "osm_name": "深圳大学城",
+        "osm_category": "place",
+        "osm_type_name": "suburb"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:19692109",
+      "name": "深圳湾万象城",
+      "description": "小红书公开笔记明确提及的商场，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "深圳湾万象城, 登良路隧道, 海珠社区, 粤海街道, 南山区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 113.9389111,
+        "latitude": 22.5179038
+      },
+      "categories": [
+        "商场"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "南山区"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "6a7399c8000000000f039c01",
+            "note_title": "深圳湾万象城+人才公园，周末逛吃一站式攻略！",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6a7399c8000000000f039c01",
+            "evidence_scope": "title_literal",
+            "district_hint": "深圳其他区域"
+          },
+          {
+            "note_id": "6a05a0c60000000036031e3a",
+            "note_title": "强烈建议都去深圳湾万象城看一看",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6a05a0c60000000036031e3a",
+            "evidence_scope": "title_literal",
+            "district_hint": "深圳其他区域"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "relation",
+        "osm_id": 19692109,
+        "osm_name": "深圳湾万象城",
+        "osm_category": "shop",
+        "osm_type_name": "mall"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:3290940",
+      "name": "西丽湖",
+      "description": "小红书公开笔记明确提及的水域，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "西丽湖, 西丽街道, 南山区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 113.9590018,
+        "latitude": 22.6069207
+      },
+      "categories": [
+        "水域"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "南山区"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "6a058a8d0000000006036e25",
+            "note_title": "环西丽湖这片免费花海，太美吧！",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6a058a8d0000000006036e25",
+            "evidence_scope": "title_literal",
+            "district_hint": "深圳其他区域"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "relation",
+        "osm_id": 3290940,
+        "osm_name": "西丽湖",
+        "osm_category": "water",
+        "osm_type_name": "reservoir"
+      }
+    },
+    {
+      "dataset_key": "osm:way:529070102",
+      "name": "西丽生态公园",
+      "description": "小红书公开笔记明确提及的公园，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "西丽生态公园, 西丽街道, 南山区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 113.9277423,
+        "latitude": 22.575676
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "南山区"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "6900f624000000000301b6c7",
+            "note_title": "西丽生态公园游玩攻略",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6900f624000000000301b6c7",
+            "evidence_scope": "title_literal",
+            "district_hint": "深圳其他区域"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 529070102,
+        "osm_name": "西丽生态公园",
+        "osm_category": "leisure",
+        "osm_type_name": "park"
+      }
+    },
+    {
+      "dataset_key": "osm:way:379914112",
+      "name": "青青世界",
+      "description": "小红书公开笔记明确提及的公园，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "青青世界, 1, 前海合作区, 南山街道, 南山区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 113.896387,
+        "latitude": 22.5045009
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "南山区"
+      ],
+      "city": "深圳",
+      "district": "南山区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "69119e410000000004006830",
+            "note_title": "深圳青青世界实测",
+            "canonical_url": "https://www.xiaohongshu.com/explore/69119e410000000004006830",
+            "evidence_scope": "title_literal",
+            "district_hint": "宝安区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 379914112,
+        "osm_name": "青青世界",
+        "osm_category": "leisure",
+        "osm_type_name": "park"
+      }
+    },
+    {
+      "dataset_key": "osm:node:8478269499",
+      "name": "马峦山瀑布",
+      "description": "小红书公开笔记明确提及的水域，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "马峦山瀑布, 坪山区, 深圳市, 广东省, 518118, 中国",
+      "location": {
+        "longitude": 114.33386,
+        "latitude": 22.6397293
+      },
+      "categories": [
+        "水域"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "坪山区"
+      ],
+      "city": "深圳",
+      "district": "坪山区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "6a479361000000000803294c",
+            "note_title": "我宣布马峦山瀑布是深圳最凉快的地方",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6a479361000000000803294c",
+            "evidence_scope": "title_literal",
+            "district_hint": "深圳其他区域"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "node",
+        "osm_id": 8478269499,
+        "osm_name": "马峦山瀑布",
+        "osm_category": "waterway",
+        "osm_type_name": "waterfall"
+      }
+    },
+    {
+      "dataset_key": "osm:way:527657598",
+      "name": "F518创意园",
+      "description": "小红书公开笔记明确提及的文化街区，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "F518创意园, 1065, 劳动社区, 西乡街道, 宝安区, 深圳市, 广东省, 518102, 中国",
+      "location": {
+        "longitude": 113.8573484,
+        "latitude": 22.5696658
+      },
+      "categories": [
+        "文化街区"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "宝安区"
+      ],
+      "city": "深圳",
+      "district": "宝安区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "67c31a16000000001201dec2",
+            "note_title": "宝安必去的20个神仙打卡地！",
+            "canonical_url": "https://www.xiaohongshu.com/explore/67c31a16000000001201dec2",
+            "evidence_scope": "body_recommended_item",
+            "district_hint": "宝安区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 527657598,
+        "osm_name": "F518创意园",
+        "osm_category": "landuse",
+        "osm_type_name": "commercial"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:15571014",
+      "name": "凤凰山森林公园",
+      "description": "小红书公开笔记明确提及的公园，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "凤凰山森林公园, 宝安区, 深圳市, 广东省, 518100, 中国",
+      "location": {
+        "longitude": 113.8470673,
+        "latitude": 22.6760327
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "宝安区"
+      ],
+      "city": "深圳",
+      "district": "宝安区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "67c31a16000000001201dec2",
+            "note_title": "宝安必去的20个神仙打卡地！",
+            "canonical_url": "https://www.xiaohongshu.com/explore/67c31a16000000001201dec2",
+            "evidence_scope": "body_recommended_item",
+            "district_hint": "宝安区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "relation",
+        "osm_id": 15571014,
+        "osm_name": "凤凰山森林公园",
+        "osm_category": "leisure",
+        "osm_type_name": "park"
+      }
+    },
+    {
+      "dataset_key": "osm:way:264955029",
+      "name": "前海HOP天地",
+      "description": "小红书公开笔记明确提及的商场，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "前海HOP天地, 19, 兴华一路, 宝安中心区, 海旺社区, 新安街道, 宝安区, 深圳市, 广东省, 518133, 中国",
+      "location": {
+        "longitude": 113.8817308,
+        "latitude": 22.5536588
+      },
+      "categories": [
+        "商场"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "宝安区"
+      ],
+      "city": "深圳",
+      "district": "宝安区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "67c31a16000000001201dec2",
+            "note_title": "宝安必去的20个神仙打卡地！",
+            "canonical_url": "https://www.xiaohongshu.com/explore/67c31a16000000001201dec2",
+            "evidence_scope": "body_recommended_item",
+            "district_hint": "宝安区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 264955029,
+        "osm_name": "前海HOP天地",
+        "osm_category": "shop",
+        "osm_type_name": "mall"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:8777487",
+      "name": "前海湾",
+      "description": "小红书公开笔记明确提及的自然，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "前海湾, 宝安区, 深圳市, 广东省, 518100, 中国",
+      "location": {
+        "longitude": 113.8757649,
+        "latitude": 22.5363043
+      },
+      "categories": [
+        "自然"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "宝安区"
+      ],
+      "city": "深圳",
+      "district": "宝安区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "6a03066a00000000380237ca",
+            "note_title": "深圳骑行｜山海连城–前海湾段骑行攻略",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6a03066a00000000380237ca",
+            "evidence_scope": "title_literal",
+            "district_hint": "宝安区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "relation",
+        "osm_id": 8777487,
+        "osm_name": "前海湾",
+        "osm_category": "natural",
+        "osm_type_name": "bay"
+      }
+    },
+    {
+      "dataset_key": "osm:node:13230251356",
+      "name": "天宝兄弟",
+      "description": "小红书公开笔记明确提及的餐饮，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "天宝兄弟, 海丽路, 宝安中心区, 海旺社区, 新安街道, 宝安区, 深圳市, 广东省, 518100, 中国",
+      "location": {
+        "longitude": 113.8827505,
+        "latitude": 22.5539241
+      },
+      "categories": [
+        "餐饮"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "宝安区"
+      ],
+      "city": "深圳",
+      "district": "宝安区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "67c31a16000000001201dec2",
+            "note_title": "宝安必去的20个神仙打卡地！",
+            "canonical_url": "https://www.xiaohongshu.com/explore/67c31a16000000001201dec2",
+            "evidence_scope": "body_recommended_item",
+            "district_hint": "宝安区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "node",
+        "osm_id": 13230251356,
+        "osm_name": "天宝兄弟",
+        "osm_category": "amenity",
+        "osm_type_name": "restaurant"
+      }
+    },
+    {
+      "dataset_key": "osm:way:301207515",
+      "name": "宝安公园",
+      "description": "小红书公开笔记明确提及的公园，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "宝安公园, 新安街道, 宝安区, 深圳市, 广东省, 518100, 中国",
+      "location": {
+        "longitude": 113.8980459,
+        "latitude": 22.5890783
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "宝安区"
+      ],
+      "city": "深圳",
+      "district": "宝安区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "6a1eddfe000000000702ad88",
+            "note_title": "宝安公园是假公园！",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6a1eddfe000000000702ad88",
+            "evidence_scope": "title_literal",
+            "district_hint": "宝安区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 301207515,
+        "osm_name": "宝安公园",
+        "osm_category": "leisure",
+        "osm_type_name": "park"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:19740575",
+      "name": "宝安大仟里",
+      "description": "小红书公开笔记明确提及的商场，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "宝安大仟里, 3, 海城路, 麻布社区, 西乡街道, 宝安区, 深圳市, 广东省, 518102, 中国",
+      "location": {
+        "longitude": 113.8670102,
+        "latitude": 22.5720473
+      },
+      "categories": [
+        "商场"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "宝安区"
+      ],
+      "city": "深圳",
+      "district": "宝安区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "68c15a1a000000001b0330c7",
+            "note_title": "宝安大仟里真的没人管管吗！？",
+            "canonical_url": "https://www.xiaohongshu.com/explore/68c15a1a000000001b0330c7",
+            "evidence_scope": "title_literal",
+            "district_hint": "宝安区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "relation",
+        "osm_id": 19740575,
+        "osm_name": "宝安大仟里",
+        "osm_category": "shop",
+        "osm_type_name": "mall"
+      }
+    },
+    {
+      "dataset_key": "osm:way:771513760",
+      "name": "欢乐港湾",
+      "description": "小红书公开笔记明确提及的景点，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "欢乐港湾, 甲岸路, 宝安中心区, 海裕社区, 新安街道, 宝安区, 深圳市, 广东省, 518100, 中国",
+      "location": {
+        "longitude": 113.881011,
+        "latitude": 22.5463106
+      },
+      "categories": [
+        "景点"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "宝安区"
+      ],
+      "city": "深圳",
+      "district": "宝安区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "67e8ae51000000001e002240",
+            "note_title": "欢乐港湾怎么了？",
+            "canonical_url": "https://www.xiaohongshu.com/explore/67e8ae51000000001e002240",
+            "evidence_scope": "title_literal",
+            "district_hint": "宝安区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 771513760,
+        "osm_name": "欢乐港湾",
+        "osm_category": "tourism",
+        "osm_type_name": "attraction"
+      }
+    },
+    {
+      "dataset_key": "osm:way:316491108",
+      "name": "海上田园",
+      "description": "小红书公开笔记明确提及的公园，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "海上田园, 沙井街道, 宝安区, 深圳市, 广东省, 518100, 中国",
+      "location": {
+        "longitude": 113.7670511,
+        "latitude": 22.7280056
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "宝安区"
+      ],
+      "city": "深圳",
+      "district": "宝安区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "67c31a16000000001201dec2",
+            "note_title": "宝安必去的20个神仙打卡地！",
+            "canonical_url": "https://www.xiaohongshu.com/explore/67c31a16000000001201dec2",
+            "evidence_scope": "body_recommended_item",
+            "district_hint": "宝安区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 316491108,
+        "osm_name": "海上田园",
+        "osm_category": "leisure",
+        "osm_type_name": "park"
+      }
+    },
+    {
+      "dataset_key": "osm:way:543052135",
+      "name": "海雅缤纷城",
+      "description": "小红书公开笔记明确提及的商场，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "海雅缤纷城, 99, 建安一路, 新安湖社区, 新安街道, 宝安区, 深圳市, 广东省, 518101, 中国",
+      "location": {
+        "longitude": 113.9011314,
+        "latitude": 22.5626462
+      },
+      "categories": [
+        "商场"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "宝安区"
+      ],
+      "city": "深圳",
+      "district": "宝安区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "6a51e6e10000000011004643",
+            "note_title": "海雅缤纷城扇🐷争霸赛",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6a51e6e10000000011004643",
+            "evidence_scope": "title_literal",
+            "district_hint": "宝安区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 543052135,
+        "osm_name": "海雅缤纷城",
+        "osm_category": "shop",
+        "osm_type_name": "mall"
+      }
+    },
+    {
+      "dataset_key": "osm:way:1429423850",
+      "name": "中洲湾C Future City",
+      "description": "小红书公开笔记明确提及的商场，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "中洲湾C Future City, 沙创路, 下沙村三坊, 上沙社区, 沙头街道, 福田区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 114.0236199,
+        "latitude": 22.5306396
+      },
+      "categories": [
+        "商场"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "福田区"
+      ],
+      "city": "深圳",
+      "district": "福田区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "67c1b27a000000000903b1d5",
+            "note_title": "福田必去的20个地方",
+            "canonical_url": "https://www.xiaohongshu.com/explore/67c1b27a000000000903b1d5",
+            "evidence_scope": "body_recommended_item",
+            "district_hint": "福田区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 1429423850,
+        "osm_name": "中洲湾C Future City",
+        "osm_category": "shop",
+        "osm_type_name": "mall"
+      }
+    },
+    {
+      "dataset_key": "osm:way:170144292",
+      "name": "关山月美术馆",
+      "description": "小红书公开笔记明确提及的展馆，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "关山月美术馆, 6026号, 红荔路, 福新社区, 莲花街道, 福田区, 深圳市, 广东省, 518026, 中国",
+      "location": {
+        "longitude": 114.0590877,
+        "latitude": 22.5520952
+      },
+      "categories": [
+        "展馆"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "福田区"
+      ],
+      "city": "深圳",
+      "district": "福田区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "67c1b27a000000000903b1d5",
+            "note_title": "福田必去的20个地方",
+            "canonical_url": "https://www.xiaohongshu.com/explore/67c1b27a000000000903b1d5",
+            "evidence_scope": "body_recommended_item",
+            "district_hint": "福田区"
+          },
+          {
+            "note_id": "6a224bd900000000210145c8",
+            "note_title": "深圳展馆一日游地铁一条龙攻略｜福田篇✨",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6a224bd900000000210145c8",
+            "evidence_scope": "body_recommended_item",
+            "district_hint": "福田区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 170144292,
+        "osm_name": "关山月美术馆",
+        "osm_category": "tourism",
+        "osm_type_name": "museum"
+      }
+    },
+    {
+      "dataset_key": "osm:way:895825501",
+      "name": "卓悦汇",
+      "description": "小红书公开笔记明确提及的商场，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "卓悦汇, 梅都社区, 梅林街道, 福田区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 114.0550764,
+        "latitude": 22.5731072
+      },
+      "categories": [
+        "商场"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "福田区"
+      ],
+      "city": "深圳",
+      "district": "福田区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "67c1b27a000000000903b1d5",
+            "note_title": "福田必去的20个地方",
+            "canonical_url": "https://www.xiaohongshu.com/explore/67c1b27a000000000903b1d5",
+            "evidence_scope": "body_recommended_item",
+            "district_hint": "福田区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 895825501,
+        "osm_name": "卓悦汇",
+        "osm_category": "landuse",
+        "osm_type_name": "retail"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:10837975",
+      "name": "市民中心",
+      "description": "小红书公开笔记明确提及的地点，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "市民中心, 福中三路, 福中社区, 莲花街道, 福田区, 深圳市, 广东省, 518038, 中国",
+      "location": {
+        "longitude": 114.0545223,
+        "latitude": 22.5463725
+      },
+      "categories": [
+        "地点"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "福田区"
+      ],
+      "city": "深圳",
+      "district": "福田区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "68cd3319000000000b0124f7",
+            "note_title": "深圳福田会反复逛的6个地方",
+            "canonical_url": "https://www.xiaohongshu.com/explore/68cd3319000000000b0124f7",
+            "evidence_scope": "body_recommended_item",
+            "district_hint": "福田区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "relation",
+        "osm_id": 10837975,
+        "osm_name": "市民中心",
+        "osm_category": "building",
+        "osm_type_name": "civic"
+      }
+    },
+    {
+      "dataset_key": "osm:way:674566923",
+      "name": "深业上城",
+      "description": "小红书公开笔记明确提及的商业区，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "深业上城, 莲花一村社区, 华富街道, 福田区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 114.0651169,
+        "latitude": 22.5601574
+      },
+      "categories": [
+        "商业区"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "福田区"
+      ],
+      "city": "深圳",
+      "district": "福田区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "683a80ed000000002102cb20",
+            "note_title": "深业上城 | 在深圳，靠逆风翻盘的商场💪",
+            "canonical_url": "https://www.xiaohongshu.com/explore/683a80ed000000002102cb20",
+            "evidence_scope": "title_literal",
+            "district_hint": "福田区"
+          },
+          {
+            "note_id": "67c1b27a000000000903b1d5",
+            "note_title": "福田必去的20个地方",
+            "canonical_url": "https://www.xiaohongshu.com/explore/67c1b27a000000000903b1d5",
+            "evidence_scope": "body_recommended_item",
+            "district_hint": "福田区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 674566923,
+        "osm_name": "深业上城",
+        "osm_category": "landuse",
+        "osm_type_name": "commercial"
+      }
+    },
+    {
+      "dataset_key": "osm:relation:17354200",
+      "name": "深圳中心公园",
+      "description": "小红书公开笔记明确提及的公园，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "深圳中心公园, 1, 华富街道, 福田区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 114.0719426,
+        "latitude": 22.549444
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "福田区"
+      ],
+      "city": "深圳",
+      "district": "福田区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "6a6b201a0000000025004634",
+            "note_title": "台风过后，深圳中心公园开成粉色了、开爆了🌸",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6a6b201a0000000025004634",
+            "evidence_scope": "title_literal",
+            "district_hint": "福田区"
+          },
+          {
+            "note_id": "6a16d25b000000003703553b",
+            "note_title": "🌿深圳中心公园｜市区里的治愈躺平宝地✨",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6a16d25b000000003703553b",
+            "evidence_scope": "title_literal",
+            "district_hint": "福田区"
+          },
+          {
+            "note_id": "6a7327f600000000080132b5",
+            "note_title": "8.5实况播报🌸深圳中心公园风雨兰又开啦！！",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6a7327f600000000080132b5",
+            "evidence_scope": "title_literal",
+            "district_hint": "深圳其他区域"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "relation",
+        "osm_id": 17354200,
+        "osm_name": "深圳中心公园",
+        "osm_category": "leisure",
+        "osm_type_name": "park"
+      }
+    },
+    {
+      "dataset_key": "osm:way:183106483",
+      "name": "深圳博物馆古代艺术馆",
+      "description": "小红书公开笔记明确提及的展馆，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "深圳博物馆古代艺术馆, 6, 同心路, 通新岭小区南区, 通新岭社区, 华强北街道, 福田区, 深圳市, 广东省, 518027, 中国",
+      "location": {
+        "longitude": 114.0962008,
+        "latitude": 22.5448303
+      },
+      "categories": [
+        "展馆"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "福田区"
+      ],
+      "city": "深圳",
+      "district": "福田区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "6a49f4a9000000001603e696",
+            "note_title": "深圳博物馆古代艺术馆 静谧之地",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6a49f4a9000000001603e696",
+            "evidence_scope": "title_literal",
+            "district_hint": "福田区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 183106483,
+        "osm_name": "深圳博物馆古代艺术馆",
+        "osm_category": "tourism",
+        "osm_type_name": "museum"
+      }
+    },
+    {
+      "dataset_key": "osm:way:207170378",
+      "name": "深圳国际园林花卉博览园",
+      "description": "小红书公开笔记明确提及的公园，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "深圳国际园林花卉博览园, 香蜜湖街道, 福田区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 113.9985698,
+        "latitude": 22.5403221
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "福田区"
+      ],
+      "city": "深圳",
+      "district": "福田区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "67c1b27a000000000903b1d5",
+            "note_title": "福田必去的20个地方",
+            "canonical_url": "https://www.xiaohongshu.com/explore/67c1b27a000000000903b1d5",
+            "evidence_scope": "body_recommended_item",
+            "district_hint": "福田区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 207170378,
+        "osm_name": "深圳国际园林花卉博览园",
+        "osm_category": "leisure",
+        "osm_type_name": "park"
+      }
+    },
+    {
+      "dataset_key": "osm:way:456331569",
+      "name": "深圳市当代艺术与城市规划馆",
+      "description": "小红书公开笔记明确提及的展馆，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "深圳市当代艺术与城市规划馆, 184, 福中路, 福中社区, 莲花街道, 福田区, 深圳市, 广东省, 518038, 中国",
+      "location": {
+        "longitude": 114.0566989,
+        "latitude": 22.5485263
+      },
+      "categories": [
+        "展馆"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "福田区"
+      ],
+      "city": "深圳",
+      "district": "福田区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "6a224bd900000000210145c8",
+            "note_title": "深圳展馆一日游地铁一条龙攻略｜福田篇✨",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6a224bd900000000210145c8",
+            "evidence_scope": "body_recommended_item",
+            "district_hint": "福田区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 456331569,
+        "osm_name": "深圳市当代艺术与城市规划馆",
+        "osm_category": "tourism",
+        "osm_type_name": "museum"
+      }
+    },
+    {
+      "dataset_key": "osm:way:257397881",
+      "name": "深圳科学馆",
+      "description": "小红书公开笔记明确提及的展馆，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "深圳科学馆, 振中路, 龙胜配件城, 福强社区, 华强北街道, 福田区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 114.0905918,
+        "latitude": 22.5448139
+      },
+      "categories": [
+        "展馆"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "福田区"
+      ],
+      "city": "深圳",
+      "district": "福田区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "67c1b27a000000000903b1d5",
+            "note_title": "福田必去的20个地方",
+            "canonical_url": "https://www.xiaohongshu.com/explore/67c1b27a000000000903b1d5",
+            "evidence_scope": "body_recommended_item",
+            "district_hint": "福田区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 257397881,
+        "osm_name": "深圳科学馆",
+        "osm_category": "tourism",
+        "osm_type_name": "museum"
+      }
+    },
+    {
+      "dataset_key": "osm:way:273652993",
+      "name": "福田村",
+      "description": "小红书公开笔记明确提及的街区，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "福田村, 福田社区, 福田街道, 福田区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 114.0749146,
+        "latitude": 22.5372965
+      },
+      "categories": [
+        "街区"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "福田区"
+      ],
+      "city": "深圳",
+      "district": "福田区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "6904bf3b0000000007003b39",
+            "note_title": "深圳福田村…第一次来的人都会感到震撼…",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6904bf3b0000000007003b39",
+            "evidence_scope": "title_literal",
+            "district_hint": "福田区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 273652993,
+        "osm_name": "福田村",
+        "osm_category": "landuse",
+        "osm_type_name": "residential"
+      }
+    },
+    {
+      "dataset_key": "osm:way:238150214",
+      "name": "红树林海滨生态公园",
+      "description": "小红书公开笔记明确提及的公园，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "红树林海滨生态公园, 沙头街道, 福田区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 113.9957572,
+        "latitude": 22.5258739
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "福田区"
+      ],
+      "city": "深圳",
+      "district": "福田区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "67c1b27a000000000903b1d5",
+            "note_title": "福田必去的20个地方",
+            "canonical_url": "https://www.xiaohongshu.com/explore/67c1b27a000000000903b1d5",
+            "evidence_scope": "body_recommended_item",
+            "district_hint": "福田区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 238150214,
+        "osm_name": "红树林海滨生态公园",
+        "osm_category": "leisure",
+        "osm_type_name": "park"
+      }
+    },
+    {
+      "dataset_key": "osm:way:41281446",
+      "name": "莲花山公园",
+      "description": "小红书公开笔记明确提及的公园，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "莲花山公园, 6030, 莲花街道, 福田区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 114.0532386,
+        "latitude": 22.5566275
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "福田区"
+      ],
+      "city": "深圳",
+      "district": "福田区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "6a4e40d8000000000f014c3d",
+            "note_title": "雨后的莲花山公园，是个巨大的绿色能量场❗",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6a4e40d8000000000f014c3d",
+            "evidence_scope": "title_literal",
+            "district_hint": "深圳其他区域"
+          },
+          {
+            "note_id": "67c1b27a000000000903b1d5",
+            "note_title": "福田必去的20个地方",
+            "canonical_url": "https://www.xiaohongshu.com/explore/67c1b27a000000000903b1d5",
+            "evidence_scope": "body_recommended_item",
+            "district_hint": "福田区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 41281446,
+        "osm_name": "莲花山公园",
+        "osm_category": "leisure",
+        "osm_type_name": "park"
+      }
+    },
+    {
+      "dataset_key": "osm:node:3373068617",
+      "name": "车公庙",
+      "description": "小红书公开笔记明确提及的街区，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "车公庙, 沙头街道, 福田区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 114.0231552,
+        "latitude": 22.5377854
+      },
+      "categories": [
+        "街区"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "福田区"
+      ],
+      "city": "深圳",
+      "district": "福田区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "68806bcc000000001c033cd5",
+            "note_title": "☯️深圳现存唯一的车公庙，藏在一个足球场里",
+            "canonical_url": "https://www.xiaohongshu.com/explore/68806bcc000000001c033cd5",
+            "evidence_scope": "title_literal",
+            "district_hint": "福田区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "node",
+        "osm_id": 3373068617,
+        "osm_name": "车公庙",
+        "osm_category": "place",
+        "osm_type_name": "suburb"
+      }
+    },
+    {
+      "dataset_key": "osm:way:1442266882",
+      "name": "锦绣园",
+      "description": "小红书公开笔记明确提及的公园，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "锦绣园, 皇岗社区, 福田街道, 福田区, 深圳市, 广东省, 518017, 中国",
+      "location": {
+        "longitude": 114.0544265,
+        "latitude": 22.5292299
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "福田区"
+      ],
+      "city": "深圳",
+      "district": "福田区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "68cd3319000000000b0124f7",
+            "note_title": "深圳福田会反复逛的6个地方",
+            "canonical_url": "https://www.xiaohongshu.com/explore/68cd3319000000000b0124f7",
+            "evidence_scope": "body_recommended_item",
+            "district_hint": "福田区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 1442266882,
+        "osm_name": "锦绣园",
+        "osm_category": "leisure",
+        "osm_type_name": "park"
+      }
+    },
+    {
+      "dataset_key": "osm:way:540340500",
+      "name": "香蜜公园",
+      "description": "小红书公开笔记明确提及的公园，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "香蜜公园, 30, 香蜜湖街道, 福田区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 114.0166182,
+        "latitude": 22.5498456
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "福田区"
+      ],
+      "city": "深圳",
+      "district": "福田区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "67c1b27a000000000903b1d5",
+            "note_title": "福田必去的20个地方",
+            "canonical_url": "https://www.xiaohongshu.com/explore/67c1b27a000000000903b1d5",
+            "evidence_scope": "body_recommended_item",
+            "district_hint": "福田区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 540340500,
+        "osm_name": "香蜜公园",
+        "osm_category": "leisure",
+        "osm_type_name": "park"
+      }
+    },
+    {
+      "dataset_key": "osm:way:25482483",
+      "name": "香蜜湖",
+      "description": "小红书公开笔记明确提及的水域，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "香蜜湖, 香蜜湖街道, 福田区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 114.0268335,
+        "latitude": 22.5505651
+      },
+      "categories": [
+        "水域"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "福田区"
+      ],
+      "city": "深圳",
+      "district": "福田区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "6a366d1a000000002200aa63",
+            "note_title": "低精力深圳情侣怎么过周末2/100（香蜜湖篇）",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6a366d1a000000002200aa63",
+            "evidence_scope": "title_literal",
+            "district_hint": "福田区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 25482483,
+        "osm_name": "香蜜湖",
+        "osm_category": "water",
+        "osm_type_name": "lake"
+      }
+    },
+    {
+      "dataset_key": "osm:way:270859682",
+      "name": "仙湖植物园",
+      "description": "小红书公开笔记明确提及的公园，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "仙湖植物园, 160, 莲塘街道, 罗湖区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 114.1757386,
+        "latitude": 22.5807888
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "罗湖区"
+      ],
+      "city": "深圳",
+      "district": "罗湖区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "66d3288a000000001d016f20",
+            "note_title": "仙湖植物园！！！",
+            "canonical_url": "https://www.xiaohongshu.com/explore/66d3288a000000001d016f20",
+            "evidence_scope": "title_literal",
+            "district_hint": "福田区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 270859682,
+        "osm_name": "仙湖植物园",
+        "osm_category": "leisure",
+        "osm_type_name": "garden"
+      }
+    },
+    {
+      "dataset_key": "osm:way:1241339581",
+      "name": "水贝壹号",
+      "description": "小红书公开笔记明确提及的地点，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "水贝壹号, 玉贝路, 水贝社区, 翠竹街道, 罗湖区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 114.1201132,
+        "latitude": 22.5758446
+      },
+      "categories": [
+        "地点"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "罗湖区"
+      ],
+      "city": "深圳",
+      "district": "罗湖区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "67c31a16000000001201dec2",
+            "note_title": "宝安必去的20个神仙打卡地！",
+            "canonical_url": "https://www.xiaohongshu.com/explore/67c31a16000000001201dec2",
+            "evidence_scope": "body_recommended_item",
+            "district_hint": "宝安区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 1241339581,
+        "osm_name": "水贝壹号",
+        "osm_category": "building",
+        "osm_type_name": "commercial"
+      }
+    },
+    {
+      "dataset_key": "osm:way:894564464",
+      "name": "银湖山郊野径",
+      "description": "小红书公开笔记明确提及的徒步路线，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "银湖山郊野径, 银湖社区, 清水河街道, 罗湖区, 深圳市, 广东省, 518000, 中国",
+      "location": {
+        "longitude": 114.0688594,
+        "latitude": 22.5793318
+      },
+      "categories": [
+        "徒步路线"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "罗湖区"
+      ],
+      "city": "深圳",
+      "district": "罗湖区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "67c1b27a000000000903b1d5",
+            "note_title": "福田必去的20个地方",
+            "canonical_url": "https://www.xiaohongshu.com/explore/67c1b27a000000000903b1d5",
+            "evidence_scope": "body_recommended_item",
+            "district_hint": "福田区"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 894564464,
+        "osm_name": "银湖山郊野径",
+        "osm_category": "highway",
+        "osm_type_name": "footway"
+      }
+    },
+    {
+      "dataset_key": "osm:way:742380771",
+      "name": "深圳北站中心公园",
+      "description": "小红书公开笔记明确提及的公园，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "深圳北站中心公园, 民治街道, 龙华区, 深圳市, 广东省, 518110, 中国",
+      "location": {
+        "longitude": 114.0195917,
+        "latitude": 22.6090642
+      },
+      "categories": [
+        "公园"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "龙华区"
+      ],
+      "city": "深圳",
+      "district": "龙华区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "6833f312000000000c038d04",
+            "note_title": "还会去无数次的深圳北站中心公园🌿",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6833f312000000000c038d04",
+            "evidence_scope": "title_literal",
+            "district_hint": "深圳其他区域"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 742380771,
+        "osm_name": "深圳北站中心公园",
+        "osm_category": "leisure",
+        "osm_type_name": "park"
+      }
+    },
+    {
+      "dataset_key": "osm:way:1216783707",
+      "name": "布吉万象汇",
+      "description": "小红书公开笔记明确提及的商场，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "布吉万象汇, 2, 翔鸽路, 布吉街道, 龙岗区, 深圳市, 广东省, 518100, 中国",
+      "location": {
+        "longitude": 114.1262048,
+        "latitude": 22.5956996
+      },
+      "categories": [
+        "商场"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "龙岗区"
+      ],
+      "city": "深圳",
+      "district": "龙岗区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "6a15a8d2000000003701c7a8",
+            "note_title": "深圳布吉万象汇，窝在百鸽笼的隐形赚钱高",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6a15a8d2000000003701c7a8",
+            "evidence_scope": "title_literal",
+            "district_hint": "深圳其他区域"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 1216783707,
+        "osm_name": "布吉万象汇",
+        "osm_category": "shop",
+        "osm_type_name": "mall"
+      }
+    },
+    {
+      "dataset_key": "osm:way:538730361",
+      "name": "桔钓沙",
+      "description": "小红书公开笔记明确提及的自然，名称、坐标及深圳区属已通过 OpenStreetMap 数据核验。",
+      "address": "桔钓沙, 南澳街道, 大鹏新区, 龙岗区, 深圳市, 广东省, 518100, 中国",
+      "location": {
+        "longitude": 114.5499911,
+        "latitude": 22.5601434
+      },
+      "categories": [
+        "自然"
+      ],
+      "tags": [
+        "小红书线索",
+        "OSM核验",
+        "龙岗区"
+      ],
+      "city": "深圳",
+      "district": "龙岗区",
+      "images": [],
+      "source": {
+        "evidence": [
+          {
+            "note_id": "6a631f7d0000000009036f8f",
+            "note_title": "📍桔钓沙！暑假期间出行看好这篇攻略再出发",
+            "canonical_url": "https://www.xiaohongshu.com/explore/6a631f7d0000000009036f8f",
+            "evidence_scope": "title_literal",
+            "district_hint": "深圳其他区域"
+          }
+        ],
+        "coordinate_source": "OpenStreetMap Nominatim",
+        "osm_type": "way",
+        "osm_id": 538730361,
+        "osm_name": "桔钓沙",
+        "osm_category": "natural",
+        "osm_type_name": "beach"
+      }
+    }
+  ],
+  "pending": [
+    {
+      "name": "G&G",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "6a6c96c0000000002c005d64",
+          "note_title": "这周G&G，再见面🤙",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a6c96c0000000002c005d64",
+          "evidence_scope": "title_literal",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "MilkHome",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "6a33d6a500000000060202f9",
+          "note_title": "🎉MilkHome狗狗幼稚园1周年啦！",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a33d6a500000000060202f9",
+          "evidence_scope": "title_literal",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "NOCC控制中心",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "695352eb0000000021033992",
+          "note_title": "🌟 深圳地铁研学NOCC控制中心终于开放参",
+          "canonical_url": "https://www.xiaohongshu.com/explore/695352eb0000000021033992",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "partyday",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "687453bc000000001d00cc3b",
+          "note_title": "深圳龙岗partyday测评",
+          "canonical_url": "https://www.xiaohongshu.com/explore/687453bc000000001d00cc3b",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "万景楼",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "67c31a16000000001201dec2",
+          "note_title": "宝安必去的20个神仙打卡地！",
+          "canonical_url": "https://www.xiaohongshu.com/explore/67c31a16000000001201dec2",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "万象城",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "69113fb30000000005013fd4",
+          "note_title": "当大家都在挤万象城二期……",
+          "canonical_url": "https://www.xiaohongshu.com/explore/69113fb30000000005013fd4",
+          "evidence_scope": "title_literal",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "不自然博物馆",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "6a3548cb000000000f01c296",
+          "note_title": "深圳周末plog01｜不自然博物馆",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a3548cb000000000f01c296",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "中心公园",
+      "reason": "osm_semantic_type_mismatch",
+      "evidence": [
+        {
+          "note_id": "68cd3319000000000b0124f7",
+          "note_title": "深圳福田会反复逛的6个地方",
+          "canonical_url": "https://www.xiaohongshu.com/explore/68cd3319000000000b0124f7",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "福田区"
+        }
+      ],
+      "osm_candidates": [
+        {
+          "osm_type": "node",
+          "osm_id": 8058692640,
+          "display_name": "中心公园, 振华西路, 田面社区, 华富街道, 福田区, 深圳市, 广东省, 518000, 中国",
+          "location": {
+            "longitude": 114.0705246,
+            "latitude": 22.5479603
+          }
+        }
+      ]
+    },
+    {
+      "name": "人才公园",
+      "reason": "osm_semantic_type_mismatch",
+      "evidence": [
+        {
+          "note_id": "6a7399c8000000000f039c01",
+          "note_title": "深圳湾万象城+人才公园，周末逛吃一站式攻略！",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a7399c8000000000f039c01",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": [
+        {
+          "osm_type": "node",
+          "osm_id": 12456006175,
+          "display_name": "人才公园, 创业路, 蔚蓝社区, 粤海街道, 南山区, 深圳市, 广东省, 518000, 中国",
+          "location": {
+            "longitude": 113.9383043,
+            "latitude": 22.5148809
+          }
+        }
+      ]
+    },
+    {
+      "name": "企鹅岛",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "6a1b91d700000000360019c4",
+          "note_title": "爱或恨一个人，都送TA去企鹅岛",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a1b91d700000000360019c4",
+          "evidence_scope": "title_literal",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "光明科学顶",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "6882380e000000002201e474",
+          "note_title": "摄影绝佳灵感宝库‼️深圳光明科学顶的桥❗️",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6882380e000000002201e474",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "光明虹桥",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "68897d5e0000000025023250",
+          "note_title": "深圳周末去哪里？光明虹桥免费看蝴蝶艺术展",
+          "canonical_url": "https://www.xiaohongshu.com/explore/68897d5e0000000025023250",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "利宝阁",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "67c31a16000000001201dec2",
+          "note_title": "宝安必去的20个神仙打卡地！",
+          "canonical_url": "https://www.xiaohongshu.com/explore/67c31a16000000001201dec2",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "华侨城创意园",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "67c1b27a000000000903b1d5",
+          "note_title": "福田必去的20个地方",
+          "canonical_url": "https://www.xiaohongshu.com/explore/67c1b27a000000000903b1d5",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "福田区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "华强北博物馆",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "67c1b27a000000000903b1d5",
+          "note_title": "福田必去的20个地方",
+          "canonical_url": "https://www.xiaohongshu.com/explore/67c1b27a000000000903b1d5",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "福田区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "卓悦中心",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "6944fade000000001e015b4d",
+          "note_title": "深圳卓悦中心！好多人啊！！！！！！",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6944fade000000001e015b4d",
+          "evidence_scope": "title_literal",
+          "district_hint": "福田区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "南山荔园路",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "68c3971e000000001d02e154",
+          "note_title": "深圳去哪扫街，推荐7个地铁直达的烟火角落",
+          "canonical_url": "https://www.xiaohongshu.com/explore/68c3971e000000001d02e154",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "历史民俗馆",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "68cd3319000000000b0124f7",
+          "note_title": "深圳福田会反复逛的6个地方",
+          "canonical_url": "https://www.xiaohongshu.com/explore/68cd3319000000000b0124f7",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "福田区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "古代艺术馆",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "68cd3319000000000b0124f7",
+          "note_title": "深圳福田会反复逛的6个地方",
+          "canonical_url": "https://www.xiaohongshu.com/explore/68cd3319000000000b0124f7",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "福田区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "园博园",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "6935714b000000001b025de9",
+          "note_title": "来深圳总要去趟园博园吧✨超全懒人攻略",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6935714b000000001b025de9",
+          "evidence_scope": "title_literal",
+          "district_hint": "福田区"
+        },
+        {
+          "note_id": "68cd3319000000000b0124f7",
+          "note_title": "深圳福田会反复逛的6个地方",
+          "canonical_url": "https://www.xiaohongshu.com/explore/68cd3319000000000b0124f7",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "福田区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "坪山大山陂公园",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "690a2671000000000301ba50",
+          "note_title": "坪山大山陂公园🚴🏻‍♀️",
+          "canonical_url": "https://www.xiaohongshu.com/explore/690a2671000000000301ba50",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "塔门岛",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "69df3c3d000000001d01ac47",
+          "note_title": "深圳1h直达｜不在澳大利亚在塔门岛🏝️",
+          "canonical_url": "https://www.xiaohongshu.com/explore/69df3c3d000000001d01ac47",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "壹方城",
+      "reason": "osm_semantic_type_mismatch",
+      "evidence": [
+        {
+          "note_id": "6a20ed1e00000000210206dc",
+          "note_title": "壹方城和南头古城逛烂了怎么办",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a20ed1e00000000210206dc",
+          "evidence_scope": "title_literal",
+          "district_hint": "宝安区"
+        },
+        {
+          "note_id": "69ce89ec000000002202831d",
+          "note_title": "壹方城又换新皮肤了😭绿野仙踪本野！！！",
+          "canonical_url": "https://www.xiaohongshu.com/explore/69ce89ec000000002202831d",
+          "evidence_scope": "title_literal",
+          "district_hint": "宝安区"
+        },
+        {
+          "note_id": "69b516c1000000001e00c530",
+          "note_title": "壹方城这素在？",
+          "canonical_url": "https://www.xiaohongshu.com/explore/69b516c1000000001e00c530",
+          "evidence_scope": "title_literal",
+          "district_hint": "宝安区"
+        },
+        {
+          "note_id": "6a7462ed000000002501444b",
+          "note_title": "深圳壹方城周末游！湖南人认证好吃的湘菜馆",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a7462ed000000002501444b",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        },
+        {
+          "note_id": "67c31a16000000001201dec2",
+          "note_title": "宝安必去的20个神仙打卡地！",
+          "canonical_url": "https://www.xiaohongshu.com/explore/67c31a16000000001201dec2",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": [
+        {
+          "osm_type": "node",
+          "osm_id": 10997406664,
+          "display_name": "壹方城, 新湖路, 宝安中心区, 海旺社区, 新安街道, 宝安区, 深圳市, 广东省, 518100, 中国",
+          "location": {
+            "longitude": 113.883064,
+            "latitude": 22.5566076
+          }
+        },
+        {
+          "osm_type": "node",
+          "osm_id": 8916967610,
+          "display_name": "壹方城, 创业一路, 宝安中心区, 海旺社区, 新安街道, 宝安区, 深圳市, 广东省, 518100, 中国",
+          "location": {
+            "longitude": 113.8816134,
+            "latitude": 22.5567417
+          }
+        }
+      ]
+    },
+    {
+      "name": "大仟里",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "67c31a16000000001201dec2",
+          "note_title": "宝安必去的20个神仙打卡地！",
+          "canonical_url": "https://www.xiaohongshu.com/explore/67c31a16000000001201dec2",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "大悦城",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "68872a7800000000230072e9",
+          "note_title": "大悦城不愧是搞“基”据点",
+          "canonical_url": "https://www.xiaohongshu.com/explore/68872a7800000000230072e9",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "官湖沙滩",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "68838e29000000000d0241b3",
+          "note_title": "官湖沙滩",
+          "canonical_url": "https://www.xiaohongshu.com/explore/68838e29000000000d0241b3",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "宝安中心",
+      "reason": "osm_semantic_type_mismatch",
+      "evidence": [
+        {
+          "note_id": "690afdee000000000300d7d5",
+          "note_title": "宝安中心真的太好逛了",
+          "canonical_url": "https://www.xiaohongshu.com/explore/690afdee000000000300d7d5",
+          "evidence_scope": "title_literal",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": [
+        {
+          "osm_type": "node",
+          "osm_id": 6753412231,
+          "display_name": "宝安中心, 创业一路, 宝安中心区, 海旺社区, 新安街道, 宝安区, 深圳市, 广东省, 518100, 中国",
+          "location": {
+            "longitude": 113.8823152,
+            "latitude": 22.5576373
+          }
+        },
+        {
+          "osm_type": "node",
+          "osm_id": 6673766042,
+          "display_name": "宝安中心, 新湖路, 宝安中心区, 海旺社区, 新安街道, 宝安区, 深圳市, 广东省, 518100, 中国",
+          "location": {
+            "longitude": 113.8822956,
+            "latitude": 22.5576219
+          }
+        },
+        {
+          "osm_type": "node",
+          "osm_id": 9062180416,
+          "display_name": "宝安中心, 创业一路, 宝安中心区, 海旺社区, 新安街道, 宝安区, 深圳市, 广东省, 518100, 中国",
+          "location": {
+            "longitude": 113.882072,
+            "latitude": 22.5575135
+          }
+        }
+      ]
+    },
+    {
+      "name": "宝安凤凰山",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "6979f62f0000000028009ced",
+          "note_title": "小小宝安凤凰山",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6979f62f0000000028009ced",
+          "evidence_scope": "title_literal",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "宝安图书馆",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "67c31a16000000001201dec2",
+          "note_title": "宝安必去的20个神仙打卡地！",
+          "canonical_url": "https://www.xiaohongshu.com/explore/67c31a16000000001201dec2",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "宝安沙井老墟",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "68c3971e000000001d02e154",
+          "note_title": "深圳去哪扫街，推荐7个地铁直达的烟火角落",
+          "canonical_url": "https://www.xiaohongshu.com/explore/68c3971e000000001d02e154",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "小南山",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "69d90a0b0000000022002253",
+          "note_title": "深圳小南山｜半小时登顶看海的快乐谁懂啊！",
+          "canonical_url": "https://www.xiaohongshu.com/explore/69d90a0b0000000022002253",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "山海连城",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "6a03066a00000000380237ca",
+          "note_title": "深圳骑行｜山海连城–前海湾段骑行攻略",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a03066a00000000380237ca",
+          "evidence_scope": "title_literal",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "山海连廊",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "69e302e1000000001a02af7a",
+          "note_title": "深圳周末最美海边路线-地铁直达山海连廊！",
+          "canonical_url": "https://www.xiaohongshu.com/explore/69e302e1000000001a02af7a",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "心域迷城",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "6a701124000000002701fff9",
+          "note_title": "全城逃脱-心域迷城",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a701124000000002701fff9",
+          "evidence_scope": "title_literal",
+          "district_hint": "福田区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "星河COCOPark",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "6a565abb0000000022008e29",
+          "note_title": "星河COCOPark闯关太好玩啦🥳",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a565abb0000000022008e29",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "星河Coco park",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "6a738518000000003301852f",
+          "note_title": "蕉下深圳福田星河Coco park内购会",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a738518000000003301852f",
+          "evidence_scope": "title_literal",
+          "district_hint": "福田区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "梅林山郊野径",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "67c1b27a000000000903b1d5",
+          "note_title": "福田必去的20个地方",
+          "canonical_url": "https://www.xiaohongshu.com/explore/67c1b27a000000000903b1d5",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "福田区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "梅林水库",
+      "reason": "ambiguous_exact_osm_matches",
+      "evidence": [
+        {
+          "note_id": "67c1b27a000000000903b1d5",
+          "note_title": "福田必去的20个地方",
+          "canonical_url": "https://www.xiaohongshu.com/explore/67c1b27a000000000903b1d5",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "福田区"
+        }
+      ],
+      "osm_candidates": [
+        {
+          "osm_type": "way",
+          "osm_id": 72240969,
+          "display_name": "梅林水库, 梅林街道, 福田区, 深圳市, 广东省, 518000, 中国",
+          "location": {
+            "longitude": 114.0239471,
+            "latitude": 22.5751127
+          }
+        },
+        {
+          "osm_type": "way",
+          "osm_id": 72241235,
+          "display_name": "梅林水库, 梅林一村社区, 梅林街道, 福田区, 深圳市, 广东省, 518000, 中国",
+          "location": {
+            "longitude": 114.0302561,
+            "latitude": 22.5731412
+          }
+        }
+      ]
+    },
+    {
+      "name": "梅林美食街",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "67c1b27a000000000903b1d5",
+          "note_title": "福田必去的20个地方",
+          "canonical_url": "https://www.xiaohongshu.com/explore/67c1b27a000000000903b1d5",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "福田区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "梧桐山",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "6a5d0003000000001303c6ea",
+          "note_title": "和兄弟爬梧桐山",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a5d0003000000001303c6ea",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "梧桐村",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "69e304bb00000000230042ee",
+          "note_title": "深圳梧桐村超好逛的市集❗️",
+          "canonical_url": "https://www.xiaohongshu.com/explore/69e304bb00000000230042ee",
+          "evidence_scope": "title_literal",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "水围1368文化街区",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "67c1b27a000000000903b1d5",
+          "note_title": "福田必去的20个地方",
+          "canonical_url": "https://www.xiaohongshu.com/explore/67c1b27a000000000903b1d5",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "福田区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "水围夜市",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "67c1b27a000000000903b1d5",
+          "note_title": "福田必去的20个地方",
+          "canonical_url": "https://www.xiaohongshu.com/explore/67c1b27a000000000903b1d5",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "福田区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "沙井蚝街",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "67c31a16000000001201dec2",
+          "note_title": "宝安必去的20个神仙打卡地！",
+          "canonical_url": "https://www.xiaohongshu.com/explore/67c31a16000000001201dec2",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "泰华梧桐岛",
+      "reason": "osm_semantic_type_mismatch",
+      "evidence": [
+        {
+          "note_id": "67c31a16000000001201dec2",
+          "note_title": "宝安必去的20个神仙打卡地！",
+          "canonical_url": "https://www.xiaohongshu.com/explore/67c31a16000000001201dec2",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": [
+        {
+          "osm_type": "node",
+          "osm_id": 9836094664,
+          "display_name": "泰华梧桐岛, 航空路, 航城街道, 宝安区, 深圳市, 广东省, 518100, 中国",
+          "location": {
+            "longitude": 113.8333484,
+            "latitude": 22.6079478
+          }
+        }
+      ]
+    },
+    {
+      "name": "淘金山绿道",
+      "reason": "ambiguous_exact_osm_matches",
+      "evidence": [
+        {
+          "note_id": "6a439f2e000000001c026489",
+          "note_title": "深圳淘金山绿道🍃",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a439f2e000000001c026489",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": [
+        {
+          "osm_type": "way",
+          "osm_id": 141352493,
+          "display_name": "淘金山绿道, 金湖社区, 东湖街道, 罗湖区, 深圳市, 广东省, 518000, 中国",
+          "location": {
+            "longitude": 114.1505478,
+            "latitude": 22.6002602
+          }
+        },
+        {
+          "osm_type": "way",
+          "osm_id": 1033552491,
+          "display_name": "淘金山绿道, 大望, 东湖街道, 罗湖区, 深圳市, 广东省, 518000, 中国",
+          "location": {
+            "longitude": 114.155441,
+            "latitude": 22.6006579
+          }
+        },
+        {
+          "osm_type": "way",
+          "osm_id": 1303123581,
+          "display_name": "淘金山绿道, 金湖社区, 东湖街道, 罗湖区, 深圳市, 广东省, 518000, 中国",
+          "location": {
+            "longitude": 114.1480646,
+            "latitude": 22.5943516
+          }
+        },
+        {
+          "osm_type": "way",
+          "osm_id": 1303123582,
+          "display_name": "淘金山绿道, 东湖街道, 罗湖区, 深圳市, 广东省, 518000, 中国",
+          "location": {
+            "longitude": 114.1509306,
+            "latitude": 22.5996662
+          }
+        },
+        {
+          "osm_type": "way",
+          "osm_id": 1251175598,
+          "display_name": "淘金山绿道, 翠鹏社区, 东湖街道, 罗湖区, 深圳市, 广东省, 518000, 中国",
+          "location": {
+            "longitude": 114.1413008,
+            "latitude": 22.5835675
+          }
+        }
+      ]
+    },
+    {
+      "name": "深圳七娘山",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "68777995000000001202f9cd",
+          "note_title": "硬核家庭日｜带1岁娃徒步深圳七娘山",
+          "canonical_url": "https://www.xiaohongshu.com/explore/68777995000000001202f9cd",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "深圳东门",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "6a259017000000002201b527",
+          "note_title": "深圳东门进化成这样了啊！震撼到我了！！",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a259017000000002201b527",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "深圳会展",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "68bc0054000000001c004dfc",
+          "note_title": "闯深圳会展，4小时暴走4个厅😰",
+          "canonical_url": "https://www.xiaohongshu.com/explore/68bc0054000000001c004dfc",
+          "evidence_scope": "title_literal",
+          "district_hint": "福田区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "深圳博物馆",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "6a224bd900000000210145c8",
+          "note_title": "深圳展馆一日游地铁一条龙攻略｜福田篇✨",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a224bd900000000210145c8",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "福田区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "深圳园博园",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "6a1bab5c0000000007010251",
+          "note_title": "深圳园博园拍照是真的好看呀☀️",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a1bab5c0000000007010251",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "深圳国际美术馆",
+      "reason": "osm_semantic_type_mismatch",
+      "evidence": [
+        {
+          "note_id": "6a4a4cd8000000001102f5d5",
+          "note_title": "深圳国际美术馆，糟糕到大为震惊",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a4a4cd8000000001102f5d5",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": [
+        {
+          "osm_type": "way",
+          "osm_id": 1159016970,
+          "display_name": "深圳国际美术馆, 16, 光辉大道, 楼村, 新湖街道, 光明区, 深圳市, 广东省, 518107, 中国",
+          "location": {
+            "longitude": 113.9345976,
+            "latitude": 22.7745157
+          }
+        }
+      ]
+    },
+    {
+      "name": "深圳大南山",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "69315ad0000000001e0252db",
+          "note_title": "爬完气运都变好！！——深圳大南山（收藏版",
+          "canonical_url": "https://www.xiaohongshu.com/explore/69315ad0000000001e0252db",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "深圳宝安大悦城",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "6a74260d0000000025010c3f",
+          "note_title": "深圳宝安大悦城开通香港专线啦！",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a74260d0000000025010c3f",
+          "evidence_scope": "title_literal",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "深圳宝安机场",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "6a7469b10000000024024d3a",
+          "note_title": "深圳宝安机场一定要提前2小时到！",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a7469b10000000024024d3a",
+          "evidence_scope": "title_literal",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "深圳机器人谷",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "68a8cb14000000001c00c324",
+          "note_title": "去深圳，一定要留一天带娃去深圳机器人谷",
+          "canonical_url": "https://www.xiaohongshu.com/explore/68a8cb14000000001c00c324",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "深圳汤悦",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "692d440900000000190274d4",
+          "note_title": "深圳汤悦🌈 没有网上说的那么夸张",
+          "canonical_url": "https://www.xiaohongshu.com/explore/692d440900000000190274d4",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "深圳海边薯条乐园",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "6a58ff27000000001d00d2b3",
+          "note_title": "预计周末有1w人来这里🍟深圳海边薯条乐园",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a58ff27000000001d00d2b3",
+          "evidence_scope": "title_literal",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "深圳湾",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "6a17b92a000000000803c7ff",
+          "note_title": "第一次看深圳湾的日落🌄",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a17b92a000000000803c7ff",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        },
+        {
+          "note_id": "6a20346f000000002103e794",
+          "note_title": "深圳湾真的有一种在悉尼的错觉",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a20346f000000002103e794",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "深圳湾公园",
+      "reason": "osm_semantic_type_mismatch",
+      "evidence": [
+        {
+          "note_id": "69df4f20000000002103b155",
+          "note_title": "深圳湾公园",
+          "canonical_url": "https://www.xiaohongshu.com/explore/69df4f20000000002103b155",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        },
+        {
+          "note_id": "6a6989d3000000000402af85",
+          "note_title": "深圳湾公园地铁直达大海！D2口封神",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a6989d3000000000402af85",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        },
+        {
+          "note_id": "67c1b27a000000000903b1d5",
+          "note_title": "福田必去的20个地方",
+          "canonical_url": "https://www.xiaohongshu.com/explore/67c1b27a000000000903b1d5",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "福田区"
+        }
+      ],
+      "osm_candidates": [
+        {
+          "osm_type": "node",
+          "osm_id": 9062301243,
+          "display_name": "深圳湾公园, 滨海大道, 金城社区, 沙头街道, 福田区, 深圳市, 广东省, 518000, 中国",
+          "location": {
+            "longitude": 113.9879978,
+            "latitude": 22.5244887
+          }
+        },
+        {
+          "osm_type": "node",
+          "osm_id": 3433943197,
+          "display_name": "深圳湾公园, 滨海大道辅路, 金城社区, 沙头街道, 福田区, 深圳市, 广东省, 518000, 中国",
+          "location": {
+            "longitude": 113.9879591,
+            "latitude": 22.524592
+          }
+        },
+        {
+          "osm_type": "node",
+          "osm_id": 9062301290,
+          "display_name": "深圳湾公园, 滨海大道, 金城社区, 沙头街道, 福田区, 深圳市, 广东省, 518000, 中国",
+          "location": {
+            "longitude": 113.9880274,
+            "latitude": 22.5244174
+          }
+        }
+      ]
+    },
+    {
+      "name": "深圳灣",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "6a633f91000000000f03c2c2",
+          "note_title": "深圳灣 好漂亮",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a633f91000000000f03c2c2",
+          "evidence_scope": "title_literal",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "深大",
+      "reason": "osm_semantic_type_mismatch",
+      "evidence": [
+        {
+          "note_id": "6a59f10e0000000022018a5f",
+          "note_title": "weeklygap |周末可以去深大遛弯",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a59f10e0000000022018a5f",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": [
+        {
+          "osm_type": "node",
+          "osm_id": 12456016670,
+          "display_name": "深大, 科苑南路, 高新区社区, 粤海街道, 南山区, 深圳市, 广东省, 518000, 中国",
+          "location": {
+            "longitude": 113.9406631,
+            "latitude": 22.5405167
+          }
+        },
+        {
+          "osm_type": "node",
+          "osm_id": 6745828847,
+          "display_name": "深大, 科技南一路, 高新区社区, 粤海街道, 南山区, 深圳市, 广东省, 518000, 中国",
+          "location": {
+            "longitude": 113.9389034,
+            "latitude": 22.5411039
+          }
+        },
+        {
+          "osm_type": "node",
+          "osm_id": 11632742649,
+          "display_name": "深大, 深南大道, 深大社区, 粤海街道, 南山区, 深圳市, 广东省, 518000, 中国",
+          "location": {
+            "longitude": 113.9402358,
+            "latitude": 22.5428606
+          }
+        },
+        {
+          "osm_type": "node",
+          "osm_id": 6673766111,
+          "display_name": "深大, 科技南一路, 高新区社区, 粤海街道, 南山区, 深圳市, 广东省, 518000, 中国",
+          "location": {
+            "longitude": 113.9389596,
+            "latitude": 22.5410668
+          }
+        },
+        {
+          "osm_type": "node",
+          "osm_id": 6533296568,
+          "display_name": "深大, 科苑南路, 高新区社区, 粤海街道, 南山区, 深圳市, 广东省, 518000, 中国",
+          "location": {
+            "longitude": 113.9405896,
+            "latitude": 22.5405198
+          }
+        }
+      ]
+    },
+    {
+      "name": "清平古墟",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "67c31a16000000001201dec2",
+          "note_title": "宝安必去的20个神仙打卡地！",
+          "canonical_url": "https://www.xiaohongshu.com/explore/67c31a16000000001201dec2",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "湾区之眼书城",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "69ae0930000000001a0285a4",
+          "note_title": "湾区之眼书城凉了么？",
+          "canonical_url": "https://www.xiaohongshu.com/explore/69ae0930000000001a0285a4",
+          "evidence_scope": "title_literal",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "燕晗山郊野公园",
+      "reason": "osm_semantic_type_mismatch",
+      "evidence": [
+        {
+          "note_id": "6a7457b30000000024027db0",
+          "note_title": "燕晗山郊野公园🌳| 深圳有自己的绿野仙踪",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a7457b30000000024027db0",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": [
+        {
+          "osm_type": "way",
+          "osm_id": 181234743,
+          "display_name": "燕晗山郊野公园, 沙河街道, 南山区, 深圳市, 广东省, 518000, 中国",
+          "location": {
+            "longitude": 113.9832435,
+            "latitude": 22.5432764
+          }
+        }
+      ]
+    },
+    {
+      "name": "猪婆山",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "67e7e4dc000000000b01edc0",
+          "note_title": "探险猪婆山",
+          "canonical_url": "https://www.xiaohongshu.com/explore/67e7e4dc000000000b01edc0",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "猫猫公园",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "69b6ccce00000000210106a8",
+          "note_title": "深圳猫猫公园🐱感受福田基米湖的春天🌿",
+          "canonical_url": "https://www.xiaohongshu.com/explore/69b6ccce00000000210106a8",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "福田CBD灯光秀",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "67c1b27a000000000903b1d5",
+          "note_title": "福田必去的20个地方",
+          "canonical_url": "https://www.xiaohongshu.com/explore/67c1b27a000000000903b1d5",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "福田区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "福田基米湖",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "69b6ccce00000000210106a8",
+          "note_title": "深圳猫猫公园🐱感受福田基米湖的春天🌿",
+          "canonical_url": "https://www.xiaohongshu.com/explore/69b6ccce00000000210106a8",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "秦潮觉醒XR",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "67c31a16000000001201dec2",
+          "note_title": "宝安必去的20个神仙打卡地！",
+          "canonical_url": "https://www.xiaohongshu.com/explore/67c31a16000000001201dec2",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "立新湖公园",
+      "reason": "osm_semantic_type_mismatch",
+      "evidence": [
+        {
+          "note_id": "67c31a16000000001201dec2",
+          "note_title": "宝安必去的20个神仙打卡地！",
+          "canonical_url": "https://www.xiaohongshu.com/explore/67c31a16000000001201dec2",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": [
+        {
+          "osm_type": "node",
+          "osm_id": 8935435124,
+          "display_name": "立新湖公园, 立新北路, 桥头社区, 福海街道, 宝安区, 深圳市, 广东省, 518100, 中国",
+          "location": {
+            "longitude": 113.8063179,
+            "latitude": 22.6847458
+          }
+        }
+      ]
+    },
+    {
+      "name": "笔架山",
+      "reason": "osm_semantic_type_mismatch",
+      "evidence": [
+        {
+          "note_id": "69c620cc000000001a023738",
+          "note_title": "我找到了藏在笔架山的秘境书吧！超治愈🌿",
+          "canonical_url": "https://www.xiaohongshu.com/explore/69c620cc000000001a023738",
+          "evidence_scope": "title_literal",
+          "district_hint": "福田区"
+        }
+      ],
+      "osm_candidates": [
+        {
+          "osm_type": "node",
+          "osm_id": 3373068611,
+          "display_name": "笔架山, 梅岗社区, 华富街道, 福田区, 深圳市, 广东省, 518000, 中国",
+          "location": {
+            "longitude": 114.0821556,
+            "latitude": 22.5631838
+          }
+        }
+      ]
+    },
+    {
+      "name": "缤果空间",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "6913c1a4000000000700d250",
+          "note_title": "深圳人为啥不逛缤果空间？",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6913c1a4000000000700d250",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "罗湖东升街",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "68c3971e000000001d02e154",
+          "note_title": "深圳去哪扫街，推荐7个地铁直达的烟火角落",
+          "canonical_url": "https://www.xiaohongshu.com/explore/68c3971e000000001d02e154",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "罗湖清水河铁路公园",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "68c3971e000000001d02e154",
+          "note_title": "深圳去哪扫街，推荐7个地铁直达的烟火角落",
+          "canonical_url": "https://www.xiaohongshu.com/explore/68c3971e000000001d02e154",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "荔枝公园",
+      "reason": "ambiguous_exact_osm_matches",
+      "evidence": [
+        {
+          "note_id": "6a4ce33b00000000060339f5",
+          "note_title": "阴雨天荔枝公园🌧️寻找树的形状",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6a4ce33b00000000060339f5",
+          "evidence_scope": "title_literal",
+          "district_hint": "福田区"
+        }
+      ],
+      "osm_candidates": [
+        {
+          "osm_type": "way",
+          "osm_id": 178426795,
+          "display_name": "荔枝公园, 华强北街道, 福田区, 深圳市, 广东省, 518000, 中国",
+          "location": {
+            "longitude": 114.0974321,
+            "latitude": 22.547729
+          }
+        },
+        {
+          "osm_type": "way",
+          "osm_id": 256934717,
+          "display_name": "荔枝公园, 招商街道, 南山区, 深圳市, 广东省, 518000, 中国",
+          "location": {
+            "longitude": 113.9116753,
+            "latitude": 22.4922196
+          }
+        },
+        {
+          "osm_type": "way",
+          "osm_id": 1454796136,
+          "display_name": "荔枝公园, 桥头社区, 福海街道, 宝安区, 深圳市, 广东省, 518100, 中国",
+          "location": {
+            "longitude": 113.8028378,
+            "latitude": 22.6910605
+          }
+        }
+      ]
+    },
+    {
+      "name": "西湾红树林",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "67c31a16000000001201dec2",
+          "note_title": "宝安必去的20个神仙打卡地！",
+          "canonical_url": "https://www.xiaohongshu.com/explore/67c31a16000000001201dec2",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "车公庙泰料街",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "67c31a16000000001201dec2",
+          "note_title": "宝安必去的20个神仙打卡地！",
+          "canonical_url": "https://www.xiaohongshu.com/explore/67c31a16000000001201dec2",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "金桔村",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "686f028a000000001202e87f",
+          "note_title": "惠州惠阳金桔村，竟然有这么多的玩水点！",
+          "canonical_url": "https://www.xiaohongshu.com/explore/686f028a000000001202e87f",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "铁岗水库步道",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "67c31a16000000001201dec2",
+          "note_title": "宝安必去的20个神仙打卡地！",
+          "canonical_url": "https://www.xiaohongshu.com/explore/67c31a16000000001201dec2",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "宝安区"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "阿勒泰",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "68d92fa4000000001101750c",
+          "note_title": "这算不算深圳小「阿勒泰」",
+          "canonical_url": "https://www.xiaohongshu.com/explore/68d92fa4000000001101750c",
+          "evidence_scope": "title_literal",
+          "district_hint": "宝安区"
+        },
+        {
+          "note_id": "6899a720000000002502020e",
+          "note_title": "深圳周边30分钟直达的“阿勒泰”放飞自我。。",
+          "canonical_url": "https://www.xiaohongshu.com/explore/6899a720000000002502020e",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "霍格沃兹学院",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "68f60a430000000007039597",
+          "note_title": "咦？深圳的霍格沃兹学院🔮🪨还有谁不知道吗？",
+          "canonical_url": "https://www.xiaohongshu.com/explore/68f60a430000000007039597",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "高洋尾",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "679cd623000000001800e85f",
+          "note_title": "惠州高洋尾｜海边公路🌊阴天的电影感🎬",
+          "canonical_url": "https://www.xiaohongshu.com/explore/679cd623000000001800e85f",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "麦当劳麦麦博物馆",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "68d28e1c000000000b03d2ec",
+          "note_title": "28元解锁麦当劳麦麦博物馆，好吃又好玩🍟",
+          "canonical_url": "https://www.xiaohongshu.com/explore/68d28e1c000000000b03d2ec",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "龙光玖钻",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "69edbaf3000000002301f729",
+          "note_title": "龙光玖钻",
+          "canonical_url": "https://www.xiaohongshu.com/explore/69edbaf3000000002301f729",
+          "evidence_scope": "title_literal",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "龙岗双龙老街",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "68c3971e000000001d02e154",
+          "note_title": "深圳去哪扫街，推荐7个地铁直达的烟火角落",
+          "canonical_url": "https://www.xiaohongshu.com/explore/68c3971e000000001d02e154",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "龙岗守珍街",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "68c3971e000000001d02e154",
+          "note_title": "深圳去哪扫街，推荐7个地铁直达的烟火角落",
+          "canonical_url": "https://www.xiaohongshu.com/explore/68c3971e000000001d02e154",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    },
+    {
+      "name": "龙岗布吉老街",
+      "reason": "no_exact_osm_match",
+      "evidence": [
+        {
+          "note_id": "68c3971e000000001d02e154",
+          "note_title": "深圳去哪扫街，推荐7个地铁直达的烟火角落",
+          "canonical_url": "https://www.xiaohongshu.com/explore/68c3971e000000001d02e154",
+          "evidence_scope": "body_recommended_item",
+          "district_hint": "深圳其他区域"
+        }
+      ],
+      "osm_candidates": []
+    }
+  ]
+}
